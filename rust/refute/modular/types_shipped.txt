@@ -1,0 +1,37 @@
+[shipped/types] cases=58  NEW divergences=8  known={'KNOWN-D1-entry-outside-i64': 9, 'KNOWN-D3-p-ge-2^32': 1, 'KNOWN-D5/6-nonint-passthrough': 8}
+  NEW rank(*([[<cases_types.Idx object at 0x1095ffa60>, <cases_types.Idx object at 0x1095ffaf0>]],), **{})
+      python: ('exc', 'TypeError', "unsupported operand type(s) for %: 'Idx' and 'int'")
+      rust  : ('ok', 1)
+  NEW force(*([[<cases_types.Idx object at 0x10978f8b0>, <cases_types.Idx object at 0x10978fe50>, 0, 0]], 1, set()), **{})
+      python: ('exc', 'TypeError', "unsupported operand type(s) for %: 'Idx' and 'int'")
+      rust  : ('ok', (True, {0}))
+  NEW rank(*([[1, 2], [2, 4]],), **{})
+      python: ('exc', 'TypeError', "unsupported operand type(s) for pow(): 'numpy.int64', 'int', 'int'")
+      rust  : ('ok', 1)
+  NEW rank(*([[3, 1], [1, 3]],), **{'p': 7})
+      python: ('exc', 'TypeError', "unsupported operand type(s) for pow(): 'numpy.int64', 'int', 'int'")
+      rust  : ('ok', 2)
+  NEW force(*([[1, -1, 0, 0]], 1, set()), **{})
+      python: ('exc', 'TypeError', "unsupported operand type(s) for pow(): 'numpy.int64', 'int', 'int'")
+      rust  : ('ok', (True, {0}))
+  NEW force(*([[1, -1, 0, 0], [0, 0, 1, -1]], 2, {<cases_types.Idx object at 0x10a953280>}), **{})
+      python: ('ok', (True, {<cases_types.Idx object at 0x10a953280>, 0}))
+      rust  : ('ok', (True, {0, 1}))
+  NEW force(*([[1, -1, 0, 0]], <cases_types.Idx object at 0x10a9f68e0>, set()), **{})
+      python: ('exc', 'TypeError', "'<' not supported between instances of 'int' and 'Idx'")
+      rust  : ('ok', (True, {0}))
+  NEW rank(*([[1, 2]],), **{'p': <cases_types.Idx object at 0x10aa044c0>})
+      python: ('exc', 'TypeError', "unsupported operand type(s) for %: 'int' and 'Idx'")
+      rust  : ('ok', 1)
+--- n outside i64 (reference intractable, Rust only) ---
+  rust force([], 18446744073709551616, {0}) -> OverflowError: Python int too large to convert to C long
+  rust force([], -18446744073709551616, {0}) -> OverflowError: Python int too large to convert to C long
+  rust force([], 9223372036854775808, {0}) -> OverflowError: Python int too large to convert to C long
+  rust force([], 9223372036854775807, {0}) -> ValueError: n too large: 9223372036854775807 (max 1048576)
+--- mutation checks ---
+rows unchanged: True | T0 unchanged: True | fresh object: True | result: True [0, 1]
+mutating result leaves T0 alone: True
+second call independent: [0, 1, 99] -> True [0, 1, 99] T3 is not T2: True
+rank ragged: IndexError
+rank did not mutate rows: True
+rank truncating case: 2 2 rows unchanged: True

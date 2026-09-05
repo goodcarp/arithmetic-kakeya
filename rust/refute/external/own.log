@@ -1,0 +1,212 @@
+SAME p0_rank
+      py: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rs: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+SAME p0_force
+      py: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rs: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+SAME p0_norows
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME p0_emptyrows_rank
+      py: ('ok', 0)
+      rs: ('ok', 0)
+SAME p0_row0empty
+      py: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rs: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+DIFF pneg_rank
+      py: ('ok', 2)
+      rs: ('raise', 'ValueError', 'p must be positive (got -5); the Python reference only works for p < 0 by accident')
+DIFF pneg_force
+      py: ('ok', (False, {0}))
+      rs: ('raise', 'ValueError', 'p must be positive (got -5); the Python reference only works for p < 0 by accident')
+SAME pneg_norows
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME pneg_emptyrows_rank
+      py: ('ok', 0)
+      rs: ('ok', 0)
+DIFF pbig_rank
+      py: ('ok', 2)
+      rs: ('raise', 'ValueError', 'p must be < 2^32 (got 4294967297)')
+DIFF pbig_force
+      py: ('ok', (True, {0, 1}))
+      rs: ('raise', 'ValueError', 'p must be < 2^32 (got 4294967297)')
+DIFF pbig_row0empty_rank  # py: w=0 -> 0
+      py: ('ok', 0)
+      rs: ('raise', 'ValueError', 'p must be < 2^32 (got 4294967297)')
+SAME pbig_norows
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME p1_rank
+      py: ('ok', 0)
+      rs: ('ok', 0)
+SAME p1_force
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME p2_force
+      py: ('ok', (True, {0, 1}))
+      rs: ('ok', (True, {0, 1}))
+SAME p2_forceP
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME p4_composite
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME p6_composite
+      py: ('ok', 2)
+      rs: ('ok', 2)
+SAME p9_composite
+      py: ('ok', 2)
+      rs: ('ok', 2)
+SAME p3_force
+      py: ('ok', (True, {0, 1}))
+      rs: ('ok', (True, {0, 1}))
+SAME ord_short_p0  # py IndexError before %0
+      py: ('raise', 'IndexError', 'list index out of range')
+      rs: ('raise', 'IndexError', 'list index out of range')
+SAME ord_short_p0b  # py reads r[0]%0 -> ZeroDiv
+      py: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rs: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+DIFF ord_short_pbig  # py IndexError at j=1
+      py: ('raise', 'IndexError', 'list index out of range')
+      rs: ('raise', 'ValueError', 'p must be < 2^32 (got 4294967297)')
+SAME ord_u0_p0  # U=[1]; r[2] ok -> %0
+      py: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rs: ('raise', 'ZeroDivisionError', 'integer division or modulo by zero')
+SAME ord_u0_p0b  # U=[1]; r[2] IndexError
+      py: ('raise', 'IndexError', 'list index out of range')
+      rs: ('raise', 'IndexError', 'list index out of range')
+SAME rank_ragged_short_later
+      py: ('raise', 'IndexError', 'list index out of range')
+      rs: ('raise', 'IndexError', 'list index out of range')
+SAME rank_ragged_long_later
+      py: ('ok', 1)
+      rs: ('ok', 1)
+SAME rank_trunc_chain
+      py: ('ok', 3)
+      rs: ('ok', 3)
+SAME rank_trunc_chain2
+      py: ('raise', 'IndexError', 'list index out of range')
+      rs: ('raise', 'IndexError', 'list index out of range')
+SAME rank_all_empty
+      py: ('ok', 0)
+      rs: ('ok', 0)
+SAME rank_row0_empty
+      py: ('ok', 0)
+      rs: ('ok', 0)
+SAME rank_empty
+      py: ('ok', 0)
+      rs: ('ok', 0)
+SAME rank_empty_tuple
+      py: ('ok', 0)
+      rs: ('ok', 0)
+SAME rank_dupe_rows
+      py: ('ok', 1)
+      rs: ('ok', 1)
+SAME force_ragged
+      py: ('raise', 'IndexError', 'list index out of range')
+      rs: ('raise', 'IndexError', 'list index out of range')
+SAME force_longrow
+      py: ('ok', (True, {0}))
+      rs: ('ok', (True, {0}))
+SAME force_norows
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME force_zerorows
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME force_modzero
+      py: ('ok', (False, {1}))
+      rs: ('ok', (False, {1}))
+SAME force_modzero2
+      py: ('ok', (False, set()))
+      rs: ('ok', (False, set()))
+SAME t0_out_of_range
+      py: ('ok', (True, {0, 5}))
+      rs: ('ok', (True, {0, 5}))
+SAME t0_oor2
+      py: ('ok', (True, {0, 5}))
+      rs: ('ok', (True, {0, 5}))
+SAME t0_oor3
+      py: ('ok', (True, {0, 9, 1}))
+      rs: ('ok', (True, {0, 1, 9}))
+SAME t0_neg
+      py: ('ok', (True, {0, -1, -2}))
+      rs: ('ok', (True, {0, -1, -2}))
+SAME t0_dup_list
+      py: ('ok', (False, {0}))
+      rs: ('ok', (False, {0}))
+SAME t0_frozenset
+      py: ('ok', (True, {0, 1}))
+      rs: ('ok', (True, {0, 1}))
+SAME t0_bool
+      py: ('ok', (True, {0, True}))
+      rs: ('ok', (True, {0, 1}))
+SAME t0_tuple
+      py: ('ok', (True, {0, 1}))
+      rs: ('ok', (True, {0, 1}))
+SAME n_zero
+      py: ('ok', (True, {7}))
+      rs: ('ok', (True, {7}))
+SAME n_neg
+      py: ('ok', (True, set()))
+      rs: ('ok', (True, set()))
+SAME n_bool
+      py: ('ok', (True, {0}))
+      rs: ('ok', (True, {0}))
+SAME n_covered
+      py: ('ok', (True, {0, 1}))
+      rs: ('ok', (True, {0, 1}))
+DIFF rank_gen_empty  # py: len(B[0]) IndexError
+      py: ('raise', 'IndexError', 'list index out of range')
+      rs: ('ok', 0)
+SAME rank_gen
+      py: ('ok', 2)
+      rs: ('ok', 2)
+DIFF force_gen_rows_1round
+      py: ('ok', (False, {0}))
+      rs: ('ok', (True, {0, 1}))
+SAME force_gen_t0
+      py: ('ok', (True, {0, 1}))
+      rs: ('ok', (True, {0, 1}))
+SAME rows_tuple_tuple
+      py: ('ok', 2)
+      rs: ('ok', 2)
+SAME rows_list_tuple
+      py: ('ok', (True, {0, 1}))
+      rs: ('ok', (True, {0, 1}))
+SAME rows_bool_entries
+      py: ('ok', 2)
+      rs: ('ok', 2)
+SAME rows_set_of_tuples
+      py: ('ok', 3)
+      rs: ('ok', 3)
+DIFF entry_2p63
+      py: ('ok', 2)
+      rs: ('raise', 'OverflowError', 'Python int too large to convert to C long')
+SAME entry_neg2p63
+      py: ('ok', 2)
+      rs: ('ok', 2)
+DIFF entry_2p64neg
+      py: ('ok', 2)
+      rs: ('raise', 'OverflowError', 'Python int too large to convert to C long')
+SAME entry_float
+      py: ('raise', 'TypeError', 'pow() 3rd argument not allowed unless all arguments are integers')
+      rs: ('raise', 'TypeError', "'float' object cannot be interpreted as an integer")
+SAME entry_frac
+      py: ('raise', 'TypeError', '__pow__() takes 2 positional arguments but 3 were given')
+      rs: ('raise', 'TypeError', "'Fraction' object cannot be interpreted as an integer")
+SAME entry_none
+      py: ('raise', 'TypeError', "unsupported operand type(s) for %: 'NoneType' and 'int'")
+      rs: ('raise', 'TypeError', "'NoneType' object cannot be interpreted as an integer")
+SAME entry_str
+      py: ('raise', 'TypeError', 'not all arguments converted during string formatting')
+      rs: ('raise', 'TypeError', "'str' object cannot be interpreted as an integer")
+DIFF t0_float
+      py: ('ok', (False, {0.0}))
+      rs: ('raise', 'TypeError', "'float' object cannot be interpreted as an integer")
+--- aliasing checks ---
+  py: T0 after={0}  identity(T0 is result)=False  type='set'  ok_type='bool'
+  rs: T0 after={0}  identity(T0 is result)=False  type='set'  ok_type='bool'
+
+TOTAL 69 cases, 11 DIFF

@@ -1,0 +1,1692 @@
+                                                 Pattern Problems related to the Arithmetic Kakeya Conjecture
+                                                 Charlie Cowen-Breen, Elene Karangozishvili, Narmada Varadarajan and Thomas Wang
+
+
+                                                                                                 Abstract
+
+
+
+
+arXiv:2011.07056v1 [math.NT] 13 Nov 2020
+                                                     We study a variety of problems about homothets of sets related to the Kakeya conjecture. In particular,
+                                                 we show many of these problems are equivalent to the arithmetic Kakeya conjecture of Katz and Tao.
+                                                 We also provide a proof that the arithmetic Kakeya conjecture implies the Kakeya conjecture for packing
+                                                 dimension, as this implication was previously only known for Minkowski dimension.
+                                                     We consider several questions analogous to the classical results of Stein and Bourgain about the
+                                                 Lebesgue measure of a set containing a sphere centered at every point of [0, 1] 𝑛 , where we replace
+                                                 spheres by arbitrary polytopes. We give a lower bound for polytopes in R𝑛 , and show that this is sharp
+                                                 for simplices. Finally, we generalize number theoretic methods of Green and Ruzsa to study patterns in
+                                                 number fields and thereby provide upper bounds for several of these homothet problems.
+
+
+                                           Acknowledgements
+
+                                               We thank Tamás Keleti for his invaluable guidance advising this project as part of the Budapest Semesters
+                                           in Mathematics summer research experience.
+
+                                           1. Introduction
+
+
+                                           1.1   Geometric motivation
+                                                Our journey begins with a classical and deep result—discovered first by Stein for 𝑛 ≥ 3, and then
+                                           independently by Bourgain [2] and Marstrand [12] for 𝑛 = 2—that any set 𝐵 ⊂ R𝑛 containing a sphere
+                                           𝑆 𝑛−1 centered at each point of R𝑛 must have positive Lebesgue measure. This was sharpened by Wolff [20],
+                                           [21] and Mitsis [13] to show the following. Suppose that 𝐵 contains a sphere centered at each point of a set
+                                           𝑆 ⊂ R𝑛 . If dim 𝐻 𝑆 ≤ 1, then dim 𝐻 𝐵 ≥ 𝑛 − 1 + dim 𝐻 𝑆. If dim 𝐻 𝑆 > 1, then 𝐵 must have positive Lebesgue
+                                           measure, hence dim 𝐻 𝐵 = 𝑛. Moreover, Talagrand [17] and Mitsis [13] showed that this is sharp for the
+                                           threshold dim 𝐻 𝑆 = 1: there exists a set of Lebesgue measure zero containing a sphere centered at each point
+                                           of a straight line 𝑆 in R𝑛 .
+                                                Keleti, Nagy, and Shmerkin showed, perhaps surprisingly, that when 𝑛 = 2, these statements do not hold
+                                           if the circles are replaced by the boundaries of axis-parallel squares. Namely, for every 𝑠 ∈ [0, 2], there exist
+                                           compact sets 𝑆, 𝐵 ⊂ R2 such that 𝐵 contains the boundary of a square centered at each point of 𝑆, dim 𝐻 𝑆 = 𝑠,
+                                           and dim 𝐻 𝐵 = 1 ([10]). Moreover, this result holds identically for all polygons and, indeed, generalizes for
+                                           all polytopes in R𝑛 due to Chang, Csörnyei, Hera, and Keleti [4].
+                                                What does not hold identically for all polygons and polytopes is the corresponding question for Minkowski
+                                           and packing dimensions. We will illustrate this by contrasting the results for cubes and simplices. In [19],
+                                           Thornton generalized a result of Keleti et al. to show that if 𝐵 ⊂ R𝑛 contains the boundary of an axis-parallel
+                                                                                                                                    1
+                                           𝑛-cube centered at each point in [0, 1] 𝑛 , then for dim = dim 𝑀 or dim 𝑃 , dim𝐵 ≥ 𝑛 − 2𝑛  , and this is sharp.
+
+                                                                                                     1
+    For simplices, on the other hand, we show here that if 𝐵 ⊂ R contains a homothetic copy of an 𝑛-simplex
+centered at each point in R𝑛 , then dim𝐵 ≥ 𝑛 − 1/(𝑛 + 1), and this is sharp as well. In fact, we show that this
+lower bound holds for all convex polytopes in R𝑛 , although it is likely not sharp.
+    The general geometric problem is of the following type.
+
+Problem 1.1. Let 𝔭 ⊂ R𝑛 be a set not containing its center. If 𝐵 ⊂ R𝑛 contains a homothet of 𝔭 centered at
+each point of [0, 1] 𝑛 , what is the dimension of 𝐵?
+
+    We are most interested in the case when 𝔭 is the boundary of a closed convex body. For convenience, for
+the rest of this paper we will write “convex polytope” instead of “boundary of a convex polytope”, i.e. we say
+𝔭 is an 𝑛-simplex if 𝔭 is the boundary of an 𝑛-simplex. We summarize the results in the following table. Let
+g𝑛𝑀 (𝔭) (resp. g𝑛𝑃 (𝑃) and g𝑛𝐻 (𝔭)) denote the minimal Minkowski (resp. packing and Hausdorff) dimension
+of a set containing a homothet of 𝔭 centered at each point of [0, 1] 𝑛 . When the dimension 𝑛 is clear from
+context, we omit the subscript.
+
+                         𝔭                   g𝐻 (𝔭)                   g𝑃 (𝔭) or g𝑀 (𝔭)
+                                                                         1
+                     𝑛-simplex                𝑛−1                   𝑛 − 𝑛+1 (Theorem 4.10)
+                                                                               1
+                      𝑛-cube                  𝑛−1                         𝑛 − 2𝑛 [19]
+                                                             1
+          convex polytope with 𝑚 faces        𝑛−1       𝑛 − 𝑛+1 ≤ g ≤ 𝑛 − 𝑚1 (Theorems 4.8 and 4.10)
+                        𝑆 𝑛−1                   𝑛                        𝑛 ([2, 12, 16])
+
+   Table 1: The minimal dimension of a set containing a homothet of 𝔭 centered at each point of [0, 1] 𝑛 .
+
+Based on these results, one might expect that for a sequence (𝔭 𝑘 ) 𝑘 ∈N of polytopes which converge to the
+sphere 𝑆 𝑛−1 (in the Hausdorff metric), the minimal Minkowski or packing dimension of a set 𝐵 ⊂ R𝑛
+containing a homothetic copy of 𝔭 𝑘 centered at each point in R𝑛 converges to 𝑛 as 𝑘 → ∞.
+    In this paper we show that for some choices of (𝔭 𝑘 ) 𝑘 ∈N , this statement is implied by the arithmetic Kakeya
+conjecture of Katz and Tao, which we discuss next. Moreover, if we consider 𝑆 to be a straight line instead
+of all of R𝑛 , as Talagrand and Mitsis did, then the corresponding statement is equivalent to the arithmetic
+Kakeya conjecture.
+
+1.2   The Kakeya conjecture
+    Each of the problems in the previous section could rightly be classified as a variant of the celebrated
+Kakeya conjecture. Here we state two versions of the Kakeya conjecture; a more complete introduction to
+the Kakeya conjecture can be found in [18].
+
+Conjecture 1.2 (Kakeya conjecture). A Besicovitch set is a subset of R𝑛 containing a unit line segment in
+every direction. If 𝐵 ⊂ R𝑛 is a Besicovitch set, then
+
+  (a) dim 𝐻 𝐵 = 𝑛.
+
+  (b) dim 𝑃 𝐵 = 𝑛.
+
+  (c) dim 𝑀 𝐵 = 𝑛.
+
+
+
+                                                        2
+   Clearly (a) =⇒ (b) =⇒ (c), but none of the converse implications is known. First formulated by Katz
+and Tao [8], the Arithmetic Kakeya conjecture (AKC) is an additive-combinatorial statement intended to
+imply Conjecture 1.2(c). This proof of this implication dates back to a “slicing” argument of Bourgain [3].
+We will show something stronger, namely
+
+Theorem 1.3. The Arithmetic Kakeya conjecture implies the Kakeya conjecture for packing dimension .
+
+      The following are two equivalent combinatorial statements of AKC, as listed in [7].
+
+Conjecture 1.4 (Arithmetic Kakeya conjecture). ([7]) Let 𝑘 and 𝑁 be positive integers.
+
+  (i) Let 𝐹𝑘 (𝑁) be the size of the smallest set of integers that contains an 𝑘-term arithmetic progression
+      with common difference 𝑑, for each 𝑑 ∈ [𝑁]. Then,
+                                                                     log 𝐹𝑘 (𝑁)
+                                                      lim lim                   = 1.
+                                                     𝑘→∞ 𝑁 →∞          log 𝑁
+
+  (ii) Let 𝐹𝑘0 (𝑁) be the size of the smallest set of integers that contains an 𝑘-term arithmetic progression
+       with common difference 𝑑, for 𝑁 distinct integer values of 𝑑. Then,
+                                                              log 𝐹𝑘0 (𝑁)
+                                                      lim lim             = 1.
+                                                     𝑘→∞ 𝑁 →∞   log 𝑁
+
+1.3     Pattern problems
+   The main objective of this paper is to establish a connection between AKC and the sort of problems
+considered in section 1.1. Broadly defined, our setup is as follows. Let
+
+                                                 P = {𝔭 𝑥,𝑟 : 𝑥 ∈ 𝑋, 𝑟 ∈ 𝑅}
+
+be a collection of subsets 𝔭 𝑥,𝑟 ⊂ 𝑀 of a (commutative) ring 𝑀, where 𝑋 and 𝑅 are indexing sets. 𝑀 will
+typically also be a module over a suitable commutative ring 𝑅. (The canonical example is the structure of R𝑛
+as an R-module.)
+
+Problem 1.5 (Pattern problem). Let P be a family as above.
+
+  (a) If 𝐵 contains a set 𝔭 𝑥,𝑟 for every 𝑥 from some subset 𝑆 ⊂ 𝑋, what can we say about the size of 𝐵?
+
+  (b) If 𝐵 contains a set 𝔭 𝑥,𝑟 for every 𝑟 from some subset 𝑆 ⊂ 𝑅, what can we say about the size of 𝐵?
+
+    The notion of size may refer to cardinality, measure, or dimension – whichever yields the most nontrivial
+information about 𝐵. Of course, this problem is only interesting when the sets 𝔭 𝑥,𝑟 are themselves of interest.
+
+Definition 1.6. Where addition and multiplication are suitably defined, we say the set 𝑥 + 𝑟 · 𝔭 is a 𝔭-pattern
+with basepoint 𝑥 and scaling factor 𝑟.
+
+   For example, a 𝑘-term arithmetic progression 𝑎 + 𝑑, . . . , 𝑎 + 𝑘 𝑑 is a [𝑘]-pattern with basepoint 𝑎 ∈ Z
+and scaling factor 𝑑 ∈ Z.1 Similarly, if 𝔭 is a convex polytope in R𝑛 , a homothet 𝑥 + 𝑟 · 𝔭 with 𝑥 ∈ R𝑛 and
+
+
+
+   1Note that the basepoint of a progression is not a member of it.
+
+
+                                                                 3
+𝑟 ∈ R is a 𝔭-pattern. Note that 𝑥 and 𝑟 belong to different sets, and here we exploit the R-module structure
+of R𝑛 to define “multiplication”.
+    The Kakeya conjecture is a problem of type (b): if 𝐵 ⊂ R𝑛 contains a [0, 1]-pattern (a unit line segment)
+for every scaling factor in 𝑆 𝑛−1 (direction), what can we say about the size of 𝐵? The pattern problem has a
+rich history — see the survey paper [9] by Keleti.
+    For a fixed family P we say the problems of type (a) and (b) are dual to each other. For example, as
+AKC is a type (b) problem, we consider its dual problem of type (a) as stated below, which we will show
+in section 2 to be equivalent to AKC. In other words, in the limit, demanding that “for every scaling factor,
+there exists a basepoint” is equivalent to demanding that “for every basepoint, there exists a scaling factor”.
+
+Conjecture 1.7 (Arithmetic pattern conjecture). Let 𝑘 and 𝑁 be positive integers.
+
+  (i) Let 𝐺 𝑘 (𝑁) be the size of the smallest set of integers that contains a 𝑘-term arithmetic progression with
+      basepoint 𝑥, for each 𝑥 ∈ [𝑁]. Then,
+
+                                                         log 𝐺 𝑘 (𝑁)
+                                                lim lim              = 1.
+                                                𝑘→∞ 𝑁 →∞    log 𝑁
+
+  (ii) Let 𝐺 0𝑘 (𝑁) be the size of the smallest set of integers that contains a 𝑘-term arithmetic progression with
+       basepoint 𝑥, for 𝑁 distinct integer values of 𝑥. Then,
+
+                                                         log 𝐺 0𝑘 (𝑁)
+                                                lim lim               = 1.
+                                                𝑘→∞ 𝑁 →∞    log 𝑁
+
+    Note that not all dual pattern problems are equivalent. For instance, although a set containing a circle
+with every center in R2 must have positive Lebesgue measure (as discussed earlier), there are planar sets of
+measure zero containing a circle with every radius 𝑟 > 0, as seen in [11], [1].
+
+1.4   Statement of main results
+    In section 2, we study finite patterns over the integers, such as AKC and its dual. We define a larger class
+of pattern conjectures and show that all of them imply AKC, and the converse implication holds for several
+of them. For example, define 1/[𝑘] := {1/𝑖 : 𝑖 ∈ [𝑘]}, and 𝐺 1/[𝑘  0    (𝑁) to be the size of the smallest set of
+                                                                      ]
+rational numbers that contains a 1/[𝑘]-pattern with basepoint 𝑎, for 𝑁 distinct integer values of 𝑎.
+
+Theorem 1.8. With the same notation as above,
+                                  0
+                            log 𝐺 1/[𝑘 ]
+                                         (𝑁)             log 𝐺 0𝑘 (𝑁)            log 𝐹𝑘0 (𝑁)
+                 lim lim                       = lim lim              = lim lim              .
+                 𝑘→∞ 𝑁 →∞        log 𝑁          𝑘→∞ 𝑁 →∞    log 𝑁       𝑘→∞ 𝑁 →∞   log 𝑁
+
+    Additionally, we give a construction to upper bound 𝐺 0𝑘 (𝑁), complemented by lower bounds for some
+small values of 𝑘.
+    In section 3, we study the case when Minkowski and packing dimensions are the correct notions of size.
+In these problems, either the set of basepoints or the set of scaling factors is usually infinite. Let f𝑀 (𝑘)
+and f𝑃 (𝑘) be the infimum of the Minkowski (resp. packing) dimension of a set in R containing a 𝑘-term
+arithmetic progression with every common difference in [0, 1]. As a corollary of a more general statement
+in higher dimensions, it will follow that
+
+
+
+                                                          4
+Theorem 1.9. With the same notation as above,
+                                             log 𝐹𝑘0 (𝑁)
+                                         lim             = f𝑀 (𝑘) = f𝑃 (𝑘).
+                                        𝑁 →∞   log 𝑁
+     Finally, through some gymnastics involving intermediate equivalences, we prove Theorem 1.3.
+     In section 4, we consider problems in higher-dimensional Euclidean space. We state and prove the results
+listed in Table 1; we provide bounds for the minimal dimension of a set 𝐵 ⊂ R𝑛 containing a homothet
+of a convex polytope 𝔭 centered at each point of [0, 1] 𝑛 . One might expect a continuity-type result, that if
+a sequence of polytopes “converges” to the sphere, then the minimal dimension of a corresponding set 𝐵
+converges to 𝑛. We show that this is essentially as hard as AKC with the following result.
+
+Theorem 1.10. For any 𝑛 > 1, there is a sequence of convex polytopes (𝔭 𝑘 ) 𝑘 ∈N which converge in the
+Hausdorff metric to the sphere 𝑆 𝑛−1 , such that AKC is equivalent to the statement that g𝑛 (𝔭 𝑘 ) → 𝑛 as
+𝑘 → ∞, where g𝑛 denotes either g𝑛𝑃 or g𝑛𝑀 .
+
+     Just as with our earlier proofs, we will actually prove something stronger by establishing a relationship
+between g𝑛𝑃 (𝔭 𝑘 ), g𝑛𝑀 (𝔭 𝑘 ) and 𝐹𝑘 (𝑁).
+     Finally, in section 5, we consider the pattern problem in rings with a more algebraic flavor—finite fields
+and algebraic number fields. In [5], Dvir provides a concise proof of the finite field Kakeya conjecture
+using the polynomial method. There is hope that this method can be used to solve Kakeya-type problems by
+considering their finite field analogs. For example, the authors in [7] show that AKC is equivalent to its finite
+field analog; we show that the same holds for the dual conjecture, Conjecture 1.7. More generally, we show
+that many pattern problems in finite fields are (unsurprisingly) equivalent to their analogs in Z.
+     Green and Ruzsa also use properties of prime numbers to prove the upper bound 𝐹𝑘0 (𝑁) ≤ 𝑁 1−𝑐/log log 𝑘 .
+We extend this idea to free Z-modules to obtain a similar bound.
+
+Proposition 1.11. For some absolute constant 𝑐,
+
+                                                𝐺 0𝑘 (𝑁) ≤ 𝑁 1−𝑐/log 𝑘 .
+
+    We also obtain a corresponding result for the plane. Keleti asked in [10] and [9] whether it is possible to
+reduce the value of g(𝔭) if we allow for rotations of 𝔭 as well as scaling. In the case of Hausdorff dimension,
+this problem was studied in [4]. Here we show limit result for Minkowski dimension:
+
+Proposition 1.12. There is a sequence of lattice 𝑘-gons 𝔭 𝑘 that converge in the Hausdorff metric to the unit
+circle, such that the following holds. There exist sets 𝐵 𝑘 ⊂ R2 containing a scaled and rotated copy of the
+vertices of 𝔭 𝑘 centered at every point in [0, 1] 2 such that
+                                                                    𝑐
+                                                dim 𝑀 𝐵 𝑘 ≤ 2 −
+                                                                  log 𝑘
+for some absolute constant 𝑐.
+
+       Note that this is a result for finite patterns, as 𝐵 𝑘 need only contain the vertices of a rotated homothet of
+𝔭𝑘 .
+    A closing remark: we are indebted to the paper of Green and Ruzsa [7] as motivation for ours. Some
+of our proofs will be almost exactly the same as theirs, only with slight modifications. In order to keep our
+paper self-contained, we will typically present these proofs in the appendix.
+
+
+                                                           5
+1.5     Notation
+     For 𝑆 ⊂ R, we denote by 𝑆 + := {𝑠 ∈ 𝑆 : 𝑠 > 0} and follow the convention that 0 ∈ N. [𝑛] denotes the
+set {1, . . . , 𝑛} for 𝑛 ∈ N. Given a function 𝑓 on N, 𝑓 ( [𝑛]) denotes the set { 𝑓 (𝑖) : 𝑖 ∈ [𝑛]}. 𝑈 𝑘 will typically
+denote a set of size 𝑘, and if 𝑈 𝑘 ⊂ 𝑅 𝑑 for some ring 𝑅, we assume that no coordinate of 𝑈 𝑘 is 0.
+     dim 𝐻 , dim 𝑃 , and dim 𝑀 denote Hausdorff, packing, and Minkowski dimension respectively. Minkowski
+dimension is also referred to as upper box dimension, and packing dimension as modified upper box dimension
+for the following reason. For 𝐸 ⊂ R𝑛 , let 𝑁 𝐸 (𝜖) be the smallest positive integer so that 𝐸 can be covered by
+𝑁 𝐸 (𝜖) 𝑛-dimensional boxes of side-length at most 𝜖. Then,
+                                                                  log 𝑁 𝐸 (𝜖)
+                                          dim 𝑀 (𝐸) = lim sup                 .
+                                                         𝜖 →0      log(1/𝜖)
+Further,                                        n                       Ø o
+                                 dim 𝑃 (𝐸) = inf sup dim 𝑀 (𝐸 𝑗 ) : 𝐸 ⊂  𝐸𝑗 .
+                                                     𝑗                        𝑗 ∈N
+We will frequently use the following well-known properties.
+  (i) dim 𝐻 𝐸 ≤ dim 𝑃 𝐸 ≤ dim 𝑀 𝐸.
+  (ii) If 𝑓 : R𝑛 → R𝑚 is a Lipschitz map, then dim( 𝑓 (𝐸)) ≤ dim(𝐸) for dim = dim 𝑀 or dim 𝑃 .
+ (iii) For dim = dim 𝑀 or dim 𝑃 , dim( 𝐴 × 𝐵) ≤ dim( 𝐴) + dim(𝐵) with equality if 𝐵 = [0, 1] or 𝐵 = R.
+             Ð          
+                𝑘
+ (iv) dim 𝑀     𝑖=1 𝐸  𝑖   = max𝑖=1,...,𝑘 dim 𝑀 𝐸 𝑖 , i.e. Minkowski dimension is finitely stable.
+             Ð        
+               ∞
+  (v) dim 𝑃    𝑖=1 𝐸 𝑖     = sup𝑖=1,...,∞ dim 𝑃 𝐸 𝑖 , i.e. packing dimension is countably stable.
+
+
+2. Finite patterns and arithmetic Kakeya
+
+      In this section, we consider finite patterns of integers.
+
+2.1     The pattern conjecture
+    Let (𝑈 𝑘 ) 𝑘 ∈N be an increasing chain of subsets of Q+ such that |𝑈 𝑘 | = 𝑘. The following conjecture is
+technically a family of conjectures, one for each such chain.
+Conjecture 2.1 (The (𝑈 𝑘 )-pattern conjecture). Let 𝑘 and 𝑁 be positive integers. Let 𝐺𝑈   0 (𝑁) be the size of
+                                                                                             𝑘
+the smallest set of integers that contains a 𝑈 𝑘 -pattern with basepoint 𝑥, for 𝑁 distinct integer values of 𝑥.
+Then,
+                                                     log 𝐺𝑈0 (𝑁)
+                                                            𝑘
+                                          lim lim                 = 1.
+                                         𝑘→∞ 𝑁 →∞       log 𝑁
+    A few remarks are in order. First, this limit is well-defined as 𝑈 𝑘 ⊂ 𝑈 𝑘+1 , so 𝐺𝑈 0             0 (𝑁).
+                                                                                                (𝑁) ≥ 𝐺𝑈
+                                                                                            𝑘+1          𝑘
+Second, we may replace “𝑁 distinct integer values of 𝑥” with “𝑁 distinct rational values of 𝑥” and obtain
+the same quantity. Any set 𝐵 ⊂ Q containing a 𝑈 𝑘 -pattern with 𝑁 distinct basepoints can be multiplied with
+a large enough common denominator 𝑐 so that 𝑐 · 𝐵 ⊂ Z also contains a 𝑈 𝑘 -pattern with 𝑁 distinct integer
+basepoints.
+    In line with AKC, we can formulate a related conjecture. Now, let (𝑈 𝑘 ) 𝑘 ∈N be an increasing chain of
+subsets of N+ such that |𝑈 𝑘 | = 𝑘.
+
+                                                          6
+Conjecture 2.2 (The restricted (𝑈 𝑘 )-pattern conjecture). Let 𝑘 and 𝑁 be positive integers. Let 𝐺𝑈𝑘 (𝑁) be
+the size of the smallest set of integers that contains a 𝑈 𝑘 -pattern with basepoint 𝑥, for each 𝑥 ∈ [𝑁]. Then,
+                                                  log 𝐺𝑈𝑘 (𝑁)
+                                          lim lim             = 1.
+                                         𝑘→∞ 𝑁 →∞    log 𝑁
+   As expected, for sequences that satisfy 𝑈 𝑘 ⊂ N+ , the pattern conjecture and the restricted pattern
+conjecture are equivalent.
+Proposition 2.3. Fix an increasing chain (𝑈 𝑘 ) 𝑘 ∈N+ of subsets of N such that |𝑈 𝑘 | = 𝑘. Then,
+                                                                   0 (𝑁)
+                                       log 𝐺𝑈𝑘 (𝑁)            log 𝐺𝑈 𝑘
+                              lim lim              = lim lim             .
+                              𝑘→∞ 𝑁 →∞    log 𝑁      𝑘→∞ 𝑁 →∞    log 𝑁
+    We relegate the proof to the appendix as it is almost exactly the same as one presented by Green and
+Ruzsa in [7]. When 𝑈 𝑘 = [𝑘], we recover the equivalence in the arithmetic pattern conjecture, as stated in
+Conjecture 1.7. For convenience, we will write “the pattern (resp. restricted pattern) conjecture” instead of
+“for each sequence (𝑈 𝑘 ) 𝑘 ∈N , the (𝑈 𝑘 )-pattern (resp. restricted (𝑈 𝑘 )-pattern) conjecture”.
+    We will now show that the pattern conjecture implies AKC. For the proof, we will need another equivalent
+formulation of AKC. For 𝐴 ⊂ Z × Z and 𝑟 ∈ Q ∪ {∞}, define
+                                        𝜋𝑟 ( 𝐴) = {𝑥 + 𝑟 𝑦 : (𝑥, 𝑦) ∈ 𝐴},
+with the convention that 𝑥 + ∞𝑦 = 𝑦.
+Conjecture 2.4 (AKC projection formulation, [7]). For 𝜖 > 0 arbitrary, there are 𝑟 1 , . . . , 𝑟 𝑘 ∈ Q ∪ {∞},
+none equal to −1, such that for any 𝐴 ⊂ Z × Z,
+                                        |𝜋−1 ( 𝐴)| ≤ max |𝜋𝑟𝑖 ( 𝐴)| 1+𝜖 .
+                                                     𝑖=1,...,𝑘
+
+    The main tool in our proof will be a modification of a lemma from [7], the proof of which we again
+relegate to the appendix.
+Lemma 2.5 (Amplification lemma). Suppose that there exist 𝐵 ⊂ Z × Z, a set 𝑆 ⊂ N of size 𝑘, and 𝜖 > 0
+such that
+                                   |𝜋−1 (𝐵)| > max |𝜋 𝑗 (𝐵)| 1+𝜖 .
+                                                        𝑗 ∈𝑆
+
+Then, for all 𝑀 > 0, there exists 𝐵 0 ⊂ Z × Z \ {0} such that
+                                       |𝜋−1 (𝐵 0)| > 𝑀 max |𝜋 𝑗 (𝐵 0)| 1+𝜖 .
+                                                          𝑗 ∈𝑆
+
+Theorem 2.6. The pattern conjecture implies AKC.
+Proof. Fix a sequence (𝑈 𝑘 ) 𝑘 ∈N and suppose that the projection formulation of AKC fails. Then, there exists
+𝜖 > 0 such that for any 𝑟 1 , . . . 𝑟 𝑘 ∈ Q ∪ {∞} \ {−1} there is a set 𝐵 ⊂ Z × Z so that
+                                        |𝜋−1 (𝐵)| > max |𝜋𝑟𝑖 (𝐵)| 1+𝜖 .
+                                                     𝑖=1,...,𝑘
+
+Let 𝑈 𝑘 − 1 = {𝑢 − 1 : 𝑢 ∈ 𝑈 𝑘 }. Since 0 ∉ 𝑈 𝑘 , −1 ∉ 𝑈 𝑘 − 1. For each 𝑘, let 𝑚 > 0 be arbitrary, and define
+𝑀𝑘 = 𝑚𝑘 1+𝜖 . Then, applying the amplification lemma for 𝐵 and 𝑀𝑘 , there exist sets 𝐵 𝑘,𝑚 ⊂ Z × Z such that
+                                                                        1+𝜖
+                                 |𝜋−1 (𝐵 𝑘,𝑚 )| > 𝑚 𝑘 max |𝜋𝑟 (𝐵 𝑘,𝑚 )|       .
+                                                        𝑟 ∈𝑈𝑘 −1
+
+
+                                                         7
+By translating 𝐵 𝑘,𝑚 if necessary, we may assume 𝐵 𝑘,𝑚 ∈ Z × Z+ while maintaining the size of its projections.
+Define                                          Ø
+                                       𝐴 𝑘,𝑚 :=       𝜋𝑟 (𝐵 𝑘,𝑚 ) ⊂ Q.
+                                                   𝑟 ∈𝑈𝑘 −1
+
+Since 𝑥 + 𝑦 · (𝑈 𝑘 − 1) = (𝑥 − 𝑦) + 𝑦 · 𝑈 𝑘 , 𝐴 𝑘,𝑚 contains a 𝑈 𝑘 -pattern with basepoint 𝑥 − 𝑦 and scaling factor
+𝑦 (recall that 𝑦 is nonzero by construction) for every (𝑥, 𝑦) ∈ 𝐵 𝑘,𝑚 .
+    On the other hand,
+                                                                                 1/(1+𝜖 )
+                         𝑘 ≤ | 𝐴 𝑘,𝑚 | ≤ 𝑘 max |𝜋 𝑗 (𝐵 𝑘,𝑚 )| < |𝜋−1 (𝐵 𝑘,𝑚 )|/𝑚            .
+                                            𝑗 ∈𝑆
+
+                                                                                                        𝑚→∞
+Let 𝑁 𝑚 = |𝜋−1 (𝐵 𝑘,𝑚 )|, so the above inequalities yield 𝑁 𝑚 > 𝑚𝑘 1+𝜖 . Since 𝑚 was arbitrary, 𝑁 𝑚 −−−−−→ ∞,
+so
+                                   log 𝐺𝑈0 (𝑁 )                 1/(1+𝜖 )
+                                              𝑚           log 𝑁 𝑚           1
+                              lim         𝑘
+                                                  ≤ lim                  =      < 1.
+                            𝑁𝑚 →∞     log 𝑁 𝑚       𝑚→∞      log 𝑁 𝑚       1+𝜖
+Since this is a uniform bound for all 𝑘, the pattern conjecture fails.
+
+2.2    The arithmetic and harmonic pattern conjectures
+    Perhaps the most interesting cases of the pattern conjecture are when 𝑈 𝑘 = [𝑘] (the arithmetic pat-
+tern conjecture) and when 𝑈 𝑘 = 1/[𝑘] (the harmonic pattern conjecture). In this subsection, we prove
+Theorem 1.8. Recall that 1/[𝑘] = {1/𝑖 : 𝑖 ∈ [𝑘]}.
+
+Theorem 2.7. For 𝑈 𝑘 = 1/[𝑘], the pattern conjecture is equivalent to the Arithmetic Kakeya conjecture. In
+fact,
+                               1     0             0             0
+                                 · 𝐺 1/[𝑘 ] (𝑁) ≤ 𝐹𝑘 (𝑁) ≤ 𝑘 · 𝐺 1/[𝑘 ] (𝑁).
+                               𝑘
+Proof. Suppose 𝐴 contains a 1/[𝑘]-pattern for every basepoint 𝑥 ∈ 𝑆, with corresponding scaling factors
+𝑟 (𝑥). Define
+                                                  n        1       o
+                                           𝐴𝑖 = 𝑥 + 𝑟 (𝑥) · : 𝑥 ∈ 𝑆 .
+                                                           𝑖
+                    Ð𝑘
+Then, the set 𝐵 = 𝑖=1 𝑖 · 𝐴𝑖 contains a 𝑘-term arithmetic progression for every common difference 𝑥 ∈ 𝑆,
+and |𝐵| ≤ 𝑘 · | 𝐴|. So, 𝐹𝑘0 (𝑁) ≤ 𝑘 · 𝐺 1/[𝑘
+                                        0
+                                             ]
+                                               (𝑁).
+    Similarly, if 𝐵 contains a 𝑘-term arithmetic progression for every common difference in 𝑆, let 𝐵𝑖 ⊂ 𝐵
+                                                               Ð
+be the set of the 𝑖th terms of the progressions. The set 𝐴 = 𝑖 1/𝑖 · 𝐵𝑖 contains a 1/[𝑘]-pattern for every
+basepoint in 𝑆, and | 𝐴| ≤ 𝑘 · |𝐵|, completing the proof.
+
+      Now,
+
+Theorem 2.8. The arithmetic pattern conjecture is equivalent to AKC.
+
+Proof. By Theorem 2.6 and Theorem 2.7, we only need to show that the 1/[𝑘]-pattern conjecture implies
+the [𝑘]-pattern conjecture. Suppose 𝐵 ⊂ Z contains a 𝑘!-term progression for every basepoint in 𝑆 ⊂ Z, i.e.
+                                             Ø
+                                         𝐵=      𝑥 + 𝑟 (𝑥) · [𝑘!].
+                                                   𝑥 ∈𝑆
+
+
+
+
+                                                          8
+We claim that 𝐵 contains a 1/[𝑘]-pattern for every basepoint in (𝑐/𝑘!) · 𝑆. That is,
+                                     Ø
+                                         𝑥 + (𝑘! · 𝑟 (𝑥)) · 1/[𝑘] ⊂ 𝐵.
+                                            𝑥 ∈𝑆
+
+So,
+                                                                             1
+                                        𝐺 0[𝑘!] (𝑁) ≥ 𝐺 1/[𝑘
+                                                        0
+                                                             ] (𝑁) ≥           · 𝐹𝑘0 (𝑁),
+                                                                             𝑘
+and this completes the proof.
+
+    The key tool in this proof was observing that the set 1/[𝑘] can be multiplied into the set [𝑘!]: every
+[𝑘!]-pattern contains a (1/[𝑘])-pattern.
+
+2.3   Bounds and constructions
+    In this subsection, we consider nontrivial estimates for some patterns. We will provide upper bounds in
+later sections, once we have developed the necessary tools. In section 5, we use a probabilistic construction
+                 0 (𝑁) ≤ 𝑁 1−1/𝑘+𝑜 𝑁 (1) for any sequence (𝑈 )
+to show that 𝐺𝑈   𝑘
+                                                               𝑘 𝑘 ∈N . If we assume that the sequence (𝑈 𝑘 ) 𝑘 ∈N
+grows subexponentially in 𝑘, we use algebraic number theory to improve this to 𝐺𝑈      0 (𝑁) ≤ 𝑁 1−𝑐/log 𝑘 .
+                                                                                        𝑘
+    However, these bounds are trivial for small values of 𝑘, so we study the behavior of 𝐺 0𝑘 (𝑁) when 𝑘 is
+small. A trivial sumset estimate yields 𝐺 20 (𝑁) = Θ(𝑁 1/2 ), and this is sharp when
+
+                                              𝐵 = {2𝑛 : 0 ≤ 𝑛 ≤ 𝑁 − 1},
+
+and
+                    𝑆 = {𝑥 ∈ Z : 𝐵 contains a 2-term arithmetic progression centered at 𝑥}.
+
+Example 2.9. For any integers 𝑁 and 𝑘, 𝐺 0𝑘 (𝑁) = 𝑂 (𝑁 log 𝑁). This will be a sort of reverse-engineered
+construction. Fix 𝑘, and for every 𝑛, we construct a set 𝐵𝑛 of size 𝑘 𝑛 so that 𝐵𝑛 contains a 𝑘-term progression
+for every basepoint in a set 𝑆 𝑛 of size 𝑛𝑘 𝑛−1 . Let 𝐵1 = [𝑘] and 𝑆1 = {0}. If 𝐵𝑛 and 𝑆 𝑛 have been constructed
+according to our hypothesis, choose 𝑡 ∈ N large enough so that
+
+                                               min(𝑡 + 𝑆 𝑛 ) > max(𝐵𝑛 ).
+
+Now, set
+                                𝑘−1 
+                                Ø                                  𝑘−1 
+                                                                    Ø                    Ø           
+                       𝐵𝑛+1 =           𝑗 · 𝑡 + 𝐵𝑛 ,      𝑆 𝑛+1 =           𝑗 · 𝑡 + 𝑆𝑛         − 𝑡 + 𝐵𝑛 .
+                                𝑗=0                                 𝑗=0
+
+It is routine to check that every point of 𝐵𝑛+1 contains a 𝑘-term progression for every basepoint in 𝑆 𝑛+1 . By
+our choice of 𝑡, |𝐵𝑛+1 | = 𝑘 𝑛+1 and |𝑆 𝑛+1 | = (𝑛 + 1)𝑘 𝑛 .
+
+   Now we consider lower bounds on 𝐺 0𝑘 (𝑁). Combining Theorem 2.8 with the bound 𝐹30 (𝑁) ≥ 𝑁 6/11 by
+Katz and Tao ([8]), we obtain
+
+Proposition 2.10.
+                                                                    1 6/11
+                                                       𝐺 60 (𝑁) ≥     𝑁    .
+                                                                    3
+    We can get rid of the cumbersome factor of 1/3 by directly modifying the proof of Katz and Tao. This,
+in fact, proves something slightly stronger.
+
+                                                                9
+                                          0 (𝑁) ≥ 𝑁 6/11 .
+Proposition 2.11. If 𝑈 = {3, 4, 6}, then 𝐺𝑈
+                                                                                                  𝐺
+    For this, we apply a result of Katz and Tao. Let 𝐴, 𝐵 ⊂ Z, 𝐺 ⊂ 𝐴 × 𝐵, and denote by 𝐴 + 𝐵 = {𝑎 + 𝑏 :
+(𝑎, 𝑏) ∈ 𝐺}.
+                                                                                 𝐺                     𝐺
+Theorem 2.12 ([8]). Suppose 𝐴1 , 𝐴2 ⊂ Z, 𝐺 ⊂ 𝐴1 × 𝐴2 , and | 𝐴1 |, | 𝐴2 |, | 𝐴1 + 𝐴2 | ≤ 𝑛. Then, | 𝐴1 − 𝐴2 | ≤
+𝑛11/6 .
+                                       Ð
+Proof of Proposition 2.11. Suppose 𝐵 = 𝑥 ∈𝑆 𝑥 + 𝑟 (𝑥) · 𝑈, where 𝑆 ⊂ N is a set of size 𝑁. Define
+                               n                 o         n                     o
+                          𝐴1 = 𝑥 + 6𝑟 (𝑥) : 𝑥 ∈ 𝑆 , 𝐴2 = 𝑥 + 3𝑟 (𝑥) : 𝑥 ∈ 𝑆 ,
+
+and                                n                                 o
+                             𝐺=        𝑥 + 6𝑟 (𝑥), 2𝑥 + 6𝑟 (𝑥) : 𝑥 ∈ 𝑆 ⊂ 𝐴1 × 2𝐴2 .
+           𝐺
+The set 𝐴1 + 2𝐴2 is in bĳection with {𝑥 + 4𝑟 (𝑥) : 𝑥 ∈ 𝑆}, so applying Theorem 2.12 yields |𝐵| ≥ |𝑆| 6/11 .
+                                                                       0 (𝑁), when 𝑈 has some structure.
+    In general, we can use Theorem 2.12 to find nontrivial bounds for 𝐺𝑈
+For example, we consider 3-term patterns.
+                                                                     0 (𝑁) ≥ 𝑁 6/11 .
+Proposition 2.13. If 𝑈 has the form 𝑈 = {𝑝𝑞, 𝑞, 2𝑝𝑞/( 𝑝 + 1)}, then 𝐺𝑈
+Proof. Suppose 𝐵 contains a 𝑈-pattern for every basepoint in a set 𝑆 ⊂ Z. Define
+                           𝐴1 = {𝑥 + 𝑟 (𝑥) 𝑝𝑞 : 𝑥 ∈ 𝑆},      𝐴2 = {𝑥 + 𝑟 (𝑥)𝑞 : 𝑥 ∈ 𝑆}
+and                              n                                  o
+                              𝐺 = (𝑥 + 𝑟 (𝑥) 𝑝𝑞, 𝑥 + 𝑟 (𝑥)𝑞) : 𝑥 ∈ 𝑆 ⊂ 𝐴1 × 𝐴2 .
+Then,                                    n                        o
+                         𝐺                          2𝑝𝑞                      𝐺
+                     𝐴1 + 𝑝 𝐴2 = ( 𝑝 + 1) 𝑥 + 𝑟 (𝑥)      : 𝑥 ∈ 𝑆 , 𝐴1 − 𝑝 𝐴2 = (1 − 𝑝)𝑆.
+                                                    𝑝+1
+                                        𝐺                                  𝐺
+Notice, that 𝐴1 , 𝐴2 , and (1/𝑝+1) · 𝐴1 + 𝑝 𝐴2 ⊂ 𝐵, so | 𝐴1 |, | 𝐴2 |, | 𝐴1 + 𝑝 𝐴2 | ≤ |𝐵|. Applying Theorem 2.12,
+|𝐵| ≥ |𝑆| 6/11 .
+
+3. Patterns in the continuous setting
+
+
+3.1     Dimension considerations
+    In this section we consider pattern problems where the correct notion of size is dimension. Our first main
+result is that for problems of this form, Minkowski and packing dimensions are essentially equivalent, while
+Hausdorff dimension gives little information. Recalling our notation from the introduction, let
+                                            P = {𝔭 𝑥,𝑟 : 𝑥 ∈ 𝑋, 𝑟 ∈ 𝑅}
+be a double-indexed family of subsets of R𝑛 , such that each 𝔭 𝑥,𝑟 is finite. As usual, we will typically be
+interested in the case 𝔭 𝑥,𝑟 = 𝑥 + 𝑟 · 𝔭, for some set 𝔭 ⊂ R.
+    For 𝐵 ⊂ R𝑛 , define
+                                𝑆(𝐵, P) := {𝑟 ∈ 𝑅 : 𝔭 𝑥,𝑟 ⊂ 𝐵 for some 𝑥 ∈ 𝑋 }.
+Informally, this is the set of scaling factors for which 𝐵 contains a 𝔭-pattern. With this notation, we can talk
+about the equivalence of Minkowski and packing dimensions in the following sense.
+
+                                                        10
+Theorem 3.1. Suppose there is an absolute constant 𝑐 > 0 such that for any bounded subset 𝐵 ⊂ R𝑛 ,
+dim 𝑀 𝐵 ≥ 𝑐 · dim 𝑀 𝑆(𝐵, P). Then, for any subset 𝐵 0 ⊂ R𝑛 , dim 𝑃 𝐵 0 ≥ 𝑐 · dim 𝑃 𝑆(𝐵 0, P).
+
+Corollary 3.2. Fix a finite set 𝔭 ⊂ R. Let f𝑛𝑀 (𝔭) and f𝑛𝑃 (𝔭) denote the minimal Minkowski and packing
+dimensions respectively of a set 𝐵 containing a 𝔭-pattern for every scaling factor in [0, 1] 𝑛 . Then, f𝑛𝑀 (𝔭) =
+f𝑛𝑃 (𝔭).
+
+Corollary 3.3. Fix a finite set 𝔭 ⊂ R. Let g𝑛𝑀 (𝔭) and g𝑛𝑃 (𝔭) denote the minimal Minkowski and packing
+dimensions respectively of a set 𝐵 containing a 𝔭-pattern for every basepoint in [0, 1] 𝑛 . Then, g𝑛𝑀 (𝔭) =
+g𝑛𝑃 (𝔭).
+
+Proof of Theorem 3.1. Fix a set 𝐵 ⊂ R𝑛 , and let {𝐵 𝑗 }∞                                     𝑛
+                                                        𝑗=1 be any collection of subsets of R such that
+    Ð                0
+𝐵 = 𝑗 𝐵 𝑗 . Denote 𝐵𝑚 = ∪ 𝑗=1 𝐵 𝑗 . By assumption, we know that
+                          𝑚
+
+
+                                                 0                0
+                                          dim 𝑀 𝐵𝑚 ≥ 𝑐 · dim 𝑀 𝑆(𝐵𝑚 , P).
+           0 form an ascending chain of sets such that Ð 𝐵 0 = 𝐵. If 𝔭
+The sets 𝐵𝑚                                                  𝑚 𝑚              𝑥,𝑟 ⊂ 𝐵, since it is finite,
+         0                                         Ð       0
+𝔭 𝑥,𝑟 ⊂ 𝐵𝑚 for some large enough 𝑚, i.e. 𝑆(𝐵, P) = 𝑚 𝑆(𝐵𝑚 , P). By the definition of packing dimension,
+dim 𝑃 𝑆(𝐵, P) ≤ sup𝑚 dim 𝑀 𝑆(𝐵𝑚0 , P). Hence, for every 𝜖 > 0, there is some 𝑚 such that
+
+
+                                                 0
+                                        dim 𝑀 𝑆(𝐵𝑚 , P) > dim 𝑃 𝑆(𝐵, P) − 𝜖 .
+
+Then,
+                                                     0
+                              max dim 𝑀 𝐵 𝑗 = dim 𝑀 𝐵𝑚 ≥ 𝑐(dim 𝑃 𝑆(𝐵, P) − 𝜖).
+                            𝑗=1,...,𝑚
+
+Since 𝜖 was arbitrary, sup 𝑗 ∈N dim 𝑀 𝐵 𝑗 ≥ 𝑐 · dim 𝑃 𝑆(𝐵, P), and thus dim 𝑃 𝐵 ≥ 𝑐 · dim 𝑃 𝑆(𝐵, P).
+
+      On the other hand, Hausdorff dimension fails to provide much information due to the following result.
+
+Proposition 3.4 (Proposition 3.1, [10]). For any dimension 𝑛 ≥ 1, there is a closed set 𝐴 ⊂ R𝑛 with
+                                                                             𝑘 on R𝑛 , the intersection Ñ 𝑘 𝑓 ( 𝐴)
+dim 𝐻 𝐴 = 0, such that for any finite family of invertible affine maps ( 𝑓𝑖 )𝑖=1                         𝑖=1 𝑖
+is nonempty. If the maps 𝑓𝑖 are constrained to lie in a fixed compact set of invertible affine maps, 𝐴 can be
+chosen to be compact.
+
+    For example, for 𝑖 ∈ N and 𝑟 ∈ [0, 1] 𝑛 , define 𝑓𝑖,𝑟 (𝑎) = 𝑎 + 𝑖 · 𝑟. Then there is a set 𝐴 containing an
+infinite arithmetic progression for every common difference 𝑟 ∈ [0, 1] 𝑛 , with dim 𝐻 𝐴 = 0. If we restrict to
+𝑘-term arithmetic progressions, so 𝑖 ∈ [𝑘], then 𝐴 can be chosen to be compact.
+
+3.2     Higher dimensional pattern conjectures
+   Here, we consider three generalizations of AKC. The astute reader will now realize that they must be
+equivalent. Each of the following is technically a family of conjectures, one for each positive integer 𝑛.
+                                           0 (𝑁) denote the minimal cardinality of a set containing a
+Conjecture 3.5 (𝑛-dimensional AKC). Let 𝐹𝑛,𝑘
+𝑘-term arithmetic progression in R with 𝑁 distinct common differences in N𝑛 . Then
+                                  𝑛      𝑛
+
+                                                            0 (𝑁)
+                                                       log 𝐹𝑛,𝑘
+                                             lim lim                = 𝑛.
+                                            𝑁 →∞ 𝑘→∞      log 𝑁
+                                                              0 (𝑁)/log 𝑁 as 𝐹 0 .
+                                                                         
+      For convenience, we will denote the limit lim 𝑁 →∞ log 𝐹𝑛,𝑘             𝑛,𝑘
+
+
+                                                         11
+Conjecture 3.6 (𝑛-dimensional Minkowski AKC). Let f𝑛𝑀 (𝑘) be the infimum of the Minkowski dimension of
+a set 𝐵 𝑘 in R𝑛 that contains a 𝑘-term arithmetic progression with every common difference in [0, 1] 𝑛 . Then,
+
+                                                  lim f𝑛𝑀 (𝑘) = 𝑛.
+                                                  𝑘→∞
+
+Conjecture 3.7 (𝑛-dimensional packing AKC). Let f𝑛𝑃 (𝑘) be the infimum of the packing dimension of a set
+𝐵 𝑘 in R𝑛 that contains a 𝑘-term arithmetic progression with every common difference in [0, 1] 𝑛 . Then,
+
+                                                   lim f𝑛𝑃 (𝑘) = 𝑛.
+                                                  𝑘→∞
+
+    When 𝑛 = 1, we simply refer to the corresponding statements as the Minkowski and packing dimension
+arithmetic Kakeya conjectures. Our main result for this subsection is that
+
+Theorem 3.8. The above conjectures are equivalent for all 𝑛. Moreover,
+                                                                   0
+                                              f𝑛𝑃 (𝑘) = f𝑛𝑀 (𝑘) = 𝐹𝑛,𝑘 ,
+
+that is, the conjectures in the three families are all equivalent.
+
+     Of course, an immediate corollary of Theorem 3.1 is that f𝑛𝑀 (𝑘) = f𝑛𝑃 (𝑘). We remark that our theorem
+is stronger than stating that “in each dimension, the three conjectures are equivalent”: the conjectures in the
+three families are all equivalent.
+     The crucial step is a modification of a proof of [7] (as usual, to be found in the appendix).
+
+Theorem 3.9. The Arithmetic Kakeya conjecture is equivalent to the 𝑛-dimensional AKC for each 𝑛 > 0.
+
+    Next, we will need some preliminary results.
+
+Lemma 3.10 ([6]). Let 𝜙1 , . . . , 𝜙 𝑚 be similarities on 𝐷 ⊂ R𝑛 with ratios 𝑐 1 , . . . , 𝑐 𝑚 respectively such that
+                                                       Ð𝑚
+𝑐 𝑖 < 1 for each 𝑖. For any 𝐹 ⊂ R𝑛 , define 𝜙(𝐹) = 𝑖=1      𝜙𝑖 (𝐹). Suppose 𝜙 satisfies the open set condition:
+for some nonempty open set 𝑉, 𝜙(𝑉) ⊂ 𝑉. Then, if 𝐹 is a nonempty compact set such that 𝐹 = 𝜙(𝐹), then
+                               Í𝑚 𝑠
+dim 𝐻 𝐹 = dim 𝑀 𝐹 = 𝑠, where 𝑖=1      𝑐 𝑖 = 1.
+
+Lemma 3.11. For any 𝑛,
+                                                             0
+                                                  f𝑛𝑀 (𝑘) ≥ 𝐹𝑛,𝑘 .
+
+Proof. Let 𝑃 be a set containing a 𝑘- term arithmetic progression for every common difference in [0, 1] 𝑛
+such that dim 𝑀 𝑃 < f𝑛𝑀 (𝑘) + 𝜖. We can write
+                                   n                                          o
+                               𝑃 = 𝑎(𝑟) + 𝑖 · 𝑟 : 𝑟 ∈ [0, 1] 𝑛 , 0 ≤ 𝑖 ≤ 𝑘 − 1 .
+
+For each 𝑞 ∈ N, subdivide R into disjoint half-open intervals of length 1/𝑞. For 𝑟 = (𝑟 1 , . . . , 𝑟 𝑛 ) ∈ [0, 1] 𝑛 ,
+denote the right endpoint of the interval containing 𝑟 𝑗 as 𝑟 𝑗 (𝑞), and set 𝑟 (𝑞) = (𝑟 1 (𝑞), . . . , 𝑟 𝑛 (𝑞)). Notice
+that {𝑟 (𝑞) : 𝑟 ∈ [0, 1] 𝑛 } = 𝑞 (1+𝑜 (1)) 𝑛 . Define 𝑎(𝑟; 𝑞) 𝑗 and 𝑎(𝑟; 𝑞) analogously. This map sends each point
+to the right corner of the (1/𝑞)-cube containing it.
+    Set                                            n                          o
+                                          𝐸 𝑞,𝑖 = 𝑎(𝑟; 𝑞) + 𝑖 · 𝑟 (𝑞) : 𝑟 ∈ 𝑆
+
+
+
+                                                          12
+for each 0 ≤ 𝑖 ≤ 𝑘 − 1. The (1/𝑞)-cubes determined by the points of 𝐸 𝑞,𝑖 are disjoint sets containing points
+of 𝑃, so
+                         log |𝐸 𝑞,𝑖 |
+                                      ≤ (1 + 𝑜 𝑞 (1))dim 𝑀 𝑃 ≤ (1 + 𝑜 𝑞 (1))f𝑛𝑀 (𝑘) + 𝜖 .
+                           log 𝑞
+Define
+                𝐸 𝑞 = {𝑎(𝑟; 𝑞) + 𝑖 · 𝑟 (𝑞) : 𝑟 ∈ [0, 1] 𝑛 , 0 ≤ 𝑖 ≤ 𝑘 − 1};       |𝐸 𝑞 | ≤ 𝑘 max |𝐸 𝑞,𝑖 |.
+                                                                                            0≤𝑖 ≤𝑘−1
+
+Setting 𝑆 𝑞 = 𝑞 · 𝐸 𝑞 , we have that 𝑆 𝑞   ⊂ Z𝑛 contains a 𝑘-term arithmetic progression for 𝑁 𝑛 distinct differences
+in Z𝑛 , and
+                                                   log |𝑆 𝑞 |
+                                                lim           ≤ f𝑛𝑀 (𝑘) + 𝜖 .
+                                                𝑞→∞ log 𝑞
+
+Since this holds for any 𝜖 > 0,
+                                                           0 (𝑞)
+                                                      log 𝐹𝑛,𝑘
+                                                lim                  ≤ f𝑛𝑀 (𝑘).
+                                                𝑞→∞        log 𝑞
+
+
+    Now we prove Theorem 3.8.
+
+Proof of Theorem 3.8. By Theorem 3.9, it suffices to prove the equivalence in a fixed dimension 𝑛. We
+already know that f𝑛𝑀 (𝑘) = f𝑛𝑃 (𝑘), and that f𝑛𝑀 (𝑘) ≥ 𝐹𝑛,𝑘 0 . It remains to show that f𝑀 (𝑘) ≤ 𝐹 0 . Let
+                                                                                          𝑛        𝑛,𝑘
+𝐴 ⊂ Z𝑛 be a set of size 𝐹𝑛,𝑘0 (𝑁) containing a 𝑘-term arithmetic progression for 𝑁 𝑛 distinct common
+
+differences. Define
+                                               ∞
+                                            n ∑︁                    o
+                                       𝐹=         𝑎 𝑗 𝑁− 𝑗 : 𝑎 𝑗 ∈ 𝐴 .
+                                                       𝑗=0
+
+For each 𝑎 ∈ 𝐴, define the map 𝜙 𝑎             : R𝑛         → R𝑛 by 𝜙 𝑎 (𝑥) = 𝑎 + (𝑥/𝑁); this is a similarity with ratio
+1/𝑁. It is easy to check that 𝐹 satisfies the conditions of Lemma 3.10, so dim 𝑀 𝐹 ≤ log 𝐹𝑛,𝑘             0 (𝑁)/log 𝑁.
+
+Further, 𝐹 contains a 𝑘-term arithmetic progression for every common difference 𝑟 ∈ [0, 1] . Namely, for 𝑛
+
+𝑟 = (𝑟 1 , 𝑟 2 , . . . , 𝑟 𝑛 ) ∈ [0, 1] 𝑛 , write each 𝑟 𝑗 in base 𝑁 as 𝑟 𝑗 = ∞               −𝑚 .
+                                                                                Í
+                                                                                  𝑚=0 𝑟 𝑗,𝑚 𝑁
+    Then, the points
+                                               𝑎(𝑟 1,𝑚 )𝑁 −𝑚           𝑟 1,𝑚 𝑁 −𝑚 
+                                           ∞
+                                         ∑︁  𝑎(𝑟 )𝑁 −𝑚            ∞             
+                                                    2,𝑚
+                                                                     ∑︁  𝑟 2,𝑚 𝑁 −𝑚 
+                                                               +𝑖 ·
+                                                                          ...  : 1 ≤ 𝑖 ≤ 𝑘
+                                                                                   
+                                                     ...     
+                                         𝑚=0                       𝑚=0            
+                                              𝑎(𝑟 𝑛,𝑚 )𝑁 −𝑚            𝑟 𝑛,𝑚 𝑁 −𝑚 
+                                                                                  
+lie in 𝐹 and form the desired arithmetic progression. Since this holds for every 𝑁,
+                                                                  0
+                                                       f𝑛𝑀 (𝑘) ≤ 𝐹𝑛,𝑘
+
+and this concludes the proof.
+                                                                               0 . The proof of Theorem 3.8
+    Specifically, when 𝑛 = 1, we recover Theorem 1.9 that f1𝑀 (𝑘) = f1𝑃 (𝑘) = 𝐹1,𝑘
+can be replicated for continuous one-dimensional analogs of the pattern conjecture.
+
+Theorem 3.12. Define g𝑀 (𝑈 𝑘 ) (resp. g𝑃 (𝑈 𝑘 ) to be the minimal Minkowski (resp. packing) dimension of
+a set containing a 𝑈 𝑘 -pattern for every basepoint in [0, 1]. Then,
+                                                                                0 (𝑁)
+                                                                           log 𝐺𝑈
+                                           𝑀           𝑃
+                                     g (𝑈 𝑘 ) = g (𝑈 𝑘 ) = lim                    𝑘
+                                                                                        .
+                                                                    𝑁 →∞     log 𝑁
+
+                                                               13
+   In [3], Bourgain showed that the Arithmetic Kakeya conjecture implies the Kakeya conjecture for
+Minkowski dimension. We will show that it in fact implies the Kakeya conjecture for packing dimension.
+More specifically,
+
+Proposition 3.13. The 𝑛-dimensional AKC for packing dimension (Conjecture 3.7) implies the Kakeya
+conjecture for packing dimension in R𝑛 .
+
+Proof. Fix 𝜖 > 0. Assuming Conjecture 3.7 holds, choose 𝑘 ∈ N such that f𝑛𝑃 (𝑘) ≥ 𝑛 − 𝜖. Suppose 𝐵 ⊂ R𝑛
+                                       √
+contains a line segment of length 𝑘 𝑛 in each direction. (𝐵 is a scaled Besicovitch set.) Namely, for each unit
+                                                                                               √
+vector 𝑢ˆ ∈ R𝑛 , there is 𝑥( ˆ𝑢) ∈ R𝑛 such that 𝐵 contains the line segment 𝑥( ˆ𝑢) + 𝑢ˆ · [0, 𝑘 𝑛]. For 𝑢 ∈ [0, 1] 𝑛 ,
+let 𝑢ˆ = 𝑢/||𝑢||. Then 𝐵 contains a 𝑘-term arithmetic progression with every common difference 𝑢 ∈ [0, 1] 𝑛 ,
+so dim 𝑃 𝐵 ≥ 𝑛 − 𝜖. Since 𝜖 was arbitrary, the Kakeya conjecture follows.
+
+4. Geometry
+
+    In this section, we study homothets of convex polytope with centers in a given set 𝑆 ⊂ R𝑛 . (Recall that
+by polytope, we mean the boundary of a finite intersection of half-spaces). We will prove Theorem 1.10, and
+the bounds listed in Table 1. Fix a dimension 𝑛 > 1. We fix the following notation.
+    Suppose 𝔭 is a convex polytope in R𝑛 , defined by a collection of bounding hyperplanes, {𝐻 𝑗 : 𝑗 ∈ 𝐽}
+for some index set 𝐽. We say 𝔭 is a 𝑚-tope if it has 𝑚 bounding hyperplanes. The 𝑗 th hyperplane 𝐻 𝑗 can be
+defined by the pair ( 𝑢® 𝑗 , 𝑑 𝑗 ), where 𝑢® 𝑗 is the unit normal vector to 𝐻 𝑗 , and 𝑑 𝑗 the distance of 𝐻 𝑗 from the
+origin. If 𝑥 + 𝑟 · 𝔭 is a homothet of 𝔭 centered at 𝑥, we denote the corresponding translate of the hyperplane
+𝐻 𝑗 by 𝐻 𝑗 (𝑥).
+
+4.1   Polytope sequences and AKC
+    The following theorem is technically a family of theorems for each dimension. Recall that f(𝑚) =
+f𝑃 (𝑚) = f𝑀 (𝑚) is the minimal packing or Minkowski dimension of a set in R that contains an 𝑚-term
+arithmetic progression for every common difference in [0, 1]. These infima are equal for packing and
+Minkowski dimensions by Theorem 3.1.
+
+Theorem 4.1 (𝑛). With the above notation, let 𝔭 ⊂ R𝑛 be an polytope with the property that 𝑑 𝑗 = ( 𝑢® 𝑗 )1 / 𝑗
+for all 𝑗 ∈ 𝐽, where the index set 𝐽 is an arithmetic progression of length 𝑚. Let h𝑀 (𝔭) and h𝑃 (𝔭) denote
+the minimal Minkowski and packing dimensions (respectively) of a set containing a homothet of 𝔭 centered
+at each point in the straight line segment [0, 1] × {0} 𝑛−1 . Then
+
+                                         h𝑛𝑀 (𝔭) = h𝑛𝑃 (𝔭) = 𝑛 − 1 + f(𝑚).
+
+Proof of Theorem 4.1. Denote (𝑥, 0, . . . , 0) ∈ [0, 1] ×{0} 𝑛−1 by ˆ𝑥. We first show that h𝑛𝑃 (𝔭) ≥ 𝑛−1+f𝑃 (𝑚).
+Suppose 𝐵 is a set containing a homothetic copy of 𝔭 around each 𝑥ˆ ∈ [0, 1] × {0} 𝑛−1 , so that for each
+𝑥 ∈ [0, 1], 𝑥ˆ + 𝑟 (𝑥) · 𝔭 ∈ 𝐵. Define
+                       n                                       o n                                        o
+                𝐴 𝑗 = h®  𝑥 , 𝑢® 𝑗 i + 𝑑 𝑗 · 𝑟 (𝑥) : 𝑥 ∈ [0, 1] = 𝑥 · ( 𝑢® 𝑗 )1 + 𝑑 𝑗 · 𝑟 (𝑥) : 𝑥 ∈ [0, 1] ⊂ R.
+
+An elementary calculation shows that this quantity is the distance of 𝐻 𝑗 ( ˆ𝑥) from the origin. We now use the
+following standard trick. Let 𝐹 𝑗 be the (𝑛 − 1)-face of 𝔭 contained in 𝐻 𝑗 , and let 𝑣 1 , . . . , 𝑣 𝑛−1 ∈ R𝑛 be a basis
+
+
+                                                           14
+for the linear subspace 𝑈 𝑗 corresponding to 𝐻 𝑗 . It follows that
+                                                               𝑛−1
+                                                               ∑︁
+                                                  𝐻 𝑗 = 𝐹𝑗 +         Q · 𝑣𝑖 .
+                                                               𝑖=1
+
+Repeating this argument for each hyperplane, it follows that there is a countable set 𝐶 such that 𝐵 0 = 𝐵 + 𝐶
+contains the entire hyperplane 𝐻 𝑗 ( ˆ𝑥) for each 𝑥 ∈ [0, 1] 𝑛 . By the countable stability of packing dimension,
+dim 𝑃 𝐵 0 = dim 𝑃 𝐵. In particular, 𝐵 0 contains the sets
+                                                   Ø
+                                            𝐴 0𝑗 =     𝑈 𝑗 + 𝑎 · 𝑢® 𝑗 ⊂ R𝑛 .
+                                                     𝑎∈𝐴𝑗
+
+So,                                                         Ø
+                             dim 𝑃 𝐵 = dim 𝑃 𝐵 0 ≥ dim 𝑃           𝐴 0𝑗 = 𝑛 − 1 + max dim 𝑃 𝐴 𝑗 .
+                                                                                  𝑗 ∈𝐽
+                                                            𝑗 ∈𝐽
+
+by finite stability of fractal dimension. Finally, set
+                                  Ø 1           n                                 o
+                             𝐴=          · 𝐴 𝑗 = 𝑗 · 𝑥 + 𝑟 (𝑥) : 𝑥 ∈ [0, 1], 𝑗 ∈ 𝐽 ⊂ R.
+                                      𝑑
+                                  𝑗 ∈𝐽 𝑗
+
+By construction, 𝐴 contains an 𝑚-term arithmetic progression with common difference 𝑥 for every 𝑥 ∈ [0, 1],
+and dim 𝑃 𝐴 = max 𝑗=1,...,𝑚 dim 𝑃 𝐴 𝑗 . This yields the inequality h𝑛𝑃 (𝔭) ≥ 𝑛 − 1 + f𝑃 (𝑚).
+    Conversely, we claim that h𝑛𝑀 (𝔭) ≤ 𝑛 − 1 + f𝑀 (𝑚). The argument above can essentially be reversed,
+with the subtlety that Minkowski dimension is not defined for unbounded sets, and is only finitely stable. Let
+𝐴 ⊂ R be a bounded set containing an 𝑚-term arithmetic progression starting at some 𝑎(𝑥) ∈ R for every
+common difference 𝑥 ∈ [0, 1]. Translating by an appropriate real number, we can assume that 𝑎(𝑥) > 0
+for every 𝑥 ∈ [0, 1]. Set 𝑟 (𝑥) = 𝑎(𝑥), and let 𝐵 be the corresponding union of homothets of 𝔭. Note that
+𝐵 is bounded because 𝐴 is. As in the other direction of the proof, we proceed to define a larger set 𝐵 0 by
+modifying 𝐵.
+    The intuition is that instead of replacing each face by an entire hyperplane, we replace it by a larger—yet
+bounded—piece of a hyperplane, taken to be large enough that 𝐵 0 contains 𝐵. More precisely, with the
+notation above, 𝐵 0 is composed by a collection of sets 𝐴 0𝑗 , one for each face 𝑗. But instead of containing
+translations of (𝑛 − 1)-dimensional linear subspaces 𝑈 𝑗 , 𝐴 0 is taken to contain translations of sufficiently
+large (𝑛 − 1)-cubes 𝐶 𝑗 ⊂ 𝑈 𝑗 .
+    As before, we have dim 𝑀 𝐵 ≤ dim 𝑀 𝐵 0 = 𝑛 − 1 + dim 𝑀 𝐴. In conclusion, we have the inequalities
+
+                               𝑛 − 1 + f𝑃 (𝑚) ≤ h𝑛𝑃 (𝔭) ≤ h𝑛𝑀 (𝔭) ≤ 𝑛 − 1 + f𝑀 (𝑚),
+
+and by Theorem 3.8, we have equality everywhere.
+
+Remark 4.2. In the theorem statement, 𝔭 is implicitly an 𝑚-tope (has 𝑚 faces). The proof in fact allows for a
+generalization to polytopes with more faces. Suppose that 𝔭 has bounding hyperplanes {𝐻 (𝑖)               𝑗 : 𝑗 ∈ 𝐽, 𝑖 ∈ 𝐼}
+for 𝐽 an arithmetic progression of length 𝑚 and 𝐼 a secondary indexing set intended to allow for additional
+faces. As usual, each hyperplane 𝐻 (𝑖)  𝑗 is determined by the pair ( 𝑢 ®𝐽(𝑖) , 𝑑 (𝑖)         (𝑖)
+                                                                                                    ® (𝑖)
+                                                                                  𝑗 ). If 𝑗 𝑑 𝑗 = ( 𝑢 𝑗 )1 for all 𝑖, 𝑗, then
+                                                                                 (𝑖)
+the conclusions of Theorem 4.1 hold. To see this, note that the sets 𝐴 𝑗 are entirely determined by the first
+coordinate
+         0
+              of 𝑢® (𝑖)     (𝑖)                                                          0
+                    𝑗 and 𝑑 𝑗 , and the scaling factors 𝑟 (𝑥). Then the subsets of 𝐵 containing homothets of 𝐻 𝑗
+                                                                                                                           (𝑖)
+
+and 𝐻 (𝑖
+       𝑗
+           )
+             map identically into 𝐴, for any 𝑖, 𝑖 0. Since 𝔭 has finitely many faces, finite stability of Minkowski
+and packing dimensions is enough to conclude h𝑛𝑀 (𝔭) = h𝑛𝑃 (𝔭) = 𝑛 − 1 + f(𝑚). Note that this bound gets
+worse as we increase the size of 𝐼, as 𝑚 gets correspondingly smaller compared to the number of faces of 𝔭.
+
+                                                             15
+                      Figure 1: Convergence of the polygons 𝔭 𝑘 to the circle when 𝑛 = 2.
+
+
+    To prove Theorem 1.10, we apply the previous theorem with an appropriate sequence of polytopes (𝔭 𝑘 ) 𝑘 .
+
+Proof of Theorem 1.10. For each 𝑘 ≥ 1, the strategy is to apply the remark following Theorem 4.1 with
+𝐽 𝑘 = {−𝑘, . . . , 𝑘 }, and 𝐼 as large as necessary to complete the polytope 𝔭 𝑘 . Let
+
+                                                  𝑢® (𝑖)          ® (𝑖)
+                                                     𝑗,𝑘 = ( 𝑗/𝑘, 𝑣 𝑗,𝑘 ),
+
+                                                  𝑑 (𝑖)
+                                                    𝑗,𝑘 = 1,
+
+
+for each 𝑗 ∈ 𝐽 𝑘 = {−𝑘, . . . , 𝑘 }, where 𝑣® (𝑖)
+                                              𝑗,𝑘 ∈ R                          ® (𝑖)
+                                                      𝑛−1 is chosen so that || 𝑢
+                                                                                 𝑗,𝑘 || = 1, and so that the corresponding
+polytopes converge to the sphere in the Hausdorff metric. To conclude, Theorem 4.1 and Theorem 1.9 imply
+that
+                                                                                         log 𝐹𝑘 (𝑁)
+                       lim h𝑛𝑀 (𝔭 𝑘 ) = lim h𝑛𝑃 (𝔭 𝑘 ) = (𝑛 − 1) + lim lim
+                      𝑘→∞                    𝑘→∞                         𝑘→∞ 𝑁 →∞          log 𝑁
+
+
+    For clarity, we illustrate the proof method for 𝑛 = 2.
+
+Example    4.3. When 𝑛 = 2, for each fixed 𝑗, 𝑘, there are exactly 2 possible choices of 𝑣 (𝑖)     𝑗,𝑘 : they are
+± 1 − 𝑗 2 /𝑘 2 . Letting 𝐼 = {+, −} parametrize these two possibilities, the collection {𝐻 (+)
+  √︁
+                                                                                            𝑗  : 𝑗  ∈ 𝐽} can be
+                                                                                        (−)
+thought of a set of bounding hyperplanes for the top half of the polygon 𝔭 𝑘 , and {𝐻 𝑗 : 𝑗 ∈ 𝐽} as a set of
+bounding hyperplanes for the bottom half. The polygons 𝔭 𝑘 and their convergence to the circle are illustrated
+in Figure 1.
+
+    The construction above yields a polygon 𝔭1 with four sides defined by the unit normal vectors (1, 0),
+(0, −1), (−1, 0), (0, 1), each side a unit distance from the origin. Then as in Figure 1, 𝔭1 is a square centered
+at the origin. The above theorem therefore provides information on the minimal Minkowski and packing
+dimensions of a set containing an axis-aligned squared centered at every point in the straight line segment
+[0, 1] × {0}.
+
+
+
+                                                            16
+Corollary 4.4. The minimal Minkowski and packing dimensions of a set containing an axis-aligned square
+centered at each point on a segment of the 𝑥-axis are equal, and they are between 17/11 and 7/4. That is,
+
+                                       1.54 ≤ h2𝑀 (𝔭1 ) = h2𝑃 (𝔭1 ) ≤ 1.75
+
+Proof. The Katz-Tao inequality asserts that 𝐹30 (𝑁) ≥ 𝑁 6/11 [8]. Applying Theorem 3.8, we have f(3) ≥ 6/11.
+The lower bound then follows immediately from Theorem 4.1 applied to 𝔭1 . On the other hand, in Theorem
+1.2 of [10] it was shown that there is a compact set of Minkowski and packing dimension 7/4 containing
+an axis-aligned square with every center in [0, 1] 2 . After translating and scaling if necessary, this set has
+property specified in the corollary statement.
+
+    Above we consider our set of centers 𝑆 to be an axis-parallel line segment. Perhaps surprisingly, rotating
+𝑆 by 45◦ , we obtain a different answer.
+
+Corollary 4.5. The minimal Minkowski and packing dimensions of a set containing an axis-aligned square
+centered at each point on a segment of the line 𝑦 = 𝑥 is 1.5.
+
+Proof. Rotating by 45◦ , it suffices to consider sets containing a “diamond” (a 45◦ rotation of an axis-aligned
+                    √ on [0,√1] × {0}. Such
+square) at each point                      √ a diamond
+                                                     √      𝔭 is defined by the four lines determined by
+                                                                                                      √ the √
+                                                                                                            four
+normal vectors (1/ 2, ±1/ 2) and (−1/ 2, ±1/ 2), and the unit distances 𝑑 ±𝑗 = 1. Here 𝐽 = {−1 2, 1/ 2}
+and 𝐼 = {+, −} (as in Example 4.3). By the remark following Theorem 4.1, h2𝑃 (𝔭) = h2𝑀 (𝔭) = 1 + f(2),
+so it suffices to compute f(2). A trivial sumset bound shows that f(2) ≥ 1/2. On the other hand, it was
+shown in section 2.3 that 𝐺 20 = 𝑂 (𝑁 1/2 ), so it follows from Theorem 2.8 and Theorem 3.8 that f(2) ≤ 1/2,
+concluding the proof.
+
+Remark 4.6. The main distinction between the previous two corollaries is that differing slopes of 𝑆 results
+in different lengths of the arithmetic progression 𝐽. In Corollary 4.5, |𝐽 | = 2; while in Corollary 4.4, |𝐽 | = 3.
+By appropriately choosing a segment 𝑆 with slope 1/3, we achieve |𝐽 | = 4. In this case, one can follow the
+proof of Corollary 4.4 to achieve the (slightly better) lower bound 11/7, using the 4-term Katz-Tao inequality
+from [8].
+    So far, we have considered only the case when our set 𝑆 of centers is a straight line. Not much is known
+about other choices of 𝑆. One natural direction of generalization would be to other sets 𝑆 of dimension 1. In
+[10], a related construction was given:
+
+Theorem 4.7. There exist sets 𝑆, 𝐵 ⊂ R2 such that 𝐵 contains a square centered at every point of 𝑆, and
+
+                                        dim 𝐻 𝑆 = dim 𝑀 𝑆 = dim 𝑃 𝑆 = 1
+
+while
+                                                                  3
+                                           dim 𝑀 𝐵 = dim 𝑃 𝐵 = 1 + .
+                                                                  8
+
+4.2     Bounds for homothets of polytopes
+    In contrast to the previous section, here we consider the case when 𝐵 contains a homothet of a polytope
+𝔭 centered at each point of 𝑆 = [0, 1] 𝑛 . First, we show a lower bound for such polytope problems in arbitrary
+dimensions, and then show that this is sharp for simplices.
+
+
+
+
+                                                        17
+Theorem 4.8. Let 𝔭 ⊂ R𝑛 be a convex polytope. If 𝐵 ⊂ R𝑛 contains a homothetic image of 𝔭 centered at
+each point in 𝑆 ⊂ R𝑛 , then
+                                                               1
+                                          dim 𝑃 𝐵 ≥ 𝑛 − 1 +        dim 𝑃 𝑆.
+                                                             𝑛+1
+Proof. Our proof is similar to that for the special case of triangles, outlined in the concluding remarks of
+[10]. Suppose 𝐵 contains a homothet of 𝔭 𝑥 + 𝑟 (𝑥) · 𝔭 for every 𝑥 ∈ [0, 1] 𝑛 . Fix an edge 𝑒 of 𝔭, and the
+corresponding line ℓ. Let 𝑣 1 and 𝑣 2 be the two vertices of 𝑒. Any homothet of 𝔭 is uniquely determined by
+the images of 𝑣 1 and 𝑣 2 . We know that 𝑒 is the intersection of the boundary of 𝔭 with 𝑛 − 1 hyperplanes—say,
+𝐻1 , . . . , 𝐻𝑛−1 . There exist hyperplanes 𝐻𝑛 and 𝐻𝑛+1 so that
+                                  𝑛−1
+                                  Ù                         𝑛−1
+                                                            Ù
+                                        𝐻𝑖 ∩ 𝐻 𝑛 = 𝑣 1 ,          𝐻𝑖 ∩ 𝐻𝑛+1 = 𝑣 2 .
+                                  𝑖=1                       𝑖=1
+
+As in the proof of Theorem 4.1, we parametrize each homothet of 𝔭 by the distances of the translates of
+𝐻1 , . . . , 𝐻𝑛+1 from the origin. That is, with ( 𝑢®𝑖 , 𝑑𝑖 ) as earlier, set
+                     n                                          o            Ø
+                𝐴𝑖 = 𝑥 · 𝑢®𝑖 + (𝑟 (𝑥) − 1) · 𝑑𝑖 : 𝑥 ∈ [0, 1] 𝑛 , 𝐴𝑖0 =         𝐻𝑖 + 𝑎, 𝑖 = 1, . . . , 𝑛 + 1.
+                                                                           𝑎 ∈ 𝐴𝑖
+
+By the same arguments as earlier, we have on one hand that
+
+                                     dim 𝑃 𝐵 = 𝑛 − 1 +          max       dim 𝑃 𝐴𝑖 ,
+                                                            𝑖=1,...,𝑛+1
+
+and on the other
+                                     dim 𝑃 𝑆 ≤ (𝑛 + 1)          max       dim 𝑃 𝐴𝑖 .
+                                                           𝑖=1,...,𝑛+1
+
+Putting this together,
+                                                                 1
+                                         dim 𝑃 𝐵 ≥ 𝑛 − 1 +          dim 𝑃 𝑆.
+                                                                𝑛+1
+
+
+   For a complementary upper bound, we apply probabilistic results of Shmerkin; the following lemma is
+a modification of corollaries 5.8 and 5.9 of [15].
+Lemma 4.9. Let Γ be a collection of lines in R𝑚 . For each line 𝑉 ∈ Γ, let 𝑉˜ denote the unique line in R𝑚
+parallel to 𝑉 and passing through the origin. Suppose that,
+  (a) for each 𝑉 ∈ Γ and 𝐼 ( [𝑚], 𝑉˜ is not contained in the coordinate hyperplane 𝐻 𝐼 := {𝑥 ∈ R𝑚 : 𝑥𝑖 =
+      0, ∀𝑖 ∈ 𝐼}, and
+
+  (b) there is a cube 𝑄 disjoint from the union of diagonals Δ = {𝑥 ∈ R𝑚 : 𝑥 𝑖 = 𝑥 𝑗 for some 𝑖 ≠ 𝑗 } such that
+      𝑖𝑛𝑡 (𝑄) ∩ 𝑉 ≠ ∅ for each 𝑉 ∈ Γ.
+Then, for every 𝜖 > 0, there is a suitable set 𝐴 ⊂ R such that dim 𝑃 𝐴 = dim 𝑀 𝐴 = 1 − 1/𝑚 + 𝜖 and 𝐴𝑚 ∩𝑉 ≠ ∅
+for each 𝑉 ∈ Γ.
+Theorem 4.10. Let 𝔭 be an 𝑛-dimensional polytope with 𝑚 faces, i.e. 𝑚 hyperlanes bounding it. For every
+𝜖 > 0, there is a set 𝐵 = 𝐵 𝜖 ⊂ R𝑛 containing a homothetic copy of P centered at every point 𝑥 ∈ R𝑛 such
+that
+                                                        1
+                                           dim 𝑃 𝐵 = 𝑛 − + 𝜖 .
+                                                        𝑚
+
+                                                           18
+Proof. Let ( 𝑢®𝑖 , 𝑑𝑖 ), 1 ≤ 𝑖 ≤ 𝑚 parametrize the 𝑚 faces of 𝔭. For each 𝑥 ∈ R𝑛 , define
+
+                                       𝑥 · 𝑈 = (h𝑥, 𝑢®1 i, . . . , h𝑥, 𝑢®𝑚 i) ∈ R𝑚 ,
+
+and
+                                   𝑉𝑥 = {𝑥 · 𝑈 + 𝑟 (𝑑1 , . . . , 𝑑 𝑚 ) : 𝑟 ∈ R} ⊂ R𝑚 .
+Note that each 𝑑𝑖 is nonzero, so for each 𝑉𝑥 , the corresponding 𝑉˜ 𝑥 is not contained in any of the coordinate
+hyperplanes. We want to find a cube 𝑆 ⊂ R𝑛 so we can apply the lemma to Γ = {𝑉𝑥 } 𝑥 ∈𝑆 . 𝑉𝑥 intersects Δ if
+and only if h𝑥, 𝑢 𝑖 i + 𝑟 · 𝑑𝑖 = h𝑥, 𝑢 𝑗 i + 𝑟 · 𝑑 𝑗 for some pair 𝑖 ≠ 𝑗. If 𝑑𝑖 = 𝑑 𝑗 , then this equation is satisfied
+if and only if 𝑥 lies on the hyperplane orthogonal to 𝑢 𝑖 − 𝑢 𝑗 . Since there are only finitely many such “bad”
+hyperplanes, we can choose a cube 𝑆 disjoint from them. If 𝑑𝑖 ≠ 𝑑 𝑗 , since this equation is a continuous
+function of 𝑥 ∈ 𝑆, there is some threshold 𝛿 such that for all 𝑟 > 𝛿, this equation is not satisfied. In other
+words, the sets
+                                   𝑉𝑥0 := {𝑥 · 𝑈 + 𝑟 (𝑑1 , . . . , 𝑑 𝑚 ) : 𝑟 > 𝛿}, 𝑥 ∈ 𝑆
+are disjoint from Δ. If a cube 𝑄 disjoint from Δ intersects some 𝑉𝑤0 in its interior, then there is some
+neighbourhood 𝑂 of 𝑤 such that 𝑖𝑛𝑡 (𝑄) intersects 𝑉𝑥0 for all 𝑥 ∈ 𝑂. Shrinking 𝑆 is necessary, we assume that
+𝑆 ⊂ 𝑂 so that (b) holds. Applying the lemma, there is a set 𝐴 ⊂ R such that for each 𝑥 ∈ R𝑛 , 𝐴𝑚 ∩ 𝑉𝑥 ≠ ∅,
+or, 𝐴 contains points h𝑥, 𝑢®1 i + 𝑟 · 𝑑1 , . . . , h𝑥, 𝑢®𝑚 i + 𝑟 · 𝑑 𝑚 for some scaling factor 𝑟.
+                           Ð                                                Ð𝑚
+    Now, defining 𝐴𝑖 := 𝑎 ∈ 𝐴 𝐻𝑖 + (𝑎 − 𝑑𝑖 ) · 𝑢®𝑖 , define 𝐵 = 𝑖=1              𝐴𝑖 , so that 𝐵 contains a homothet of 𝔭
+                                                         1
+centered at each point of 𝑆, and dim 𝑃 𝐵 = 𝑛 − 𝑚 + 𝜖.
+
+5. Patterns in other fields
+
+
+5.1     Finite fields
+      Given a prime 𝑝, let 𝜋 𝑝 : Z → F 𝑝 be the canonical projection.
+
+Definition 5.1. Given 𝑈 ⊂ Z, a 𝑈-pattern in F𝑛𝑝 is a set of the form 𝑥 + 𝜋 𝑝 (𝑈) · 𝑟 for 𝑥, 𝑟 ∈ F𝑛𝑝 , with 𝑟
+nonzero.
+
+   The following conjecture is technically a family of conjectures for each 𝑛 ∈ N and each sequence (𝑈 𝑘 ) 𝑘 ∈N
+such that |𝑈 𝑘 | = 𝑘.
+
+Conjecture 5.2 (The 𝑛-dimensional finite field (𝑈 𝑘 )-pattern conjecture). Let 𝑔𝑛,𝑈𝑘 ( 𝑝) be the size of the
+smallest set that contains a 𝑈 𝑘 -pattern with basepoint 𝑥, for every 𝑥 ∈ F𝑛𝑝 . Then,
+
+                                                    log 𝑔𝑛,𝑈𝑘 ( 𝑝)
+                                            lim lim                = 𝑛.
+                                            𝑘→∞ 𝑝→∞     log 𝑝
+      Our first main result is the following.
+
+Theorem 5.3. For any sequence (𝑈 𝑘 ) 𝑘 ∈N , the pattern conjecture in Z is equivalent to the 𝑛-dimensional
+finite field (𝑈 𝑘 )-pattern conjecture for every 𝑛 ∈ N.
+
+      The proof proceeds in three steps.
+
+Step (1). The (𝑈 𝑘 )-pattern conjecture in Z implies the 𝑛-dimensional finite field (𝑈 𝑘 )-pattern conjecture for
+every 𝑛.
+
+                                                           19
+Step (2). For any 𝑛 ∈ N, the 𝑛-dimensional finite field (𝑈 𝑘 )-pattern conjecture implies the 1-dimensional
+version.
+Step (3). The 1-dimensional finite field (𝑈 𝑘 )-pattern conjecture implies the (𝑈 𝑘 )-pattern conjecture in Z.
+    For the third step, we need the following lemma, which follows from Lemma 4.9.
+Lemma 5.4. For any set 𝑈 𝑘 ⊂ N of size 𝑘, g𝑃 (𝑈 𝑘 ) = g𝑀 (𝑈 𝑘 ) ≤ 1 − 1/𝑘. As a result, for any 𝜖 > 0, there
+                                 0 (𝑁) ≤ 𝑁 1−1/𝑘+𝜖 .
+is 𝑁 sufficiently large so that 𝐺𝑈 𝑘
+
+Proof. Let 𝑈 𝑘 = {𝑢 1 , . . . , 𝑢 𝑘 }. For 𝑥 ∈ [0, 1], define
+                                         
+                                   𝑉𝑥 = (𝑥, . . . , 𝑥) + 𝑟 · (𝑢 1 , . . . , 𝑢 𝑘 ) : 𝑟 ∈ R ⊂ R 𝑘 .
+Since each 𝑢 𝑖 is nonzero, for each 𝑉𝑥 , the corresponding 𝑉˜ 𝑥 is not contained in any of the hyperplanes.
+Further, since 𝑢 1 , . . . , 𝑢 𝑘 are all distinct, 𝑉𝑥 only intersects Δ in the point (𝑥, . . . , 𝑥), so we can find a cube
+𝑄 satisfying (b). Applying Lemma 4.9 gives a set 𝐴 ⊂ R with dim 𝑃 𝐴 = dim 𝑀 𝐴 = 1 − 1/𝑘 + 𝜖 such that for
+each 𝑥 ∈ [0, 1], 𝐴 𝑘 ∩ 𝑉𝑥 ≠ ∅. Equivalently, 𝐴 contains the points 𝑥 + 𝑟 · 𝑢 1 , . . . , 𝑥 + 𝑟 · 𝑢 𝑘 for some 𝑟 ∈ R, so
+𝐴 contains a 𝑈 𝑘 -pattern for every basepoint in [0, 1].
+
+Proof of step 1. Fix a set 𝑈 𝑘 and 𝑛 ∈ N. Fix 𝜖 > 0, and let 𝑝 be a large enough prime so that |𝑢| < 𝑝 𝜖 for every
+𝑢 ∈ 𝑈 𝑘 . Suppose 𝐴1 ⊂ F𝑛𝑝 contains a 𝑈 𝑘 -pattern for every basepoint 𝑥 ∈ F𝑛𝑝 . Let 𝜓 : F 𝑝 → {0, . . . , 𝑝 − 1} be
+the natural “lifting” map, and extend this to a map 𝜓 𝑛 : F𝑛𝑝 → {0, . . . , 𝑝 − 1} 𝑛 by “lifting” each coordinate.
+For each 𝑥 ∈ F𝑛𝑝 , we have a pattern 𝑥 + 𝑟 (𝑥) · 𝑈 𝑘 in 𝐴1 . Define
+                                      n                                            o
+                                 𝐴2 = 𝜓 𝑛 (𝑥) + 𝜓 𝑛 (𝑟 (𝑥)) · 𝑢 : 𝑥 ∈ F𝑛𝑝 , 𝑢 ∈ 𝑈 𝑘 .
+
+By construction, 𝐴2 ⊂ [−𝑝 𝜖 ( 𝑝 − 1), 𝑝 𝜖 ( 𝑝 − 1)] 𝑛 , and 𝜋( 𝐴2 ) ⊂ 𝐴1 , where 𝜋 : Z𝑛 → F𝑛𝑝 is the natural
+                                                                                                                           𝑛
+projection. Each coordinate of an element in 𝜋( 𝐴2 ) has at most 2𝑝 𝜖 possible preimages, so | 𝐴2 | ≤ 2𝑝 𝜖 | 𝐴1 |.
+Next, choose 𝑏 ∈ N large enough so that the following map is injective. Further, if 𝑏 is sufficiently large, then
+                                                                                                                   
+                 𝜙 (𝑥 1 , . . . , 𝑥 𝑛 ) + 𝑢 · (𝑟 1 , . . . , 𝑟 𝑛 ) = 𝜙 (𝑥 1 , . . . , 𝑥 𝑛 ) + 𝑢 · 𝜙 (𝑟 1 , . . . , 𝑟 𝑛 ) .
+                                                                                               0 ( 𝑝 𝑛 ). This yields
+In other words, 𝜙( 𝐴2 ) ⊂ Z contains a 𝑈 𝑘 -pattern for 𝑝 𝑛 different basepoints, so | 𝐴2 | ≥ 𝐺𝑈 𝑘
+                   −𝑛
+𝑔𝑛,𝑈𝑘 ( 𝑝) ≥ (2𝑝 ) 𝐺𝑈𝑘 ( 𝑝 ), so
+                𝜖            𝑛
+
+                                                                    0 ( 𝑝𝑛)
+                                        log 𝑔𝑛,𝑈𝑘 ( 𝑝)         log 𝐺𝑈
+                                    lim                ≥ 𝑛 lim        𝑘
+                                                                            − 𝑛𝜖 .
+                                    𝑝→∞     log 𝑝          𝑝→∞    log 𝑝 𝑛
+Since 𝑛 is fixed and 𝜖 > 0 is arbitrary,
+                                                                        0 ( 𝑝𝑛)
+                                            log 𝑔𝑛,𝑈𝑘 ( 𝑝)         log 𝐺𝑈
+                                        lim                ≥ 𝑛 lim        𝑘
+                                                                                .
+                                        𝑝→∞     log 𝑝          𝑝→∞    log 𝑝 𝑛
+
+
+Proof of step 2. The proof is straightforward. Suppose 𝐴 ⊂ F 𝑝 contains a 𝑈 𝑘 pattern for each basepoint
+𝑥 ∈ F 𝑝 . Then, 𝐴𝑛 ⊂ F𝑛𝑝 contains a 𝑈 𝑘 -pattern for each basepoint (𝑥 1 , . . . , 𝑥 𝑛 ) ∈ F𝑛𝑝 . This yields 𝑔𝑛,𝑈𝑘 ( 𝑝) ≤
+           𝑛
+  𝑔1,𝑈𝑘 ( 𝑝) , so
+                                        log 𝑔1,𝑈𝑘 ( 𝑝)   1      log 𝑔𝑛,𝑈𝑘 ( 𝑝)
+                                  lim                  ≥ lim                       .
+                                 𝑝→∞        log 𝑝        𝑛 𝑝→∞      log 𝑝
+
+
+
+                                                                20
+Proof of step 3. Choose 0 < 𝜖1/𝑘, and let 𝑁 be as in Lemma 5.4. Let 𝐴1 be a set of size 𝐺𝑈𝑘 (𝑁) containing
+a 𝑈 𝑘 -pattern for every basepoint in [𝑁], so that
+                                             | 𝐴1 | ≤ 𝐶 𝑘 log 𝑁 · 𝑁 1−𝜖 .
+We want a prime 𝑝 > 𝑁 so that projecting 𝐴1 to F 𝑝 gives a 𝑈 𝑘 -pattern with 𝑁 basepoints in F 𝑝 . However,
+given a pattern 𝑥 + 𝑟 (𝑥) · 𝑈 𝑘 , we need to guarantee that 𝑟 (𝑥) is nonzero modulo 𝑝. Simultaneously, we need
+to guarantee that 𝑝 is close to 𝑁, so that 𝑔1,𝑘 ( 𝑝) is close to 𝐺𝑈𝑘 ( 𝑝). For this second condition, we want to
+choose 𝑝 to be a prime in the interval (𝑁, 2𝑁].
+    Suppose we have no such choice: for every prime 𝑝 ∈ (𝑁, 2𝑁], there exists 𝑥 ∈ [𝑁] so that 𝑝 divides
+𝑟 (𝑥). This is where we use the minimality of 𝐴1 . For fixed 𝑢 ∈ 𝑈 𝑘 , we must have
+
+                                 {𝑥 + 𝑟 (𝑥) · 𝑢 : 𝑥 ∈ [𝑁]} ≤ 𝐶 𝑘 log 𝑁 · 𝑁 1−𝜖 .
+
+In particular, we must have “many” nontrivial solutions to the equation
+                                   𝑥 + 𝑟 (𝑥) · 𝑢 = 𝑦 + 𝑟 (𝑦) · 𝑢 :    𝑥, 𝑦 ∈ [𝑁].
+We will show that there exists a large subset 𝑆 ⊂ [𝑁], such that this equation does not hold for any pair
+𝑥, 𝑦 ∈ 𝑆. The multiset {𝑟 (𝑥) : 𝑥 ∈ [𝑁]} has cardinality 𝑁, while there are only 𝑁/log 𝑁 primes 𝑝 ∈ (𝑁, 2𝑁].
+As a result, there exists a prime 𝑝 ∈ (𝑁, 2𝑁] such that for at least 𝑁 − 𝑁/log 𝑁 values of 𝑥 ∈ [𝑁], 𝑝
+divides 𝑟 (𝑥). Let 𝑆 ⊂ [𝑁] be the set of these elements 𝑥 ∈ [𝑁]. Suppose for two distinct elements 𝑥, 𝑦 ∈ 𝑆,
+𝑢 · 𝑟 (𝑦) − 𝑟 (𝑥) = (𝑥 − 𝑦). Then 𝑟 (𝑥) and 𝑟 (𝑦) must be distinct, and 𝑝 divides 𝑟 (𝑦) − 𝑟 (𝑥), but 𝑝 cannot
+divide 𝑥 − 𝑦 because 𝑝 > 𝑁. So, no such solution exists. This yields that | 𝐴1 | ≥ 𝑁 − 𝑁/log 𝑁, but this
+contradicts the upper bound for large enough 𝑁.
+      In other words, we can choose a prime 𝑝 = 𝑝(𝑁) ∈ (𝑁, 2𝑁] such that 𝑟 (𝑥) ≠ 0 (mod 𝑝) for any
+𝑥 ∈ [𝑁]. Then, 𝐴2 = 𝜋 𝑝 ( 𝐴1 ) contains a 𝑈 𝑘 -pattern for 𝑁 ≥ 𝑝/2 distinct basepoints in F 𝑝 . By translating
+𝐴2 by some set 𝑇, we obtain a set 𝐴3 such that 𝐴3 contains a 𝑈 𝑘 -pattern for every basepoint in F 𝑝 , and
+| 𝐴3 |  log 𝑝 · | 𝐴2 | ≤ log 𝑝 · | 𝐴1 |. So,
+                                                        1
+                                        𝐺𝑈𝑘 (𝑁) ≥           𝑔1,𝑈𝑘 ( 𝑝(𝑁)).
+                                                      log 𝑝
+It follows that
+                                      log 𝐺𝑈𝑘 (𝑁)        log 𝑔1,𝑈𝑘 ( 𝑝(𝑁))
+                                  lim             ≥ lim                    .
+                                 𝑁 →∞    log 𝑁      𝑁 →∞     log 𝑝(𝑁)
+
+
+
+5.2   An upper bound for number fields
+    In [7], Green and Ruzsa show the upper bound 𝐹𝑘 (𝑁) ≤ 𝑁 1−𝑐/log log 𝑘 . We use a similar technique to
+obtain an upper bound for patterns in Z𝑑 .
+    For the rest of this section, we fix the following notation. Let 𝑛 be an integer of the form 2, 4, 𝑝 𝑘 or 2𝑝 𝑘
+for an odd prime 𝑝, and 𝑑 = 𝜙(𝑛), where 𝜙 denotes the Euler totient function. Let 𝜁 be a primitive 𝑛th root
+of unity. Define the free Z-module
+                                   O𝐾 = Z[𝜁]  Z ⊕ Z · 𝜁 ⊕ · · · ⊕ Z · 𝜁 𝑑−1 .
+The latter isomorphism is a well-known fact in number theory (see for example Proposition 10.2 in [14]).
+Define a Z-module isomorphism 𝜓 : Z𝑑 → O𝐾 in the natural way. This allows us to define a multiplication
+⊗ on Z𝑑 by 𝑟 ⊗ 𝑢 = 𝜓 −1 (𝜓(𝑟) · 𝜓(𝑢)).
+
+                                                         21
+Theorem 5.5 (Proposition 10.3, [14]). Let 𝑎 be a primitive root modulo 𝑛, i.e. 𝑎 generates Z×𝑛 . If 𝑞 is a prime
+in Z and 𝑞 ≡ 𝑎 (mod 𝑛), then 𝑞O𝐾 is a prime ideal in O𝐾 .
+
+Definition 5.6. If 𝑈 ⊂ N𝑑 , a 𝑈-pattern is a set of the form 𝑥 + 𝑟 ⊗ 𝑈 = {𝑥 + 𝑟 ⊗ 𝑢 : 𝑢 ∈ 𝑈}, for 𝑥, 𝑟 ∈ Z𝑑 .
+We call 𝑥 and 𝑟 the basepoint and scaling factor of the pattern respectively.
+
+    Note that this is different from the kinds of patterns we considered in earlier sections, as the scaling factor
+                                                                          𝑑
+also belongs to Z𝑑 . Let (𝑈 𝑘 ) 𝑘 ∈N be a sequence such that each 𝑈 𝑘 ∈ N𝑘 .2 We will assume for convenience
+that from here on, the ℓ ∞ norms of the elements of 𝑈 𝑘 are bounded by some subexponential 𝑓 (𝑘), i.e.
+
+                                                  max ||𝑢|| ∞ ≤ 𝑓 (𝑘) = 2𝑜 (𝑘) .
+                                                  𝑢 ∈𝑈𝑘
+
+                            𝑑
+Theorem 5.7. Let 𝑈 𝑘 ∈ Z𝑘 be a sequence as above. Then for all large 𝑘 and 𝑁, there is a compact set 𝐵 𝑘
+containing a 𝑈 𝑘 -arithmetic pattern with every center in [𝑁] 𝑑 such that
+
+                                                      |𝐵 𝑘 | < 𝑁 𝑑−1/𝑂 (log 𝑘)
+
+    The important special cases are when 𝑑 = 1 and 𝑑 = 2. We will need three technical lemmas.
+
+Lemma 5.8. Let 𝑟, 𝑢 ∈ Z𝑑 . Then
+                                                                                   
+                                              ||𝑟 ⊗ 𝑢|| ∞ ≤ 2𝑑 · ||𝑟 || ∞ · ||𝑢|| ∞ .
+
+Proof. Given 𝑟 = (𝑟 1 , . . . , 𝑟 𝑑 ) and 𝑢 = (𝑢 1 , . . . , 𝑢 𝑑 ), their product is
+
+                                                                   ∑︁                             2(𝑑−1)
+                                                                                                   ∑︁
+                                                                                       𝑖+ 𝑗
+                               𝜓(𝑟 ⊗ 𝑢) = 𝜓(𝑟) · 𝜓(𝑢) =                     𝑟𝑖 𝑢 𝑗 𝜁          =            𝑎𝑘 𝜁 𝑘 .
+                                                                 0≤𝑖, 𝑗<𝑑                          𝑘=0
+
+
+for some integers 𝑎 𝑘 ∈ Z. We want to express this in the basis (1, 𝜁, . . . , 𝜁 𝑑−1 ) so that we can pull the product
+back to Z𝑑 and bound its norm. Writing
+                                                    2(𝑑−1)
+                                                     ∑︁                 𝑑−1
+                                                                        ∑︁
+                                                             𝑎𝑘 𝜁 𝑘 =         𝑏𝑙 𝜁 𝑙 ,
+                                                      𝑘=0               𝑙=0
+
+it is clear that
+                             sup         𝑏𝑙 ≤ 2      sup        𝑎 𝑘 ≤ 2𝑑         sup          𝑟𝑖 ·         sup        𝑢𝑗 .
+                        𝑙=0,...,2(𝑑−1)            𝑘=0,...,𝑑−1                 𝑖=0,...,𝑑−1             𝑗=0,...,𝑑−1
+
+
+
+
+Lemma 5.9 (Chinese remainder theorem, Theorem 3.6 [14]). Let 𝑞 1 , . . . , 𝑞 𝑘 ∈ Z be primes such that 𝑞 𝑖 O𝐾
+                         Î𝑘
+is a prime ideal, and 𝑄 = 𝑖=1 𝑞 𝑖 . Then we have a ring isomorphism
+                                                       Ê
+                                           O𝐾             F𝑞 𝑑 .
+                                              𝑄O𝐾             𝑖
+                                                                        𝑖
+
+
+
+   2Recall that by our convention, 0 ∉ N, so for each 𝑢 ∈ 𝑈 𝑘 , no coordinate of 𝑢 is equal to zero.
+
+
+
+                                                                  22
+Lemma 5.10. Suppose gcd(𝑎, 𝑑) = 1, and let 𝑝 1 < 𝑝 2 < . . . denote the sequence of all primes, 𝑞 1 < 𝑞 2 < . . .
+denote those which are congruent to 𝑎 modulo 𝑛, where 𝑎 is a fixed primitive root modulo 𝑛 as earlier. Then
+
+                                    𝑚                𝑚
+                                                                ! (1+𝑜(1))
+                                    Ö                Ö
+                                             𝑞𝑖 =          𝑝𝑖                = 𝑚 (1+𝑜 (1)) 𝑚
+                                       𝑖=1           𝑖=1
+
+Proof. According to Poussin, the number of primes 𝑞 𝑖 ≡ 𝑎 (mod 𝑛) less than a number 𝑥 > 0 is given by
+                                                                    1
+                                              𝜋 𝑛,𝑎 (𝑥) = (1 + 𝑜(1)) 𝜋(𝑥).
+                                                                    𝑛
+Together with the prime number theorem, which states that
+                                                                                𝑥
+                                                 𝜋(𝑥) = (1 + 𝑜(1))
+                                                                              log 𝑥
+
+we conclude that the 𝑖 th prime 𝑝 𝑖 is approximately
+
+                                                    𝑝 𝑖 = (1 + 𝑜(1))𝑖 log 𝑖
+
+and that the 𝑖 th prime 𝑞 𝑖 congruent to 𝑎 modulo 𝑛 is approximately
+
+                                                  𝑞 𝑖 = (1 + 𝑜(1))𝑛𝑖 log 𝑖.
+
+We then have
+                                   𝑚
+                                   Ö              𝑚
+                                                  Ö
+                                         𝑞𝑖 =           (1 + 𝑜(1))𝑛𝑖 log 𝑖
+                                   𝑖=1            𝑖=1
+                                                                           𝑚
+                                                                           Ö
+                                                                  𝑚 𝑚
+                                               = (1 + 𝑜(1)) 𝑛                    𝑖 log 𝑖
+                                                                           𝑖=1
+                                                                           Ö𝑚
+                                               = (1 + 𝑜(1)) 𝑚 𝑛𝑚                 (1 + 𝑜(1)) 𝑝 𝑖
+                                                                      𝑖=1
+                                                                       Ö𝑚
+                                                                  2𝑚 𝑚
+                                               = (1 + 𝑜(1))            𝑛           𝑝𝑖 .
+                                                                             𝑖=1
+
+Applying a primorial estimate yields
+                                 𝑚
+                                 Ö                                         𝑚
+                                                                           Ö
+                                       𝑞 𝑖 = (1 + 𝑜(1)) 2𝑚 𝑛𝑚            𝑝𝑖
+                                 𝑖=1                                 𝑖=1
+                                                                2𝑚 𝑚 (1+𝑜(1)) 𝑚 log 𝑚
+                                             = (1 + 𝑜(1))          𝑛 𝑒
+
+
+                                             = 𝑒 2𝑚 log(1+𝑜 (1)) 𝑒 𝑚 log 𝑛 𝑒 (1+𝑜 (1)) 𝑚 log 𝑚
+                                             = 𝑒 (1+𝑜 (1)) 𝑚 log 𝑚 .
+
+The result follows.
+
+
+                                                                  23
+    The proof of Theorem 5.7 is a routine deduction from the following discrete proposition, which we will
+prove first.
+                               𝑑
+Proposition 5.11. Let 𝑈 𝑘 ∈ N𝑘 be a sequence whose ℓ ∞ norm is subexponential in 𝑘. Then for all large 𝑘
+and 𝑁, there is a compact set 𝐵 𝑘 containing a 𝑈 𝑘 - pattern with every basepoint in [𝑁] 𝑑 such that
+
+                                                   |𝐵 𝑘 | < 𝑁 𝑑−1/𝑂 (log 𝑘)
+
+Proof. Let
+                                                max ||𝑢|| ∞ ≤ 𝑓 (𝑘) = 2𝑜(𝑘)
+                                                𝑢 ∈𝑈𝑘
+
+as earlier. Let the residue classes of Z𝑛 which generate Z×𝑛 be denoted by 𝑎 1 , . . . , 𝑎 𝜙 (𝑑) . Denote the sequence
+of primes which are congruent to some 𝑎 coprime to 𝑛 by 𝑞 1 < 𝑞 2 < . . .. Fix 𝑚 = 2 𝑓 (𝑘), and let
+              Î𝑚
+𝑄(𝑘) = 𝑄 = 𝑖=       𝑓 (𝑘) 𝑞 𝑖 . By Lemma 5.10,
+
+              log 𝑄 = (1 + 𝑜(1))𝑚 log 𝑚 − (1 + 𝑜(1)) 𝑓 (𝑘) log 𝑓 (𝑘) = (1 + 𝑜(1)) 𝑓 (𝑘) log 𝑓 (𝑘).
+
+Let 𝑈 𝑘 = {𝑢 1 , . . . , 𝑢 𝑘 }. For the rest of the proof, we will denote [ 𝐴] 𝑑 = {(𝑥 1 , . . . , 𝑥 𝑑 ) ∈ Z𝑑 : 𝑥 𝑖 ∈ [ 𝐴]}.
+Additionally, let
+                                                      𝜓 : Z𝑑 −→ O𝐾
+be the aforementioned isomorphism of Z-modules. For convenience, we will denote 𝜓(𝑥) = 𝑥. Let
+
+                                                𝜋𝑖 : O𝐾 −→ O𝐾(𝑞 )  F𝑞 𝑑
+                                                                        𝑖       𝑖
+                                                        Î
+be the natural projection maps. The map 𝜋 = 𝑖 𝜋𝑖 is then the projection onto O𝐾 /(𝑄).
+    Now, for each 𝑥 ∈ [𝑄 − 1] 𝑑 , consider the projections 𝜋𝑖 (𝑥) onto each of the finite fields F𝑞 𝑑 . By the
+                                                                                                                𝑖
+Chinese remainder theorem, there is a unique element 𝑟 (𝑥) ∈ [𝑄] 𝑑 such that
+
+                                                        𝜋𝑖 (𝑟 (𝑥)) = 𝜋𝑖 (𝑥) 2
+
+for each 𝑖 = 𝑓 (𝑘), . . . , 𝑚. Define the set
+
+                                    𝑆 = {𝑥 + 𝑢 𝑗 ⊗ 𝑟 (𝑥) : 𝑗 ∈ [𝑘], 𝑥 ∈ [𝑄 − 1] 𝑑 }.
+
+That is, 𝑆 contains a 𝑈 𝑘 -pattern with basepoint 𝑥 and scaling factor 𝑟 (𝑥) for each 𝑥 ∈ [𝑄 − 1] 𝑑 . We want to
+show that 𝑆 is small by showing that each projection to F𝑞 𝑑 is small, and that the preimage of each point of
+                                                               𝑖
+𝑆 under this projection is also small.
+   Fix some 𝑗 ∈ [𝑘]. For each 𝑖,
+                                                                                          2
+                                                            2                        1               1
+            𝜋𝑖 𝑥 + 𝑢 𝑗 ⊗ 𝑟 (𝑥) = 𝜋𝑖 (𝑥) + 𝜋𝑖 (𝑢 𝑗 ) · 𝜋𝑖 (𝑥) = 𝜋𝑖 (𝑢 𝑗 ) 𝜋𝑖 (𝑥) +               −
+                                                                                  2𝜋𝑖 (𝑢 𝑗 )      4𝜋𝑖 (𝑢 𝑗 )
+
+in F𝑞 𝑑 . Note that since each coordinate of 𝑢 𝑗 is nonzero and at most 𝑓 (𝑘) < 𝑞 𝑖 , 𝜋𝑖 (𝑢 𝑗 ) is invertible in F𝑞 𝑑 ,
+     𝑖                                                                                                             𝑖
+so the quantity on the right is well-defined. As 𝑥 varies, these quantities are in bĳection with the quadratic
+residues in F𝑞 𝑑 , and so 𝜋𝑖 (𝑥 + 𝑢 𝑗 ⊗ 𝑟 (𝑥)) takes values in a set of size at most (𝑞 𝑖𝑑 + 1)/2 in F𝑞 𝑑 . By the
+                𝑖                                                                                               𝑖
+Chinese remainder theorem, 𝜋(𝑥 + 𝑢 𝑗 ⊗ 𝑟 (𝑥)) ∈ O𝐾 /(𝑄)  Z𝑑 /𝑄Z𝑑 takes values in a set of size at most
+2− 𝑓 (𝑘) 𝑖=
+        Î𝑚
+            𝑓 (𝑘) (𝑞 𝑖 + 1). Lifting to Z , and applying Lemma 5.8, we have
+                     𝑑                   𝑑
+
+                                                                         
+               ||𝑥 + 𝑢 𝑗 ⊗ 𝑟 (𝑥)|| ∞ ≤ ||𝑥|| ∞ + 𝑂 ||𝑟 (𝑥)|| ∞ ||𝑢 𝑗 || ∞ ≤ 𝑄 + 𝑂 (𝑄 𝑓 (𝑘)) = 𝑂 (𝑄 𝑓 (𝑘))
+
+                                                                 24
+since 𝑥, 𝑟 (𝑥) ∈ [𝑄] 𝑑 . Therefore, this quantity takes values in a set of size 𝑂 ( 𝑓 (𝑘) 𝑑 ) · 2− 𝑓 (𝑘) 𝑖=
+                                                                                                        Î𝑚
+                                                                                                            𝑓 (𝑘) (𝑞 𝑖 + 1).
+                                                                                                                     𝑑
+
+Summing over all values of 𝑗,
+                                                                       𝑚     
+                                                                      Ö           1 
+                                   |𝑆| ≤ 𝑘𝑂 ( 𝑓 (𝑘) 𝑑 )2− 𝑓 (𝑘) 𝑄 𝑑            1+ 𝑑
+                                                                    𝑖= 𝑓 (𝑘)
+                                                                                 𝑞𝑖
+                                                      Î𝑚                         Î𝑚
+                                                           𝑓 (𝑘) (1 + 1/𝑞 𝑖 ) <    𝑖=1 (1 + 1/𝑞 𝑖 )  log 𝑚  𝑘. Next,
+First, we apply Lemma 5.10 to obtain the bound 𝑖=                           𝑑
+
+an elementary counting argument3 tells us that 𝑓 (𝑘) ≥ 𝑘, so
+                                                          𝑑
+
+                                                |𝑆|  𝑘 2 𝑓 (𝑘) 𝑑 2− 𝑓 (𝑘) 𝑄 𝑑
+                                                       = 2− 𝑓 (𝑘) (1+𝑜 (1)) 𝑄 𝑑
+                                                                   1
+                                                       = 𝑄 𝑑− 𝑂 (log 𝑘) .
+    Since we have only constructed the set 𝑆 for one integer 𝑄, the rest of the proof is a technicality to extend
+this construction for all integers. First, 𝑞 an arbitrary positive integer, let 𝑁𝑞 := 𝑄 𝑞 and consider the set
+                                     𝐴𝑞 := {𝑠0 + 𝑠1 𝑄 + . . . + 𝑠𝑞−1 𝑄 𝑞−1 : 𝑠𝑖 ∈ 𝑆}.
+                               𝑐
+                          𝑑−
+Then | 𝐴𝑞 | ≤ |𝑆| 𝑞 ≤ 𝑁𝑞 log 𝑘 . The set 𝐴𝑞 contains a 𝑈 𝑘 -pattern for every basepoint 𝑥 ∈ {0, 1, . . . , 𝑄 − 1} 𝑑 ,
+or in other words for all 𝑥 ∈ {0, . . . , 𝑁𝑞 − 1} 𝑑 . Finally suppose 𝑁 is an arbitrarily large positive integer. With
+𝑞 minimal such that 𝑁𝑞 > 𝑁, set 𝐴 := 𝐴𝑞 . Then 𝐴 contains a 𝑈 𝑘 -pattern for every basepoint 𝑥 ∈ [𝑁] 𝑑 .
+Moreover,                                                            𝑐
+                                                     | 𝐴|  𝑘 𝑁 𝑑− log 𝑘
+and the result follows.
+    We now prove Theorem 5.7
+Proof of Theorem 5.7. Let 𝑄 ∈ Z and 𝑆 ⊂ Z𝑑 be as earlier. Define the set
+                                             ∞
+                                          n ∑︁                  o
+                                      𝐹=        𝑠𝑖 𝑞 −𝑖 : 𝑠𝑖 ∈ 𝑆 .
+                                                           𝑖=0
+
+It follows easily from the definition of Minkowski dimension that dim 𝑀 𝐹 = 𝑑 − 𝑐/log 𝑘. Further, the
+same argument used in the proof of Theorem 3.8 tells us that 𝐹 contains a 𝑈 𝑘 -pattern for every basepoint
+𝑥 ∈ [0, 1] 𝑑 .
+    When 𝑛 = 2, then 𝑑 = 1, and the isomorphism Z → O𝐾 is just the identity Z → Z. In this case, we obtain
+the corollary
+Corollary 5.12. If (𝑈 𝑘 ) 𝑘 ∈N is a sequence in Z that grows subexponentially in 𝑘, then
+                                                           0 (𝑁)
+                                                      log 𝐺𝑈
+                                             lim             𝑘
+                                                                       ≤ 1 − 𝑐/log 𝑘.
+                                            𝑁 →∞         log 𝑁
+    Setting 𝑈 𝑘 = [𝑘] proves Proposition 1.11.
+    When 𝑛 = 4, then 𝑑 = 2, and the isomorphism Z2 → O𝐾 is the natural map Z2 → Z[𝑖], so that the
+multiplication ⊗ is just complex multiplication. Geometrically, this corresponds to scaling and rotating the
+sets 𝑈 𝑘 . Setting 𝑈 𝑘 to be the vertex set of a lattice 𝑘-gon, we obtain the proof of Proposition 1.12.
+
+
+   3Each element of 𝑈 𝑘 has ℓ ∞ norm at most 𝑓 (𝑘).
+
+
+                                                                 25
+A. Appendix
+
+
+A.1       Random translates
+      We recall some standard results on random translates as presented in [7].
+Lemma A.1. If 𝑆 ⊂ {1, . . . , 𝑋 }, then there is a set 𝑇 of size  |𝑆𝑋 | log 𝑋 such that 𝑆 + 𝑇 ⊃ {1, . . . 𝑋 }.
+                                                              𝑝                         𝑛
+Lemma A.2. If 𝑆 ⊂ F𝑛𝑝 , then there is a set 𝑇 ⊂ F𝑛𝑝 of size  |𝑆 | 𝑛 log 𝑝 such that 𝑆 + 𝑇 = F 𝑝 .
+                                                                                              𝑛
+
+
+
+A.2       Equivalence of the pattern and restricted pattern conjectures
+      Now, we will prove Proposition 2.3 by modifying the proof from [7].
+                                            0 (𝑁) ≤ 𝐺
+Proof of Proposition 2.3. It is clear that 𝐺𝑈 𝑘
+                                                      𝑈𝑘 (𝑁). For the converse, we claim that
+
+                                                                       0
+                                                𝐺𝑈𝑘 (𝑁) ≤ 𝐶 𝑘 log 𝑁 · 𝐺𝑈 𝑘
+                                                                           (𝑁)
+
+where 𝐶 𝑘 is a constant depending only on 𝑈 𝑘 . It will then follow that
+                                                                         
+                                               log    𝐶   log 𝑁 · 𝐺 0 (𝑁)                   0 (𝑁)
+                    log 𝐺𝑈𝑘 (𝑁)                         𝑘           𝑈𝑘                 log 𝐺𝑈
+          lim lim                ≤ lim lim                                  = lim lim         𝑘
+                                                                                                  ,
+         𝑘→∞ 𝑁 →∞       log 𝑁      𝑘→∞ 𝑁 →∞                 log 𝑁             𝑘→∞ 𝑁 →∞    log 𝑁
+so that the restricted pattern conjecture implies the pattern conjecture. Let 𝑈 𝑘 = {𝑢 1 , . . . , 𝑢 𝑘 }, with 𝑢 1 <
+· · · < 𝑢 𝑘 . Let 𝐴0 be a set that contains a 𝑈 𝑘 -term arithmetic progression with distinct integer basepoints
+𝑎 1 , . . . , 𝑎 𝑁 . Let the corresponding scaling factors be 𝑟 1 , . . . , 𝑟 𝑁 , not necessarily distinct. We want to construct
+a set 𝐴1 containing a 𝑈 𝑘 -term progression with basepoints 1, . . . , 𝑁 such that | 𝐴1 | ≤ 𝐶 𝑘 log 𝑁 | 𝐴0 |.
+       Choose 𝜃 ∈ (0, 1) uniformly at random, and define
+
+                                                        𝜙 𝜃 : Z → {0, . . . , 𝑁 − 1}
+
+by
+                                                            𝜙 𝜃 (𝑥) = b𝑁 {𝜃𝑥}c.
+We want to count the number of pairs (𝑖, 𝑗) for which 𝜙 𝜃 (𝑎 𝑖 ) = 𝜙 𝜃 (𝑎 𝑗 ). If 𝑖 ≠ 𝑗, then
+
+            Pr(𝜙 𝜃 (𝑎 𝑖 ) = 𝜙 𝜃 (𝑎 𝑗 )) = Pr( b𝑁 {𝜃𝑎 𝑖 }c − b𝑁 {𝜃𝑎 𝑗 }c = 0) ≤ Pr({𝜃|𝑎 𝑖 − 𝑎 𝑗 |} ≤ 1/𝑁) = 2/𝑁,
+
+since 𝜃 was chosen uniformly at random. The expected number of such pairs is then at most 𝑁 − 1, so there
+is some choice of 𝜃 for which the number of such pairs is at most 𝑁 − 1. For 𝑛 ∈ {0, . . . , 𝑁 − 1}, set
+
+                                                        𝑓 (𝑛) = {𝑖 : 𝜙 𝜃 (𝑎 𝑖 ) = 𝑛} .
+
+Then,
+                                           ∑︁  𝑓 (𝑛)                            ∑︁
+                                                              ≤ 𝑁 − 1,                  𝑓 (𝑛) = 𝑁.
+                                            𝑛
+                                                        2                           𝑛
+      Í
+          𝑛 𝑓 (𝑛)
+So,                 2 ≤ 3𝑁. Applying Cauchy-Schwarz,
+
+                                     ∑︁           2        ∑︁             ∑︁            ∑︁ 
+                             𝑁2 =          𝑓 (𝑛)        ≤              1            𝑓 (𝑛) 2 ≤     1 3𝑁.
+                                      𝑛                      𝑓 (𝑛)≠0          𝑛                  𝑓 (𝑛)≠0
+
+
+                                                                       26
+It follows that 𝑓 (𝑛) ≠ 0 for at least 𝑁/3 values of 𝑛, or there are at least 𝑁/3 distinct values of 𝜙 𝜃 (𝑎 𝑖 ). Now
+let 𝐴2 = 𝜙 𝜃 ( 𝐴0 ); | 𝐴2 | ≤ | 𝐴0 |, but it is not clear that 𝐴2 contains the long progressions we need. Nevertheless,
+for every 𝑥, 𝑦 ∈ N,
+
+𝜙 𝜃 (𝑥 + 𝑦) − 𝜙 𝜃 (𝑥) − 𝜙 𝜃 (𝑦) = b𝑁 {𝜃 (𝑥 + 𝑦)}c − b𝑁 {𝜃𝑥}c − b𝑁 {𝜃𝑦}c ∈ {0, 1} − {0, 𝑁 } = {0, 1, −𝑁, 1 − 𝑁 }.
+
+By induction, it follows that
+
+                   𝜙 𝜃 (𝑎 𝑖 ) + 𝜙 𝜃 (𝑟 𝑖 ) · 𝑢 𝑗 − 𝜙 𝜃 (𝑎 𝑖 + 𝑟 𝑖 · 𝑢 𝑗 ) ∈ {0, . . . , 𝑢 𝑗 } − {0, 𝑁, . . . 𝑢 𝑗 · 𝑁 }
+
+for 0 ≤ 𝑗 ≤ 𝑘 − 1. Define
+
+                                     𝐴3 = 𝐴2 + {0, 1, . . . , 𝑢 𝑘 } − {0, 𝑁, . . . , 𝑢 𝑘 · 𝑁 }.
+
+Then,
+                                          | 𝐴3 | ≤ (𝑢 𝑘 + 1) 2 | 𝐴2 | ≤ (𝑢 𝑘 + 1) 2 | 𝐴0 |.
+𝐴3 contains a 𝑘-term progression centered at at least 𝑁/3 distinct elements of {1, . . . , 𝑁 }. Now, results on
+random translates tell us that there is a set 𝑇 of size 𝐶 · log 𝑁 such that every element of {1, . . . , 𝑁 } can be
+written as 𝜙(𝑎 𝑖 ) + 𝑡. Then
+                                                   𝐴1 = 𝐴3 + 𝑇
+is the desired set, and
+                                      | 𝐴1 | ≤ 𝐶 log 𝑁 | 𝐴3 | ≤ 𝐶 (𝑢 𝑘 + 1) 2 log 𝑁 | 𝐴0 |.
+Setting 𝐶 𝑘 = 𝐶 (𝑢 𝑘 + 1) 2 yields the desired result.
+
+A.3     The amplification lemma
+Lemma A.3 (Amplification lemma). Suppose that there exist 𝐵 ⊂ Z × Z, a set 𝑆 ⊂ N of size 𝑘, and 𝜖 > 0
+such that
+                                  |𝜋−1 (𝐵)| > max |𝜋 𝑗 (𝐵)| 1+𝜖 .
+                                                                   𝑗 ∈𝑆
+
+Then, for all 𝑀 > 0, there exists 𝐵 0 ⊂ Z × Z such that
+
+                                               |𝜋−1 (𝐵 0)| > 𝑀 max |𝜋 𝑗 (𝐵 0)| 1+𝜖 .
+                                                                     𝑗 ∈𝑆
+
+Proof. For each 𝑛 > 0, define
+                                     n                                                                       o
+                            𝐵 ⊕𝑛 =
+                                                                               
+                                         (𝑥 1 , . . . 𝑥 𝑛 ), (𝑦 1 , . . . 𝑦 𝑛 ) ∈ Z𝑛 × Z𝑛 : (𝑥 𝑖 , 𝑦 𝑖 ) ∈ 𝐵
+
+and for each 𝑗 ∈ 𝑆.
+
+                                                   𝜋 ⊕𝑛   𝑛   𝑛
+                                                     𝑗 : Z × Z −→ Z
+                                                                    𝑛
+
+                                                               (𝑥, 𝑦) ↦−→ 𝑥 + 𝑗 𝑦
+
+for all 𝑗. Then we have
+                                                     |𝜋 ⊕𝑛  ⊕𝑛
+                                                        𝑗 (𝐵 )| = |𝜋 𝑗 (𝐵)|
+                                                                            𝑛
+
+
+
+
+                                                                   27
+for all 𝑗 ∈ 𝑆, and 𝑛 ∈ N. Since by assumption |𝜋−1 (𝐵)| > max 𝑗 ∈𝑆 |𝜋 𝑗 (𝐵)| 1+𝜖 , for any 𝑀 > 0, for 𝑛 sufficiently
+large,
+                                       ⊕𝑛
+                                     |𝜋−1 (𝐵 ⊕𝑛 )| > 𝑀 max |𝜋 ⊕𝑛   ⊕𝑛 1+𝜖
+                                                              𝑗 (𝐵 )|        .
+                                                                𝑗 ∈𝑆
+
+We will create 𝐵 0 from this set 𝐵 ⊕𝑛 . For each 𝑡 ∈ Z, consider the maps
+
+                                𝜓𝑡 : Z𝑛 × Z𝑛 −→ Z × Z
+                                        (𝑥, 𝑦) ↦−→ ((𝑡, . . . , 𝑡 𝑛 ) · 𝑥, (𝑡, . . . , 𝑡 𝑛 ) · 𝑦),
+
+where the dot denotes the standard inner product. We define an analogous map
+
+                           𝜙 𝑡 : Z𝑛 → Z :       𝜙𝑡 (𝑥 1 , . . . , 𝑥 𝑛 ) = 𝑥 1 𝑡 + 𝑥 2 𝑡 2 + · · · + 𝑥 𝑛 𝑡 𝑛 .
+
+For fixed 𝑗 ∈ 𝑆 ∪ {−1}, and (𝑥, 𝑦), (𝑥 0, 𝑦 0) in 𝐵 ⊕𝑛 ,
+
+                                       𝜋 ⊕𝑛           ⊕𝑛 0 0                   𝑛
+                                         𝑗 (𝑥, 𝑦) − 𝜋 𝑗 (𝑥 , 𝑦 ) · (𝑡, . . . , 𝑡 )
+
+is a polynomial in 𝑡 with at most finitely many roots if 𝜋 ⊕𝑛           ⊕𝑛 0 0
+                                                           𝑗 (𝑥, 𝑦) ≠ 𝜋 𝑗 (𝑥 , 𝑦 ). Since 𝐵 is finite, there is a
+choice of 𝑡 for which 𝜙𝑡 is injective on 𝜋 ⊕𝑛  ⊕𝑛
+                                           𝑗 (𝐵 ) for every 𝑗 ∈ 𝑆 ∪ {−1}.
+     Set 𝐵 0 = 𝜓𝑡 (𝐵 ⊕𝑛 ), so that
+
+                                    |𝜋 𝑗 (𝐵 0)| = |𝜙𝑡 ◦ 𝜋 ⊕𝑛  ⊕𝑛       ⊕𝑛  ⊕𝑛
+                                                          𝑗 (𝐵 )| = |𝜋 𝑗 (𝐵 )|
+
+and the result follows.
+
+A.4    Equivalence of the 𝑛-dimensional AKCs
+Proof of Theorem 3.9. We will use an argument from [7]. First, let 𝐴 ∈ Z𝑛 be a subset containing an 𝑘-term
+arithmetic progression with common difference 𝑑, for each 𝑑 ∈ {1, . . . , 𝑁 } 𝑛 . Consider the map 𝑓 : Z𝑛 → Z
+                                   Í𝑛
+defined by 𝑓 (𝑥 1 , . . . , 𝑥 𝑛 ) = 𝑖=1 (10𝑘 𝑁) 𝑖 𝑥 𝑖 . This map creates a subset of Z that preserves the desired
+properties of 𝐴. That is, 𝑓 ( 𝐴) is a subset of Z containing an arithmetic progression for 𝑁 𝑛 differences.
+Therefore, | 𝐴| ≥ 𝐹𝑘0 (𝑁 𝑛 ), and thus 𝐹𝑛,𝑘 (𝑁) ≥ 𝐹𝑘0 (𝑁 𝑛 ). It follows that
+
+                                         log 𝐹𝑛,𝑘 (𝑁)         log 𝐹𝑘0 (𝑁 𝑛 )
+                                     lim              ≥ 𝑛 lim                ,
+                                    𝑁 →∞    log 𝑁        𝑁 →∞   log 𝑁 𝑛
+so that the 1-dimensional AKC implies the 𝑛-dimensional AKC.
+     For the converse, suppose we have a set 𝐴1 ⊂ Z containing a 𝑘-term progression with common difference
+𝑑 for each 𝑑 ∈ {1, . . . , 𝑁 }. Partition Z into intervals 𝐼 𝑗 := 10𝑘 𝑗 𝑁 + {1, . . . , 10𝑘 𝑁 }, for each 𝑗 ∈ Z. Then,
+each of these progressions is either entirely contained in some 𝐼 𝑗 , or split into two progressions where one
+is in 𝐼 𝑗 , the other in 𝐼 𝑗+1 , and one of these intersections has length ≥ 𝑘/2. Let
+                                                     Ø
+                                               𝐴2 =     ( 𝐴1 ∩ 𝐼 𝑗 ) − 10𝑘 𝑗 𝑁.
+                                                     𝑗
+
+𝐴2 is a subset of {1, . . . , 10𝑘 𝑁 } containing a progression of length at least 𝑘/2 for each common difference
+𝑑 ∈ {1, . . . , 𝑁 }. Notice that | 𝐴2 | ≤ | 𝐴1 |.
+
+
+
+                                                               28
+    Let 𝑀 := b𝑁 1/𝑛 c and select 𝑡 ∈ {−10𝑘 𝑁, . . . , 20𝑘 𝑁 − 1} uniformly at random. Define
+                             (                                                𝑛
+                                                                                                  )
+                                                                             ∑︁
+                  𝐴3 (𝑡) := (𝑥 1 , 𝑥2 , . . . , 𝑥 𝑛 ) ∈ {0, . . . 𝑀 − 1} 𝑛 :    𝑀 𝑖−1 𝑥 𝑖 ∈ 𝐴2 + 𝑡 .
+                                                                         𝑖=1
+                                                                                          Í𝑛
+There are at least (𝑀/4𝑘) 𝑛 such values of 𝑑 in {0, . . . , 𝑁 } that can be written as 𝑑 = 𝑖=1 𝑀 𝑖−1 𝑑𝑖 , with
+0 ≤ 𝑑𝑖 ≤ 𝑀/2𝑘 for each 𝑖. By assumption, a progression {𝑥(𝑑) + 𝜆𝑑 : 𝜆 = 0, 1, . . . b𝑘/2c − 1} lies in 𝐴2 for
+each such 𝑑. Thus, {𝑥(𝑑) + 𝑡 + 𝜆𝑑 : 𝜆 = 0, 1, . . . b𝑘/2c − 1} lies in 𝐴2 + 𝑡. Let
+                                       ( 𝑛                                 )
+                                        ∑︁
+                                                 𝑖−1
+                                 𝑆 :=        𝑀 𝑠𝑖 : ∀𝑖, 0 ≤ 𝑠𝑖 < 𝑀/2 .
+                                             𝑖=1
+
+     If 𝑡 ∈ −𝑥(𝑑) + 𝑆, then 𝐴3 (𝑡) contains a progression of length 𝑘/2 and difference (𝑑1 , . . . , 𝑑 𝑛 ). That is,
+                                                                                        Í𝑛
+{(𝑠1 , . . . 𝑠 𝑛 ) + 𝜆(𝑑1 , . . . , 𝑑 𝑛 ) : 𝜆 ∈ {0, 1, . . . , 𝑘 − 1}}, where 𝑥(𝑑) + 𝑡 = 𝑖=1 𝑀 𝑖−1 𝑠𝑖 .
+     Notice that −𝑥(𝑑) + 𝑆 ⊂ {−10𝑘 𝑁, . . . , 20𝑘 𝑁 − 1}, because 0 ≤ 𝑥(𝑑) ≤ 10𝑘 𝑁 and 𝑆 ⊂ {0, 1, . . . , 𝑀 𝑛 }.
+It follows that
+                                                                    1           1    𝑁
+                                      Pr(𝑡 ∈ −𝑥(𝑑) + 𝑆) =               |𝑆| ≤      ( ) 𝑛  𝑘,𝑛 1.
+                                                                  30𝑘 𝑁       30𝑘 𝑁 2
+Summing over the (𝑀/2𝑘) 𝑛  𝑘,𝑛 𝑁 choices of 𝑑, the expected number of 𝑑 for which 𝑡 ∈ −𝑥(𝑑) + 𝑆
+is  𝑘,𝑛 𝑁. Fix some choice of t such that 𝑡 ∈ −𝑥(𝑑) + 𝑆 for  𝑘,𝑛 𝑁  𝑘,𝑛 𝑀 𝑛 values of 𝑑, and write
+𝐴3 := 𝐴3 (𝑡). Then, by construction, | 𝐴3 | ≤ | 𝐴2 | ≤ | 𝐴1 |, where 𝐴3 contains a progression of length ≥ 𝑘/2
+and common difference 𝑑 for all 𝑑 in some set 𝐷 ⊂ {0, . . . 𝑀 − 1} 𝑛 with cardinality  𝑘,𝑛 𝑀 𝑛 . Hence,
+  0
+𝐹𝑛,𝑘/2   (𝑁) ≤ 𝐹𝑘 (𝑁), which concludes the proof.
+
+
+References
+
+ [1] A.S. Besicovitch and R. Roda. A plane set of measure zero containing circumferences of every radius.
+     Journal of the London Mathematical Society, s1–43, 1968.
+
+ [2] J. Bourgain. Averages in the plane over convex curves and maximal operators. Journal d’Analyse
+     Mathématique, 47, 1986.
+
+ [3] J. Bourgain. On the dimension of Kakeya sets and related maximal inequalities. Geometric and
+     Functional Analysis GAFA, 9, 1999.
+
+ [4] A. Chang, M. Csörnyei, K. Héra, and T. Keleti. Small unions of affine subspaces and skeletons via
+     Baire category. Advances in Mathematics, 328, 2018.
+
+ [5] Z. Dvir. On the size of kakeya sets in finite fields. Journal of the American Mathematical Society, 22,
+     2008.
+
+ [6] K. Falconer. Fractal Geometry. Wiley-Blackwell, 2003.
+
+ [7] B. Green and I. Ruzsa. On the arithmetic Kakeya conjecture of Katz and Tao. Periodica Mathematica
+     Hungarica, 78, 2019.
+
+ [8] N.H. Katz and T. Tao. Bounds on arithmetic progressions, and applications to the Kakeya conjecture.
+     arXiv:math/9906097 [math.CO], 1999.
+
+                                                          29
+ [9] T. Keleti. Small union with large set of centers. In Recent Developments in Fractals and Related Fields,
+     Trends in Mathematics, 2017.
+
+[10] T. Keleti, D. Nagy, and P. Shmerkin. Squares and their centers. Journal d’Analyse Mathématique, 134,
+     2018.
+
+[11] J.R. Kinney. A thin set of circles. The American Mathematical Monthly, 75, 1968.
+
+[12] J.M. Marstrand. Packing circles in the plane. Proceedings of the London Mathematical Society, s3 –
+     55, 1987.
+
+[13] T. Mitsis. On a problem related to sphere and circle packing. Journal of the London Mathematical
+     Society, 60, 1999.
+
+[14] J. Neukirch. Algebraic Number Theory. Springer, 1999.
+
+[15] P. Shmerkin. Patterns in random fractals. Americal Journal of Mathematics, 142, 2017.
+
+[16] E.M. Stein. Maximal functions: spherical means. Proceedings of the National Academy of Sciences of
+     the U.S.A., 63, 1976.
+
+[17] Talagrand. Sur la mesure de la projection d’un compact et certains familles de cercles. Bull Sci. Math.
+     (2), 104, 1980.
+
+[18] T. Tao. From rotating needles to stability of waves: emerging connections between combinatorics,
+     analysis, and PDE. Notices of the American Mathematical Society, 48, 2000.
+
+[19] R. Thornton. Cubes and their centers. Acta Mathematica Hungarica, 152, 2017.
+
+[20] T. Wolff. A Kakeya-type problem for circles. American Journal of Mathematics, 119, 1997.
+
+[21] T. Wolff. Local smoothing type estimates on 𝐿 𝑝 for large 𝑝. Geometric and Functional Analysis GAFA,
+     10, 2000.
+
+
+
+
+                                                     30
+

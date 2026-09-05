@@ -1,0 +1,14 @@
+### FINDING: --tlimit run aborts instead of returning, when total/4096 is large
+config: scan --d 2x2x2x2x2 --pool 3 --max-t 0 --target 1/8 --tlimit 2
+        total = 4^31 = 4611686018427387904 ; chunk_size = 4096 ; nchunks = 1125899906842624
+        every item is rejected by the 'm > int(target*n)' filter, so per-item cost is trivial
+
+-- Python (scan1.py, KAKEYA_PURE_PY=1):
+RESULT {"tag": "B", "d": [2, 2, 2, 2, 2], "pool": 3, "max_t": 0, "target": "1/8", "scanned": 8530, "total": 4611686018427387904, "best": null, "hits": 0, "complete": false, "seconds": 2.0}
+python exit=0
+
+-- Rust:
+memory allocation of 81064793292668928 bytes failed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+/bin/bash: line 47: 88740 Abort trap: 6           $B scan --tag B --d 2x2x2x2x2 --pool 3 --max-t 0 --target 1/8 --tlimit 2 --threads 1
+rust exit=134

@@ -1,0 +1,4 @@
+POOL4: best score over all interfaces = None (None)
+Traceback (most recent call last):
+  File "<stdin>", line 8, in <module>
+TypeError: 'NoneType' object is not subscriptable

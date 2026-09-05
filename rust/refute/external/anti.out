@@ -1,0 +1,97 @@
+  » order                          
+  ⇢ route           antigravity-cli — kind=code; ranked 1 ready; chose antigravity-cli (cost_class 1)
+  → invoke          antigravity-cli 
+  ▣ deposit         antigravity-cli (4864 chars, 77.8s, sha b84a599693)
+
+────────────────────────────────────────────────────────────────────────
+Here is the exhaustive list of inputs where the Python and Rust implementations produce different results or exceptions, ranked from most likely to occur in real-world / Pythonic usage to theoretical edge cases.
+
+---
+
+### 1. Multi-Round Generator / Iterator `rows` in `force`
+* **Arguments:** `rows = iter([[1, 2147483646, 0, 0], [0, 0, 1, 2147483646]])`, `n = 2`, `T0 = []`, `p = 2147483647`
+* **Python returns:** `(False, {0})`
+* **Rust returns:** `(True, {0, 1})`
+* **Mechanism:** Python iterates directly over `rows` on each `while len(T) < n` round, exhausting the iterator during round 1 and leaving it empty for round 2, whereas Rust extracts all rows into an internal `Vec` once at the PyO3 boundary.
+
+---
+
+### 2. Truthy Empty Generator / Iterator `rows` in `rank`
+* **Arguments:** `rows = iter([])`, `p = 2147483647`
+* **Python raises:** `IndexError: list index out of range`
+* **Rust returns:** `0`
+* **Mechanism:** Python evaluates `if not rows:` to `False` on generator/iterator objects because they are truthy, then builds `B = []` and crashes indexing `B[0]`, whereas Rust extracts 0 rows and returns `0`.
+
+---
+
+### 3. Large Integers Outside `i64` in `rows` (`rank` / `force`)
+* **Arguments (`rank`):** `rows = [[1 << 64]]`, `p = 2147483647`
+* **Python returns:** `1`
+* **Rust raises:** `OverflowError: Python int too large to convert to i64`
+* **Mechanism:** Python natively handles arbitrary-precision integers during modulo arithmetic, whereas PyO3's `extract_i64` rejects integers outside the signed 64-bit range during argument extraction.
+
+---
+
+### 4. Large Integers Outside `i64` in `T0` (`force`)
+* **Arguments:** `rows = []`, `n = 1`, `T0 = [1 << 64]`, `p = 2147483647`
+* **Python returns:** `(True, {18446744073709551616})`
+* **Rust raises:** `OverflowError: Python int too large to convert to i64`
+* **Mechanism:** Python accepts arbitrary-precision integers into `set(T0)` and terminates immediately because `len(T) >= n`, whereas Rust fails during `T0` extraction at the PyO3 boundary.
+
+---
+
+### 5. Modulus $p \ge 2^{32}$ (`rank` / `force`)
+* **Arguments (`rank`):** `rows = [[1]]`, `p = 1 << 32`
+* **Python returns:** `1`
+* **Rust raises:** `ValueError: p must be < 2^32 (got 4294967296)`
+* **Mechanism:** Python supports arbitrary-size moduli, whereas Rust's `validate_p` explicitly bounds $p < 2^{32}$ to prevent internal `u64` arithmetic overflows.
+
+---
+
+### 6. Modulus $p \ge 2^{32}$ on Zero Rows (`force`)
+* **Arguments:** `rows = [[0, 0]]`, `n = 1`, `T0 = []`, `p = 1 << 32`
+* **Python returns:** `(False, set())`
+* **Rust raises:** `ValueError: p must be < 2^32 (got 4294967296)`
+* **Mechanism:** Python evaluates `0 % (1 << 32)` and fails membership cleanly without error, whereas Rust rejects the modulus in `validate_p` when the first column read occurs.
+
+---
+
+### 7. Non-Integer / String / Object Labels in `T0` (`force`)
+* **Arguments:** `rows = []`, `n = 1`, `T0 = ["label"]`, `p = 2147483647`
+* **Python returns:** `(True, {'label'})`
+* **Rust raises:** `TypeError: 'str' object cannot be interpreted as an integer`
+* **Mechanism:** Python accepts arbitrary hashable types in `T0` and exits without error when `len(T) >= n`, whereas Rust requires all elements of `T0` to be integers coercible to `i64`.
+
+---
+
+### 8. Falsy Float Values in `rows` (`rank` / `force`)
+* **Arguments (`rank`):** `rows = [[0.0]]`, `p = 2147483647`
+* **Python returns:** `0`
+* **Rust raises:** `TypeError: must be integer, not float`
+* **Mechanism:** Python allows `0.0 % p == 0.0`, treats it as falsy (no pivot), and finishes with rank 0, whereas Rust's row extraction strictly requires integer types.
+
+---
+
+### 9. Negative Modulus $p < 0$ on All-Zero Rows (`rank`)
+* **Arguments:** `rows = [[0]]`, `p = -3`
+* **Python returns:** `0`
+* **Rust raises:** `ValueError: p must be positive (got -3); the Python reference only works for p < 0 by accident`
+* **Mechanism:** Python evaluates `0 % -3 == 0` and terminates without attempting modular inversion, whereas Rust's `validate_p` explicitly rejects $p < 0$.
+
+---
+
+### 10. Negative Modulus $p < 0$ on All-Zero Rows (`force`)
+* **Arguments:** `rows = [[0, 0]]`, `n = 1`, `T0 = []`, `p = -3`
+* **Python returns:** `(False, set())`
+* **Rust raises:** `ValueError: p must be positive (got -3); the Python reference only works for p < 0 by accident`
+* **Mechanism:** Python reduces zero entries, skips pivot inversion, and constructs vector `[1, -4]` which fails membership cleanly, whereas Rust rejects negative $p$ in `validate_p`.
+
+---
+
+### 11. Dimension $n > 2^{20}$ (`force`)
+* **Arguments:** `rows = []`, `n = 1048577`, `T0 = range(1048577)`, `p = 2147483647`
+* **Python returns:** `(True, set(range(1048577)))`
+* **Rust raises:** `ValueError: n too large: 1048577 (max 1048576)`
+* **Mechanism:** Rust enforces a static upper bound `MAX_N = 1 << 20` on `n`, whereas Python has no such constraint.
+────────────────────────────────────────────────────────────────────────
+  1 deposit(s) · 0 molt(s) · 78.2s · verify: ✔ · head d8d8b56b2f37

@@ -1,0 +1,2 @@
+POOL4: best score over all interfaces = None (None)
+stacked: no witness found (the Python driver raises TypeError here)

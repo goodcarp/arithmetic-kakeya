@@ -1,0 +1,291 @@
+                                    FrontierMath Open Problems
+                                                        Epoch AI
+
+
+
+
+New bounds for arithmetic Kakeya
+A Kakeya set in Rd is a bounded set which contains a unit line segment in every direction. While such sets can have
+measure zero, the Kakeya conjecture posits that they always have the maximal possible (Minkowski and Hausdor!)
+dimension d. This conjecture was proved for d = 2 by Davies [2] and in a recent breakthrough for d = 3 by Wang
+and Zahl [10], but remains open for d → 4.
+    The arithmetic Kakeya conjecture was implicitly formulated by Katz and Tao [7], as a statement strong enough to
+imply (a form of) the Kakeya conjecture, but which can be formulated as a purely additive combinatorics statement,
+rather than harmonic analysis. The meta-theory of the arithmetic Kakeya conjecture was developed by Green and
+Ruzsa [4], who gave a number of equivalent formulations.
+    One way to state the arithmetic Kakeya problem is the following: we say that AK(ω) holds if for any ε > 0 there
+exists a constant Cω > 0 and a finite set X ↑ Z2 such that r1 + r2 ↓= 0 for all x ↔ X, and for all finite G ↑ Z2 ,
+
+                                            |(1, ↗1) · G| ↘ Cω max|x · G|ε+ω ,
+                                                                 x→X
+
+where
+                                          x · G = {x1 g1 + x2 g2 : (g1 , g2 ) ↔ G}.
+Note that we are not interested in the size or nature of X itself – for the applications to the Kakeya conjecture itself,
+all that matters is the exponent ω.
+    It is trivial that AK(2) holds (for example by taking X to be any two linearly independent vectors in Z2 , as
+then (1, ↗1) can be expressed as a linear combination of these two). The arithmetic Kakeya conjecture itself is the
+following.
+Conjecture 1 (Arithmetic Kakeya conjecture). AK(1) holds.
+    The first non-trivial bound was obtained by Bourgain [1], who proved AK( 25    13 ). Katz and Tao improved this, first
+in [6] to AK( 74 ), and then later [7] to AK(ϑ) where ϑ = 1.6751308 · · · is the largest root of x3 ↗ 4x + 2 = 0.
+    The relation to the Kakeya problem is the following.
+Theorem 1. If AK(ω) holds then, for all d → 2, if E ≃ Rd is a Kakeya set (a bounded set containing a unit line
+segment in every direction) then the Hausdor! dimension of E is at least
+
+                                                     ω↑1 d + 1 ↗ ω↑1 .
+
+    This was implicitly established by Bourgain [1] using the ‘method of slices’, although Bourgain only established
+this for the Minkowski dimension. The stronger statement that this same bound holds for the Hausdor! dimension
+is a consequence of combining Bourgain’s argument with recent progress on Szemerédi’s theorem by Leng, Sah, and
+Sawhney [9].
+    The arguments of Katz and Tao [6] are very concrete, and proceed by finding explicit small graphs with certain
+properties. The goal of this problem is to find other explicit small graphs which lead, via the same argument, to
+better bounds.
+    Most optimistically, one could hope for finding a construction that establishes AK(ω) for some ω < 1.67 · · · . This
+would immediately, via the above, improve the known lower bounds for the Kakeya conjecture in all su”ciently high
+dimensions.
+    Any new constructions would be of interest, however, as the argument of Katz and Tao [6] that produces the
+current limit of ω = 1.6751308 · · · requires an extremely large set of dilates X (that increases without bound as
+
+
+                                                             1
+ω approaches this value). If an exponent close to this could be found with a much simpler set then this would be
+interesting.
+    Katz [5] has shown that AK(3/2) is the limit of this kind of elementary argument, and hence establishing the full
+arithmetic Kakeya conjecture would be out of reach of this strategy.
+
+The problem proposal
+We will first explicitly define the kind of structure that is required, and how to ‘score’ such a structure (i.e. what
+value of ω a structure would prove AK(ω) for). We will then give, in this language, two examples of Katz and Tao.
+In the following subsection we sketch briefly how the proof goes, using the argument of Katz and Tao [6]. In this
+subsection we have presented things to be clear for the human reader; an equivalent, but more opaque, version which
+is more suitable for Python verification is given in Appendix ??.
+    We first define a collection of constructible configurations iteratively.
+Definition 1. Let X ↑ Z2 . An X-constructible graph is a (simple undirected) finite graph, in which each edge is
+labelled with some v ↔ X, defined in the following iterative fashion.
+  1. A single vertex is constructible.
+  2. If H is constructible then, for any integer k → 1, if X1 , . . . , Xk are sets of vertices of H, then the following
+     graph is constructible: take k + 1 disjoint copies of H and then, for each 1 ↘ i ↘ k and x ↔ Xi , either identify
+     the vertices corresponding to x in both Hi↑1 and Hi , or put an edge between them labelled with some v ↔ X.
+
+                                                                            g11            g21
+                                                                                  (1, 0)
+                                                                       (0, 1)                (0, 1)
+
+                      g                   g1            g2                  g12            g22
+                                               (1, 0)                             (1, 0)
+                                                                       (1, 1)                (0, 1)
+
+                                                                            g23            g13
+                                                                                  (1, 0)
+
+Figure 1: An example sequence of {(0, 1), (1, 0), (1, 1)}-constructible graphs. The red colouring indicates the con-
+structible components at each stage.
+
+Given a finite set V , for any g ↔ V and x ↔ Z2 we write xg for the 2 ⇐ |V | matrix which is zero everywhere except
+in the column corresponding to g, in which it is the column vector x.
+Definition 2. Let G be a finite graph with vertex set V , such that each edge is labelled with some x ↔ Z2 . An
+X-forcing pair for G is a pair of sets (R, T ) with T ≃ V and R a finite collection of 2 ⇐ |V | integer matrices, with
+columns indexed by g ↔ V , such that
+                                            R ≃ {xg : x ↔ X and g ↔ V },
+and such that a finite sequence of the following operations on (R, T ) eventually produces T = V :
+  1. If g1 ⇒ g2 is an edge of G labelled v then add vg1 ↗ vg2 to R.
+  2. If (1, ↗1)g ↔ R then add g to T .
+  3. Any Z-linear combination of matrices in R can be added to R.
+   Informally speaking, the idea is that knowledge of x·g for xg ↔ R, together with knowledge of all h ↔ T , is enough,
+when combined with the identifications encoded in the edges of G and the injectivity of the map g ⇑⇓ (1, ↗1) · g, to
+know the values of all vertices of G.
+
+
+                                                             2
+Definition 3. Let X ↑ Z2 \⇔(1, ↗1)↖ be a finite set. A constructible proof of
+                                                                    m+r
+                                                       ω(X) ↘
+                                                                    n↗t
+is an X-constructible graph G with vertex set V , with n vertices and m edges, for which there is a forcing pair (R, T )
+with |R| = r and |T | = t, where T ≃ V and
+
+                                              R ≃ {xg : x ↔ X and g ↔ V }.
+
+   In the following subsection we sketch how, as the terminology suggests, a constructible proof of ω(X) ↘ ω implies
+the arithmetic Kakeya statement AK(ω).
+Goal 1 (New bounds for the arithmetic Kakeya conjecture). Find a finite X ↑ Z2 \⇔(1, ↗1)↖ together with a con-
+structible proof of
+                                           ω(X) < 1.67513 · · · ,
+where the right-hand side is more precisely the largest root of x3 ↗ 4x + 2 = 0. More ambitiously, can this be done
+for some ω close to 3/2?
+   We reiterate that finding any X for which ω(X) < 1.67513 · · · would already improve the current best bound
+known for the arithmetic Kakeya conjecture, and hence also improve the known lower bounds for the Kakeya
+conjecture in high dimensions.
+   A simple case of particular interest is when X = {(1, 0), (0, 1), (1, 1)} (although this has no direct applications, that
+we are aware of, to other problems such as Kakeya). This special case is sometimes referred as the Sums-Di!erences
+conjecture. The current best-known upper bound of
+
+                                              ω({(1, 0), (0, 1), (1, 1)}) ↘ 11/6
+
+is due to Katz and Tao [6].
+
+Goal 2 (New bounds for the Sums-Di!erences conjecture). Find a constructible proof of
+
+                                             ω({(1, 0), (0, 1), (1, 1)}) < 11/6.
+
+   The current best-known lower bound for such an ω is ω → 1.77898, proved by Lemm [8] (with very slight further
+improvements found by AlphaEvolve [3]).
+   We will now give, in this language, two examples of constructible proofs, both adapted from Katz and Tao [6].
+The first is a constructible proof of
+                                         ω({(1, 0), (0, 1), (1, 1)}) ↘ 11/6.
+The second achieves an improved upper bound of ↘ 7/4, but at the cost of adding a new dilate (1, 2) to X.
+
+The first Katz-Tao configuration
+The configuration is depicted in Figure 2, which has n = 6 vertices and m = 7 edges. It has already been demonstrated
+in Figure 1 that this configuration is constructible. We claim that
+
+                                         R = {(1, 0)g1 , (1, 1)g3 , (1, 1)g4 , (0, 1)g6 }
+
+and T = ↙ is a forcing pair, whence we achieve a score of
+                                                          7+4   11
+                                                              =
+                                                          6↗0    6
+as claimed. To verify that this data fixes the configuration we first argue that, using the identifications built into the
+
+
+
+
+                                                                3
+                                                           (1, 0)
+                                                     g4              g3
+
+                                                (0, 1)                 (0, 1)
+
+                                                     g1              g2
+                                                           (1, 0)
+                                                (1, 1)                 (0, 1)
+
+                                                     g6              g5
+                                                           (1, 0)
+
+                               Figure 2: An achievable configuration with score 11/6.
+
+
+configuration of Figure 2, the four elements of R fix the value of (1, ↗1)g5 . This follows from the following:
+
+                      (1, ↗1)g5 = (1, 0)g5 ↗ (0, 1)g5
+                                = (1, 0)g6 ↗ (0, 1)g5
+                                = (1, 1)g6 ↗ (0, 1)g6 ↗ (0, 1)g5
+                                = (1, 1)g1 ↗ (0, 1)g6 ↗ (0, 1)g5
+                                = (0, 1)g1 ↗ (0, 1)g6 + (0, 1)g1 ↗ (0, 1)g5
+                                = (1, 0)g1 ↗ (0, 1)g6 + (0, 1)g4 ↗ (0, 1)g3
+                                = (1, 0)g1 ↗ (0, 1)g6 + ((0, 1)g4 + (1, 0)g3 ) ↗ ((1, 0)g3 + (0, 1)g3 )
+                                = (1, 0)g1 ↗ (0, 1)g6 + (1, 1)g4 ↗ (1, 1)g3 .
+
+By definition of a forcing pair we may now add g5 to the ‘known’ values in T . We now observe that if we know xg
+and yg for any two linearly independent x and y then we may deduce the value of (1, ↗1)g and hence add g itself
+to T . Proceeding in this fashion we can move all the remaining vertices of gi into T : since we know g5 we know
+(0, 1)g3 = (0, 1)g2 = (0, 1)g5 , and (1, 1)g3 is known as an element of R, whence g3 is known. Arguing similarly we
+can find the values of g4 , then g1 , then g2 , and finally g6 .
+
+The second Katz-Tao configuration
+We now give the second argument of Katz and Tao, that establishes
+
+                                           {(1, 0), (0, 1), (1, 2), (1, 1)} ⇓ 7/4.
+
+The required configuration is depicted in Figure 3. This can easily be checked as constructible as in the previous
+
+                                                           (1, 0)
+                                                     g4              g3
+
+                                                (1, 2)                 (0, 1)
+
+                                                     g1              g2
+                                                           (1, 0)
+
+                                Figure 3: An achievable configuration with score 7/4.
+
+case. THis has n = 4 vertices and m = 4 edges. We claim that
+
+                                            R = {(1, 1)g1 , (1, 1)g2 , (0, 1)g4 }
+
+
+                                                             4
+and T = ↙ is a forcing pair, whence we achieve a score of
+                                                            4+3   7
+                                                                =
+                                                            4↗0   4
+as claimed.
+    To verify that this data fixes the configuration we first argue that, similar to the above, that using the identi-
+fications built into the configuration of Figure 3, the three elements of R fix the value of (1, ↗1)g3 . This follows
+from:
+                                    (1, ↗1)g3 = (1, 0)g3 ↗ (0, 1)g3
+                                               = (1, 0)g4 ↗ (0, 1)g3
+                                               = (1, 2)g4 ↗ (0, 2)g4 ↗ (0, 1)g3
+                                               = (1, 2)g1 ↗ (0, 2)g4 ↗ (0, 1)g2
+                                               = (2, 2)g1 ↗ (0, 2)g4 ↗ (1, 0)g1 ↗ (0, 1)g2
+                                               = (2, 2)g1 ↗ (0, 2)g4 ↗ (1, 0)g2 ↗ (0, 1)g2
+                                               = (2, 2)g1 ↗ (1, 1)g2 ↗ (0, 2)g4 .
+As before, this determines g3 , and by taking two known values of xg for linearly independent x we can then determine
+first g4 , then g1 , and finally g2 .
+
+The link to arithmetic Kakeya
+In this subsection we sketch how a ‘constructible proof’ as defined in the previous subsection actually implies a bound
+for the arithmetic Kakeya problem. We fix a finite set G ↑ Z2 such that |x · G| ↘ N for all x ↔ X. We seek an
+upper bound on |(1, ↗1) · G|. Without loss of generality we can assume that g ⇑⇓ (1, ↗1) · g is injective, whence it
+su”ces to simply give an upper bound on |G| itself.
+    An X-constructible graph H is to be interpreted as a subset H ≃ G such that if there is an edge between h1 and
+h2 labelled x then we have x · h1 = x · h2 .
+    The goal is to find lower and upper bounds for the number of such H that appear as subsets of G, and then
+comparing these give the required upper bound on |G|. For the lower bound, we use the following lemma (which
+appears as [6, Lemma 2.1]).
+Lemma 1. If X, Y1 , . . . , Yk are finite sets and fi : X ⇓ Yi for 1 ↘ i ↘ k, with |Yi | ↘ Mi for 1 ↘ i ↘ k, then
+                        !                                                                 !          k+1
+                        !(x0 , . . . , xk ) ↔ X k+1 : fi (xi↑1 ) = fi (xi ) for 1 ↘ i ↘ k}! →    |X|
+                                                                                                            .
+                                                                                                M1 · · · Mk
+   By the iterative nature of a constructible graph, one can use this lemma to give a lower bound of
+                                                        n
+                                                    |G|
+                                                        ↘ # copies of H
+                                                    Nm
+for the number of copies of H that can be found in G, where n is the number of vertices of H and m is the number
+of edges.
+    On the other hand, if (R, T ) is a forcing pair then fixing the values of all elements of R (which costs at most N |R| )
+                                                              |T |
+and fixing the values of all vertices in T (which costs |G| ) determines everything about the copy of H, whence
+                                                                              |T |
+                                                # copies of H ↘ N |R| |G|            .
+   Comparing these upper bound and lower bounds gives
+                                                                      m+|R|
+                                                         |G| ↘ N n→|T | ,
+and hence this proves AK(ω) with
+                                                                 m + |R|
+                                                            ω=
+                                                                 n ↗ |T |
+as claimed.
+
+                                                                  5
+References
+ [1]   Jean Bourgain. “On the dimension of Kakeya sets and related maximal inequalities”. In: Geom. Funct. Anal.
+       9.2 (1999), pp. 256–282.
+ [2]   Roy O. Davies. “Some remarks on the Kakeya problem”. In: Proc. Cambridge Philos. Soc. 69 (1971), pp. 417–
+       421.
+ [3]   Bogdan Georgiev et al. Mathematical exploration and discovery at scale. 2025. arXiv: 2511.02864.
+ [4]   Ben Green and Imre Z. Ruzsa. “On the arithmetic Kakeya conjecture of Katz and Tao”. In: Period. Math.
+       Hungar. 78.2 (2019), pp. 135–151.
+ [5]   Nets Hawk Katz. “Elementary proofs and the sums di!erences problem”. In: Collectanea Mathematica 57.Extra
+       (2006), pp. 275–280.
+ [6]   Nets Hawk Katz and Terence Tao. “Bounds on arithmetic projections, and applications to the Kakeya conjec-
+       ture”. In: Math. Res. Lett. 6.5–6 (1999), pp. 625–630.
+ [7]   Nets Hawk Katz and Terence Tao. “New bounds for Kakeya problems”. In: J. Anal. Math. 87 (2002), pp. 231–
+       263.
+ [8]   Marius Lemm. “New counterexamples for sums-di!erences”. In: Proc. Amer. Math. Soc. 143.9 (2015), pp. 3863–
+       3868.
+ [9]   James Leng, Ashwin Sah, and Mehtaab Sawhney. Improved bounds for Szemerédi’s theorem. 2024. arXiv:
+       2402.17995.
+[10]   Hong Wang and Joshua Zahl. Volume estimates for unions of convex sets, and the Kakeya set conjecture in
+       three dimensions. 2025. arXiv: 2502.17655.
+
+
+
+
+                                                         6
+

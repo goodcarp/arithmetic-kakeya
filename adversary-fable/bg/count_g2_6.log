@@ -1,0 +1,21 @@
+  g2_tall 2x6: 50000 tuples, 633325 pairs so far, 27s
+  g2_tall 2x6: 100000 tuples, 1237394 pairs so far, 60s
+  g2_tall 2x6: 150000 tuples, 1874080 pairs so far, 170s
+  g2_tall 2x6: 200000 tuples, 2517044 pairs so far, 308s
+  g2_tall 2x6: 250000 tuples, 3159951 pairs so far, 450s
+  g2_tall 2x6: 300000 tuples, 3763317 pairs so far, 602s
+  g2_tall 2x6: 350000 tuples, 4335071 pairs so far, 754s
+  g2_tall 2x6: 400000 tuples, 4907044 pairs so far, 938s
+  g2_tall 2x6: 450000 tuples, 5531572 pairs so far, 1021s
+  g2_tall 2x6: 500000 tuples, 6156551 pairs so far, 1105s
+  g2_tall 2x6: 550000 tuples, 6792439 pairs so far, 1168s
+  g2_tall 2x6: 600000 tuples, 7437246 pairs so far, 1229s
+  g2_tall 2x6: 650000 tuples, 8069585 pairs so far, 1291s
+  g2_tall 2x6: 700000 tuples, 8711740 pairs so far, 1353s
+  g2_tall 2x6: 750000 tuples, 9353900 pairs so far, 1413s
+  g2_tall 2x6: 800000 tuples, 9998868 pairs so far, 1471s
+  g2_tall 2x6: 850000 tuples, 10643797 pairs so far, 1530s
+  g2_tall 2x6: 900000 tuples, 11273722 pairs so far, 1591s
+  g2_tall 2x6: 950000 tuples, 11915877 pairs so far, 1651s
+  g2_tall 2x6: 1000000 tuples, 12560803 pairs so far, 1711s
+g2_tall 2x6: label_tuples=1048576 pairs_into_min_generators=13183980 free_budget_hist(t,budget-mandatory)=[((0, 0), 36464), ((0, 1), 78965), ((0, 2), 143194), ((0, 3), 210629), ((0, 4), 240212), ((0, 5), 195428), ((0, 6), 96560), ((0, 7), 23904), ((0, 8), 2176), ((0, 9), 64), ((1, 0), 714960), ((1, 1), 1449564), ((1, 2), 2364288), ((1, 3), 2974364), ((1, 4), 2669944), ((1, 5), 1483584), ((1, 6), 440160), ((1, 7), 57216), ((1, 8), 2304)] 1770s

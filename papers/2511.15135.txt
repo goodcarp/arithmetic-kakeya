@@ -1,0 +1,879 @@
+                                              SUM-DIFFERENCE EXPONENTS FOR BOUNDEDLY MANY SLOPES, AND
+                                                                RATIONAL COMPLEXITY
+
+                                                                                             TERENCE TAO
+
+
+
+                                                    A BSTRACT. The dimension of Kakeya sets can be bounded using sum-difference exponents
+
+
+
+
+arXiv:2511.15135v1 [math.CO] 19 Nov 2025
+                                                    SD(𝑅; 𝑠) for various sets of rational slopes 𝑅 and output slope 𝑠; the arithmetic Kakeya conjec-
+                                                    ture, which implies the Kakeya conjecture in all dimensions, asserts that the infimum of such
+                                                    exponents is 1. The best upper bound on this infimum currently is 1.67513 … . In this note,
+                                                    inspired by numerical explorations from the tool AlphaEvolve, we study the regime where the
+                                                    cardinality of the set of slopes 𝑅 is bounded. In this regime, we establish that these exponents
+                                                    converge to 2 at a rate controlled by the rational complexity of 𝑠 relative to 𝑅, which measures
+                                                    how efficiently 𝑠 can be expressed as a rational combination of slopes in 𝑅.
+
+
+
+
+                                                                                          1. INTRODUCTION
+
+                                           1.1. The arithmetic Kakeya conjecture. Define a slope to be an element 𝑟 of the projective
+                                           rational1 line ℚ ∪ {∞}. We then define the projection operators 𝜋𝑟 ∶ ℚ × ℚ → ℚ by setting
+                                                                                           𝜋𝑟 (𝑥, 𝑦) ∶= 𝑥 + 𝑟𝑦
+                                           for 𝑟 ≠ {∞}, and
+                                                                                  𝜋∞ (𝑥, 𝑦) ∶= 𝑦.
+                                           Given a finite set 𝑅 of slopes and a further slope 𝑠 not in 𝑅, we define the sum-difference
+                                           constant SD(𝑅; 𝑠) to be the least exponent such that the bound
+                                                                           ℍ[𝜋𝑠 (𝑋, 𝑌 )] ≤ SD(𝑅; 𝑠) max ℍ[𝜋𝑟 (𝑋, 𝑌 )]                                       (1.1)
+                                                                                                            𝑟∈𝑅
+
+                                           holds for ℚ-valued random variables2 𝑋, 𝑌 (not necessarily independent), where
+                                                                                    ∑
+                                                                          ℍ[𝑋] ∶=       𝐡(ℙ(𝑋 = 𝑥))
+                                                                                                    𝑥
+
+                                           is the Shannon entropy of a random variable 𝑋, with 𝐡(𝑡) ∶= 𝑡 log 1𝑡 using the convention
+                                           𝐡(0) ∶= 0. Thus for instance
+                                                               ℍ[𝑋 − 𝑌 ] ≤ SD({0, 1, ∞}; −1) max (ℍ[𝑋], ℍ[𝑋 + 𝑌 ], ℍ[𝑌 ])
+                                           whenever 𝑋, 𝑌 are (possibly dependent) ℚ-valued random variables.
+                                              2020 Mathematics Subject Classification. 11B30, 94A17.
+                                              1
+                                               One could also formulate the arithmetic Kakeya conjecture in other fields than the rationals, and in fact most
+                                           of the results here apply to arbitrary infinite fields, with minor modifications in the case where the field has
+                                           positive characteristic. But in this paper we shall restrict attention for simplicity to the rational case, which is the
+                                           case of interest for applications to the Kakeya problem.
+                                              2
+                                               In this paper, all random variables are understood to be discrete, and in fact take only finitely many values.
+                                                                                                        1
+2                                                 TERENCE TAO
+
+The quantity SD(𝑅; 𝑠) can equivalently be defined as the least exponent such that the bound
+                                      |𝜋𝑠 (𝐸)| ≤ (max |𝜋𝑠 (𝐸)|)SD(𝑅;𝑠)                                     (1.2)
+                                                     𝑟∈𝑅
+
+for all finite non-empty 𝐸 ⊂ ℚ, where |𝐴| denotes the cardinality of a finite set 𝐴; see [7].
+However, it will be convenient in this paper to work with the entropy formulation, in order to
+take advantage of the “entropic Plünnecke–Ruzsa calculus” that are founded on the Shannon
+entropy inequalities.
+
+It is easy to see that one has the projective invariance
+                                       SD(𝜙(𝑅); 𝜙(𝑠)) = SD(𝑅; 𝑠)
+for any projective transformation 𝜙 ∶ ℚ ∪ {∞} → ℚ ∪ {∞}, that is to say a map of the form
+          𝑎𝑟+𝑏
+𝜙(𝑟) ∶= 𝑐𝑟+𝑑   for some 𝑎, 𝑏, 𝑐, 𝑑 ∈ ℚ with 𝑎𝑑 − 𝑏𝑐 ≠ 0, with the usual conventions when 𝑟 is
+infinite or 𝑐𝑟 + 𝑑 vanishes. For instance, by using a dilation transformation, we have
+                               SD({0, 1, ∞}; 𝑠) = SD({0, −1∕𝑠, ∞}; −1)
+for any slope 𝑠 other than 0, 1, ∞. In the literature it is conventional to use this 3-transitive
+projective symmetry to normalize 𝑠 = −1 and 0, ∞ ∈ 𝑅 (assuming that |𝑅| ≥ 2 of course),
+though in this paper it will be more convenient to adopt the normalization 0, 1, ∞ ∈ 𝑅 (as-
+suming |𝑅| ≥ 3).
+
+It is easy to see that SD(𝑅; 𝑠) = ∞ when |𝑅| < 2. From the entropy inequality ℍ[𝑋 − 𝑌 ] ≤
+ℍ[𝑋, 𝑌 ] ≤ ℍ[𝑋] + ℍ[𝑌 ] we see that SD(𝑅; −1) ≤ 2 when 0, ∞ ∈ 𝑆, and it is easy to see
+(using the uniform distribution on a long arithmetic progression) that we have equality when
+𝑅 = {0, ∞}. By projective invariance, this implies that SD(𝑅; 𝑠) = 2 whenever |𝑅| = 2. As
+these quantities are clearly non-decreasing in 𝑅, we then have the trivial bound
+                                                  SD(𝑅; 𝑠) ≤ 2                                             (1.3)
+for |𝑅| ≥ 2.
+
+Improvements upon (1.3) directly lead to improved upper bounds on the dimension of Kakeya
+and Nikodym sets in high dimensions. Indeed, in [1] it was observed that a bound of the form
+SD(𝑅; −1) ≤ 𝛼 implies that Kakeya and Nikodym sets in dimension 𝑑 have (upper) Minkowski
+dimension3 at most 𝑑−1
+                    𝛼
+                       +1. In particular, if one can establish the arithmetic Kakeya conjecture
+
+                                             inf SD(𝑅; −1) = 1                                             (1.4)
+                                              𝑅
+
+then this would imply that Kakeya and Nikodym sets in ℝ𝑑 have full Minkowski and Hausdorff
+dimension for all 𝑑. This is currently only known for 𝑑 ≤ 3 [15]. We refer the reader to [7], [2],
+[13] for a discussion of this conjecture (and other equivalent forms of it), and its connection
+with other variants of the Kakeya conjecture.
+
+    3
+    It was recently observed by Thomas Bloom (private communication) that, by combining Bourgain’s argu-
+ments with the recent quantitative progress on Szemerédi’s theorem by Leng, Sawhney, and Sah [12], that one
+also obtains this bound for the Hausdorff dimension as well. For the corresponding results for packing dimension,
+see [2].
+                    SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                             3
+
+Nontrivial progress towards the arithmetic Kakeya conjecture was first obtained in [1], who
+in our notation showed that
+                                                    1
+                           SD({0, 1, ∞}; −1) ≤ 2 −    = 1.923 … ,
+                                                   13
+and used this to obtain new bounds on the Kakeya conjecture in high dimensions. Further
+improvements were then obtained in [9], [10]. For instance, it is known that
+                                                         1
+                      1.77898 ≤ SD({0, 1, ∞}; −1) ≤ 2 − = 1.833 …
+                                                         6
+and
+                                                           1
+                        1.668 ≤ SD({0, 1, 2, ∞}; −1) ≤ 2 − = 1.75,
+                                                           4
+with the upper bounds established in [9], and the lower bounds in [11], [3] respectively. At
+present, the best upper bound known towards (1.4) is
+                                 inf SD(𝑅; −1) ≤ 1.67513 … ;
+                                  𝑅
+see [10].
+
+1.2. Asymptotic behavior. Informally, the arithmetic Kakeya conjecture asserts that in the
+asymptotic regime where the number of slopes 𝑅 is large, the constants SD(𝑅; 𝑠) converge to
+1. Here we consider a complementary regime, in which the number of slopes 𝑅 is fixed, but
+we instead let the elements of 𝑅 (or 𝑠) vary. Our main results assert, roughly speaking, that the
+behavior of these constants is determined by the rational complexity of 𝑠 relative to 𝑅, with
+the constants approaching 2 as it becomes harder to express 𝑠 in terms of a rational expression
+of the 𝑅. We give a (slightly artificial) definition of this quantity, restricting attention to the
+normalized setting {0, 1, ∞} ⊂ 𝑅 for simplicity.
+Definition 1.1 (Rational complexity). Given a family of slopes 𝑅 = {0, 1, ∞, 𝑟1 , … , 𝑟𝑘 } con-
+taining 0, 1, ∞ and a further slope 𝑠 not in 𝑅, we define the rational complexity 𝐷 = 𝐷(𝑅; 𝑠)
+of 𝑠 relative to 𝑅 to be the least natural number 𝐷 for which one has a representation of the
+form
+                                              𝑃 (𝑟1 , … , 𝑟𝑘 )
+                                         𝑠=                                               (1.5)
+                                              𝑄(𝑟1 , … , 𝑟𝑘 )
+where 𝑃 , 𝑄 are polynomials of degree at most 𝐷 with integer coefficients of magnitude at
+most 2𝐷 , with 𝑄(𝑟1 , … , 𝑟𝑘 ) non-zero; this complexity is finite since 𝑠 is rational.
+
+Informally, if the complexity of 𝑠 with respect to 𝑅 is equal to 𝐷, then 𝑠 can be expressed
+in terms of the slopes in 𝑅 by a rational expression whose length (when expressed as string
+of characters) is comparable to 𝐷. The rational complexity is reminiscent of the arithmetic
+circuit complexity of 𝑠 in terms of 𝑅, but with the key difference that the circuit must take the
+specific rational form (1.5).
+Example 1.2. 𝐷({0, 1, ∞}; 𝑠) is the least natural number for which one can express 𝑠 as 𝑎∕𝑏
+where 𝑎, 𝑏 are integers of magnitude at most 2𝐷 . In particular, if 𝑎, 𝑏 are coprime then
+                              (            )
+                                         𝑎
+                            𝐷 {0, 1, ∞};     ≍ log(2 + |𝑎| + |𝑏|).
+                                         𝑏
+
+Our main result, proven in Section 4, is then as follows.
+4                                        TERENCE TAO
+
+
+
+
+       FIGURE 1. Lower bounds on SD({0, 1, ∞}; 𝑠) obtained by AlphaEvolve for
+       various 𝑠 = 𝑎∕𝑏, plotted against 2 − 0.16∕ log(|𝑎| + 𝑏|). The horizontal axis
+       is |𝑎| + |𝑏| (so in some cases, multiple fractions 𝑎∕𝑏 are plotted on a single
+       vertical line).
+
+Theorem 1.3. Let 𝑅 be a finite family of slopes containing 0, 1, ∞ of some cardinality 𝑘 + 3,
+and let 𝑠 be a slope not lying in 𝑅.
+
+    (i) (Three slopes) If 𝑘 = 0, then
+                                   𝑐2                      𝑐1
+                           2−          ≤ SD (𝑅; 𝑠) ≤ 2 −                                (1.6)
+                               𝐷(𝑅; 𝑠)                   𝐷(𝑅; 𝑠)
+         for some absolute constants 𝑐2 > 𝑐1 > 0.
+    (ii) (Many slopes) In general, one has
+                        𝐶𝑘 log(2 + 𝐷(𝑅; 𝑠))                     𝑐𝑘
+                   2−                       ≤ SD(𝑅; 𝑠) ≤ 2 −                            (1.7)
+                              𝐷(𝑅; 𝑠)                        𝐷(𝑅; 𝑠)𝑘+1
+        for some absolute constants 𝑐𝑘 , 𝐶𝑘 > 0.
+
+
+The logarithmic convergence in (1.6) was suggested to us by experiments in [3] using AlphaEvolve
+to obtain lower bounds for SD({0, 1, ∞}; 𝑠) for various slopes 𝑠. This data was of low accuracy,
+as AlphaEvolve could only provide lower bounds and not upper bounds for these quantities;
+nevertheless, a logarithmic decay was numerically evident (see Figure 1), and furthermore the
+approximate discrete gaussian shape of the joint distributions of the random variables 𝑋, 𝑌
+obtained by this tool (see [3, Figure 18]) suggested an approach to make the lower bound in
+(1.6) rigorous. Once this was accomplished, the author was also able to obtain the matching
+                    SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                          5
+
+upper bound in (1.6) using the entropic Plünnecke–Ruzsa calculus. A modification of these ar-
+guments, with some inefficiencies, then gives (1.7). We tentatively conjecture that the bounds
+in (1.7) can be improved to be of the form (1.6) for all 𝑘, not just 𝑘 = 0 (possibly after some
+slight adjustments to the definition of rational complexity).
+
+In the limit as 𝑎∕𝑏 converges to some real number 𝛼 and 𝑏 → ∞, we can obtain a more precise
+lower bound (also suggested by the aforementioned AlphaEvolve numerics) as follows.
+Theorem 1.4 (Continuous limit). Let 𝛼 be a real number, and let 𝑎, 𝑏 be coprime integer
+parameters with 𝑏 → ∞ and 𝑎∕𝑏 → 𝛼. Then
+                             (            )       𝑐 + 𝑜(1)
+                                        𝑎
+                          SD {0, 1, ∞};     ≥2− 𝛼                                 (1.8)
+                                        𝑏           log 𝑏
+as 𝑏 → ∞ and 𝑎∕𝑏 → 𝛼, where 0 < 𝑐𝛼 < ∞ is the infimum of all quantities
+                              ℎ2 (𝑓(𝛼) ) − max(ℎ(𝑓0 ), ℎ(𝑓∞ ), ℎ(𝑓𝛼 ))                    (1.9)
+
+where 𝑓 ∶ ℝ2 → ℝ+ ranges over smooth compactly supported functions with total mass
+∫ℝ2 𝑓 (𝑥, 𝑦) 𝑑𝑥𝑑𝑦 equal to 1, 𝑓(𝛼) ∶ ℝ × [0, 1) → ℝ+ is a “folded” version
+                                              ∑
+                               𝑓(𝛼) (𝑥, 𝑦) ∶=    𝑓 (𝑥 − 𝛼𝑗, 𝑦 + 𝑗)           (1.10)
+                                                   𝑗∈ℤ
+
+of 𝑓 , 𝑓0 , 𝑓∞ , 𝑓1 ∶ ℝ → ℝ+ are the projections
+
+                                   𝑓0 (𝑥) ∶=         𝑓 (𝑥, 𝑦) 𝑑𝑦                        (1.11)
+                                               ∫ℝ
+
+                                  𝑓∞ (𝑦) ∶=          𝑓 (𝑥, 𝑦) 𝑑𝑥                        (1.12)
+                                               ∫ℝ
+
+                                   𝑓1 (𝑧) ∶=         𝑓 (𝑥, 𝑧 − 𝑥) 𝑑𝑥,                   (1.13)
+                                               ∫ℝ
+the two-dimensional differential entropy ℎ2 (𝑓(𝛼) ) of 𝑓(𝛼) is defined as
+                                               1
+                             ℎ2 (𝑓(𝛼) ) ∶=               𝐡(𝑓(𝛼) (𝑥, 𝑦)) 𝑑𝑥𝑑𝑦,
+                                             ∫0 ∫ℝ
+and the one-dimensional differential entropies ℎ(𝑓𝑟 ) for 𝑟 = 0, 1, ∞ is defined as
+
+                                    ℎ(𝑓𝑟 ) ∶=            𝐡(𝑓𝑟 (𝑥)) 𝑑𝑥.
+                                                   ∫ℝ
+
+
+We establish this result in Section 5. We tentatively conjecture that the(upper bound)in (1.8)
+is in fact an asymptotic equality, so that the asymptotic behavior of SD {0, 1, ∞}, 𝑎𝑏 is con-
+trolled not only by the rational complexity (as represented by the log 𝑏 denominator), but also
+by the variational quantity 𝑐𝛼 appearing in the numerator. It is not clear whether this quan-
+tity 𝑐𝛼 can be computed exactly; numerically, two-dimensional gaussians are reasonably good
+candidates for 𝑓 , but in practice they do not extremize the functional (1.9) precisely.
+6                                         TERENCE TAO
+
+1.3. Notation. We use the asymptotic notation 𝑋 = 𝑂(𝑌 ), 𝑋 ≪ 𝑌 , or 𝑌 ≫ 𝑋 to denote the
+assertion that |𝑋| ≤ 𝐶𝑌 for some absolute constant 𝐶; if we need this implied constant 𝐶 to
+depend on some fixed quantities (such as the number 𝑘 of slopes), we will indicate this in the
+text.
+
+When there is no possibility of ambiguity, we omit parentheses from pairs (𝑋, 𝑌 ) of random
+variables, for instance abbreviating ℍ[(𝑋, 𝑌 )] as ℍ[𝑋, 𝑌 ]. Given a random variable 𝑌 taking
+values in some set 𝑆 and some function 𝑓 ∶ 𝑆 → ℝ, we define the expectation
+                                               ∑
+                                𝔼𝑌 =𝑦 𝑓 (𝑦) ∶=    ℙ(𝑌 = 𝑦)𝑓 (𝑦)
+                                                𝑦
+
+where 𝑦 ranges over the essential range of 𝑌 . While this expression could also be abbreviated
+as 𝔼𝑓 (𝑌 ), it will be notationally useful to distinguish between the random variable 𝑌 and the
+possible values 𝑦 that this variable could take. For instance, with this notation, the conditional
+entropy ℍ[𝑋|𝑌 ] of one random variable 𝑋 with respect to another 𝑌 can now be defined by
+the formula
+                                   ℍ[𝑋|𝑌 ] ∶= 𝔼𝑌 =𝑦 ℍ[𝑋|𝑌 = 𝑦]
+where (𝑋|𝑌 = 𝑦) is 𝑋 conditioned to the event 𝑌 = 𝑦 (again, we omit parentheses when there
+is no possibility of ambiguity). The chain rule asserts that ℍ[𝑋|𝑌 ] can also be expressed by
+the formula
+                                 ℍ[𝑋|𝑌 ] = ℍ[𝑋, 𝑌 ] − ℍ[𝑌 ].
+The mutual information 𝕀(𝑋 ∶ 𝑌 ) between two random variables is given by the formula
+        𝕀(𝑋 ∶ 𝑌 ) = ℍ[𝑋] − ℍ[𝑋|𝑌 ] = ℍ[𝑌 ] − ℍ(𝑌 |𝑋) = ℍ[𝑋] + ℍ[𝑌 ] − ℍ[𝑋, 𝑌 ].
+As is well known, 𝕀(𝑋 ∶ 𝑌 ) is non-negative, and vanishes precisely when 𝑋, 𝑌 are indepen-
+dent. Equivalently, one has the subadditivity property
+                                   ℍ[𝑋, 𝑌 ] ≤ ℍ[𝑋] + ℍ[𝑌 ]
+with equality precisely when 𝑋, 𝑌 are independent.
+
+We also define the conditional mutual information
+                       𝕀[𝑋 ∶ 𝑌 |𝑍] ∶= 𝔼𝑍=𝑧 𝕀[(𝑋|𝑍 = 𝑧) ∶ (𝑌 |𝑍 = 𝑧)].
+Clearly, 𝕀[𝑋 ∶ 𝑌 |𝑍] is non-negative, and vanishes precisely when 𝑋, 𝑌 are independent
+conditionally on 𝑍. From the chain rule we have
+                      𝕀[𝑋 ∶ 𝑌 |𝑍] = ℍ[𝑋|𝑍] − ℍ[𝑋|𝑌 , 𝑍]
+                                  = ℍ[𝑌 |𝑍] − ℍ[𝑌 |𝑋, 𝑍]                                   (1.14)
+                                  = ℍ[𝑋|𝑍] + ℍ[𝑌 |𝑍] − ℍ[𝑋, 𝑌 |𝑍].
+
+
+1.4. Acknowledgments. The author was supported by the James and Carol Collins Chair,
+the Mathematical Analysis & Application Research Fund, and by NSF grants DMS-2347850,
+and is particularly grateful to recent donors to the Research Fund. He particularly thanks his
+coauthors Bogdan Georgiev, Javier Gómez-Serrano, and Adam Zsolt Wagner for the highly
+productive and enjoyable collaboration [3], and for generously sharing the outputs of that
+collaboration for the purposes of writing the current paper.
+                   SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                           7
+
+While some of the results proven here were suggested by the outcome of AI-assisted experi-
+ments, the arguments in this paper are completely human-generated.
+
+
+                      2. A REVIEW OF ENTROPY SUM SET ESTIMATES
+
+Given two ℚ-valued random variables 𝑋, 𝑌 (not necessarily independent, or even defined on
+the same probability spaces), we define the entropic Ruzsa distance 𝑑[𝑋; 𝑌 ] between them by
+the formula
+                                                    1          1
+                        𝑑[𝑋; 𝑌 ] ∶= ℍ[𝑋 ′ − 𝑌 ′ ] − ℍ[𝑋] − ℍ[𝑌 ]
+                                                    2          2
+         ′  ′
+where 𝑋 , 𝑌 are independent copies of 𝑋, 𝑌 respectively. This distance is non-negative, sym-
+metric, and obeys the Ruzsa triangle inequality
+                               𝑑[𝑋; 𝑍] ≤ 𝑑[𝑋; 𝑌 ] + 𝑑[𝑌 ; 𝑍]                              (2.1)
+and the entropy bound
+                                |ℍ[𝑋] − ℍ[𝑌 ]| ≤ 2𝑑[𝑋; 𝑌 ];                            (2.2)
+see [4, Appendix A]. However we caution that this distance is not a true metric because
+𝑑[𝑋; 𝑋] is non-zero in general. We also observe the improved Ruzsa triangle inequality
+                        ℍ[𝑋 − 𝑍] ≤ ℍ[𝑋 − 𝑌 ] + ℍ[𝑌 − 𝑍] − ℍ[𝑌 ]                           (2.3)
+whenever 𝑋, 𝑌 , 𝑍 are ℚ-valued random variables with 𝑌 independent of 𝑋 −𝑍 (but 𝑋, 𝑍 not
+required to be independent of each other); see [6, Lemma 1.1]. We also recall the inequality
+                                   𝑑[𝑋; −𝑌 ] ≤ 3𝑑[𝑋; 𝑌 ],                                 (2.4)
+proven in [14, Theorem 1.10], as well as the Kaimanovich–Vershik–Madiman inequality
+                     ℍ[𝑋 + 𝑌 + 𝑍] ≤ ℍ[𝑋 + 𝑌 ] + ℍ[𝑋 + 𝑍] − ℍ[𝑋]                           (2.5)
+for any independent ℚ-valued random variables 𝑋, 𝑌 , 𝑍; see [4, Lemma A.1].
+
+Now we study expressions of the form ℍ[𝑋 − 𝑎𝑋 ′ ] − ℍ[𝑋] when 𝑋 ′ is an independent copy
+of 𝑋, where we see the role of rational complexity emerge.
+Proposition 2.1. Let 𝑋 be an ℚ-valued random variable, and for any 𝑎 ∈ ℚ, let 𝑔(𝑎) denote
+the quantity 𝑔(𝑎) ∶= ℍ[𝑋 − 𝑎𝑋 ′ ] − ℍ[𝑋], where 𝑋 ′ is an independent copy of 𝑋.
+
+    (i) 𝑔(0) = 0 and 𝑔(1) = 𝑑[𝑋; 𝑋].
+   (ii) For any 𝑎 ∈ ℚ, we have 𝑔(−𝑎) ≤ 3𝑔(𝑎), and if 𝑎 is non-zero, 𝑔(𝑎−1 ) = 𝑔(𝑎).
+  (iii) For any 𝑘 ≥ 1 and 𝑎1 , … , 𝑎𝑘 ∈ ℚ, we have 𝑔(𝑎1 … 𝑎𝑘 ) ≤ 𝑔(𝑎1 ) + ⋯ + 𝑔(𝑎𝑘 ) and
+        𝑔(𝑎1 + ⋯ + 𝑎𝑘 ) ≤ 𝑔(𝑎1 ) + ⋯ + 𝑔(𝑎𝑘 ) + (𝑘 − 1)𝑔(1).
+  (iv) If 𝑎 is a non-zero integer, then 𝑔(𝑎) ≤ (4 + 10⌊log2 |𝑎|⌋)𝑔(1).
+   (v) If 𝑅 is a finite set of slopes containing 0, 1, ∞ of cardinality 𝑘 + 3, then
+                               𝑔(𝑎) ≪ 𝐷(𝑅; 𝑎)𝑘+1 max 𝑔(𝑟).
+                                                   𝑟∈𝑅∖{∞}
+
+
+
+Proof. The claim (i) is clear. The first part of (ii) follows from (2.4) for non-zero 𝑎 (noting
+that the case of 𝑎 = 0 follows from (i)), and the second part follows by observing that −𝑎(𝑋 −
+8                                          TERENCE TAO
+
+𝑎−1 𝑋 ′ ) has the same distribution as 𝑋 − 𝑎𝑋 ′ . For (iii), it suffices by induction to treat the
+𝑘 = 2 case. For the first part of (iii), we observe from (2.3) that
+              ℍ[𝑋 − 𝑎1 𝑎2 𝑋 ′ ] ≤ ℍ[𝑋 − 𝑎1 𝑋 ′ ] + ℍ[𝑎1 𝑋 ′ − 𝑎1 𝑎2 𝑋 ′′ ] − ℍ[𝑎1 𝑋 ′ ]
+when 𝑋 ′ , 𝑋 ′′ are independent copies of 𝑋, which gives 𝑔(𝑎1 𝑎2 ) ≤ 𝑔(𝑎1 ) + 𝑔(𝑎2 ) after some
+changes of variable. Similarly, from (2.3) one has
+           ℍ[𝑋 − 𝑎1 𝑋 ′ − 𝑎2 𝑋 ′ ] ≤ ℍ[𝑋 − 𝑎1 𝑋 ′ − 𝑋 ′′ ] + ℍ[𝑋 ′′ − 𝑎2 𝑋 ′ ] − ℍ[𝑋 ′′ ]
+while from (2.5) one has
+                 ℍ[𝑋 − 𝑎1 𝑋 ′ − 𝑋 ′′ ] ≤ ℍ[𝑋 − 𝑎1 𝑋 ′ ] + ℍ[𝑋 − 𝑋 ′′ ] − ℍ[𝑋]
+and the second part of (ii) follows by substituting the definition of 𝑔 and 𝑑[𝑋; 𝑋].
+
+The claim (iv) follows from [5, Lemma A.3(ii)], but can also be derived from the previous
+portions of this proposition. (The constants in the bounds can be improved slightly if desired.)
+
+Now we prove (v). If we write 𝑀 ∶= max𝑟∈𝑅∖{∞} 𝑔(𝑟), then of course 𝑔(𝑟) ≤ 𝑀 for all
+𝑟 ∈ 𝑅∖{∞}, in particular 𝑔(1) ≤ 𝑀. Hence by (iii), (iv) one has 𝑔(𝑚) ≪ 𝐷(𝑅; 𝑎)𝑀 whenever
+𝑚 is a monomial in 𝑅∖{∞} of degree at most 𝐷(𝑅; 𝑎) and coefficient at most 2𝐷(𝑅;𝑎) . By (iii)
+again, we then have 𝑔(𝑝) ≪ 𝐷(𝑅; 𝑎)𝑘+1 𝑀 whenever 𝑝 is a polynomial in the elements of
+𝑅∖{∞} of degree at most 𝐷(𝑅; 𝑎) and coefficients at most 2𝐷(𝑅;𝑎) . Since 𝑎 is the ratio of two
+such polynomial expressions, the claim now follows from (ii), (iii).                         □
+
+
+We record the following form of the entropic Balog–Szemerédi–Gowers lemma.
+Lemma 2.2 (Entropic BSG). Let 𝑋, 𝑌 be ℚ-valued random variables, and let 𝑍 be a further
+random variable. Let (𝑋 ′ , 𝑌 , 𝑍) be a copy of (𝑋, 𝑌 , 𝑍) with 𝑋, 𝑋 ′ conditionally independent
+relative to (𝑌 , 𝑍). Then
+         ℍ[𝑋 − 𝑋 ′ |𝑌 , 𝑍] ≤ 2ℍ[𝑋 + 𝑌 |𝑍] + ℍ[𝑌 |𝑍] + 2ℍ[𝑋|𝑍] − 2ℍ[𝑋, 𝑌 |𝑍].
+Also,
+                𝔼(𝑋+𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑋|(𝑋 + 𝑌 , 𝑍) = (𝑐, 𝑧); 𝑌 |(𝑋 + 𝑌 , 𝑍) = (𝑐, 𝑧)]
+                   ≤ 3𝕀[𝑋 ∶ 𝑌 |𝑍] + 2ℍ[𝑋 + 𝑌 |𝑍] − ℍ[𝑋|𝑍] − ℍ[𝑌 |𝑍].
+
+
+Proof. By averaging in 𝑍, it suffices to prove these two inequalities in the unconditional case
+when 𝑍 is not present. But then this follows from (the proof of) [14, Lemma 3.3] and [4,
+Lemma A.2] respectively.                                                                     □
+
+
+                        3. A REDUCTION TO THE INDEPENDENT CASE
+
+We consider the following variant of SD(𝑅; 𝑠), in which the random variables 𝑋, 𝑌 are now
+assumed to be independent, which is easier to control by the “entropic Plünnecke–Ruzsa cal-
+culus” of the previous section than the original sum-difference constants.
+                      SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                             9
+
+Definition 3.1 (Independent sum-difference constant). Let 𝑅 be a finite set of slopes con-
+taining {0, 1, ∞}, and let 𝑠 be a further slope not in 𝑅. Then 𝑓 (𝑅; 𝑠) is defined to be the least
+constant for which the following statement holds (or +∞ if no such constant exists): whenever
+𝑋, 𝑌 are independent ℚ-valued random variables, and 𝑀 ≥ 0, 𝐾 ≥ 1 are such that
+                            𝑀 − log 𝐾 ≤ ℍ[𝜋𝑟 (𝑋, 𝑌 )] ≤ 𝑀 + log 𝐾                            (3.1)
+for all 𝑟 ∈ 𝑅, then
+                              ℍ[𝜋𝑠 (𝑋, 𝑌 )] ≤ 𝑀 + 𝑓 (𝑅; 𝑠) log 𝐾.
+
+                                        ∑
+If one sets 𝑀 ∶= ℍ[𝑋] and log 𝐾 ∶=         𝑟∈𝑅 |ℍ[𝜋𝑟 (𝑋, 𝑌 )] − ℍ[𝑋]|, we see in particular that
+                                                    ∑
+                  ℍ[𝜋𝑠 (𝑋, 𝑌 )] ≤ ℍ[𝑋] + 𝑓 (𝑅; 𝑠)         |ℍ[𝜋𝑟 (𝑋, 𝑌 )] − ℍ[𝑋]|             (3.2)
+                                                    𝑟∈𝑅
+
+whenever 𝑋, 𝑌 are independent.
+
+If we let 𝑋, 𝑌 be independent and uniform on {1, … , 𝐾} for a large integer 𝐾, then ℍ[𝜋𝑟 (𝑋, 𝑌 )] =
+log 𝐾 + 𝑂(1) for any given slope 𝑟 (with implied constants depending on 𝑟). Sending 𝐾 → ∞
+and setting 𝑀 = 0, we conclude that
+                                          𝑓 (𝑅; 𝑠) ≥ 1.                                      (3.3)
+The main result of this section is to relate 𝑓 (𝑅; 𝑠) to SD(𝑅; 𝑠) as follows.
+Theorem 3.2 (Reduction to independent case). Let 𝑅 be a finite set of slopes with 0, ∞ ∈ 𝑆,
+and let 𝑠 be a further slope not in 𝑆. Then
+                                                      𝑐
+                                    SD(𝑅; 𝑠) ≤ 2 −
+                                                   𝑓 (𝑅; 𝑠)
+for some absolute constant 𝑐 > 0.
+
+
+3.1. First step: obtaining a good configuration. We now prove the theorem. In principle
+this is “just” an application of the (entropic) Balog–Szemerédi–Gowers theorem, Lemma 2.2,
+to replace the coupled random variables 𝑋, 𝑌 by independent versions, but (similarly to [1],
+though now in the entropic framework) one has to take some care not to obtain control on var-
+ious doubling constants and projections when doing so. As such, the proof shall be somewhat
+lengthy and proceed in stages.
+
+We may assume without loss of generality that 𝑓 (𝑅; 𝑠) is finite, since the claim is trivial other-
+wise. (The finiteness of 𝑓 (𝑅; 𝑠) will be demonstrated in the next section, but we will not need
+that result for the current argument.) Suppose that SD(𝑅; 𝑠) > 2 − 𝛿 for some small 𝛿 > 0.
+We will show that
+                                          𝑓 (𝑅; 𝑠)𝛿 ≫ 1,                                      (3.4)
+which will imply the claim.
+
+Our argument shall involve the following key definitions.
+Definition 3.3 (Configurations). A configuration is a quadruple (𝑀, 𝑋, 𝑌 , 𝑍), where 𝑀 > 0,
+and 𝑋, 𝑌 , 𝑍 are random variables (not necessarily independent) with 𝑋, 𝑌 ℚ-valued.
+10                                           TERENCE TAO
+
+      (i) A configuration is good if it obeys the bounds
+                                         ℍ[𝜋𝑟 (𝑋, 𝑌 )|𝑍] ≤ 𝑀                                   (3.5)
+          for all 𝑟 ∈ 𝑅, and also
+                                    ℍ[𝜋𝑠 (𝑋, 𝑌 )|𝑍] ≥ (2 − 𝑂(𝛿))𝑀.                             (3.6)
+      (ii) A configuration (𝑀, 𝑋, 𝑌 , 𝑍) has an invertible projection if, for each 𝑧 in the essential
+           range of 𝑍, the map 𝜋𝑠 is injective on the essential range of ((𝑋, 𝑌 )|𝑍 = 𝑧).
+     (iii) A configuration (𝑀, 𝑋, 𝑌 , 𝑍) has controlled 𝑋-doubling if one has
+                                𝔼𝑍=𝑧 𝑑[𝑋|𝑍 = 𝑧; 𝑋|𝑍 = 𝑧] ≪ 𝛿𝑀.                                 (3.7)
+     (iv) A configuration (𝑀, 𝑋, 𝑌 , 𝑍) has controlled 𝑌 -doubling if one has
+                                𝔼𝑍=𝑧 𝑑[𝑌 |𝑍 = 𝑧; 𝑌 |𝑍 = 𝑧] ≪ 𝛿𝑀.                               (3.8)
+
+
+By definition of SD(𝑅; 𝑠), one can find ℚ-valued random variables 𝑋, 𝑌 and some 𝑀 > 0
+such that
+                                     ℍ[𝜋𝑟 (𝑋, 𝑌 )] ≤ 𝑀
+for all 𝑟 ∈ 𝑅, and
+                                      ℍ[𝜋𝑠 (𝑋, 𝑌 )] ≥ (2 − 𝛿)𝑀.
+Thus there exists at least one good configuration (𝑀, 𝑋, 𝑌 , 𝑍) (with 𝑍 trivial in this case).
+However, this configuration is not guaranteed to have an invertible projection or have con-
+trolled 𝑋-doubling or 𝑌 -doubling.
+
+In the next few steps of the arguments, we shall locate configurations with more of the proper-
+ties listed in Definition 3.3. For now, we record some basic properties of good configurations.
+Lemma 3.4 (Properties of good configurations). Let (𝑀, 𝑋, 𝑌 , 𝑍) be a good configuration.
+Then
+                            ℍ[𝜋𝑟 (𝑋, 𝑌 )|𝑍] = (1 + 𝑂(𝛿))𝑀                           (3.9)
+for all 𝑟 ∈ 𝑅 and
+                           ℍ[𝑋, 𝑌 |𝑍], ℍ[𝜋𝑠 (𝑋, 𝑌 )|𝑍] = (2 + 𝑂(𝛿))𝑀.                         (3.10)
+In particular we have
+                                 ℍ[𝑋|𝑍], ℍ[𝑌 |𝑍] = (1 + 𝑂(𝛿))𝑀                                (3.11)
+and hence by (1.14)
+                                         𝕀[𝑋 ∶ 𝑌 |𝑍] ≪ 𝛿𝑀.                                    (3.12)
+
+
+Proof. For any two distinct slopes 𝑟, 𝑟′ ∈ ℝ, 𝜋𝑟 (𝑋, 𝑌 ) and 𝜋𝑟′ (𝑋, 𝑌 ) uniquely determine
+(𝑋, 𝑌 ), hence so in particular
+           ℍ[𝜋𝑠 (𝑋, 𝑌 )|𝑍] ≤ ℍ[𝑋, 𝑌 |𝑍] ≤ ℍ[𝜋𝑟 (𝑋, 𝑌 )|𝑍] + ℍ[𝜋𝑟′ (𝑋, 𝑌 )|𝑍] ≤ 2𝑀.
+Comparing this with (3.6), we obtain the claim.                                                   □
+                     SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                                 11
+
+3.2. Second step: ensuring an invertible projection. It will be convenient to work with
+configurations (𝑀, 𝑋, 𝑌 , 𝑍) with an invertible projection. We record some basic properties
+of such configurations:
+Lemma 3.5 (Consequences of an invertible projection). If (𝑀, 𝑋, 𝑌 , 𝑍) is a configuration
+with an invertible projection, then
+                                   ℍ[𝜋𝑠 (𝑋, 𝑌 )|𝑍] = ℍ[𝑋, 𝑌 |𝑍].                                  (3.13)
+Also, (𝑀, 𝑋, 𝑌 , (𝑊 , 𝑍)) has an invertible projection for any further random variable 𝑊 .
+
+
+Proof. For any 𝑧 in the essential range of 𝑍, the invertibility of 𝜋𝑠 on ((𝑋, 𝑌 )|𝑍 = 𝑧) implies
+that
+                           ℍ[𝜋𝑠 (𝑋, 𝑌 )|𝑍 = 𝑧] = ℍ[𝑋, 𝑌 |𝑍 = 𝑧].
+Averaging over 𝑧, we obtain the first claim. The second claim is trivial, since the essential
+range of ((𝑋, 𝑌 )|(𝑊 , 𝑍) = (𝑤, 𝑧)) is contained in that of ((𝑋, 𝑌 )|𝑍 = 𝑧) for any (𝑤, 𝑧) in the
+essential range of (𝑊 , 𝑍).                                                                    □
+
+
+The main result of this step is
+Proposition 3.6 (Ensuring invertible projections). There exists a good configuration (𝑀, 𝑋, 𝑌 , 𝑍)
+with an invertible projection.
+
+
+Proof. This type of reduction is easy in the combinatorial setting (1.2), as one simply removes
+all but one element from 𝐸 in each fiber of 𝜋𝑠 . To do the analogous operation in the entropic
+setting we will need to perform this removal operation randomly, as follows.
+
+By the previous discussion, we can find a good configuration (𝑀, 𝑋, 𝑌 , 0) with the “𝑍” vari-
+able trivial. Let 𝐶 denote the essential range of 𝜋𝑠 (𝑋, 𝑌 ). For each 𝑐 ∈ 𝐶, let Γ𝑐 denote the
+essential range of the conditioned random variable ((𝑋, 𝑌 )|𝜋𝑠 (𝑋, 𝑌 ) = 𝑐). This is a finite
+non-empty subset of {(𝑎, 𝑏) ∈ ℚ × ℚ ∶ 𝜋𝑠 (𝑎, 𝑏) = 𝑐}. We then define a random function
+𝜙 ∶ 𝐶 → ℚ × ℚ by declaring 𝜙(𝑐) for 𝑐 ∈ 𝐶 to be an element of Γ𝑐 chosen with the distribu-
+tion of ((𝑋, 𝑌 )|𝜋𝑠 (𝑋, 𝑌 ) = 𝑐), with the random variables 𝜙(𝑐) being jointly independent in 𝑐,
+and also independent of (𝑋, 𝑌 ). We then define a “shuffled” version (𝑋 ′ , 𝑌 ′ ) of (𝑋, 𝑌 ) by the
+formula
+                                     (𝑋 ′ , 𝑌 ′ ) ∶= 𝜙(𝜋𝑠 (𝑋, 𝑌 )).
+Observe that on the event 𝜋𝑠 (𝑋, 𝑌 ) = 𝑐, the random variables (𝑋, 𝑌 ) and (𝑋 ′ , 𝑌 ′ ) have iden-
+tical distribution by construction, and hence (𝑋 ′ , 𝑌 ′ ) also unconditionally has the same distri-
+bution as (𝑋, 𝑌 ). In particular, for any 𝑟 ∈ 𝑅 we have
+                     ℍ[𝜋𝑟 (𝑋 ′ , 𝑌 ′ )|𝜙] ≤ ℍ[𝜋𝑟 (𝑋 ′ , 𝑌 ′ )] = ℍ[𝜋𝑟 (𝑋, 𝑌 )] ≤ 𝑀.
+Also, it is clear from construction that 𝜋𝑠 is injective on the essential range of ((𝑋 ′ , 𝑌 ′ )|𝜙 = 𝜙0 )
+for every 𝜙0 in the essential range of 𝜙, and 𝜋𝑠 (𝑋 ′ , 𝑌 ′ ) = 𝜋𝑠 (𝑋, 𝑌 ) almost surely. In particular,
+                ℍ[𝜋𝑠 (𝑋 ′ , 𝑌 ′ )|𝜙] = ℍ[𝜋𝑠 (𝑋, 𝑌 )|𝜙] = ℍ[𝜋𝑠 (𝑋, 𝑌 )] ≥ (2 − 𝛿)𝑀.
+
+Thus (𝑀, 𝑋 ′ , 𝑌 ′ , 𝜙) is a good configuration with an invertible projection, giving the claim.      □
+12                                           TERENCE TAO
+
+3.3. Third step: controlling one doubling constant. Now, we use the entropic Balog–
+Szemerédi–Gowers lemma to ensure controlled 𝑋-doubling.
+Proposition 3.7 (Ensuring controlled 𝑋-doubling). Let (𝑀, 𝑋, 𝑌 , 𝑍) be a good configuration
+with an invertible projection. Then there exists an additional random variable 𝑊 such that
+(𝑀, 𝑋, 𝑌 , (𝑊 , 𝑍)) is a good configuration with an invertible projection and controlled 𝑋-
+doubling.
+
+
+Proof. Let (𝑌 ′ , 𝑋, 𝑍) be a copy of (𝑌 , 𝑋, 𝑍) with 𝑌 , 𝑌 ′ conditionally independent relative to
+(𝑋, 𝑍), then we also have
+     ℍ[𝑋|𝑍], ℍ[𝑌 ′ |𝑍], ℍ[𝑋 + 𝑌 ′ |𝑍] = (1 + 𝑂(𝛿))𝑀;              ℍ[𝑋, 𝑌 ′ |𝑍] = (2 + 𝑂(𝛿))𝑀.
+Let (𝑋 ′ , 𝑌 ′ , 𝑍) be a copy of (𝑋, 𝑌 ′ , 𝑍) with 𝑋, 𝑋 ′ conditionally independent relative to (𝑌 ′ , 𝑍).
+By the first part of Lemma 2.2 we have
+                                ℍ[𝑋 − 𝑋 ′ |𝑌 ′ , 𝑍] ≤ (1 + 𝑂(𝛿))𝑀.
+We also have
+                    ℍ[𝑋|𝑌 ′ , 𝑍] = ℍ[𝑋, 𝑌 ′ |𝑍] − ℍ[𝑌 ′ |𝑍] = (1 + 𝑂(𝛿))𝑀.
+We conclude that
+              𝔼(𝑌 ′ ,𝑍)=(𝑦,𝑧) 𝑑[𝑋|(𝑌 ′ , 𝑍) = (𝑦, 𝑧); 𝑋|(𝑌 ′ , 𝑍) = (𝑦, 𝑧)]
+                                                         1                  1
+                              = ℍ[𝑋 − 𝑋 ′ |𝑌 ′ − 𝑍] − ℍ[𝑋|𝑌 ′ , 𝑍] − ℍ[𝑋|𝑌 ′ , 𝑍]
+                                                         2                  2
+                              ≪ 𝛿𝑀.
+Thus (𝑀, 𝑋, 𝑌 , (𝑌 ′ , 𝑍)) has controlled 𝑋-doubling. For any 𝑟 ∈ 𝑅, we have
+                           ℍ[𝜋𝑟 (𝑋, 𝑌 )|𝑌 ′ , 𝑍] ≤ ℍ[𝜋𝑟 (𝑋, 𝑌 )|𝑍] ≤ 𝑀.                          (3.14)
+Also, we have
+              ℍ[𝑋, 𝑌 |𝑌 ′ , 𝑍] = ℍ[𝑋, 𝑌 , 𝑌 ′ |𝑍] − ℍ[𝑌 ′ |𝑍]
+                                = ℍ[𝑋, 𝑌 |𝑍] + ℍ[𝑋, 𝑌 ′ |𝑍] − ℍ[𝑋|𝑍] − ℍ[𝑌 ′ |𝑍]
+                                = (2 + 𝑂(𝛿))𝑀.
+By Lemma 3.5, (𝑀, 𝑋, 𝑌 , (𝑌 ′ , 𝑍)) has an invertible projection and
+                     ℍ[𝜋𝑠 (𝑋, 𝑌 )|𝑌 ′ , 𝑍] = ℍ[𝑋, 𝑌 |𝑌 ′ , 𝑍] = (2 + 𝑂(𝛿))𝑀.
+We conclude that (𝑀, 𝑋, 𝑌 , (𝑌 ′ , 𝑍)) is a good configuration. The claim follows.                    □
+
+
+3.4. Fourth step: controlling a second doubling constant. By swapping the roles of 𝑋 and
+𝑌 in Proposition 3.7, we have
+Proposition 3.8 (Ensuring controlled 𝑌 -doubling). Let (𝑀, 𝑋, 𝑌 , 𝑍) be a good configuration
+with an invertible projection. Then there exists an additional random variable 𝑊 such that
+(𝑀, 𝑋, 𝑌 , (𝑊 , 𝑍)) is a good configuration with an invertible projection and controlled 𝑌 -
+doubling.
+                   SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                         13
+
+We would like to combine Proposition 3.7 with Proposition 3.8 to obtain a good configu-
+ration with invertible projections that simultaneously has controlled 𝑋-doubling and con-
+trolled 𝑌 -doubling. However, there is a technical issue: the passage of (𝑀, 𝑋, 𝑌 , 𝑍) to
+(𝑀, 𝑋, 𝑌 , (𝑊 , 𝑍)) in Proposition 3.8 could potentially destroy the controlled 𝑋-doubling
+property. Fortunately, this does not occur, thanks to the following lemma:
+Lemma 3.9. Suppose that (𝑀, 𝑋, 𝑌 , 𝑍) and (𝑀, 𝑋, 𝑌 , (𝑊 , 𝑍)) are both good configura-
+tions. If (𝑀, 𝑋, 𝑌 , 𝑍) has controlled 𝑋-doubling, then so does (𝑀, 𝑋, 𝑌 , (𝑊 , 𝑍)).
+
+
+Proof. Let ( ̃
+             𝑋, 𝑍) be a copy of (𝑋, 𝑍) with ̃ 𝑋, (𝑋, 𝑊 ) conditionally independent over 𝑍,
+                            ̃
+which also implies that 𝑋, 𝑋 are conditionally independent over (𝑊 , 𝑍). By the Ruzsa trian-
+gle inequality (2.1), we have
+            𝔼(𝑊 ,𝑍)=(𝑤,𝑧) 𝑑[𝑋|(𝑊 , 𝑍) = (𝑤, 𝑧); 𝑋|(𝑊 , 𝑍) = (𝑤, 𝑧)]
+                          ≤ 2𝔼(𝑊 ,𝑍)=(𝑤,𝑧) 𝑑[𝑋|(𝑊 , 𝑍) = (𝑤, 𝑧); ̃
+                                                                𝑋|(𝑊 , 𝑍) = (𝑤, 𝑧)]
+                             (                                                   )
+                                                    1               1
+                          = 2 ℍ[𝑋 − ̃  𝑋|𝑊 , 𝑍] − ℍ[𝑋|𝑊 , 𝑍] − ℍ[ ̃     𝑋|𝑊 , 𝑍]
+                                                    2               2
+                             (                                            )
+                                                1                1
+                          ≤ 2 ℍ[𝑋 − ̃  𝑋|𝑍] − ℍ[𝑋|𝑊 , 𝑍] − ℍ[𝑋|𝑍]
+                                                2                2
+                             (                                        )
+                                                1            1
+                          ≤ 2 ℍ[𝑋 − ̃  𝑋|𝑍] − ℍ[𝑋|𝑍] − ℍ[𝑋|𝑍] + 𝑂(𝛿𝑀)
+                                                2            2
+                          = 2𝔼𝑍=𝑧 𝑑[𝑋|𝑍 = 𝑧; 𝑋|𝑍 = 𝑧] + 𝑂(𝛿𝑀)
+                          ≪ 𝛿𝑀
+thanks to (3.11) and (3.7). Thus (𝑀, 𝑋, 𝑌 , (𝑊 , 𝑍)) has controlled 𝑋-doubling as required.
+                                                                                         □
+
+
+Combining Proposition 3.7 with Proposition 3.8 and Lemma 3.9, we now conclude
+Corollary 3.10 (Simultaneous controlled doubling). There exists a good configuration (𝑀, 𝑋, 𝑌 , 𝑍)
+with an invertible projection that has both controlled 𝑋-doubling and controlled 𝑌 -doubling.
+
+
+3.5. Fifth step: controlling projections of conditionally independent variables. The con-
+figuration (𝑀, 𝑋, 𝑌 , 𝑍) provided by Corollary 3.10 obeys many further estimates:
+Proposition 3.11. Let (𝑀, 𝑋, 𝑌 , 𝑍) be as in Corollary 3.10. Let 𝑟 ∈ 𝑅∖{0, ∞}. Then we
+have the bounds
+      𝔼(𝑋+𝑟𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑋|(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧); 𝑟𝑌 |(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧)] ≪ 𝛿𝑀       (3.15)
+                        𝔼(𝑋+𝑟𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑋|(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧); 𝑋|𝑍 = 𝑧] ≪ 𝛿𝑀       (3.16)
+                       𝔼(𝑋+𝑟𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑟𝑌 |(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧); 𝑟𝑌 |𝑍 = 𝑧] ≪ 𝛿𝑀.   (3.17)
+In particular, from the Ruzsa triangle inequality (2.1) one has
+                        𝔼(𝑋+𝑟𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑋|𝑍 = 𝑧; 𝑟𝑌 |𝑍 = 𝑧] ≪ 𝛿𝑀
+and hence
+                            𝔼𝑍=𝑧 𝑑[𝑋|𝑍 = 𝑧; 𝑟𝑌 |𝑍 = 𝑧] ≪ 𝛿𝑀.                            (3.18)
+14                                           TERENCE TAO
+
+Proof. We begin with (3.15). By the second part of Lemma 2.2, the left-hand side is bounded
+by
+                 3𝕀[𝑋 ∶ 𝑟𝑌 |𝑍] + 2ℍ[𝑋 + 𝑟𝑌 |𝑍] − ℍ[𝑋|𝑍] − ℍ[𝑌 |𝑍].
+The claim now follows from Lemma 3.4.
+
+Now we establish (3.16), which will be proven by a variant of the argument used to establish
+Lemma 3.9. Let (𝑋 ′ , 𝑍) be a copy of (𝑋, 𝑍) with 𝑋 ′ , (𝑋, 𝑌 ) independent conditionally on
+𝑍, which implies that 𝑋 ′ is independent of 𝑋 + 𝑟𝑌 conditionally on 𝑍. We compute
+      𝔼(𝑋+𝑟𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑋|(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧); 𝑋|𝑍 = 𝑧]
+                     = 𝔼(𝑋+𝑟𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑋|(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧); 𝑋 ′ |(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧)]
+                                                  1                        1
+                     = ℍ[𝑋 − 𝑋 ′ |𝑋 + 𝑟𝑌 , 𝑍] − ℍ[𝑋|𝑋 + 𝑟𝑌 , 𝑍] − ℍ[𝑋 ′ |𝑋 + 𝑟𝑌 , 𝑍]
+                                                  2                        2
+                                           1                                         1
+                     ≤ ℍ[𝑋 − 𝑋 ′ |𝑍] − (ℍ[𝑋, 𝑋 + 𝑟𝑌 |𝑍] − ℍ[𝑋 + 𝑟𝑌 |𝑍]) − ℍ[𝑋 ′ |𝑍]
+                                           2                                         2
+                                           1           1
+                     ≤ ℍ[𝑋 − 𝑋 ′ |𝑍] − ℍ[𝑋|𝑍] − ℍ[𝑋 ′ |𝑍] + 𝑂(𝛿𝑀)
+                                           2           2
+                     = 𝔼𝑍 ′′ =𝑧′′ 𝑑[𝑋|𝑍 = 𝑧; 𝑋|𝑍 = 𝑧] + 𝑂(𝛿𝑀)
+                     ≪ 𝛿𝑀
+as claimed thanks to Lemma 3.4 and (3.7).
+
+To prove (3.17), we similarly let (𝑌 ′ , 𝑍) be a copy of (𝑌 , 𝑍) with 𝑌 ′ , (𝑋, 𝑌 ) independent
+conditionally on 𝑍, which implies that 𝑟𝑌 ′ is independent of 𝑋 + 𝑟𝑌 conditionally on 𝑍.
+Then
+     𝔼(𝑋+𝑟𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑟𝑌 |(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧); 𝑟𝑌 |𝑍 = 𝑧]
+                    = 𝔼(𝑋+𝑟𝑌 ,𝑍)=(𝑐,𝑧) 𝑑[𝑟𝑌 |(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧); 𝑟𝑌 ′ |(𝑋 + 𝑟𝑌 , 𝑍) = (𝑐, 𝑧)]
+                                                    1                         1
+                    = ℍ[𝑟𝑌 − 𝑟𝑌 ′ |𝑋 + 𝑟𝑌 , 𝑍] − ℍ[𝑟𝑌 |𝑋 + 𝑟𝑌 , 𝑍] − ℍ[𝑟𝑌 ′ |𝑋 + 𝑟𝑌 , 𝑍]
+                                                    2                         2
+                                            1                                           1
+                    ≤ ℍ[𝑟𝑌 − 𝑟𝑌 ′ |𝑍] − (ℍ[𝑟𝑌 , 𝑋 + 𝑟𝑌 |𝑍] − ℍ[𝑋 + 𝑟𝑌 |𝑍]) − ℍ[𝑟𝑌 ′ |𝑍]
+                                            2                                           2
+                                          1            1
+                    ≤ ℍ[𝑌 − 𝑌 ′ |𝑍] − ℍ[𝑌 |𝑍] − ℍ[𝑌 ′ |𝑍] + 𝑂(𝛿𝑀)
+                                          2            2
+                    = 𝔼𝑍=𝑧 𝑑[𝑌 |𝑍 = 𝑧; 𝑌 |𝑍 = 𝑧] + 𝑂(𝛿𝑀)
+                    ≪ 𝛿𝑀
+thanks to Lemma 3.4 and (3.8).                                                                     □
+
+
+3.6. Final step: using the quantity 𝑓 (𝑅; 𝑠). Let (𝑀, 𝑋, 𝑌 , 𝑍) be as in Corollary 3.10. If
+(𝑌 ′ , 𝑍) is a copy of (𝑌 , 𝑍) with 𝑌 ′ independent of (𝑋, 𝑌 ) conditionally on 𝑍, we conclude
+from (3.18) and (2.2) that
+                         𝔼𝑍=𝑧 |ℍ[𝑋 + 𝑟𝑌 ′ |𝑍 = 𝑧] − ℍ[𝑋|𝑍 = 𝑧]| ≪ 𝛿𝑀
+for all 𝑟 ∈ 𝑅∖{0, ∞}. Applying (3.2) and the triangle inequality, we conclude that
+                  𝔼𝑍=𝑧 ℍ[𝑋 + 𝑠𝑌 ′ |𝑍 = 𝑧] ≤ 𝔼𝑍=𝑧 ℍ[𝑋|𝑍 = 𝑧] + 𝑂(𝑓 (𝑅; 𝑠)𝛿𝑀).
+                      SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                     15
+
+From Lemma 3.4 we have
+                         𝔼𝑍=𝑧 ℍ[𝑋|𝑍 = 𝑧] = ℍ[𝑋|𝑍] = (1 + 𝑂(𝛿))𝑀
+and thus (by (3.3))
+             ℍ[𝑋 + 𝑠𝑌 ′ |𝑍] = 𝔼𝑍=𝑧 ℍ[𝑋 + 𝑠𝑌 ′ |𝑍 = 𝑧] ≤ (1 + 𝑂(𝑓 (𝑅; 𝑠)𝛿))𝑀.
+Comparing this with (3.10) and using (3.3), we obtain (3.4) as desired.
+
+
+                                 4. PROOF OF T HEOREM 1.3
+
+We now prove Theorem 1.3. We begin with part (i). Write 𝑠 = 𝑎∕𝑏, where 𝑏 ≥ 1 and
+𝑎 ≠ 0, 𝑏 is coprime to 𝑏, then 𝐷(𝑅; 𝑠) ≍ log(2 + |𝑎| + |𝑏|). Let 𝑁 be the natural number
+max(2, |𝑎|∕10, 𝑏∕10). If one takes 𝑋, 𝑌 to be independent copies of the uniform distribution
+on {1, … , 𝑁}, we can compute that ℍ[𝑋], ℍ[𝑌 ], ℍ[𝑋 +𝑌 ] = log 𝑁 +𝑂(1), and ℍ[𝑋 + 𝑎𝑏 𝑌 ] =
+2 log 𝑁 +𝑂(1) (noting that 𝜋𝑎∕𝑏 is injective on {1, … , 𝑁}×{1, … , 𝑁} if 𝑁 > 2). This implies
+that                                                     (       )
+                                (              )
+                                             𝑎               1
+                            SD {0, 1, ∞};        ≥2−𝑂
+                                             𝑏             log 𝑁
+which gives the required lower bound. For the matching upper bound, it suffices by Theorem
+3.2 to show that 𝑓 ({0, 1, ∞}, 𝑎∕𝑏) ≪ log(2 + |𝑎| + |𝑏|). That is to say, given independent
+random variables 𝑋, 𝑌 obeying bounds of the form
+                            ℍ[𝑋], ℍ[𝑌 ], ℍ[𝑋 + 𝑌 ] = 𝑀 + 𝑂(log 𝐾)
+for some 𝑀 > 0 and 𝐾 ≥ 2, we need to show that
+                       [         ]
+                             𝑎
+                     ℍ 𝑋 + 𝑌 = 𝑀 + 𝑂(log(2 + |𝑎| + |𝑏|) log 𝐾).
+                             𝑏
+From the Ruzsa triangle inequality one has
+                                      𝑑[𝑋; 𝑋] ≪ log 𝐾.
+Applying Proposition 2.1(iv), we have
+                           ℍ[𝑋 + 𝑎𝑌 ] = 𝑀 + 𝑂(log(2 + |𝑎|) log 𝐾)
+and
+                         ℍ[𝑋 − 𝑏𝑋] = 𝑀 + 𝑂(log(2 + |𝑏|) log 𝐾)
+and hence by the Ruzsa triangle inequality (2.1) (or (2.3)) we have
+                        ℍ[𝑏𝑋 + 𝑎𝑌 ] = 𝑀 + 𝑂(log(2 + |𝑎| + |𝑏|) log 𝐾),
+giving the claim.
+
+We now prove part (ii). We allow implied constants to depend on 𝑘, and abbreviate 𝐷(𝑅; 𝑠)
+as 𝐷. We first show the lower bound
+                                              (            )
+                                                log(2 + 𝐷)
+                             SD(𝑅; 𝑠) ≥ 2 − 𝑂
+                                                     𝐷
+whenever 𝑠 has complexity at least 𝐷. Clearly we may assume that 𝐷 is larger than any
+constant depending on 𝑘.
+16                                        TERENCE TAO
+
+For any 𝑁 ≥ 1, let 𝑃𝑁 ⊂ ℚ be the set of all polynomial combinations of slopes in 𝑅∖{0, 1, ∞}
+of degree at most 𝑁 with coefficients between −2𝑁−1 and 2𝑁−1 . By crude counting we have
+                                         (             𝑘
+                                                         )
+                         log |𝑃𝐷 | ≤ log (2𝐷 + 1)(𝐷+1) ≪ 𝐷𝑘+1 .
+
+Thus by the pigeonhole principle, one can find 1 ≤ 𝑁 < 𝐷 such that
+                                      (       (        ))
+                                                 log 𝐷
+                        log |𝑃𝑁+1 | ≤ 1 + 𝑂               log |𝑃𝑁 |.
+                                                   𝐷
+If we then let 𝑋, 𝑌 be drawn uniformly at random from 𝑃𝑁 , then for any 𝑟 ∈ 𝑅, 𝜋𝑟 (𝑋, 𝑌 ) takes
+values in 𝑃𝑁+1 , hence from Jensen’s inequality we have
+                                                (      (       ))
+                                                         log 𝐷
+                   ℍ[𝜋𝑟 (𝑋, 𝑌 )] ≤ log |𝑃𝑁+1 | ≤ 1 + 𝑂             log |𝑃𝑁 |.
+                                                           𝐷
+On the other hand, if 𝜋𝑠 is not injective on the range of (𝑋, 𝑌 ), so that
+                                       𝑝1 + 𝑠𝑝2 = 𝑝3 + 𝑠𝑝4
+for some polynomial combinations 𝑝1 , 𝑝2 , 𝑝3 , 𝑝4 of slopes in 𝑅∖{∞} of degree at most 𝐷 − 1
+and coefficients of magnitude at most 2𝐷−2 with 𝑝2 ≠ 𝑝4 , then we may rearrange as
+                                                𝑝3 − 𝑝1
+                                           𝑠=
+                                                𝑝2 − 𝑝4
+and conclude that 𝑠 has rational complexity at most 𝐷 − 1, a contradiction. Thus 𝜋𝑠 is injective
+and
+                              ℍ[𝜋𝑠 (𝑋, 𝑌 )] = ℍ[𝑋, 𝑌 ] = 2 log |𝑃𝑁 |.
+Inserting these bounds into (1.1), we obtain the claim.
+
+To show the upper bound, it suffices by Theorem 3.2 to show that when 𝑠 has complexity 𝐷,
+that
+                                        𝑓 (𝑅; 𝑠) ≪ 𝐷𝑘+1 .
+Thus, given independent random variables 𝑋, 𝑌 obeying bounds of the form
+                    ℍ[𝑋], ℍ[𝑌 ], ℍ[𝑋 + 𝑌 ], ℍ[𝑋 + 𝑟𝑌 ] = 𝑀 + 𝑂(log 𝐾)                      (4.1)
+for some 𝑀 > 0 and 𝐾 ≥ 2, and all 𝑟 ∈ 𝑅∖{0, 1, ∞}, it will suffice to show that
+                                   𝑑[−𝑋; 𝑠𝑌 ] ≪ 𝐷𝑘+1 log 𝐾.                                (4.2)
+Note from (2.1), (2.4) that
+                                   𝑑[𝑋; 𝑌 ], 𝑑[𝑌 ; 𝑌 ] ≪ log 𝐾.                            (4.3)
+
+For 𝑎 ∈ ℚ, define 𝑔(𝑎) ∶= ℍ[𝑌 − 𝑎𝑌 ′ ] − ℍ[𝑌 ], where 𝑌 ′ is an independent copy of 𝑌 . From
+(4.1), (2.1), (2.4) we have 𝑔(𝑟) ≪ log 𝐾 for 𝑟 ∈ 𝑅∖{∞}. By Proposition 2.1(iv), we conclude
+that 𝑔(𝑠) ≪ 𝐷𝑘+1 log 𝐾, thus 𝑑[𝑌 ; 𝑠𝑌 ] ≪ 𝐷𝑘+1 log 𝐾. Combining with (4.3) and (2.1), (2.4),
+we obtain (4.2) as required.
+                   SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                          17
+
+                                  5. A CONTINUOUS LIMIT
+
+In this section we establish Theorem 1.4. Let 𝛼, 𝑎, 𝑏, 𝑓 , 𝑓0 , 𝑓1 , 𝑓∞ be as in that theorem. We
+allow implied constants in the asymptotic notation to depend on 𝛼, 𝑓 . We will establish the
+lower bound
+                 (             )      ℎ (𝑓 ) − max(ℎ(𝑓0 ), ℎ(𝑓∞ ), ℎ(𝑓1 )) + 𝑜(1)
+                             𝑎
+              SD {0, 1, ∞},      ≥2− 2 𝛼                                              .      (5.1)
+                             𝑏                             log 𝑏
+Comparing this with Theorem 1.3, we conclude that the expression ℎ2 (𝑓𝛼 )−max(ℎ(𝑓0 ), ℎ(𝑓∞ ), ℎ(𝑓1 ))
+is bounded from below, hence 𝑐𝛼 > 0; by taking an arbitrary test function for 𝑓 we also see
+that 𝑐𝛼 < ∞. Taking ℎ2 (𝑓𝛼 ) − max(ℎ(𝑓0 ), ℎ(𝑓∞ ), ℎ(𝑓1 )) arbitrarily close to 𝑐𝛼 , we obtain the
+desired claim (1.8).
+
+It remains to establish (5.1). By the Poisson summation formula, the rapid decrease of the
+Fourier transform of the smooth compactly supported 𝑓 , and the mass one hypothesis, we
+have                                        (     )
+                                  1 ∑         𝑛 𝑚
+                                          𝑓    ,    =1+𝜀                             (5.2)
+                                 𝑏2 𝑛,𝑚∈ℤ     𝑏 𝑏
+for some 𝜀 = 𝑂(1∕𝑏); in fact one can get much better decay than this, but for our purposes any
+decay faster than 1∕ log 𝑏 will suffice. We then take 𝑋, 𝑌 to be supported on the grid ℤ2 with
+probability distribution
+                                                              (      )
+                                                        1       𝑛 𝑚
+                           ℙ((𝑋, 𝑌 ) = (𝑛, 𝑚)) ∶=                ,
+                                                    (1 + 𝜀)𝑏2 𝑏 𝑏
+thus (𝑋, 𝑌 ) takes values in a ball of radius 𝑂(𝑏) and
+                                                     (     )       ( )
+                                                1      𝑛 𝑚          1
+                         ℙ((𝑋, 𝑌 ) = (𝑛, 𝑚)) = 2 𝑓      ,    +𝑂 3 .                       (5.3)
+                                                𝑏      𝑏 𝑏          𝑏
+By Bezout’s theorem, any integer can be uniquely written in the form 𝑏𝑛 + 𝑎𝑚 for some 0 ≤
+𝑚 < 𝑏, and any other representation of the form 𝑏𝑛′ + 𝑎𝑚′ takes the form 𝑏(𝑛 − 𝑎𝑗) + 𝑎(𝑚 + 𝑏𝑗).
+Thus                                          ∑
+                 ℙ(𝑏𝑋 + 𝑎𝑌 = 𝑏𝑛 + 𝑎𝑚) =           ℙ((𝑋, 𝑌 ) = (𝑛 − 𝑎𝑗, 𝑚 + 𝑏𝑗)).
+                                            𝑗∈ℤ
+There are only 𝑂(1) values of 𝑗 for which this sum is non-zero, so from (5.3) one has
+                                                      (     )      ( )
+                                                 1      𝑛 𝑚           1
+                    ℙ(𝑏𝑋 + 𝑎𝑌 = 𝑏𝑛 + 𝑚) = 2 𝑓(𝑎∕𝑏) ,          +𝑂 3 .
+                                                 𝑏      𝑏 𝑏          𝑏
+                              +
+where 𝑓(𝑎,𝑏) ∶ ℝ × [0, 1) → ℝ is the function
+                                             ∑ (      𝑎
+                                                               )
+                            𝑓(𝑎∕𝑏) (𝑥, 𝑦) ∶=     𝑓 𝑥 − 𝑗, 𝑦 + 𝑗 .
+                                             𝑗∈ℤ
+                                                      𝑏
+Applying the entropy function 𝐡, we conclude that
+                                             (     )      (      (     ))    (       )
+                               2 log 𝑏         𝑛 𝑚     1           𝑛 𝑚         log 𝑏
+ 𝐡(ℙ(𝑏𝑋 + 𝑎𝑌 = 𝑏𝑛 + 𝑎𝑚)) =             𝑓(𝑎∕𝑏) ,      + 2 𝐡 𝑓(𝑎∕𝑏) ,       +𝑂           .
+                                  𝑏2           𝑏 𝑏    𝑏            𝑏 𝑏           𝑏3
+From (5.2) one has
+                            ∑             (     )                 ( )
+                       1                    𝑛 𝑚                    1
+                        2
+                                   𝑓(𝑎∕𝑏)    ,    = 1 + 𝜀 = 1 + 𝑂
+                       𝑏 𝑛∈ℤ;0≤𝑚<𝑏          𝑏 𝑏                    𝑏
+18                                              TERENCE TAO
+
+and from (uniform) Riemann integrability of the 𝑓(𝑎∕𝑏) one has
+                          ∑       (      (      ))
+                    1                      𝑛 𝑚
+                                 𝐡 𝑓(𝑎∕𝑏) ,         = ℎ2 (𝑓(𝑎∕𝑏) ) + 𝑜(1).
+                    𝑏2 𝑛∈ℤ;0≤𝑚<𝑏           𝑏 𝑏
+Finally, from dominated convergence one has
+                                       ℎ2 (𝑓(𝑎∕𝑏) ) = ℎ2 (𝑓(𝛼) ) + 𝑜(1)
+so we conclude that
+                   [           ]
+                 ℍ 𝜋𝑎∕𝑏 (𝑋, 𝑌 ) = ℍ[𝑏𝑋 + 𝑎𝑌 ] = 2 log 𝑏 + ℎ2 (𝑓(𝛼) ) + 𝑜(1).
+In a similar vein, from another application of Poisson summation and (1.11) we see that
+                                                ( )       ( )
+                                            1      𝑛       1
+                              ℙ(𝑋 = 𝑛) = 𝑓0           +𝑂 2
+                                            𝑏      𝑏       𝑏
+for any integer 𝑛, hence
+                                                                  (       )
+                                 log 𝑏 ( 𝑛 ) 1 ( ( 𝑛 ))             log 𝑏
+                 𝐡(ℙ(𝑋 = 𝑛)) =        𝑓        + 𝐡 𝑓0        +𝑂             .
+                                   𝑏 0 𝑏         𝑏       𝑏            𝑏2
+Since 𝑋 = 𝑂(𝑏), one can sum using Riemann integrability and (5.2) to conclude that
+                            ℍ[𝜋0 (𝑋, 𝑌 )] = ℍ[𝑋] = log 𝑏 + ℎ(𝑓0 ) + 𝑜(1).
+Similar arguments give
+                            ℍ[𝜋∞ (𝑋, 𝑌 )] = ℍ[𝑌 ] = log 𝑏 + ℎ(𝑓∞ ) + 𝑜(1)
+and
+                    ℍ[𝜋1 (𝑋, 𝑌 )] = ℍ[𝑋 + 𝑌 ] = log 𝑏 + ℎ(𝑓1 ) + 𝑜(1).
+Comparing this with (1.1), we obtain (5.1).
+
+
+                                               R EFERENCES
+
+ [1] J. Bourgain, On the dimension of Kakeya sets and related maximal inequalities, Geom. Funct. Anal. 9
+     (1999), no. 2, 256–282.
+ [2] C. Cowen-Breen, E. Karangozishvili, N. Varadarajan, T. Wang, Pattern Problems related to the Arithmetic
+     Kakeya Conjecture, preprint. https://arxiv.org/abs/2011.07056
+ [3] B. Georgiev, J. Gómez-Serrano, T. Tao, A. Z. Wagner, Mathematical exploration and discovery at scale,
+     preprint. https://arxiv.org/abs/2511.02864
+ [4] W. T. Gowers, B. J. Green, F. Manners and T. C. Tao, On a conjecture of Marton, preprint,
+     arXiv:2311.05762.
+ [5] W. T. Gowers, B. J. Green, F. Manners and T. C. Tao, Marton’s Conjecture in abelian groups with bounded
+     torsion, https://arxiv.org/abs/2404.02244
+ [6] B. J. Green, F. Manners and T. C. Tao, Sumsets and entropy revisited, Rand. Struct. Alg. 66 (2025), e21252.
+ [7] B. Green, I. Ruzsa, On the arithmetic Kakeya conjecture of Katz and Tao. Period. Math. Hungar. 78 (2019),
+     no. 2, 135–151.
+ [8] N. H. Katz, Elementary proofs and the sums differences problem, Volume: 57, 275-280, Collectanea Math-
+     ematica (2006).
+ [9] N. Katz, T. Tao, Bounds on arithmetic projections and applications to the Kakeya conjecture, Math. Res.
+     Lett. 6 (1999), 625–630.
+[10] N. Katz, T. Tao, New bounds for Kakeya problems, J. Anal. Math. 87 (2002), 231–263.
+[11] M. Lemm, New counterexamples for sums-differences, Proc. Amer. Math. Soc. 143 (2015), no. 9, 3863-
+     3868
+                      SUM-DIFFERENCE EXPONENTS AND RATIONAL COMPLEXITY                                    19
+
+[12] J. Leng, A. Sah, M. Sawhney, Improved Bounds for Szemerédi’s Theorem, https://arxiv.org/abs/
+     2402.17995
+[13] C. Pohoata, D. Zakharov, Generalized Arithmetic Kakeya, preprint. https://arxiv.org/abs/2411.
+     13395
+[14] T. Tao, Sumset and inverse sumset theory for Shannon entropy, Combinatorics, Probability and Computing
+     19.4 (2010), 603–639.
+[15] H. Wang, J. Zahl, Volume estimates for unions of convex sets, and the Kakeya set conjecture in three di-
+     mensions, https://arxiv.org/abs/2502.17655
+
+
+UCLA D EPARTMENT OF M ATHEMATICS, L OS A NGELES, CA 90095-1555.
+
+Email address: tao@math.ucla.edu
+

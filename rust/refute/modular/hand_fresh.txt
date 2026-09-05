@@ -1,0 +1,35 @@
+cases: 1447
+  .. 0/1447 0.0s
+  SLOW #125 1.8s force p=None
+  .. 200/1447 2.5s
+  .. 400/1447 2.6s
+  .. 600/1447 2.6s
+  .. 800/1447 2.6s
+  .. 1000/1447 2.6s
+  .. 1200/1447 2.6s
+  .. 1400/1447 2.6s
+[fresh/hand] cases=1447  NEW divergences=8  known={'KNOWN-D3-p-ge-2^32': 101, 'KNOWN-D1-entry-outside-i64': 180, 'KNOWN-D2-negative-p': 100, 'KNOWN-D4-n-too-large': 1}
+  NEW rank(*([[9223372036854775808, 1], [1, 1]],), **{'p': 0})
+      python: ('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rust  : ('exc', 'OverflowError', 'Python int too large to convert to C long')
+  NEW rank(*([[9223372036854775808, 1], [1, 1]],), **{'p': False})
+      python: ('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rust  : ('exc', 'OverflowError', 'Python int too large to convert to C long')
+  NEW rank(*([[-9223372036854775809, 1], [1, 1]],), **{'p': 0})
+      python: ('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rust  : ('exc', 'OverflowError', 'Python int too large to convert to C long')
+  NEW rank(*([[-9223372036854775809, 1], [1, 1]],), **{'p': False})
+      python: ('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rust  : ('exc', 'OverflowError', 'Python int too large to convert to C long')
+  NEW rank(*([[18446744073709551616, 1], [1, 1]],), **{'p': 0})
+      python: ('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rust  : ('exc', 'OverflowError', 'Python int too large to convert to C long')
+  NEW rank(*([[18446744073709551616, 1], [1, 1]],), **{'p': False})
+      python: ('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rust  : ('exc', 'OverflowError', 'Python int too large to convert to C long')
+  NEW rank(*([[-18446744073709551616, 1], [1, 1]],), **{'p': 0})
+      python: ('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rust  : ('exc', 'OverflowError', 'Python int too large to convert to C long')
+  NEW rank(*([[-18446744073709551616, 1], [1, 1]],), **{'p': False})
+      python: ('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+      rust  : ('exc', 'OverflowError', 'Python int too large to convert to C long')

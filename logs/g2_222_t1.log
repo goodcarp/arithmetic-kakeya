@@ -1,0 +1,1 @@
+RESULT {"tag": "g2_222_t1", "d": [2, 2, 2], "pool": 3, "max_t": 1, "target": "9/5", "scanned": 864, "total": 16384, "best": null, "hits": 0, "complete": false, "seconds": 3305.6}

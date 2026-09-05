@@ -1,0 +1,2 @@
+RESULT {"tag": "g2_32_t1", "d": [3, 2], "pool": 3, "max_t": 1, "target": "9/5", "scanned": 1024, "total": 1024, "best": null, "hits": 0, "complete": true, "seconds": 205.8}
+EXIT=0

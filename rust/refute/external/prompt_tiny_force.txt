@@ -1,0 +1,50 @@
+text only, prose answer, no tools, no files.
+
+A colleague reimplemented this Python function in another language and claims the two are indistinguishable from Python. P = 2147483647.
+
+def force(rows, n, T0, p=P):
+    T = set(T0)
+    while len(T) < n:
+        U = [j for j in range(n) if j not in T]
+        pos = {j: i for i, j in enumerate(U)}
+        w = 2 * len(U)
+        B = []
+        for r in rows:
+            row = [0] * w; nz = False
+            for j in U:
+                a = r[2*j] % p; b = r[2*j+1] % p
+                if a or b:
+                    nz = True; i2 = 2*pos[j]; row[i2] = a; row[i2+1] = b
+            if nz: B.append(row)
+        piv = []; rk = 0; nB = len(B)
+        for c in range(w):
+            if rk >= nB: break
+            sel = -1
+            for i in range(rk, nB):
+                if B[i][c]: sel = i; break
+            if sel < 0: continue
+            B[rk], B[sel] = B[sel], B[rk]
+            iv = pow(B[rk][c], p-2, p)
+            B[rk] = [(x*iv) % p for x in B[rk]]
+            pr = B[rk]
+            for i in range(nB):
+                if i != rk and B[i][c]:
+                    fac = B[i][c]
+                    B[i] = [(a - fac*b) % p for a,b in zip(B[i], pr)]
+            piv.append(c); rk += 1
+        found = None
+        for j in U:
+            i2 = 2*pos[j]
+            v = [0]*w; v[i2] = 1; v[i2+1] = p-1
+            for q, c in enumerate(piv):
+                if v[c]:
+                    fac = v[c]
+                    v = [(a - fac*b) % p for a,b in zip(v, B[q])]
+            if not any(v): found = j; break
+        if found is None: return False, T
+        T.add(found)
+    return True, T
+
+The reimplementation: it eagerly materialises rows ONCE into a list of lists of 64-bit signed integers (OverflowError outside that range, TypeError on non-integers) and reuses that materialised copy for every round; it materialises T0 the same way into 64-bit signed integers, keeping members of range(n) in a bitset and members outside range(n) in a side list, and counting both toward the len(T) < n test; it rejects n > 2**20 with ValueError; it validates p once per round, at exactly the point where the Python would first evaluate a % p (that is, only if there is a first row long enough to reach column 2*U[0]), with p==0 -> ZeroDivisionError, p<0 -> ValueError, p>=2**32 -> ValueError; otherwise it runs the identical algorithm on unsigned 64-bit values, reproducing Python's floor-mod, and raising IndexError wherever the Python would index past the end of a row. It returns a genuine Python bool and a fresh Python set of ints.
+
+Question: name every concrete argument value for which the two would differ, giving the literal Python arguments (rows, n, T0, p) and both outcomes. Be exhaustive, most likely first. Prose list only.

@@ -1,0 +1,12 @@
+{"rows": 4, "labs": [[1, 0], [1, 0], [0, 1], [1, 1], [0, 0], [0, 0]], "m": 8, "rk": 8, "pairs": 9, "force_calls": 1552, "seconds": 0.07, "status": "done", "found": null}
+{"rows": 4, "labs": [[1, 1], [0, 1], [1, 0], [1, 0], [1, 1], [1, 1]], "m": 10, "rk": 10, "pairs": 9, "force_calls": 716, "seconds": 0.03, "status": "done", "found": null}
+{"rows": 4, "labs": [[1, 1], [1, 0], [1, 0], [1, 0], [1, 1], [0, 0]], "m": 9, "rk": 9, "pairs": 5, "force_calls": 240, "seconds": 0.01, "status": "done", "found": null}
+{"rows": 4, "labs": [[0, 0], [1, 0], [0, 0], [0, 1], [0, 0], [0, 1]], "m": 7, "rk": 7, "pairs": 9, "force_calls": 5512, "seconds": 0.15, "status": "done", "found": null}
+{"rows": 4, "labs": [[1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 0]], "m": 10, "rk": 10, "pairs": 9, "force_calls": 2699, "seconds": 0.09, "status": "done", "found": null}
+{"rows": 4, "labs": [[0, 1], [0, 0], [0, 0], [1, 0], [1, 1], [1, 0]], "m": 8, "rk": 8, "pairs": 9, "force_calls": 1552, "seconds": 0.05, "status": "done", "found": null}
+{"rows": 4, "labs": [[0, 1], [1, 1], [0, 1], [1, 1], [1, 1], [0, 1]], "m": 10, "rk": 10, "pairs": 9, "force_calls": 8847, "seconds": 0.27, "status": "done", "found": null}
+{"rows": 4, "labs": [[1, 1], [1, 0], [0, 1], [0, 0], [0, 1], [1, 0]], "m": 9, "rk": 9, "pairs": 9, "force_calls": 3602, "seconds": 0.1, "status": "done", "found": null}
+{"rows": 4, "labs": [[0, 1], [0, 0], [1, 0], [0, 1], [0, 1], [0, 0]], "m": 8, "rk": 8, "pairs": 9, "force_calls": 4704, "seconds": 0.14, "status": "done", "found": null}
+{"rows": 4, "labs": [[0, 0], [1, 1], [1, 1], [0, 0], [0, 1], [0, 0]], "m": 7, "rk": 7, "pairs": 9, "force_calls": 12840, "seconds": 0.33, "status": "done", "found": null}
+{"rows": 4, "labs": [[1, 1], [1, 0], [0, 0], [0, 1], [1, 1], [1, 1]], "m": 9, "rk": 9, "pairs": 9, "force_calls": 3638, "seconds": 0.12, "status": "done", "found": null}
+{"rows": 4, "labs": [[0, 0], [0, 0], [0, 0], [1, 1], [0, 1], [0, 1]], "m": 7, "rk": 7, "pairs": 9, "force_calls": 5488, "seconds": 0.29, "status": "done", "found": null}

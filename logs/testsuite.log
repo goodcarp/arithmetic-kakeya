@@ -1,0 +1,21 @@
+### tests/test_11_6.py
+
+CERTIFIED 11/6, and the first vertex forced is g5 -- exactly Katz-Tao's identity
+### tests/test_175.py
+
+CERTIFIED 7/4
+### tests/test_basic.py
+
+FAILURES: none
+### tests/test_cut_lemma.py
+515 forcing objects with T empty; P7 violations: 0
+PASS: every object that forces from T empty carries two non-parallel generators
+### tests/test_engines_agree.py
+300 random instances, 0 mismatches
+PASS: all four engine configurations agree
+### tests/test_p6_swap.py
+   score not strictly improved (among those with score < 2): 0
+PASS: P6 holds on every sampled instance
+### tests/test_two_slope_theorem.py
+445 successful two-slope objects checked, 0 with score < 2
+PASS: two-slope theorem holds on every sampled instance

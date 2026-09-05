@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: fastcore-rs
+Version: 0.1.0
+Classifier: Programming Language :: Rust
+Summary: Bit-exact Rust kernel for arithmetic-kakeya fastcore.force / fastcore.rank
+Requires-Python: >=3.9

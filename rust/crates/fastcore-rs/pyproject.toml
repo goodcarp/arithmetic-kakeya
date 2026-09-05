@@ -1,0 +1,14 @@
+[build-system]
+requires = ["maturin>=1.15,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "fastcore-rs"
+version = "0.1.0"
+description = "Bit-exact Rust kernel for arithmetic-kakeya fastcore.force / fastcore.rank"
+requires-python = ">=3.9"
+classifiers = ["Programming Language :: Rust"]
+
+[tool.maturin]
+module-name = "fastcore_rs"
+features = ["pyo3/abi3-py39"]

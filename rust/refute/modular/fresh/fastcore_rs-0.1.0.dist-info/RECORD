@@ -1,0 +1,6 @@
+fastcore_rs/__init__.py,sha256=60vEVJXM3uFCmx02lrlDKojyH-bzVX2UMIHzrejytc8,127
+fastcore_rs/fastcore_rs.abi3.so,sha256=BNhI-KzsRxbK_PNHlZHPb_zQBlNCdkB4QccaJtMZMYk,441904
+fastcore_rs-0.1.0.dist-info/METADATA,sha256=YDSNYWAgpPnV0E9I2xBDtWE2bvKT9ZN4I-xbNSsM4Qg,203
+fastcore_rs-0.1.0.dist-info/WHEEL,sha256=kxst5d9ykhpKJVo8k1lnU6k3oUYDWyvp-ptT5OkErvc,105
+fastcore_rs-0.1.0.dist-info/sboms/fastcore-rs.cyclonedx.json,sha256=u4OghjR9-PRRDdeIIJftOeXpp_Qxxc4_OcMTqUZ0ElM,17798
+fastcore_rs-0.1.0.dist-info/RECORD,,

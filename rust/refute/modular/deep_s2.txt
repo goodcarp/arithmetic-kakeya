@@ -1,0 +1,1 @@
+[shipped/deep(seed=20260906,n=25000)] cases=28571  NEW divergences=0  known={}

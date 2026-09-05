@@ -1,0 +1,1021 @@
+                                           ON THE ARITHMETIC KAKEYA CONJECTURE OF
+                                                        KATZ AND TAO
+
+
+
+
+arXiv:1712.02108v1 [math.NT] 6 Dec 2017
+                                                              BEN GREEN AND IMRE Z. RUZSA
+
+
+                                                 Abstract. The arithmetic Kakeya conjecture, formulated by Katz
+                                                 and Tao in 2002, is a statement about addition of finite sets. It
+                                                 is known to imply a form of the Kakeya conjecture, namely that
+                                                 the upper Minkowski dimension of a Besicovitch set in Rn is n. In
+                                                 this note we discuss this conjecture, giving a number of equivalent
+                                                 forms of it. We show that a natural finite field variant of it does
+                                                 hold. We also give some lower bounds.
+
+
+
+
+                                                                           Contents
+                                            1. Introduction and statement of results                                    1
+                                            2. Progressions, projections and entropy                                    5
+                                            3. Finite fields                                                           11
+                                            4. A problem of Erdős and Selfridge                                       14
+                                            5. Small unions of progressions                                            16
+                                            6. Entropy inequalities in positive characteristic                         17
+                                            Appendix A. Covering by translates                                         20
+                                            References                                                                 21
+
+
+
+
+                                                    1. Introduction and statement of results
+                                             The arithmetic Kakeya conjecture, sometimes known as the sums-
+                                          differences conjecture, was formulated by Katz and Tao around fifteen
+                                          years ago. It is a purely additive-combinatorial statement which, if
+                                          true, would have a deep geometric consequence – that the Minkowski
+                                          dimension of Besicovitch sets in Rn is n. This is the celebrated Kakeya
+                                          conjecture, discussed at length in many places: for an introduction see
+                                          [21].
+                                                                                 1
+2                       BEN GREEN AND IMRE Z. RUZSA
+
+   The arithmetic Kakeya conjecture is mentioned explicitly1 in [20].
+One of the main aims of this paper is to give a number of equivalent
+forms of the conjecture. Here is probably the simplest formulation. It
+is not the original one of Katz and Tao, which is Conjecture 3 below.
+Conjecture 1. Let k, N be positive integers. Write Fk (N) for the size
+of the smallest set of integers containing, for each d ∈ {1, . . . , N}, a
+k-term arithmetic progression with common difference d. Then
+                                     log Fk (N)
+                            lim lim             = 1.
+                            k→∞ N →∞   log N
+  This conjecture was raised by the second author as [17, Conjecture
+4.2], but no links to the Kakeya problem were mentioned there.
+
+  We turn now to arguably the most natural of our formulations, con-
+cerning the entropy of random variables. As usual, the entropy H of a
+random variable X with finite range is defined by
+                           X
+                H(X) := −      P(X = x) log P(X = x),
+                                   x
+
+where x ranges over all values taken by X.
+Conjecture 2. Suppose that X and Y are two real-valued random vari-
+ables, both taking only finitely many values. Then for any ε > 0 there
+are2 r1 , . . . , rk ∈ Q, none equal to −1, so that
+                     H(X − Y) ⩽ (1 + ε) sup H(X + rj Y).
+                                               j
+
+   Next we give the original form of the conjecture discussed by Katz
+and Tao. Let A ⊂ Z × Z be a finite set. For rational r we write
+πr (A) := {x + ry : (x, y) ∈ A}. We also write π∞ (A) := {y : (x, y) ∈
+A}.
+
+1In the earlier paper [13, p. 234] of Katz and Tao, the authors only go so far as to
+suggest that it is “not too outrageous tentatively to conjecture” this statement. In
+fact, the conjecture made in [20] is over fields of “sufficiently large characteristic”
+(or characteristic zero) whereas this paper provides evidence that it is natural,
+and simpler, to work only in characteristic zero. We believe that in any case the
+statements are equivalent but have not bothered to check this carefully.
+2It is often convenient to “work projectively” and allow the r to take values in Q ∪
+                                                                i
+{∞}, where we define X+∞Y = Y. The two versions of Conjecture 2 are equivalent
+to one another, as may easily be seen by applying a projective transformation such
+as X′ = (a + 1)X, Y′ = aX + Y which preserves X − Y but moves other rational
+combinations around.
+                          ARITHMETIC KAKEYA                                3
+
+Conjecture 3. Let ε > 0 be arbitrary. Then there are r1 , . . . , rk ∈
+Q ∪ {∞}, none equal to −1, such that #π−1 (A) ⩽ supi #πri (A)1+ε for
+all finite sets A ⊂ Z × Z.
+
+   Our fourth conjecture has not, so far as we are aware, appeared
+explicitly in the literature before. It is in fact a whole family of conjec-
+tures, one for each natural number n; however, we will later show that
+all of these are equivalent.
+Conjecture 4 (n). Let k be a positive integer. If p is a prime, let
+fk,n (p) denote the size of the smallest set containing, for every d ∈
+Fnp \ {0}, a k-term progression with common difference d. Then
+                                log fn,k (p)
+                         lim lim             = n.
+                        k→∞ p→∞    log p
+   Remarks. Note that fp,n (p) is the size of the smallest Besicovitch set
+in Fnp , that is to say set containing a full line in every direction. Since
+fp,n (p) ⩾ fk,n (p) whenever p ⩾ k, Conjecture 4(n) trivially implies that
+                                   fp,n (p)
+                             lim            = n,
+                             p→∞    log p
+i.e. any Besicovitch set in Fnp has size pn−op→∞ (1) . This is known to
+be true, a celebrated result of Dvir [5]. However, the only known ar-
+guments use the “polynomial method” (see, for example, [11, 22] for
+modern introductions). This very strongly hints that any proof of Con-
+jecture 4 (and hence, by our main theorem, of the other conjectures)
+would have to use some form of the polynomial method.
+
+  Our fifth and final conjecture is included mainly for historical inter-
+est, as it relates very closely to a question asked by Erdős and Selfridge
+in the 1970s, well before the current wave of interest in the Kakeya
+problem and related matters.
+Conjecture 5. Fix a positive integer k. Let N be a positive integer.
+Then, uniformly for all N, all finite sets p1 < · · · < pN of primes and
+all intervals I ⊂ N of length kpN , we have
+                               N
+                               [
+                                     pi Z ≫k N 1−γk .
+                                         
+                        # I∩
+                               i=1
+
+where γk → 0 as k → ∞.
+
+  Remark. Erdős and Selfridge [8, §6] in fact asked whether or not one
+can take γk = 0. The second-named author [16] showed that the answer
+4                      BEN GREEN AND IMRE Z. RUZSA
+
+is no, and in fact we must have γk ⩾ k1 . We note that Proposition 4.1
+                                                                  1
+and Theorem 1.2 combine to give the much better bound γk ≫ log log  k
+                                                                      .
+
+  As previously stated, our main result is the equivalence of the five
+conjectures stated above.
+Theorem 1.1. Conjectures 1, 2, 3, 4(n) (for each n = 1, 2, 3, . . . ) and
+5 are all equivalent.
+
+    Let us make some further remarks.
+     (1) Once Theorem 1.1 is proven, it seems natural to use the term
+         “arithmetic Kakeya conjecture” to refer to any one of the five
+         conjectures.
+     (2) It is known that Conjecture 3 (and hence all the other con-
+         jectures) implies that the upper Minkowski dimension of any
+         Besicovitch set3 in Rn is n, a statement often referred to as the
+         Kakeya conjecture. This follows by a straightforward general-
+         isation of the “slicing” argument of Bourgain [4]: a sketch of
+         this may be found in [21]. However, Bourgain [2, 3] observed
+         that, in the notation of Conjecture 1, the statement
+                                  log FN η (N)
+                              lim              ⩾1                            (1.1)
+                             N →∞    log N
+         for all η > 0 also implies the Kakeya conjecture. Since Fk (N)
+         is a nondecreasing function of k, (1.1) is immediately implied
+         by Conjecture 1, whilst an implication in the reverse direction
+         seems very unlikely without resolving both conjectures. In this
+         sense, the arithmetic Kakeya conjecture should be considered a
+         strictly harder problem than the Kakeya conjecture.
+     (3) The equivalence of Conjectures 2 and 3 was proven by the sec-
+         ond author in [18] (see also [14]). We are not aware of any
+         references for the other implications.
+   Now we discuss the other results in the paper. First, we establish a
+lower bound showing that the convergence in Theorem 1, if it occurs,
+is very slow.
+Theorem 1.2. In the notation of Conjecture 1, we have
+                           log Fk (N)         c
+                       lim            ⩽1−           ,
+                      N →∞   log N        log log k
+where the constant c > 0 is absolute.
+3That is, a compact subset of Rn containing a unit line segment in every direction.
+                         ARITHMETIC KAKEYA                              5
+
+ Second, we show that a finite field variant of Conjecture 2 is true.
+Write F∞
+       p for the vector space over Fp of countably infinite dimension.
+
+Theorem 1.3. Suppose that X and Y are two F∞      p -valued random vari-
+ables, both taking only finitely many values. Then
+                                  1
+          H(X − Y) ⩽ (1 + O(         ))     sup      H(X + rY).
+                                log p r∈Fp ∪{∞}\{−1}
+Here, the constant in the O() notation is absolute.
+  The O( log1 p ) term is best possible, as we remark in §6.
+
+   We neither discuss nor make progress on partial results towards any
+of Conjectures 1, 2, 3, 4 or 5. We believe that the best value of ε for
+which Conjecture 2 is known is ε ≈ 0.67513 . . . , which is equivalent
+to a result obtained in [13]. (The precise value here is α − 1, where α
+solves α3 − 4α + 2 = 0.) This bound is now 15 years old.
+
+  Notation. Most of our notation is quite standard. We use #X for
+the cardinality of a set X. Occasionally, if A is a set in some abelian
+group and k is an integer we will write k · A to mean {ka : a ∈ A}.
+
+   Acknowledgements. The first author is supported by a Simons Inves-
+tigator Grant, and is very grateful to the Simons Foundation for this
+support.
+
+          2. Progressions, projections and entropy
+   In this section we establish around half of Theorem 1.1 by prov-
+ing that the first three conjectures mentioned in the introduction are
+equivalent. Whilst at a local level the arguments are a mix of fairly
+unexciting linear algebra and standard tools such as Freiman isomor-
+phisms, random projections and taking tensor powers, the large number
+of them makes the proof of Theorem 1.1 somewhat lengthy.
+   It is convenient to proceed by first showing that Conjectures 1, 3
+and 2 are equivalent. In the course of doing so, and for later use, it is
+convenient to introduce a further conjecture, apparently stronger than
+Conjecture 1 but, as it turns out, equivalent to it.
+Conjecture 1’. Let k be a positive integer. Write Fk′ (N) for the
+cardinality of the smallest set A ⊂ Z which contains an arithmetic
+progression of length k and common difference d, for N different values
+of d. Then
+                                 log Fk′ (N)
+                        lim lim              = 1.
+                       k→∞ N →∞    log N
+6                       BEN GREEN AND IMRE Z. RUZSA
+
+  It is obvious that Conjecture 1’ implies Conjecture 1, because Fk′ (N) ⩽
+Fk (N). It turns out that the reverse implication holds as well. In fact,
+we claim that the following is true.
+Proposition 2.1. We have Fk (N) ≪ k 3 log N · Fk′ (N).
+
+Proof. Suppose we have a set
+                                  N k−1
+                                  [ [
+                             A0 =      {ai + jdi },
+                                   i=1 j=0
+
+where the di are distinct. We claim that there is a set A1 , #A1 ≪
+k 3 log N · #A0 , containing an arithmetic progression of length k and
+common difference d for all d ∈ {1, . . . , N}. This obviously implies the
+result.
+   Pick θ ∈ (0, 1) uniformly at random, and define the function
+                           φθ : Z → {0, 1, . . . , N − 1}
+by
+                               φθ (x) := ⌊N{θx}⌋.
+Here, {t} = t − ⌊t⌋, so 0 ⩽ {t} < 1.
+  Note that if i 6= j then
+                                                     1 1                  2
+     Pθ (φθ (di ) = φθ (dj )) ⩽ Pθ (θ(di − dj ) ∈ (−   , )(mod 1)) = .
+                                                    N N                   N
+It follows that the expected number       of pairs (i, j) with i < j for which
+                                 2 N
+                                     
+φθ (di ) = φθ (dj ) is at most N 2 = N − 1. By linearity of expectation,
+there is some choice of θ for which, setting d′i := φθ (di ), there are at
+most N − 1 pairs (i, j) with i < j and d′i = d′j . If n ∈ {0, 1, . . . , N − 1},
+write f (n)    for the number of i with d′i = n. Then it follows that
+P f (n)                                                  P
+   n     2
+             ⩽  N   −  1, from  which  we obtain,   since   n f (n) = N, that
+           2
+P
+   n f (n) ⩽ 3N. By Cauchy-Schwarz,
+                        X                               X
+               N2 = (       f (n))2 ⩽ #{n : f (n) 6= 0}     f (n)2 ,
+                       n                                    n
+
+and therefore there are at least N/3 values of n for which f (n) 6= 0, or
+in other words there are at least N/3 distinct values amongst the d′i .
+   Now consider the set A2 := φθ (A0 ). Obviously #A2 ⩽ #A0 . Whilst
+A2 itself does not obviously contain any long progressions, we observe
+that
+          φθ (ai + (j + 1)d) − φθ (ai + jd) − d′i ∈ {0, 1} − {0, N}
+                                 ARITHMETIC KAKEYA                                           7
+
+(In fact, φθ (x + y) − φθ (x) − φθ (y) ∈ {0, 1} − {0, N} for every x, y.) By
+a simple induction,
+ φθ (ai ) + jd′i − φθ (ai + jd) ∈ {0, 1, . . . , k − 1} − {0, N, . . . , (k − 1)N}
+for j = 0, 1, . . . , k − 1, and so the set A3 := A2 + {0, 1, . . . , k − 1} −
+{0, N, . . . , (k − 1)N} contains a progression of length k and common
+difference d′i , for all i. Note that #A3 ⩽ k 2 #A0 .
+    By taking random translates (see Lemma A.1 for details) and the
+fact that there are ⩾ N/3 distinct d′i , there is some set T of integers,
+#T ≪ log N, such that every element of {1, . . . , N} can be written as
+d′i + t with t ∈ T . Set
+                           A1 := A3 + {0, 1, . . . , k − 1} · T.
+We have #A1 ⩽ k · #T · #A3 ≪ k 3 log N · #A0 . It is easy to see that A1
+contains an arithmetic progression of length k and common difference
+d′i + t, for all i and for all t ∈ T , and hence contains an arithmetic
+progression of length k and common difference d for all d ∈ {1, . . . , N}.
+This concludes the proof of Proposition 2.1.                             
+   Now we turn to the proof that Conjectures 1’, 2 and 3 are equivalent.
+   Conjecture 1’ implies Conjecture 3. Suppose that Conjecture 3 is
+false. Then there is some ε > 0 such that, for every k, there is a set
+Ak ⊂ Z × Z such that
+                        #π−1 (Ak ) >        max       #πr (Ak )1+ε ,
+                                         r∈Hk \{−1}
+
+where Hk denotes the set of rationals with height at most k, that is to
+say
+                              a
+                      Hk := { : |a|, |b| ⩽ k} ∪ {∞}.
+                              b
+Our first step is to use a “tensor power” argument to show that there
+are arbitrarily large sets with the same property; in fact, we shall argue
+that for every j there is a set Ak,j ⊂ Z × Z such that
+                     #π−1 (Ak,j ) ⩾ j        max       #πr (Ak,j )1+ε .                 (2.1)
+                                          r∈Hk \{−1}
+
+This is simple if the Ak,j are allowed to be subsets of Zn . Indeed we
+                    (n)
+may define Ak to be the set
+ { (a1 , a2 , . . . , an ), (a′1 , a′2 , . . . , a′n ) ∈ Zn × Zn : (ai , a′i ) ∈ Ak for all i}.
+                                                      
+
+                     (n)
+Then, writing πr : Zn × Zn → Zn , for the map sending (x, y) to x + ry
+(or, when r = ∞, to y) we have
+                              (n)             n
+                     #πr(n) (Ak ) = #πr (Ak )
+8                         BEN GREEN AND IMRE Z. RUZSA
+
+for all r, n. In particular, by choosing n large enough (depending on j)
+we have
+                     (n)  (n)                       (n)
+                 #π−1 (Ak ) ⩾ j max #πr(n) (Ak )1+ε .              (2.2)
+                                          r∈Hk \{−1}
+
+                                                  (n)
+  To create a subset of Z×Z from Ak , we apply a map ψt : Zn ×Zn →
+Z × Z of the form
+               ψt (x, y) = ((t, t2 , . . . , tn ) · x, (t, t2 , . . . , tn ) · y)),
+                                                                                      (n)
+where the dot denotes the usual inner product. Setting A := ψt (Ak ),
+we have
+                                            (n)
+                       πr (A) = ψt (πr(n) (Ak )).
+                                                                                        (n)
+Choose t to be an integer such that for r ∈ Hk and (x, y), (x′ , y ′) ∈ Ak
+we have
+              (πr(n) (x, y) − πr(n) (x′ , y ′)) · (t, t2 , . . . , tn ) 6= 0 (2.3)
+         (n)              (n)
+unless πr (x, y) = πr (x′ , y ′). There is such a t, because for each of the
+finite number of choices of x, y, x′ , y ′, r the left-hand side of (2.3) is a
+nontrivial polynomial equation in t. It then follows that πr (ψt (x, y)) =
+                                   (n)         (n)
+πr (ψt (x′ , y ′)) if and only if πr (x, y) = πr (x′ , y ′), and so
+                                                            (n)
+                                #πr (A) = #πr(n) (Ak )
+for all r. This establishes the existence of the sets Ak,j satisfying (2.1).
+   For each j, k, consider the set Sk,j ⊂ Q defined by
+                             [       [     i
+                    Sk,j :=                  · πr (Ak,j ).
+                                           k
+                                  1⩽i⩽k r∈Hk \{−1}
+
+Then
+     #Sk,j ⩽ k · #Hk · max+ #πr (Ak,j ) ≪k #(j −1 π−1 (Ak,j ))1/(1+ε) .
+                                r∈Hk
+
+On the other hand, suppose that d ∈ −π−1 (Ak,j ). This means that
+d = y − x for some (x, y) ∈ Ak,j . If 0 ⩽ i ⩽ k − 1, we have
+                                id    k−i          i    
+                           x+      =         x+        y .
+                                k       k        k−i
+            i
+Since x+ k−i y ∈ πi/(k−i) (Ak,j ) ⊂ r∈H + πr (Ak,j ), it follows that x+ idk ∈
+                                       S
+                                             k
+Sk,j for i = 0, 1, . . . , k − 1, that is to say Sk,j contains a progression of
+length k and common difference kd . Thus, writing Nj := #π−1 (Ak,j ), we
+see that Sk,j is a set of size ≪ (j −1 Nj )1/(1+ε) containing progressions of
+length k with at least Nj distinct common differences. Since, evidently,
+#Sk,j ⩾ k, the presence of the factor j −1 forces Nj → ∞ as j → ∞.
+                                ARITHMETIC KAKEYA                                    9
+
+By multiplying through by an appropriate integer, we may find sets
+S̃k,j ⊂ Z with the same property, contrary to Conjecture 1’.
+
+   Conjecture 3 implies Conjecture 2. This implication is essentially
+given in [18]. The notation there takes a little unpicking and the proof
+is short, so we repeat the argument.
+   Let ε > 0, and suppose that r1 , . . . , rk ∈ Q⩾0 ∪ {∞} \ {−1} are such
+that
+                      #π−1 (A) ⩽ sup #πri (A)1+ε                      (2.4)
+                                           i
+for all finite sets A ⊂ Z × Z. We claim that
+                     H(X − Y) ⩽ (1 + ε) sup H(X + rj Y).                         (2.5)
+                                               j
+
+for all Z-valued random variables X, Y, both taking only finitely many
+values. (Let us remind the reader that, by convention, H(X + ∞Y) =
+H(Y).)
+   We begin with a couple of observations. The first is that (2.4) is
+automatically true for sets A ⊂ Zn × Zn , for any n. This follows from
+the case n = 1 by applying a suitable map ψt : Zn × Zn → Z × Z,
+exactly as in the argument following (2.2) above.
+   The second observation is that, by a simple limiting argument, we
+may assume that there is some q such that qP((X, Y) = (x, y)) ∈ Z for
+all (x, y): if we can prove the result for such (X, Y) the same inequality
+for arbitrary X, Y) with finite range follows by letting q → ∞.
+   Now let m be very large, and construct a set A ⊂ Zmq × Zmq as
+follows. Let it consist of all pairs ((x1 , . . . , xmq ), (y1 , . . . , ymq )) ∈ Zmq ×
+Zmq for which
+              #{i : (xi , yi ) = (x, y)} = mqP((X, Y) = (x, y)).
+Let us calculate #πr (A). After a moment’s thought we see that
+              
+     πr (A) = (z1 , . . . , zmq ) : #{i : zi = z} = mqP(X + rY = z) .
+(Here, we interpret P(X + ∞Y = z) as P(Y = z).) Writing n = mq
+and pz = P(X + rY = z) for short, it follows that
+                                       n!
+                       #πr (A) = Q             .
+                                     z (npz )!
+Note that the product over z is finite, and that each npz is an integer.
+Taking logs and using the fact that log N! = N log N − N + o(N), we
+have
+                      X
+      log πr (A) = −n    pz log pz + o(n) = nH(X + rY) + o(n).
+                            z
+10                    BEN GREEN AND IMRE Z. RUZSA
+
+We may assume that the o(n) term is uniform in r ∈ {r1 , . . . , rk }
+(since this is a finite set); of course, it also depends on X, Y, but we are
+thinking of these as fixed for the duration of the argument.
+   Taking logs of (2.4) (which is valid for A ⊂ Zn × Zn , as remarked),
+we conclude that
+              nH(X − Y) ⩽ (1 + ε)n sup H(X + ri Y) + o(n).
+                                        i
+Now we may simply divide through by n and let n → ∞ to conclude
+the claim (2.5).
+
+  Conjecture 2 implies Conjecture 1. This is relatively easy. Assume
+Conjecture 2. Let ε > 0 be arbitrary, and select r1 , . . . , rm ∈ Q∪{∞} \
+{−1} so that we have
+                  H(X − Y) ⩽ (1 + ε) sup H(X + ri Y).                   (2.6)
+                                            i
+
+Let Q, M be positive integers to be specified later (depending on r1 , . . . ,
+rm ) and suppose that A ⊂ Z contains an arithmetic progression of
+length k = 2MQ and common difference d, for every d ∈ {1, . . . , N}.
+Define Z-valued random variables X, Y as follows: pick d uniformly
+at random, and let {a(d), . . . , a(d) + (k − 1)d} be the progression in
+A for which a(d) is minimal (choosing a(d) minimal is not important,
+but is one way of making a definite choice). Set X = a(d) + MQd and
+Y = a(d) + (M + 1)Qd.
+   Then X−Y is uniformly distributed on the set {−Q, −2Q, . . . , −NQ},
+and so
+                          H(X − Y) = log N.                          (2.7)
+     On the other hand,
+                          X + rj Y                            Qrj     
+       H(X + rj Y) = H               = H a(d) + (QM +                )d .
+                            1 + rj                            1 + rj
+By choosing Q and then M suitably, we may ensure that all the
+Qrj /(1 + rj ) are integers of magnitude < QM, which means that
+                        Qrj
+      a(d) + (QM +            )d ∈ {a(d), . . . , a(d) + (k − 1)d} ⊂ A.
+                       1 + rj
+That is, X + rj Y takes values in (1 + rj ) · A. Since H(W) ⩽ log m for
+any random variable W taking values in a set of size m, this implies
+that
+                         H(X + rj Y) ⩽ log #A.
+Combining this with (2.6) and (2.7) we obtain
+                          log N ⩽ (1 + ε) log #A,
+                             ARITHMETIC KAKEYA                                    11
+
+or in other words
+                                 #A ⩾ N 1/(1+ε) .
+Since ε was arbitrary, the implication follows.
+
+   This completes the proof that Conjectures 1, 1’, 2 and 3 are equiva-
+lent
+
+
+                               3. Finite fields
+   Next we turn to Conjecture 4 (n). To demonstrate its equivalence to
+the first three conjectures, it suffices to show that for each n we have
+Conjecture 1’ ⇒ Conjecture 4(n) ⇒ Conjecture 1.
+   Conjecture 1’ implies Conjecture 4 (n). Suppose that A1 ⊂ Fnp is a
+set containing a k-term arithmetic progression with common difference
+d, for every d ∈ Fnp . Define the “unwrapping” map ψ : Fp → Z to be the
+inverse of the natural projection map from {0, . . . , p−1} to Fp . Define a
+map ψ (n) : Fnp → Zn by setting ψ (n) (x1 , . . . , xn ) := (ψ(x1 ), . . . , ψ(xn )).
+   For each d ∈ Fnp , select a progression {x(d) + λd, λ = 0, 1, . . . , k − 1},
+lying in A1 . Let A2 ⊂ Zn be the union of all progressions {ψ (n) (x(d)) +
+λψ (n) (d) : λ = 0, 1, . . . , k − 1}. By construction, A2 ⊂ {0, 1, . . . , k(p −
+1)}n , and π (n) (A2 ) ⊂ A1 , where π (n) : Zn → Fnp is the natural map.
+Since {0, 1, . . . , k(p − 1)} is covered by k discrete intervals of length p,
+on each of which the projection map π : Z → Fp is injective, we see
+that #A2 ⩽ k n #A1 .
+   By construction, A2 contains a progression of length k and com-
+mon difference d for pn distinct values of d. Whilst A2 is a sub-
+set of Zn , we can create a subset of Z with the same properties by
+                                                             n
+looking at the image   Pn of A2 iunder the map f : Z → Z defined                   by
+                                                                        ′ n
+f (x1 , . . . , xn ) =   i=1 (10kp)  xi . It follows that  #A  2 ⩾   F  k (p  ), and
+hence #A1 ⩾ k −n Fk′ (pn ). In the notation of Conjecture 4, this means
+that fn,k (p) ⩾ k −n Fk′ (pn ). It follows that
+                         log fn,k (p)         log Fk′ (pn )
+                     lim              ⩾ n lim               ,
+                     p→∞    log p        p→∞    log pn
+and so
+                       log fn,k (p)             log Fk′ (pn )
+                lim lim             ⩾ n lim lim               .
+               k→∞ p→∞    log p        k→∞ p→∞    log pn
+Assuming Conjecture 1’ (taking N = pn ), the right hand side here is
+precisely n. This implies Conjecture 4.
+12                      BEN GREEN AND IMRE Z. RUZSA
+
+  Conjecture 4 implies Conjecture 1. Suppose we have a set A1 ⊂ Z
+containing a progression of length k and common difference d for each
+d ∈ {1, . . . , N}. Partition Z into intervals Ij := 10kjN+{1, . . . , 10kN},
+j ∈ Z. Any progression of length k and common difference d ∈
+{1, . . . , N} is either wholly contained in some Ij , or else is split into
+two progressions, one in Ij and the other in Ij+1 , with one of these
+having length at least k/2. It follows that the set A2 ⊂ Z defined by4
+                              [
+                         A2 = {(A1 ∩ Ij ) − 10kjN}
+                                 j
+
+contains a progression of length at least k/2 and common difference d,
+for all d ∈ {1, . . . , N}. Manifestly #A2 ⩽ #A1 , and by construction
+A2 has the additional property that
+                               A2 ⊂ {1, . . . , 10kN}.                           (3.1)
+  Using A2 , we construct a set A3 ⊂ Zn . We will later use this to
+construct a further set A4 ⊂ Fnp , for a suitable prime p, by projection.
+To define A3 , let M := ⌊N 1/n ⌋. Select t ∈ {−10kN, . . . , 20kN − 1}
+uniformly at random, and define
+                                                       n
+                                                       X
+                                                    n
+  A3 (t) := {(x1 , . . . , xn ) ∈ {0, . . . , M − 1} :   M i−1 xi ∈ A2 + t}.
+                                                         i=1
+                       Pn        i−1
+Suppose that d = i=1 M di with 0 ⩽ di ⩽ M/2k for all i. There
+are at least (M/4k)n such values of d, and all lie in {0, . . . , N}. For
+each such d there is, by assumption, a progression {x(d) + λd : λ =
+0, 1, . . . , ⌊k/2⌋ − 1} lying in A2 . The progression {x(d) + t + λd : λ =
+0, 1, . . . , ⌊k/2⌋ − 1} then lies in A2 + t. Write
+                          n
+                          X
+                   S := {    M i−1 si : 0 ⩽ si < M/2 for all i}.
+                         i=1
+
+   If it so happens that t ∈ −x(d) + S then A3 (t) contains a progression
+of length k and common difference (d1 , . . . , dn ), namelyP     {(s1 , . . . , sn ) +
+λ(d1 , . . . , dn ) : λ ∈ {0, 1, . . . , k − 1}}, where x(d) + t = ni=1 M i−1 si .
+   Since 0 ⩽ x(d) ⩽ 10kN and S ⊂ {0, 1, . . . , M n }, −x(d) + S ⊂
+{−10kN, . . . , 20kN − 1}. It follows that
+                                            1           1    M
+             P(t ∈ −x(d) + S) =                #S ⩾         ( )n ≫k,n 1.
+                                          30kN        30kN 2
+                                      n
+Summing over the (M/2k) ≫k,n N choices of d, we see that the ex-
+pected number of d for which t ∈ −x(d) + S is ≫k,n N. Fix some
+4This “cut-and-move” trick is quite standard in the study of the Kakeya problem.
+                         ARITHMETIC KAKEYA                             13
+
+choice of t such that t ∈ −x(d) + S for ≫k,n N ≫k,n M n values of d,
+and write A3 := A3 (t). Then by construction we have
+                         #A3 ⩽ #A2 ⩽ #A1 ,                          (3.2)
+whilst A3 contains a progression of length ⩾ k/2 and common difference
+d for all d in some set D ⊂ {0, . . . , M − 1}n , #D ≫k,n M n .
+   Now choose a prime p with M ⩽ p < 2M, and let A4 ⊂ Fnp be the
+image of A3 under the natural projection π (n) : Zn → Fnp . We have
+                             #A4 = #A3 ,                            (3.3)
+and moreover A4 contains a progression of length k and common dif-
+ference d for all d ∈ π (n) (D), that is to say for ≫n,k N ≫n,k pn values
+of d. By a standard argument (taking random translations of π (n) (D),
+see Corollary A.3 for details) there is a further set A5 ⊂ Fnp ,
+                        #A5 ≪n,k (log p)#A4 ,                       (3.4)
+containing a progression of length k and common difference d, for all
+d ∈ Fnp \ {0}. Tracing back through (3.4), (3.3), (3.2) we see that
+                                       1
+                       Fk (N) ≫k,n         fn,k (p),
+                                     log p
+where p = p(N) ∼ N 1/n is some prime. It follows that
+                     log Fk (N)       log fn,k (p(N))
+                 lim            ⩾ lim                 .
+                N →∞   log N     N →∞   n log p(N)
+Assuming Conjecture 4 (n), the limit on the right is 1. This concludes
+the proof that Conjecture 4 (n) implies Conjecture 1.
+
+  Before leaving this topic, we remark that it is quite possible that in
+the regime log k ≍ log p very strong bounds such as
+                             fpη ,1 (p) ⩾ p/2                       (3.5)
+are true, provided p ⩾ p0 (η) is large enough. This issue is strongly
+hinted at, if not explicitly conjectured, in [1]. It is pointed out there
+that such bounds imply vastly more than is currently known about the
+purely arithmetic problem of bounding the least quadratic nonresidue
+modulo p.
+  Whilst a bound of this type is not known to imply the arithmetic
+Kakeya conjecture (the progressions are of length pη , rather than of
+bounded size), the arguments of Bourgain may be adapted to show
+that it does imply the Kakeya conjecture. Further details may be
+found in lecture notes of the first author [9, Section 10].
+14                     BEN GREEN AND IMRE Z. RUZSA
+
+   It is quite interesting that the innocent-looking statement (3.5) im-
+plies two famous unsolved problems in completely different mathemat-
+ical areas.
+
+              4. A problem of Erdős and Selfridge
+  Finally, we turn to Conjecture 5. In fact, we prove the following
+rather tight connection between Conjecture 1’ and Conjecture 5.
+Proposition 4.1. Write Gk (N) for the minimum, over all intervals
+I of length kpN and all choices p1 < · · · < pN of primes, of # I ∩
+SN                 ′                    ′
+  i=1 pi Z . Then Fk (N) ⩽ Gk (N) ⩽ kFk (N). In particular, Conjec-
+tures 1’ and 5 are equivalent.
+Proof. Suppose first we have a set of primes p1 < · · · < pN        SNand an
+interval I of length kpN so that #A = Gk (N), where A = i=1 {x ∈
+I : pi |x}. Note that A obviously contains a progression of length k and
+common difference pi , for each i, and therefore Fk′ (N) ⩽ Gk (N).
+    In other other direction, suppose we have a set A attaining the bound
+Fk (N), that is to say #A = Fk′ (N) and A contains, for i = 1, . . . , N, a
+  ′
+
+progression {ai + jdi : j = 0, 1, . . . , k − 1}. By translating if necessary,
+we may assume that A consists of positive integers. Let δ ∈ (0, 21 ) be a
+quantity to be specified shortly. By the theorem of the first author and
+T. Tao [10, Theorem 1.2], we may find positive u and v such that all
+of the numbers v, u + v, . . . dN u + v are prime and lie in some interval
+                                                                 v
+[(1 − δ)X, X], X ⩾ 100. Set pi := di u + v. Note that u+v            ⩾ 1 − δ,
+                       v    1
+which rearranges as u ⩾ δ − 1, hence
+                                v
+                                   > 4 max A                             (4.1)
+                                u
+provided that δ is chosen sufficiently small. Note also that
+                    pi        v              1            1
+                       ⩾            =         u    ⩾1−                   (4.2)
+                   pN     v + udN        1 + v dN        4k
+if δ is small enough. In particular if δ is small enough then we have
+                     3      1         1       1
+                pi > pN ⩾ pN + v > pN + u max A                       (4.3)
+                     4      2         4       2
+by (4.1).
+   Define A′ := u · A + {0, v, 2v, . . . , (k − 1)v}. The cardinality of A′
+satisfies #A′ ⩽ kFk′ (N), and
+                       N
+                       [
+                   ′
+                 A ⊃       {uai + jpi : j = 0, 1, . . . , k − 1}        (4.4)
+                       i=1
+                            ARITHMETIC KAKEYA                                15
+
+for i = 1, . . . , N. By the Chinese remainder theorem we may find w so
+that pi |w + uai for i = 1, . . . , N.
+   Set I := w − ⌊ 12 pN ⌋ + {1, 2, . . . , kpN }. Obviously I is an interval of
+length kpN . Let i ∈ {1, . . . , N}. We claim that w + uai + jpi ∈ I for an
+integer j if and only if j ∈ {0, 1, . . . , k − 1}. Since w + uai + pi Z = pi Z,
+this implies that
+             I ∩ pi Z = {w + uai + jpi : j = 0, 1, . . . , k − 1},
+and hence by (4.4)
+                                 N
+                                 [
+                            I∩         pi Z ⊂ w + A′ ,
+                                 i=1
+whence
+                                   N
+                                   [
+                                        pi Z ⩽ #A′ ⩽ kFk′ (N).
+                                            
+               Gk (N) ⩽ # I ∩
+                                  i=1
+It remains to prove the claim. To prove the if implication, it suffices
+in view of (4.4) to show that w + A′ ⊂ I. However it is obvious that
+min(w+A′ ) ⩾ min I (since all elements of A′ are positive) and moreover
+                 max(w + A′ ) ⩽ w + u max A + (k − 1)v
+                                        1
+                              < w + (k − )v by (4.1)
+                                        2
+                                        1
+                              ⩽ w + (k − )pN
+                                        2
+                              ⩽ max I.
+This establishes the if direction of the claim. To establish the only if
+direction, it suffices to show that
+                            w + uai − pi < min I                          (4.5)
+and that
+                        w + uai + kpi > max I.            (4.6)
+However by (4.3) we have
+                                        1      1
+    w + uai − pi < w + u(ai − max A) − pN ⩽ w − pN ⩽ min I,
+                                        2      2
+so (4.5) does hold. Also,
+              w + uai + kpi > w + kpi since A ⊂ N
+                                       1
+                            ⩾ w + (k − )pN by (4.2)
+                                       4
+                                          1
+                            ⩾ w + kpN − ⌊ pN ⌋ = max I,
+                                          2
+16                     BEN GREEN AND IMRE Z. RUZSA
+
+the last step being a consequence of the fact that pN ⩾ (1 − δ)X ⩾ 50.
+Thus (4.6) also holds, and this completes the proof of the claim.   
+
+  Remark. The use of the theorem of the first author and Tao is a little
+excessive. One could do without it using simpler arguments if one was
+prepared to settle for logarithmic losses.
+
+                  5. Small unions of progressions
+   In this section we prove TheoremQm          1.2. Write 3 = p1 < p2 < . . . for
+the odd primes, and set Q := i=1 pi , where m = ⌈10 log k⌉. Note that
+Q = k O(log log k) .
+   Define a set S to be the union of all progressions {xd + jd : j =
+0, 1, . . . , k − 1} where, for d ∈ {1, . . . , Q − 1}, xd is the unique element
+of {1, . . . , Q} congruent to d2 (mod Q). Evidently, S contains a progres-
+sion of length k and common difference d, for all d ∈ {0, 1, . . . , Q − 1}.
+   Fix j ∈ {0, 1 . . . , k − 1}. For each i we have
+                                         j      j2
+               xd + jd ≡ d2 + jd ≡ (d + )2 − (mod pi ),
+                                         2       4
+and so xd + jd(mod pi ) takes values in a set of size 21 (pi + 1) as d varies.
+Therefore xd + jd(mod Q) takes values in a set of size m
+                                                             Q 1
+                                                                i=1 2 (pi + 1).
+Since, Q
+       additionally, 0 < xd + jd ⩽ kQ, xd + jd takes values in a set of
+size k m    1
+        i=1 2 (pi + 1). Therefore
+                         m                  m
+                         Y 1               Y       1
+              #S ⩽ k 2         (pi + 1) = k 2 2−m Q
+                                               (1 + ).
+                    i=1
+                        2                  i=1
+                                                   pi
+
+Recalling that m ∼ 10 log k, and using the bound m             1
+                                                   Q
+                                                      i=1 (1 + pi ) ≪
+log m ≪ k, we see that
+                           #S ≪ k −7 Q
+and so
+                                              c
+                               #S ⩽ Q1− log log k
+if k is sufficiently large, for some absolute c > 0.
+   Now let n be an arbitrary positive integer, set Nn := Qn , and consider
+the set
+         An := {s0 + s1 Q + · · · + sn−1 Qn−1 : s0 , . . . , sn−1 ∈ S}.
+                                  c
+                             1−
+Then #An ⩽ (#S)n ⩽ Nn log log k . The set An contains a progression of
+length k and common difference d0 +d1 Q+· · ·+dn−1Qn−1 for any choice
+of di ∈ {0, 1, . . . , Q − 1}, or in other words for all d ∈ {0, . . . , Nn − 1}.
+                              ARITHMETIC KAKEYA                                      17
+
+   Finally, suppose N is an arbitrary positive integer. Choose n minimal
+so that Nn > N, and set A := An . Then A contains a progression of
+length k and common difference d, for all d ∈ {1, . . . , N}. Moreover,
+                              c
+                        1−                         c                 c
+             #A ⩽ Nn log log k ⩽ (QN)1− log log k ≪k N 1− log log k .
+The result follows.
+
+
+      6. Entropy inequalities in positive characteristic
+  In this section we give the proof of Theorem 1.3. Suppose that X
+and Y are two F∞ p -valued random variables, both taking finitely many
+values. Suppose that
+                     H(X − Y) ⩾ (1 + ε) sup H(X + rY).                            (6.1)
+                                               r6=−1
+
+Our aim is to prove that ε = O( log1 p ), which immediately implies The-
+orem 1.3.
+   The initial phases of the argument mirror the deduction of Conjec-
+ture 2 from Conjecture 3. We may assume that there is some q such
+that qP((X, Y) = (x, y)) ∈ Z for all (x, y); if (6.1) can be established
+in this case, uniformly in q, then the general result follows by an easy
+approximation argument on letting q → ∞.
+   Now let m be very large, write n = mq, and construct a set B (n) ⊂
+(F∞p )
+        qm
+              × (F∞ p )
+                        qm
+                           as follows. Let it consist of all pairs ((x1 , . . . , xmq ),
+(y1 , . . . , ymq )) for which
+              #{i : (xi , yi ) = (x, y)} = mqP((X, Y) = (x, y)).
+By arguments essentially the same as we saw before,
+                                    1
+                   H(X + rY) =        log πr (B (n) ) + on→∞ (1).
+                                    n
+Hence, taking m sufficiently large (and observing that (F∞
+                                                         p )
+                                                             qm
+                                                                is iso-
+             ∞
+morphic to Fp as a vector space), we obtain arbitrarily large sets
+B ⊂ F∞      ∞
+      p × Fp such that
+
+                        #π−1 (B) ⩾ sup (#πr (B))1+ε/2 .                           (6.2)
+                                       r6=−1
+
+Note in particular that π−1 (B) becomes arbitrarily large.
+  For such a B, we construct a finite set A ⊂ F∞p as follows. If (x, y) ∈
+B and x 6= y, include the entire progression (line) through x and y in
+18                   BEN GREEN AND IMRE Z. RUZSA
+
+A. The points on this line are x+ry
+                                1+r
+                                     , for r 6= −1, and y. Therefore
+                                    [ 1
+                  A ⊂ π∞ (B) ∪                  · πr (B),
+                                  r6=−1
+                                         1 +  r
+
+and therefore
+                           #A ⩽ p sup πr (B).
+                                    r6=−1
+
+On the other hand, A contains a progression of length p (line) and
+common difference d, for every d ∈ π−1 (B) \ {0}. Thus, writing N :=
+π−1 (B) − 1, we have
+                                            1
+                             #A ≪p N 1+ε/2 .                           (6.3)
+  On the other hand we have the following result, whose proof we will
+supply shortly.
+Proposition 6.1. Suppose that A ⊂ F∞      p is a finite set containing a
+progression of length p (that is, a line) and common difference d, for
+                                                log 2
+all d in some set of size N. Then #A ≫p N 1− log p −o(1) .
+
+   Combining Proposition 6.1 with the construction of A satisfying (6.3)
+immediately gives the desired upper bound ε = O( log1 p ), thereby con-
+cluding the proof of Theorem 1.3.
+   It remains to prove Proposition 6.1.
+
+Proof of Proposition 6.1. Set A1 := A. In its initial stages, the proof
+of this result goes along rather similar lines to that of Proposition 2.1,
+only it is rather easier. The use of random projections in a similar
+context may be found in [7, §3]. Let n be the smallest positive integer
+for which pn ⩾ N.
+   Since A1 is finite, it is contained in some copy of FM              M
+                                                         p . Let π : Fp →
+Fnp be a random linear map, selected by choosing the images of the basis
+vectors e1 , . . . , eM uniformly at random from Fnp . Set A2 := π(A1 );
+evidently #A2 ⩽ #A1 . Let D be the set of common differences of
+progressions (of length p) lying in A1 . Then A2 contains a progression
+of length p and common difference π(d), for every d ∈ D.
+   Put some arbitrary order ≺ on D, and suppose that d ≺ d′ . Then
+π(d) = π(d′ ) if and only if π(d − d′ ) = 0. However, π(d − d′ ) is
+uniformly distributed in Fnp , and so the probability of this happening
+is p−n . It follows that the expected   number  of pairs (d, d′) with d ≺ d′
+                      ′    −n N      1 N
+                                        
+and π(d) = π(d ) is p          2
+                                   ⩽ N 2 ⩽ N/2. Pick some map π for
+which the number of such pairs is at most N. For each v ∈ Fnp , write
+                             ARITHMETIC KAKEYA                             19
+                                    P f (v)
+f (v) := #π −1
+             P (v). Then   we  have
+                                 P v 2 2 ⩽ N/2, from which we
+obtain, since v f (v) = N, that v f (v) ⩽ 2N. By Cauchy-Schwarz,
+                    X       2                   X
+            N2 =       f (v) ⩽ #{v : f (v) 6= 0}   f (v)2 ,
+                      v                                    v
+
+and therefore there are at least N/2 values of v for which f (v) 6= 0.
+From the choice of n it is clear that pn ⩽ pN, and so at least (#Fnp )/2p
+elements of Fnp lie in the image of π, or in other words are common
+differences of progressions in B.
+   By a random translation argument (see Corollary A.3), there is a set
+A3 ⊂ Fnp , #A3 ≪ (np log p)#A2 , containing a line in every direction.
+That is, A3 is a finite field Besicovitch set.
+   Now we bring in bounds on the size of such sets of a strength which,
+famously, are available in the finite field setting but not in characteristic
+                                                                      log 2
+zero. By the main result of [6] we have #A3 ⩾ (p/2)n = (pn )1− log p ⩾
+     log 2
+N 1− log p . The proposition follows.                                       
+
+  Remarks. Note that here it was crucial to have an effective lower
+bound on the size of Kakeya sets for fixed p but with n → ∞. For
+this, the celebrated work of Dvir [5] on the Kakeya problem would not
+suffice. However (at the cost of weakening the exponents slightly) we
+could have used the main result of [19], which has a slightly simpler
+proof than that of [6].
+  The O( log1 p ) term in Theorem 1.2 is sharp. To see this, pick a, b, b′
+independently and uniformly from Fp , and define random variables X, Y
+taking values in F2p by
+
+                   X = (a + b, ab),      Y = (a + b′ , ab′ ).
+
+Then
+                          X − Y = (b − b′ , a(b − b′ )),
+which is almost uniformly distributed on F2p : a short calculation gives
+
+                                                   log p
+                     H(X − Y) = 2 log p + O(             ).
+                                                     p
+By contrast, if r 6= −1 then
+                   X + rY      b + rb′     b + rb′ 
+                          = a+         ,a·        ) ,
+                    1+r         1+r         1+r
+20                      BEN GREEN AND IMRE Z. RUZSA
+
+and so X + rY is supported on a dilate of the set V := {(u + v, uv) :
+u, v ∈ Fp }, which has cardinality 21 p2 + O(p). Therefore
+                                                          log p
+                  H(X + rY) ⩽ 2 log p − log 2 + O(              ).
+                                                            p
+Cognoscenti will recognise V as being equivalent to the well-known
+construction of optimal Kakeya sets in F2p , due to Mockenhaupt and
+Tao [15].
+
+               Appendix A. Covering by translates
+   In this section we review some standard lemmas on random trans-
+lates.
+Lemma A.1. Suppose that S ⊂ {1, . . . , X} is a set. Then there is a
+                X
+set T of size ≪ #S log X such that S + T ⊃ {1, . . . , X}.
+
+Proof. We inductively define t1 , t2 , · · · ∈ {−X + 1, . . . , X} and Ai :=
+{1, . . . , X}\ ij=1 (S +tj ) such that, given the choice of t1 , . . . , ti , #Ai+1
+               S
+is as small as possible. We have
+                       X                    
+                           # Ai ∩ (S + t) = #Ai #S,
+                         t
+
+and so
+                                              #S
+                      max # Ai ∩ (S + t) ⩾ #Ai    .
+                       t                       2X
+Therefore
+                                      #S 
+                             #Ai+1 ⩽ #Ai 1 −
+                                           .
+                                      2X
+This process terminates with #Ai < 1 (and hence #Ai = 0) in ≪
+X
+#S
+   log X steps.                                             
+Lemma A.2. Suppose that S ⊂ Fnp is a set. Then there is a set T ⊂ Fnp
+          pn
+of size ≪ #S n log p such that S + T = Fnp .
+
+Proof. Very similar to the previous lemma, and left as an exercise.              
+Corollary A.3. Suppose that A ⊂ Fnp is a set containing a k-term
+arithmetic progression with common difference d, for all d lying in some
+set D of size δpn . Then there is a set A′ , #A′ ≪k,n log p · #A, con-
+taining a k-term arithmetic progression with every common difference.
+
+Proof. Apply Lemma A.2 with S = D, and let T be the resulting set.
+            ′
+               S
+Then take A = x∈{0}∪T ∪···∪(k−1)·T (A + x).                     
+                             ARITHMETIC KAKEYA                                    21
+
+                                  References
+ [1] N. Alon and Y. Peres, Uniform dilations, Geom. Funct. Anal. 2 (1992), no. 1,
+     1–28.
+ [2] J. Bourgain, Remarks on Montgomery’s conjectures on Dirichlet sums, Geo-
+     metric aspects of functional analysis (198990), 153–165, Lecture Notes in
+     Math., 1469, Springer, Berlin, 1991.
+ [3] J. Bourgain, J, On the distribution of Dirichlet sums, J. Anal. Math. 60 (1993),
+     21–32.
+ [4] J. Bourgain, On the dimension of Kakeya sets and related maximal inequalities,
+     Geom. Funct. Anal. 9 (1999), no. 2, 256–282.
+ [5] Z. Dvir, On the size of Kakeya sets in finite fields, J. Amer. Math. Soc. 22
+     (2009), no. 4, 1093–1097.
+ [6] Z. Dvir, S. Kopparty, S. Saraf and M. Sudan, Extensions to the method of
+     multiplicities, with applications to Kakeya sets and mergers, SIAM J. Comput.
+     42 (2013), no. 6, 2305–2328.
+ [7] J. Ellenberg, R. Oberlin and T. Tao, The Kakeya set and maximal conjectures
+     for algebraic varieties over finite fields, Mathematika 56 (2010), no. 1, 1–25.
+ [8] P. Erdős, Problems and results in combinatorial analysis and combinatorial
+     number theory, Proceedings of the Ninth Southeastern Conference on Combi-
+     natorics, Graph Theory, and Computing (Florida Atlantic Univ., Boca Raton,
+     Florida, 1978), Congress. Numer. XXI , pp. 29–40, Utilitas Math., Winnipeg,
+     Manitoba, 1978. Available at
+     https://www.renyi.hu/∼p erdos/1978-36.pdf
+ [9] B. Green, Restriction and Kakeya Phenomena, course notes. Available at
+     http://people.maths.ox.ac.uk/greenbj/papers/rkp.pdf
+[10] B. Green and T. Tao, The primes contain arbitrarily long arithmetic progres-
+     sions, Ann. of Math. (2) 167 (2008), no. 2, 481–547.
+[11] L. Guth, Polynomial methods in combinatorics, University Lecture Series, 64
+     American Mathematical Society, Providence, RI, 2016. ix+273 pp.
+[12] N. Katz and T. Tao, Bounds on arithmetic projections, and applications to
+     the Kakeya conjecture, Math. Res. Lett. 6 (1999), no. 5-6, 625–630.
+[13] N. Katz and T. Tao, New bounds for Kakeya problems, J. Anal. Math. 87
+     (2002), 231–263.
+[14] M. Lemm, New counterexamples for sums-differences, Proc. Amer. Math. Soc.
+     143 (2015), no. 9, 3863–3868.
+[15] G. Mockenhaupt and T. Tao, Restriction and Kakeya phenomena for finite
+     fields, Duke Math. J. 121 (2004), no. 1, 35–74.
+[16] I. Z. Ruzsa, Few multiples of many primes, Studia Sci. Math. Hungar. 30
+     (1995), no. 1–2, 123–125.
+[17] I. Z. Ruzsa, Sumsets, European Congress of Mathematics, 381–389, Eur. Math.
+     Soc., Zürich, 2005.
+[18] I. Z. Ruzsa, Sumsets and entropy, Random Structures Algorithms 34 (2009),
+     no. 1, 1–10.
+[19] S. Saraf and M. Sudan, An improved lower bound on the size of Kakeya sets
+     over finite fields, Anal. PDE 1 (2008), no. 3, 375–379.
+[20] T. Tao Edinburgh lecture notes on the Kakeya problem, available at
+     http://www.math.ucla.edu/∼tao/preprints/Expository/edinburgh.dvi
+22                     BEN GREEN AND IMRE Z. RUZSA
+
+[21] T. Tao, From rotating needles to stability of waves: emerging connections be-
+     tween combinatorics, analysis, and PDE, Notices Amer. Math. Soc. 48 (2001),
+     no. 3, 294–303.
+[22] T. Tao, Algebraic combinatorial geometry: the polynomial method in arithmetic
+     combinatorics, incidence combinatorics, and number theory, EMS Surv. Math.
+     Sci. 1 (2014), no. 1, 1–46.
+
+  Mathematical Institute, Radcliffe Observatory Quarter, Wood-
+stock Rd, Oxford OX2 6GG
+  E-mail address: ben.green@maths.ox.ac.uk
+
+  Alfred Rényi Institute, Budapest, Reáltanoda utca 13-15., 1053
+Hungary
+  E-mail address: ruzsa@renyi.hu
+

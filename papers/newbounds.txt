@@ -1,0 +1,1326 @@
+                                                            NEW BOUNDS FOR KAKEYA PROBLEMS
+
+
+
+
+arXiv:math/0102135v1 [math.CA] 16 Feb 2001
+                                                                     NETS HAWK KATZ AND TERENCE TAO
+
+
+
+                                                      Abstract. We establish new estimates on the Minkowski and Hausdorﬀ di-
+                                                      mensions of Kakeya sets and we obtain new bounds on the Kakeya maximal
+                                                      operator.
+
+
+
+
+                                                                                1. Introduction
+
+                                             There are many ways of formulating what is now known as the Kakeya problem.
+                                             The simplest is as follows. We define a Besicovitch set E ⊂ Rn for n > 1 to be
+                                             a set which contains a unit line segment in every direction. It is conjectured, e.g.
+                                             [13], [1], [2], that such a set must have Hausdorff dimension n. A weaker version
+                                             of the conjecture asserts that these sets must have upper Minkowski dimension
+                                             n. A stronger formulation        (see [4], [13]) says that the Kakeya maximal function
+                                             Kδ f (ω) := supT //ω |T1 | T |f |, where δ > 0 is a fixed small number, ω ∈ S n−1 , and
+                                                                       R
+
+                                             T ranges over all 1 × δ . . . δ tubes parallel to ω, is bounded on Ln (Rn ) with a bound
+                                             of Cε δ −ε for any ε > 0. For an exposition of these problems and their applications,
+                                             see [3], [15], [11].
+
+                                             In this paper we obtain new results on all three problems in high dimensions, in
+                                             the spirit of [2] and especially [6]. More precisely, we have
+                                             Theorem 1.1. Any Kakeya set in Rn must have Minkowski dimension at least
+                                             n     α−1                                           1 3
+                                             α + α , where α is between 1 and 2 and satisfies α √       − 4α + 2 = 0. Any Kakeya
+                                                     n
+                                             set in R must have Hausdorff dimension at least (2 − 2)(n − 4) + 3. The Kakeya
+                                                                                                                    3
+                                             maximal function satisfies the bound kKδ f kn+ 34 ≤ Cε δ −ε (δ 1−n ) 4n+3 kf k 4n+3 for any
+                                                                                                                              7
+                                             ε > 0 and 0 < δ ≪ 1.
+
+
+                                             The Minkowski result is new for n ≥ 7, improving upon the bound of (n + 2)/2 + εn
+                                             in [9]; this result was previously obtained for α = 7/4 in [6] and α = 25/13 in [2].
+                                             The Hausdorff result is new for n ≥ 5, improving upon the bound of (n + 2)/2 in
+                                             [13], and was previously obtained for (6n + 5)/11 in [6] and (13n + 12)/25 in [2].
+                                             The Hausdorff result is also superior to the stated Minkowski result for dimensions
+                                             n ≤ 23. The maximal function result is new for n ≥ 9, improving the bounds in
+                                             [13] and [2]. It is a sharp (p, q) and brings p to the exponent 4n+3
+                                                                                                               7 , matching the
+                                             Minkowski results of [6].
+
+                                                1991 Mathematics Subject Classification. 05B40, 28A78.
+                                                1 Speciﬁcally, α = 1.67513 . . . .
+
+                                                                                          1
+2                        NETS HAWK KATZ AND TERENCE TAO
+
+
+This paper is organized as follows. In section 3, we present a revisionist view
+of [6], namely Theorem 3.3. This Theorem greatly relaxes the hypotheses under
+which sums-differences lemmas can be applied, which shall be crucial in obtaining
+maximal function estimates (without resorting to the more involved arguments in
+[2]). We also develop an iteration which gives an easy improvement on the sums-
+differences lemma. This is not the best result we have, but it serves as the model
+for the Hausdorff dimension result. In section 4, we produce a more sophisticated
+iteration which implies the advertised Minkowski dimension result. In section 5,
+we prove the maximal estimate, and in section 6, we remove the slices in the basic
+iteration result to obtain the Hausdorff bound.
+
+We do not believe any part of Theorem 1.1 is sharp, nor that the techniques listed
+here are definitive. Moreover, since we believe that the Minkowski, Hausdorff and
+Maximal function problems should all have the same answer, some of the ways to
+progress are pretty clearly indicated. We think it would greatly benefit the field if
+others were to take up the challenge. That means you: gentle reader!
+
+
+
+
+                                      2. Notation
+
+We write A & B if there is a constant C so that A ≥ CB. The constant C must
+be universal but may vary from line to line.
+
+We define a slope to be an element of R ∪ {∞}, and call a slope r proper if r 6= −1.
+
+If X is a finite set, we use #(X) to denote the cardinality of X. We say that
+X ′ is a refinement of X if X ′ ⊆ X and #(X ′ ) ∼ #(X). If f : X → Y is a
+map, we write x ∼f x′ for f (x) = f (x′ ). This induces the equivalence classes
+   (X)                                         (X)       (X)    (X)
+[x]f := {x′ ∈ X : x ∼f x′ }. We also define [x]f,g := [x]f ∩ [x]g , etc. From
+Cauchy-Schwarz we record the estimate
+
+                 #({(x1 , x2 ) ∈ X × X : s1 ∼f s2 }) ≥ #(X)2 /#(Y ).                    (1)
+
+
+If fi : X → Yi are maps for i = 1, . . . , k and F : X → Y is another map, we
+                                                              (X)            (X)
+say that F is determined by f1 , . . . , fk on X we have [x]f1 ,... ,fk ⊆ [x]F for all
+x ∈ X. If the identity map on X is determined by f1 , . . . , fk , we shall say that X
+is parameterized by f1 , . . . , fk .
+
+In practice, we will show F is determined by f1 , . . . , fn either by writing F as a
+linear combination of the fi , or by using the injectivity assumption (3), or some
+combination of both. These relationships will lead to non-trivial upper and lower
+cardinality bounds on various sets.
+
+Given any sets X1 , . . . , Xk and 1 ≤ i ≤ k, we define the co-ordinate functions
+γi : X1 ×. . .×Xk → Xi by γi (x1 , . . . , xk ) := xi . We also define γi,j : X1 ×. . .×Xk →
+Xi × Xj by γi,j (x1 , . . . , xk ) := (xi , xj ).
+                                           KAKEYA                                                3
+
+
+We set up some notation for the ubiquitous “iterated popularity” argument. If
+f : X → Y is a map from one finite set X to another Y , we define
+                   X <f > := {x ∈ X : #([x]f ) ≥ #(X)/(2#(Y ))}.
+We clearly have #(X\X <f > ) < #(X)/2, and hence that X <f > is a refinement of
+X. We also write X <f >,<g> for (X <f > )<g> , etc.
+                                                             S               S
+If f (x) is a set-valued function on a set X, we write           f (X) for    x∈X f (x).
+
+
+
+                                   3. Basic iteration
+
+Throughout this section we fix Z to be a real vector space. For any slope r ∈ R,
+we define the maps πr : Z × Z → Z by πr (a, b) := a + rb if r 6= ∞ and π∞ (a, b) := b
+otherwise. For any two slopes r 6= r′ we make the fundamental observation
+                           Z × Z is parameterized by πr , πr′ .                                (2)
+
+For any two slopes r, r′ , we define the double projections πr⊗r′ : (Z ×Z)×(Z ×Z) →
+Z × Z defined by πr⊗r′ (g, g ′ ) := (πr (g), πr′ (g ′ )).
+Definition 3.1. Let R be a finite collection of proper slopes (i.e. slopes distinct
+from -1), and α ∈ R. We say that the statement SD(R, α) holds if one has the
+bound #(G) . supr∈R #(πr (G))α whenever G ⊆ Z × Z is a finite set obeying
+                               G is parameterized by π−1                                       (3)
+(i.e. π−1 is one-to-one on G). We say that the statement SD(α) holds if for every
+ε > 0 there exists a finite set R of proper slopes such that SD(R, α + ε) holds.
+
+
+We remark that the . in the above Definition can be automatically sharpened to
+≤ by the iteration arguments in [10] (see also [6]). From the arguments in [2] we
+see that the statement SD(α) implies that Besicovitch sets have upper Minkowski
+dimension at least α n
+                       + α−1
+                          α ; the n sets πri (G) correspond to n separate slices of the
+Besicovitch set. The trivial bound SD({r, r′ }, 2) for any two distinct r, r′ (from (2))
+thus implies the lower bound of (n + 1)/2 (due to [5]), whereas a result of the form
+SD(1) would settle the Kakeya conjecture for the upper Minkowski dimension. It
+is thus of interest to make α as low as possible, and in particular it seems not too
+outrageous to tentatively conjecture that SD(1) is true.
+                                      1
+In [2] the estimate SD({0, 1, ∞}, 2 − 13 ) was proven. In [6] this was improved to
+                   1
+SD({0, 1, ∞}, 2 − 6 ), and further to
+Theorem 3.2. [6] We have SD({0, 1, 2, ∞}, 2 − 14 ).
+
+
+Proof We repeat the argument from [6], but in a more flexible formulation. Define
+N := supr∈{0,1,2,∞} (#(πr (G))); our task is to show that #(G) . N 7/4 .
+
+Define the set V ⊂ G × G of vertical line segments by
+    V := {(g, g ′ ) ∈ G × G : g ∼π0 g ′ } = {((a, b1 ), (a, b2 )) : (a, b1 ), (a, b2 ) ∈ G}.
+4                         NETS HAWK KATZ AND TERENCE TAO
+
+
+We introduce the function ν : V → Z defined by ν((a, b1 ), (a, b2 )) := a + 2b1 − b2 .
+Since ν = π2 ◦ γ1 − π∞ ◦ γ2 = 2π1 ◦ γ1 − π1 ◦ γ2 we see that ν is determined by
+π2⊗∞ and also by π1⊗1 . From ν = 2π∞ ◦ γ1 + π−1 ◦ γ2 and (3) we also see that V
+is parameterized by ν, π∞ ◦ γ1 .
+
+To exploit these observations we apply the iterated popularity argument. Pick any
+v2 in the refinement V <π1⊗1 >,<π2⊗∞ > of V . By construction we have
+        #({(v1 , v0 ) ∈ V <π1⊗1 > × V : v2 ∼π2⊗∞ v1 ∼π1⊗1 v0 }) & #(V )2 /N 4 .
+For each v0 there is at most one v1 which contributes, by (2). Since ν is determined
+                                                  (V )
+both by π1⊗1 and by π2⊗∞ , we thus have #([v0 ]ν ) & #(V )2 /N 4 . On the other
+                                                                     (V )
+hand, since V is parameterized by ν and π∞ ◦ γ1 , we have #([v0 ]ν ) ≤ #(π∞ ◦
+γ1 (V )) ≤ N . Combining these two estimates we obtain #(V ) . N 3/2 . On the
+other hand, from (1) we have #(V ) ≥ #(G)2 /N , and the claim follows.             
+
+We now give a version of Theorem 3.2 in which the slopes ri are more general. Fix
+G and a proper slope r0 , and let V = V r0 := {(g, g ′ ) ∈ G2 : g ∼πr0 g ′ }. Fix another
+proper slope r∞ 6= r0 and a real s 6= 0, and define the function ν : G → Z by
+                              ν(g, g ′ ) := sπr∞ (g) + π−1 (g ′ ).
+For any proper slope r 6= r0 , r∞ , let r′ be the unique slope such that ν is determined
+by πr⊗r′ on V , or equivalently that there is an identity of the form
+             sπr∞ (g) + π−1 (g ′ ) = xπr (g) + yπr′ (g ′ ) + z(πr0 (g) − πr0 (g ′ ))
+for some x, y, z ∈ R. We refer to r′ as the dual slope of r with respect to r0 and ν.
+In the special case r0 = 0, r∞ = ∞, r′ can be defined by the formula rs − r1′ = 1.
+
+Since V is parameterized by ν and πr∞ ◦ γ1 , we again have
+
+                          #([v](V )
+                               ν ) ≤ #(πr∞ (G)) for all v ∈ V.                              (4)
+
+
+On the other hand, if r1 , r2 are such that the six slopes r1 , r2 , r1′ , r2′ , −1, r0 , r∞ are
+all distinct, then by (2) V is parameterized by πr1 ⊗r1′ and πr2 ⊗r2′ . We can thus
+repeat the argument in the proof of Theorem 3.2 to obtain
+Theorem 3.3. With the above assumptions, we have SD({r0 , r1 , r1′ , r2 , r2′ , r∞ }, 47 ).
+
+
+The disadvantage compared to Theorem 3.2 is that we now need six slices instead
+of four. The advantage is that the choice of slices is much more flexible.
+
+We will now obtain improvements of the exponent 74 , by iterating, that is by ap-
+                                                                        (V )
+plying sums-differences results to obtain a better lower bound for #([v]ν ). The
+key lemma is the following:
+Lemma 3.4. Let G, r0 , r∞ , V, ν be as above. Let r1 , . . . , rk be slopes such that the
+2k + 2 slopes
+                              {r0 , r∞ , r1 , . . . , rk , r1′ , . . . , rk′ }              (5)
+                                                          KAKEYA                           5
+
+
+
+                               -1
+                  g’
+                               r’
+
+                                            ν
+                  r
+
+                                                           Z
+
+                      g
+                                       r0
+
+                          r
+
+         Figure 1. The left figure displays a vertical line segment and some
+         of the projections πr one applies to this segment. The right figure
+         shows why we expect many vertical line segments to have the same
+         value of ν.
+
+are all proper and disjoint. Let N ≥ 1 be such that #(πr (G)) ≤ N for all r in (5).
+For every ν0 ∈ Z, define the set Gν0 ⊆ G by
+  Gν0 := γ1 (ν −1 (ν0 )) = {g ∈ G : (g, g ′ ) ∈ V and ν(g, g ′ ) = ν0 for some g ′ ∈ G}.
+Then one has
+                                                     #(Gν0 ) ≤ N                         (6)
+for all ν0 ∈ Z.   Furthermore, there exists a ν0 ∈ Z and a refinement G′ν0            of Gν0
+such that
+                                                                 #(Gν0 )
+                                                πrj (G′ν0 ) .                            (7)
+                                                                #(V )/N 2
+for j = 1, . . . , k. (The implicit constants depend on k).
+
+
+Proof Since ν is determined by πr∞ ◦ γ1 on V , it is determined by γ1 , and we thus
+have #(Gν0 ) = #(ν −1 (ν0 )). The claim (6) then follows from (4).
+                  <π           ′ >,... ,<π          ′ >
+Define V ′ := V r1 ⊗r1        rk ⊗r
+                                    k . Since V ′ is a refinement of V , we may find
+a ν0 ∈ Z such that #(V ∩ ν (ν0 )) ∼ #(ν −1 (ν0 )) 6= 0. Fix this ν0 , and define
+                          ′    −1
+
+G′ν0 ⊆ Gν0 by G′ν0 := {g ∈ G : (g, g ′ ) ∈ V ′ ∩ ν −1 (ν0 ) for some g ′ ∈ G}. Since ν is
+determined by γ1 , we see that
+                              #(G′ν0 ) = #(V ′ ∩ ν −1 (ν0 )) ∼ #(ν −1 (ν0 ))
+so G′ν0 is a refinement of Gν0 .
+
+Now we prove (7). Fix j. Since ν is determined by πr,r′ on V , we have some
+identity of the form ν(g, g ′ ) = xπr (g) + yπr′ (g ′ ) for some non-zero scalars x, y and
+all (g, g ′ ) ∈ V . In particular, we see that πr,r′ is determined by πr ◦ γ1 on Vν00 . Thus
+to prove (7) it suffices to show that
+                                                                    #(ν −1 (ν0 ))
+                                    πrj ⊗rj′ (V ′ ∩ ν −1 (ν0 )) .                 .
+                                                                    #(V )/N 2
+6                           NETS HAWK KATZ AND TERENCE TAO
+
+
+On the other hand, from the construction of V ′ we have
+                          #({v ′ ∈ νν−1
+                                      0
+                                        : v ∼πr ⊗r′ v ′ }) & #(V )/N 2
+                                               j     j
+
+             ′      −1
+for all v ∈ V ∩ ν        (ν0 ). The claim follows.                                  
+Corollary 3.5. For any 1 < β ≤ 2, we have SD(β) =⇒ SD( 4β−1
+                                                        2β ).
+
+
+
+Proof By an obvious limiting argument it suffices to show that for any finite set
+of proper slopes R0 , we can find a finite set R of proper slopes such that
+                                                         4β − 1
+                              SD(R0 , β) =⇒ SD(R,               ).
+                                                           2β
+Fix R0 . We now pick r0 , r∞ , and ν in such a way that the slopes in (5) are proper
+and distinct. It is clear that this distinctness property holds for generic choices of
+r0 , r∞ , and ν. We then set R to equal to (5). Let N ≥ 1, and let G ⊆ Z × Z obey
+(3) be such that #(πr (G)) ≤ N for all r ∈ R. Then we may apply Lemma 3.4 to
+obtain a ν0 ∈ Z and G′ν0 ⊆ G obeying the conclusions of that Lemma.
+
+We now apply the hypothesis SD(R0 , β) with G replaced by the smaller set G′ν0
+                                                                 ν0    #(G
+                                                                       β       )
+(note that (3) is still true). From (7) we have #(Gν0 ) . ( #(V )/N 2 ) ; combining
+                                                                3β−1
+this with (6) we obtain after some algebra #(V ) . N β . Combining this from
+the bound #(V ) ≥ #(G)2 /N from (1) we obtain the claim.                   
+
+The reader should observe that proof of Theorem 3.2 is essentially a special case
+of the proof of Corollary 3.5, specialized to β = 2. If we instead iterate√Corollary
+3.5 and solving for the fixed point of β = 4β−1 2β   we obtain SD(1 + 22 ). This
+implies a bound on the Minkowski problem, but this will be superceded by a more
+sophisticated iteration argument in the next section. However, we shall use the
+ideas used to prove this result in Section 6.
+
+
+                                  4. Advanced Iteration
+
+The goal of this section is to prove SD(α), where α is as in Theorem 1.1.
+                 √
+Just as SD(1 + 22 ) follows easily from iterating Corollary 3.5, SD(α) follows from
+iterating
+                                                                           2
+Theorem 4.1. For any 1 < β ≤ 2, we have SD(β) =⇒ SD( 3β  +2β−2
+                                                     β 2 +3β−2 ).
+
+
+
+Before we give the rigorous proof of this Theorem, we first give a
+
+Heuristic Proof. In order to prove the Theorem, we must study more sophisticated
+objects than vertical line segments, namely corners. Let r1 , r2 be proper slopes,
+and define the set C = C r1 ,r2 of corners with slopes r1 , r2 by
+                    C r1 ,r2 := {(g1 , g2 , g3 ) ∈ G : g1 ∼πr1 g2 ∼πr2 g3 }.       (8)
+                                       KAKEYA                                        7
+
+
+
+                                            -1
+                                      g
+                                       3
+
+                                                        ν
+                                      r2
+
+                                                                        Z
+
+                                       g2
+                     µ
+
+                                                r
+                                                    1
+                                                                   r4
+                                                            g
+                 Z                                           1     r3
+
+
+        Figure 2. A corner, and some of the projections πr one applies
+        to this corner. The map µ takes corners to elements of Z.
+
+
+On C we have the projections γi : C → G for i = 1, 2, 3, as well as the projections
+γ1,2 : C → V (r1 ) and γ2,3 : C → V (r2 ) . We shall also need proper slope r3 and
+a map µ = µ(r3 ) : C → Z, defined by µ(g1 , g2 , g3 ) := πr3 (g1 ) + π−1 (g3 ). In this
+argument C and µ shall roughly play the role of V and ν in the previous section.
+
+Assume that #(πs (G)) ≤ N for all proper slopes s which we shall use. If V (r) be
+the set of vertical line segments with slope r, we shall make the heuristic uniformity
+assumption
+
+                     #([v]πs1 ⊗s2 ) . #(V (r) )/N 2 ∼ #(G)2 /N 3                   (9)
+
+for any v ∈ V (r) and any s1 , s2 we shall need. Moreover, we shall make the assump-
+tion that for slope r and any choice of function ν as in the previous section, we
+assume that the equivalence classes [v]ν in V (r) for v ∈ V (r) all have roughly the
+same cardinality, which we will refer by abuse of notation as #([v]ν ). In particular,
+we assume
+                                                #(G)2 /N
+                               #(ν(V (r) )) .                                     (10)
+                                                 #([v]ν )
+for all ν, r. It is largely because of these assumptions that the current proof is
+merely heuristic.
+
+From the definition of µ we see that π−1 ◦ γ3 is determined by µ, πr3 ◦ γ1 on C, so
+by (3) we have
+
+                         γ3 is determined by µ, πr3 ◦ γ1 on C.                    (11)
+8                       NETS HAWK KATZ AND TERENCE TAO
+
+
+On the other hand, from (8), (2) we see that γ2 is determined by γ1 , γ3 on C so
+that C is parameterized by γ1 , µ. In particular, for any c ∈ C we have #([c]µ ) =
+#(γ1 ([c]µ )). We shall now obtain upper and lower bounds for this quantity for
+generic values of c.
+
+To obtain the upper bound, we first consider the equivalence class [c]πr3 ◦γ1 ,µ .
+From (11) we have #([c]πr3 ◦γ1 ,µ ) = #(γ1,2 ([c]πr3 ◦γ1 ,µ )). From (11) and (8) we
+see that πr3 ⊗r2 ◦ γ1,2 is determined by πr3 ◦ γ1 and µ on C. From (9) we thus have
+#([c]πr3 ◦γ1 ,µ ) . #(G)2 /N 3 . Since there are at most N possible values of πr3 ◦ γ1 ,
+we have shown that
+                         #(γ1 ([c]µ )) = #[c]µ . #(G)2 /N 2 .                      (12)
+
+
+To obtain the lower bound on #(γ1 ([c]µ )), we shall apply the hypothesis SD(β).
+To do this, we must bound the cardinality of πr4 ◦ γ1 ([c]µ ) for a typical r4 . The
+main point is that for a fixed (generic) r4 , there exists a function ν : V (r2 ) → Z of
+the type discussed in the previous section, such that µ, πr4 ◦ γ1 , and ν ◦ γ2,3 are
+linearly dependent, and in particular that
+                                [c]πr4 ◦γ1 ,µ = [c]πr4 ◦γ1 ,ν◦γ2,3                 (13)
+for all c ∈ C. Since πr ◦ γ1 maps to a set of cardinality at most N , and ν ◦ γ2,3
+                                          2
+maps to a set of cardinality at most #(G)   /N
+                                      #([v]ν ) by (10), we thus expect
+
+                                                      #(C)
+                     #([c]πr4 ◦γ1 ,µ ) &                               .
+                                              N ((#(G)2 /N )/#([v]ν ))
+                                          3
+From the lower bound #(C) & #(G)
+                             N2  (cf. [6], Lemma 2.1) we thus expect
+                         #([c]πr4 ◦γ1 ,µ ) & #(G)#([v]ν )/N 2 ,
+and hence that
+                                             #([c]µ )
+                       #(πr4 ◦ γ1 ([c]µ )) .             .
+                                       #(G)#([v]ν )/N 2
+We apply SD(β) to this estimate and (12) to obtain (ignoring epsilons)
+                           #(G)#([v]ν ) β−1
+                                          β     #(G)2
+                            (     2
+                                        )    .        .
+                                N                N2
+However, from the iteration scheme of the previous section, we have
+                                       #(V ) β−1
+                                              β     #(G)2 β−1
+                                                           β
+                       #([v]ν ) & (       2
+                                            )    &(    3
+                                                         )    .                    (14)
+                                        N            N
+                                                           3β 2 +2β−2
+Combining these estimates we obtain #(G) . N β2 +3β−2 . as desired.                   
+
+We now discuss what is needed to make this heuristic proof rigorous. Most of the
+assumptions can be formalized rigorously using standard uniformization tricks such
+as the iterated popularity arguments of the previous section. However, a difficulty
+arises when trying to derive (9). If one has breakdown of uniformity here then we
+suffer a loss in (12). In principle we can recover this because we will also gain in
+(14), except that the slopes used in (14) are not the same as those for (12). We will
+resolve this issue by being prepared to swap the choices of slices r a finite number
+                                               KAKEYA                                           9
+
+
+of times (losing an epsilon in the exponents each time); cf. the uniformization
+arguments in [14].
+
+We begin the rigorous argument. By standard limiting arguments it suffices to
+show
+Theorem 4.2. Let 1 < β ≤ 2, and let R0 be a finite set of proper slopes such that
+SD(R0 , β) holds. Then for any integer M ≫ 1 we can find a finite set R of proper
+                                          2
+                                                  C(R0 )
+slopes and C(R0 ) > 0 such that SD(R, 3β    +2β−2
+                                       β 2 +3β−2 + M ) holds.
+
+
+Proof Fix β, R0 , M . The first step is to construct the set R of slopes. The
+construction will be quite involved, but is necessary in order to perform the rest of
+the argument rigorously.
+
+Let r1 , r2 , r3 be distinct proper slopes. We can then form as before the set C r1 ,r2
+of corners, and the map µ(r3 ) on C r1 ,r2 . Given any other slope r4 , recall that there
+exists a function ν = νr4 on V (r2 ) such that (13) holds. For all but a finite number
+of exceptional r4 , this ν is of the type discussed in the previous section, and in
+particular for any fixed such r4 , and all but a finite number of proper slopes r,
+there exists a proper slope r′ (distinct from r1 , r2 , r3 , r4 , r) such that ν is a linear
+combination of πr ◦ γ1 and πr′ ◦ γ2 .
+
+It is too unreasonable to expect all of these slopes to lie in R0 . On the other hand,
+from Definition 3.1 and the hypothesis SD(R0 , β) we have SD(L(R0 ), β) whenever
+L is a fractional linear transformation on R which preserves -1. This gives us much
+more flexibility since we can always choose such an L even if a finite number of
+exceptional L are somehow prohibited. For instance, for fixed r1 , r2 , r3 , and for r4
+avoiding a finite number of exceptional values (depending on r1 , r2 , r3 ), one can find
+a set Rr1 ,r2 ,r3 ,r4 of proper slopes such that SD(Rr1 ,r2 ,r3 ,r4 , β) holds, and such that
+a dual proper slope r′ distinct from r1 , r2 , r3 , r4 , r exists for each r ∈ Rr1 ,r2 ,r3 ,r4 .
+Similarly, for fixed r1 , r2 , r3 , there exists a set Rr1 ,r2 ,r3 of proper slopes r4 avoiding
+r1 , r2 , r3 , and the exceptional values mentioned earlier, such that SD(Rr1 ,r2 ,r3 , β)
+holds.
+
+Fix the sets Rr1 ,r2 ,r3 and Rr1 ,r2 ,r3 ,r4 . For any three distinct proper slopes r1 , r2 , r3 ,
+we define the set of slopes
+                                                             [           [
+       R∗ (r1 , r2 , r3 ) := {r1 , r2 , r3 } ∪ Rr1 ,r2 ,r3 ∪                    {r, r′ }
+                                                            r4 ∈Rr1 ,r2 ,r3 r∈Rr1 ,r2 ,r3 ,r4
+
+and set T(r1 , r2 , r3 ) of triples of distinct proper slopes by
+              T(r1 , r2 , r3 ) := {(r2 , r, r′ ) : r4 ∈ Rr1 ,r2 ,r3 , r ∈ Rr1 ,r2 ,r3 ,r4 }.
+
+Let
+S T0 := {(0, 1, 2)} (for instance), and define recursively T1 , T2 , . . . , TM by Tj+1 :=
+  T(Tj ) for j = 1, . . . , M ; note that the Tj always consist of triples of three distinct
+                                                  SM S
+proper slopes. We then set R equal to R := j=0 R∗ (Tj ).
+
+The idea will be to try to run the heuristic argument using some triples from the
+set TM . If at least one of these triples satisfies a certain uniformity property then
+10                           NETS HAWK KATZ AND TERENCE TAO
+
+
+the argument will run smoothly. If all the triples from TM fail to be uniform, then
+we pass to the triples TM−1 . The point is that the failure of uniformity for TM
+will allow us to be less strict about the uniformity required for TM−1 (we can lose
+an additional factor of N C/M or so). We repeat this process as long as necessary.
+In the worst case we fall back all the way to T0 , but the uniformity requirement is
+now trivial (cf. [14], [8]).
+
+Henceforth all implicit constants in the . notation will be allowed to depend on β,
+M , R, R0 , while constants denoted by C are only allowed to depend on R0 .
+
+Let G obey (3) and set N := supr∈R #(πr (G)); we may assume N ≫ 1. Our task
+is to show that
+                                                          3β 2 +2β−2
+                                   #(G) . N C/M N β2 +3β−2 .                                     (15)
+
+Define refinement G′ := G<r1 >,<r2 >,... ,<rk > of G, where r1 , . . . , rk is an arbitrary
+enumeration of the finite set R. By construction we can choose for each g ∈ G′ and
+                      (G)
+r ∈ R a set Xg,r ⊆ [g]πr such that #(Xg,r ) ∼ #(G)/N .
+
+Fix the sets Xg,r . We define the modified vertical line segment sets Ṽ (r) ⊂ V (r) for
+r ∈ R by Ṽ (r) := {(g, g ′ ) : g ∈ G′ , g ′ ∈ Xg,r }. Clearly we have
+
+                                       #(Ṽ (r) ) ∼ #(G)2 /N.                                    (16)
+
+
+Let 0 ≤ k ≤ M , and let (r1 , r2 , r3 ) be an element of Tk . We say that (r1 , r2 , r3 ) is
+k-uniform if we have
+
+                                     (r1 )        #(Ṽ (r1 ) ) ρk        1    k
+         #({v ∈ Ṽ (r1 ) : #([v](πṼr2 ⊗r3) ) <        2
+                                                              N }) ≥ N − M − M 2 #(Ṽ (r1 ) )
+                                                    N
+where ρk := 100(1 − k/M ). For k close to M , this property asserts that the
+map πr2 ⊗r3 maps Ṽ (r1 ) maps evenly onto πr2 (G) × πr3 (G). However this property
+becomes weaker as k decreases. For instance, it is clear that the singleton element
+of T0 is 0-uniform.
+
+With the notation of the previous paragraph, we say that (r1 , r2 , r3 ) ∈ Tk is k-
+chunky if there exists a subset Ṽ (r1 ,r2 ,r3 ) of Ṽ (r1 ) such that #(πr2 ⊗r3 (Ṽ (r1 ,r2 ,r3 ) )) .
+N 2−ρk and
+                                                            1   k
+                        #(Ṽ (r1 ,r2 ,r3 ) ) ≥ (1 − CN − M − M 2 )#(Ṽ (r1 ) ).
+Clearly if a triple (r1 , r2 , r3 ) ∈ Tk fails to be k-uniform, then it is k-chunky (just
+set Ṽ (r1 ,r2 ,r3 ) equal to the appropriate elements of Ṽ (r1 ) ). Also, every triple in TM
+is trivially M -chunky.
+
+From the above discussion, it is clear that we can find a 0 ≤ k < M and a triple
+(r1 , r2 , r3 ) ∈ Tk which is k-uniform, and such that every triple in Tk+1 is k + 1-
+chunky. Henceforth k and (r1 , r2 , r3 ) are fixed. The main issue here is to ensure
+the powers of N ρk one loses in the k-uniformity property will be compensated for
+by the gains in N ρk one will obtain from the k + 1-chunkiness property.
+                                                                 KAKEYA                                                                 11
+
+
+For each (r2 , r, r′ ) ∈ T(r1 , r2 , r3 ), we have (r2 , r, r′ ) ⊆ Tk+1 , and hence that
+(r2 , r, r′ ) is k + 1-chunky. Hence we have
+                                                             ′                   1     k+1
+                         #(Ṽ r2 \Ṽ (r2 ,r,r ) ) . N − M − M 2 #(Ṽ (r2 ) )
+and
+                                                                         ′
+                         #(πr⊗r′ (Ṽ (r2 ,r,r ) )) . N 2−ρk .                              (17)
+                                                                         ′
+We introduce the refinement V ′ := (r2 ,r,r′ )∈T(r1 ,r2 ,r3 ) Ṽ (r2 ,r,r ) of Ṽ (r2 ) and ob-
+                                    T
+serve
+                                                                             1   k+1
+                           #(Ṽ (r2 ) \V ′ ) . N − M − M 2 #(Ṽ (r2 ) ).                                                             (18)
+We now run a modified iterated popularity argument. For any map f : X → Y
+between finite sets, define
+                                                                                             100
+                X <<f >> := {x ∈ X : #([x]f ) ≥ N − M #(X)/#(Y )}.
+                                                                                                                   100
+Observe the strong refinement property #(X\X <<f >>) . N − M #(X). We now
+define the refinement V ′′ := (V ′ )<<f1 >>,... ,<<fs >> of V ′ , where f1 , . . . , fs is some
+arbitrary enumeration of the projections {πr⊗r′ : (r2 , r, r′ ) ∈ T(r1 , r2 , r3 )}, and the
+                                                                    ′
+projections πr⊗r′ are thought of as mapping to πr⊗r′ (Ṽ (r2 ,r,r ) ).
+
+From the strong refinement property we have (for N sufficiently large) #(V ′ \V ′′ ) .
+   100
+N − M #(V ′ ); combining this with (18) we obtain
+                                                                             1       k+1
+                           #(Ṽ (r2 ) \V ′′ ) . N − M − M 2 #(Ṽ (r2 ) ).                                                            (19)
+
+
+Let r4 be a slope in Rr1 ,r2 ,r3 , and let ν be the associated map on Ṽ (r2 ) . Introduce
+                                                             (V ′′ )                       (Ṽ (r2 ) )
+the sets V ′′ (r4 ) := {v ∈ V ′′ : #([v]ν ) ∼ #([v]ν          )}. From (19) we see that
+  ′′           −M1
+                   − k+1    (r   )
+                                   ). If we then introduce V := V ′′ \ V ′′ (Rr1 ,r2 ,r3 ) of
+                                                            ′′′
+                                                                      S
+V (r4 ) . N          M #(Ṽ
+                       2       2
+
+V ′′ then
+                                                                             1       k+1
+                           #(Ṽ (r2 ) \V ′′′ ) . N − M − M 2 #(Ṽ (r2 ) ).                                                           (20)
+
+We shall need a bound on the cardinality of ν(V ′′′ ). To do this we shall first repeat
+the argument in Corollary 3.5. By the construction of V ′′ we have
+                                       (r2 )                                      #(V ′′ )
+                       #([v]π(Ṽr⊗r′ ) ) & N −C/M
+                                                                             #(πr⊗r′ (Ṽ (r2 ,r,r′ ) ))
+for all v ∈ V ′′′ ; by (17), (19), (16) we thus have
+                                                     (r2 )                            #(G)2 /N
+                               #([v]π(Ṽr⊗r′ ) ) & N −C/M                                      .
+                                                                                       N 2−ρk
+Since ν is determined by πr⊗r′ , we thus have
+                                           ′′′                           N 2−ρk            (r2 )
+                    πr⊗r′ ([v]ν(V                )
+                                                     ) . N C/M                   #([v](νṼ       )
+                                                                                                   ).
+                                                                        #(G)2 /N
+                                                                                      (V ′′′ )                    (V ′′′ )
+Fix v, and define the set G′ ⊆ G by G′ := γ1 ([v]ν                                               ). Since [v]ν               is parameter-
+ized by γ1 , we see from construction that
+                               (r2 )                               ′′                           ′′′
+                   #([v]ν(Ṽ           )
+                                           ) ∼ #([v](V
+                                                    ν
+                                                       )
+                                                         ) = #([v]ν(V                                 )
+                                                                                                          ) = #(G′ ).                (21)
+12                          NETS HAWK KATZ AND TERENCE TAO
+
+
+Inserting this into the previous we obtain V (r2 ) , we thus see from (21) that
+                                                          ′′′                   N 3−ρk
+                      πr (G′ ) ≤ πr⊗r′ ([v]ν(V                  )
+                                                                    ) . N C/M          #(G′ ).
+                                                                                #(G)2
+                                                                                                 3−ρk
+Applying SD(Rr1 ,r2 ,r3 ,r4 , β) we thus obtain that #(G′ ) . (N C/M N        ′ β
+                                                                     #(G)2 #(G )) .
+By (21) we thus have
+                                       ′′′                               N 3−ρk − β−1
+                                                                                   β
+                            #([v]ν(V         )
+                                                 ) & N −C/M (                  )      .
+                                                                         #(G)2
+Since this holds for all v ∈ V ′′′ , we thus obtain
+                                                                     N 3−ρk β−1
+                                                                              β
+                          #(ν(V ′′′ )) . N C/M (                          2
+                                                                            )   #(V ′′′ ),
+                                                                     #(G)
+which simplifies using (20), (16) to
+                                                                     N 3−ρk β−1
+                                                                             β  #(G)2
+                          #(ν(V ′′′ )) . N C/M (                           )          .                 (22)
+                                                                     #(G)2       N
+
+
+Having defined V ′′′ , we now introduce the set C := {(g1 , g2 , g3 ) ∈ G3 : (g2 , g1 ) ∈
+Ṽ (r1 ) ; (g2 , g3 ) ∈ Ṽ (r2 ) } of corners. Since (r1 , r2 , r3 ) is k-uniform, we see that
+                                   (r1 )           #(Ṽ (r1 ) ) ρk        1    k
+          #({v ∈ Ṽ (r1 ) : [v]π(Ṽr2 ⊗r3) <            2
+                                                               N }) ≥ N − M − M 2 #(Ṽ (r1 ) ).
+                                                     N
+From the construction of Xg,r we thus have
+
+                                       (r1 )              #(Ṽ (r1 ) ) ρk        1    k
+           #({c ∈ C : [γ2,1 (c)]π(Ṽr2 ⊗r3) <                         N }) & N − M − M 2 #(C).
+                                                            N2
+If we therefore define the set C ′ by
+                                                  (r1 )
+           C ′ := {c ∈ C : [γ2,1 (c)](πṼr2 ⊗r3) < #(Ṽ (r1 ) )/N 2−ρk ; γ2,3 (c) ∈ V ′′′ }             (23)
+                                                                    1   k
+then we see from (20) that #(C ′ ) & N − M − M 2 #(C). From the construction of C
+we thus have
+                                           #(G)3             #(G)3
+                             N −C/M              . #(C ′
+                                                         ) .       .                                    (24)
+                                            N2                N2
+
+For any r4 ∈ Rr1 ,r2 ,r3 , define the map fr4 : C ′ → πr4 (G) × Z by fr4 (g1 , g2 , g3 ) :=
+(π1 (g1 ), ν(g2 , g3 )), where ν : V (r2 ) → Z is the map associated to r4 . We once
+again apply the iteration arguments of Lemma 3.4, defining the refinement C ′′ :=
+(C ′ )<f1 >,<f2 >,... ,<fs > of C ′ , where f1 , . . . , fs is an arbitrary enumeration of the
+functions {fr4 : r4 ∈ Rr1 ,r2 ,r3 }. Since C ′′ is a refinement of C ′ , we may fix a
+                            (C ′′ )                          (C ′ )
+c ∈ C ′′ such that [c]µ             is a refinement of [c]µ . Let G′′ ⊆ G denote the set
+               (C ′′ )
+G′′ := γ1 ([c]µ ). We now obtain upper and lower bounds for the size of G′′ .
+
+To obtain lower bounds, we argue as in Lemma 3.4. From the construction of C ′′
+               (C ′ )                                        (C ′′ )
+we have #([c′ ]fr ) & #(C ′′ )/#(fr4 (C ′ )) for any c′ ∈ [c]µ . Using this and the fact
+                  4
+                                                   KAKEYA                                                        13
+
+                                                                 (C ′′ )                                         (C ′′ )
+that µ is determined by fr4 we obtain #(fr4 ([c]µ                          )) . (#(fr4 (C ′ ))/#(C ′′ ))#([c]µ             ).
+On the other hand, from (22) we have
+                                                                N 3−ρk β−1
+                                                                        β #(G)
+                                                                              2
+                         #(fr4 (C ′ )) . N × N C/M (                  )         .
+                                                                #(G)2      N
+Combining these bounds with (24) we obtain
+                           ′′                        β          3β                    2           ′′
+          #(fr4 ([c]µ(C ) )) . N C/M N − β−1 ρk + β−1 +2 #(G)− β−1 −3 #([c]µ(C ) ).
+         (C ′′ )
+Since [c]µ         is parameterized by γ1 , we have
+                                       ′′                                        ′′
+                    #(fr4 ([c]µ(C ) )) = #(πr4 (G′′ )) and #([c]µ(C ) = #(G′′ ).                             (25)
+Applying SD(Rr1 ,r2 ,r3 ,r4 , β) we obtain the lower bound
+                                                                        β
+                                                                     − β−1
+                                         β        3β           2
+                ′′          −C/M      − β−1 ρk + β−1 +2     − β−1 −3
+           #(G ) & N                N                   #(G)                .                                (26)
+
+
+                                                      (C ′′ )
+Now we obtain upper bounds on #([c]µ ). We observe as in the Heuristic proof
+that πr2 ⊗r3 ◦ γ2,1 is determined by µ and πr3 ◦ γ1 , so we have
+                         (C ′′ )                (C ′′ )                                   (r1 )
+                   #([c]µ,πr3 ◦γ1 ) = #([c]µ,πr2 ⊗r3 ◦γ2,1 ) ≤ #([γ2,1 (c)](πṼr2 ⊗r3) ).
+By (23), (16) we thus have
+                             (C ′′ )
+                      #([c]µ,πr3 ◦γ1 ) . #(Ṽ (r1 ) )/N 2−ρk ∼ #(G)2 /N 3−ρk .
+                                                                                                       (C ′′ )
+Since the range of πr3 ◦ γ1 has cardinality at most N , we thus have #([c]µ                                      ).
+#(G)2 /N 2−ρk . Combining this with (26) and (25) we obtain
+                                                     β
+                                                  − β−1
+                        β      3β           2
+          N −C/M N − β−1 ρk + β−1 +2 #(G)− β−1 −3        . #(G)2 /N 2−ρk .
+
+which simplifies using ρk ≥ 0 to (15) as desired.                                                                
+
+
+                                            5. Maximal Function
+
+The purpose of this section is to apply the ideas of Theorem 3.3 to obtain new
+sharp (p, q) bounds on the Kakeya maximal function, defined in the introduction.
+
+In this section 0 < ε ≪ 1 is a small fixed parameter, and N ≫ 1 is a large
+parameter. We use A / B to denote the estimate A ≤ Cε N Cε B for some constants
+Cε , C, and A ≈ B to denote A / B / A. We use δ to denote the quantity
+δ := 1/N . We redefine a refinement X ′ of a set X to be any subset X ′ ⊆ X such
+that #(X ′ ) ≈ #(X).
+                                                                                                       n
+The objective of this section is to prove the estimate kKδ f k(n−1)p′ / δ p −1 kf kp
+when 1 ≤ p ≤ (4n + 3)/7; the reader may verify that the exponents in the estimate
+are sharp. We will assume n > 8 since the claim follows from the p = (n + 2)/2
+estimate of [13] otherwise. This estimate implies the weaker Hausdorff and upper
+Minkowski dimension in [6], but not the other results in this paper.
+14                      NETS HAWK KATZ AND TERENCE TAO
+
+
+We may take p := (4n + 3)/7. To prove the above estimate we first make some
+standard reductions. We first observe that we may as well restrict f to a ball
+B(0, C), and may restrict ω to make an angle of ≪ 1 with the vertical. We now
+perform routine discretization.
+Definition 5.1. Define a (discretized) point to be an element of the lattice P :=
+N −1 Zn ∩ B(0, C). Define a (discretized) line to be the set of all points in P which
+are within CN −1 of a line, whose direction makes an angle of ≪ 1 with the vertical.
+Thus lines have cardinality ∼ N , and their directions are defined up to uncertainty
+O(N −1 ). For any N −1 ≤ r ≤ 1, we say that a collection T of lines are r-separated if
+their directions are r-separated. If r = N −1 , we shall simply say that the collection
+T is separated.
+
+Note that a separated collection of lines must have cardinality at most . N n−1 .
+Unfortunately two points can determine more than one line; indeed we have
+                      #({T ∈ T : x1 , x2 ∈ T }) / |x1 − x2 |1−n                   (27)
+for any separated collection T of lines. This loss of |x1 − x2 |1−n motivates the
+two-ends reduction (31) below.
+
+By standard discretization arguments, the desired Kakeya estimate will follow from
+the discretized version
+                      X X                  ′         ′       ′
+                    (     (    f (x))(n−1)p )1/(n−1)p / N 1/p kf klp(P )         (28)
+                     T ∈T  x∈T
+
+for all finite collections T of lines, no two of which are essentially parallel. Note
+that we must have #(T) / N n−1 for such collections.
+Definition 5.2. Let T be a separated collection of lines. We define a shading of
+T to be a map Y : T 7→ Y (T ) on T such that Y (T ) is a subset of T for all T ∈ T.
+Let 0 < λ < 1. We say that the shading Y has density λ on T if
+                      #(Y (T )) ≈ λ#(T) ≈ λN for all T ∈ T.
+If we replace ≈ by ', then we say that Y has density at
+                                                      P least λ on T, etc. We
+define the counting function µY,T of Y by µY,T (x) := T ∈T χY (T ) (x), and the
+                                                P
+mass massT (Y ) to be the number massT (Y ) := T ∈T #(Y (T )) = kµY,T kl1 . If
+we have massT (Y ) ≈ N #(T), we say that the shading is saturated in T.
+
+To prove (28), it suffices by the usual restricted weak-type reduction (see [13]) to
+prove
+                                      ′         ′  [
+                     N λ#(T)1/(n−1)p / N 1/p #( Y (T))1/p                       (29)
+for all separated collections T of lines, all 1/N < λ ≤ 1, and all shadings Y with
+density λ on T. We can rewrite (29) using p = (4n + 3)/7 as
+                                                         4
+                            [
+                          #( Y (T)) & λ(4n+3)/7 N #(T) 7 .                    (30)
+
+
+Fix T, λ, Y . We now apply another reduction from [13], namely the two-ends
+reduction. This asserts that we may assume the condition
+                             #(Y (T ) ∩ B(x, r)) / λrσ N                          (31)
+                                            KAKEYA                                              15
+
+
+for all 0 < r ≪ 1, T ∈ T and some constant σ > 0 depending on p, n. See [13] for
+further details. As we shall see, once one assumes the two-ends condition (31) then
+one can improve the power of λ in (30) substantially (the same phenomenon also
+occurs in [13]).
+                               S
+Let E denote the set E := Y (T). By dyadic pigeonholing we can find a subset
+E ′ ⊂ E such that µY,T ∼ massT (Y )/#(E ′ ) on E ′ . Fix E ′ . Recall from Section 2
+that the map γn : E ′ → N −1 Z ∩ B(0, C) is defined by γn (x1 , . . . , xn ) := xn . The
+fibers of γn are thus slices of E ′ . By dyadic pigeonholing the size of the slices, there
+thus exists a set S ⊂ N −1 Z ∩ B(0, C) of size
+                                         |S| ≈ 2−k N                                          (32)
+for some k ≥ 0 such that
+                               #(E ′ ∩ γn−1 (t)) ≈ 2k #(E ′ )/N                               (33)
+for all t ∈ S. As we shall see, the worst case shall be when k = O(1).
+
+Fix k, S. Let Y ′ denote the shading Y ′ (T ) := Y (T )∩E ′ ∩γn−1 (S). Integrating µY,T
+on E ′ ∩ γn−1 (S) using (32), (33) we see that massT (Y ′ ) ≈ massT (Y ) ≈ λN #(T).
+One can then find a refinement T′ of T such that Y ′ has density λ on T′ .
+
+We first use a basic “two-slices” argument (equivalent to Bourgain’s “bush” argu-
+ment) to dispose of a relatively easy case when λ is small. For each T ∈ T′ and
+t1 ∈ S the two-ends condition gives
+                       #({t2 ∈ γn (Y ′ (T )) : |t2 − t1 | ≈ 1}) ' λN.
+Summing over all t1 and then over all T ′ , we obtain
+     #({(T, t1 , t2 ) ∈ T′ × S 2 : t1 , t2 ∈ γn (Y ′ (T )); |t1 − t2 | ≈ 1}) ' λ2 N 2 #(T).
+                                                                                              (34)
+We may therefore find t1 , t2 ∈ S such that |t1 − t2 | ≈ 1 and
+                    #({T ∈ T′ : t1 , t2 ∈ γn (Y ′ (T ))}) ' 22k λ2 #(T).
+On the other hand, by (27) for any fixed x1 ∈ γn−1 , x2 ∈ γn−1 (t2 ), there are / 1
+lines T which contain both x1 and x2 . Thus
+   #({T ∈ T′ : t1 , t2 ∈ γn (Y ′ (T ))}) / #(γn−1 (t1 ))#(γn−1 (t2 )) / 22k #(E)2 /N 2 .
+Combining these bounds one obtains #(E) ' λN #(T)1/2 . Since p = (4n + 3)/7,
+n > 8, and #(T) . N n−1 , this bound will imply (30) when λ / N −1/8 .
+
+To handle the remaining case N −1/8 / λ / 1 we use a “six-slices” argument.
+Certain ratios of these slices should be slopes of the type used in Theorem 3.3; the
+flexibility we have in choosing these slopes is what allows us to get a sufficiently
+good power of λ in our estimates.
+
+By repeating the derivation of (34) we have
+    #({(t1 , t2 , t3 , t4 ) ∈ γn (Y ′ (T ))4 : |ti − tj | ≈ 1 for all 1 ≤ i < j ≤ 4}) ' λ4 N 4
+                                                                                              (35)
+16                            NETS HAWK KATZ AND TERENCE TAO
+
+
+
+
+                                                                                  -1
+                                                                              γ        (t)
+                                                                                  n
+
+
+
+
+         Figure 3. Two separated lines, and a shading of the lines (in-
+         dicated by filled points as opposed to empty points). Note that
+         the NW-SE line fails to satisfy the two-ends condition, while the
+         NE-SW line obeys (35). Note that if the density λ is small, then
+         many slices γn−1 (t) will only have a small intersection with E. This
+         is the main difficulty in applying the slices method to the maximal
+         function problem.
+
+for all T ∈ T′ . On the other hand, Y ′ has density λ on T. If we then define the
+sets
+       Qt1 ,t2 (T ) := {(t3 , t4 ) ∈ γn (Y ′ (T ))2 : |ti − tj | ≈ 1 for all 1 ≤ i < j ≤ 4}
+and
+             P (T ) := {(t1 , t2 ) ∈ γn (Y ′ (T ))2 : #(Qt1 ,t2 (T )) ≈ λ2 N 2 }
+we see that #(P (T )) ≈ λ2 N 2 if the implicit constants are chosen appropriately.
+Summing this over all T , we obtain
+                 X
+                       #({T ∈ T′ : (t1 , t2 ) ∈ P (T )}) ≈ λ2 N 2 #(T);
+                  t1 ,t2 ∈S
+
+by (32), we can therefore find t1 , t2 ∈ S such that
+                                    #(T′′ ) ' 22k λ2 #(T),                                    (36)
+where T′′ := {T ∈ T′ : (t1 , t2 ) ∈ P (T )}.
+
+Fix t1 , t2 , and define S ′ := {t ∈ S : |t − t1 |, |t − t2 | ≈ 1}. For any t ∈ S ′ , we define
+the associated slope r(t) by r(t) := (t−t1 )/(t2 −t), thus |r(t)| ≈ 1. By construction,
+                                                        KAKEYA                                                  17
+
+
+we have Qt1 ,t2 (T ) ⊆ S ′ × S ′ and #(Qt1 ,t2 (T )) ' λ2 N 2 for all T ∈ T′′ . Define the
+                                                r(t)
+function s on S ′ × S ′ by s(t, t′ ) := r(t) + r(t ′ ) + O(1/N ), where the O(1/N ) term
+                            −1
+is such that s lands in N Z ∩ B(0, C). From (1) we have
+                  #({(t3 , t4 , t5 , t6 ) ∈ Qt1 ,t2 (T )2 : (t3 , t4 ) ∼s (t5 , t6 )}) ' λ4 N 3 .
+We now refine this to
+     #({(t3 , t4 , t5 , t6 ) ∈ Qt1 ,t2 (T )2 : (t3 , t4 ) ∼s (t5 , t6 ); |t3 − t5 | ' λ2 }) ' λ4 N 3 .
+To see this, we count the exceptional set when |t3 −t5 | ≪ λ2 . From the construction
+of T′ there are / λN choices of t3 , and similarly for t4 . Fixing t3 , there are then
+≪ λ2 N choices of t5 . Finally, for fixed t3 , t4 , t5 there are only / 1 choices for t6 ,
+and so the exceptional set is suitably small.
+
+By dyadic pigeonholing twice, we may thus find we may fix a λ2 . d . 1 and a
+refinement T′′′ of T′′ such that
+       #({(t3 , t4 , t5 , t6 ) ∈ Qt1 ,t2 (T )2 : (t3 , t4 ) ∼s (t5 , t6 ); |t3 − t5 | ∼ d}) ' λ4 N 3
+for all T ∈ T′′′ . Summing over T using (36), we obtain
+                        #({(T, t3 , t4 , t5 , t6 ) ∈T′′′ × (S ′ )4 : (t3 , t4 ), (t5 , t6 ) ∈ Qt1 ,t2 (T );
+      (t3 , t4 ) ∼s (t5 , t6 ); |t3 − t5 | ∼ d}) ' λ6 N 3 22k #(T).
+On the other hand, the set
+                  ∆ := {(t3 , t4 , t5 , t6 ) ∈ (S ′ )4 : (t3 , t4 ) ∼s (t5 , t6 ); |t3 − t5 | ∼ d}
+has cardinality / (2−k N )2 (dN ) by (32) and the same counting argument used to
+prove (34); note that dN & λ2 N ≫ 1. By the pigeonhole principle we may therefore
+find (t3 , t4 , t5 , t6 ) ∈ ∆ such that
+                                            #(T′′′′ ) ' λ6 24k #(T)/d,                                        (37)
+           ′′′′                 ′′′
+where T           := {T ∈ T           : (t3 , t4 ), (t5 , t6 ) ∈ Qt1 ,t2 (T )}.
+
+Fix t3 , t4 , t5 , t6 , T′′′′ . We now run the argument from the proof of Theorem 3.3,
+with
+                G := {(a, b) ∈ γn−1 (t1 ) × γn−1 (t2 ) : a, b ∈ T for some T ∈ T′′′′ },
+(r0 , r1 , r2 , r1′ , r2′ , r∞ ) := (0, r(t3 ), r(t5 ), r(t4 ), r(t6 ), ∞), and s := s(r3 , r4 ) = s(r5 , r6 ).
+The reader may easily verify that rsi − r1′ = 1 + O(1/N ) for i = 1, 2, so that ri′ is
+                                                           i
+essentially the dual of ri in the sense of Section 3. Also observe that |r1 − r2 | ≈ d,
+and |r1 |, |r1′ |, |r2 |, |r2′ | ≈ 1.
+
+Each line T contributes ≈ 1 elements to G, thus by (37) we have
+                                              #(G) ' λ6 24k #(T)/d.                                           (38)
+By the same token we see that the map π−1 defined in Section 3 is essentially
+one-to-one, up to a multiplicity of ≈ 1.
+
+Also, by construction weShave that πr1 (G) is essentially contained in a linear trans-
+formation of γn−1 (t3 ) ∩ T′′′ . By construction of T′′′ , this set is contained in
+γn−1 (t3 ) ∩ E ′ . By (33) we thus have #(πr1 (G)) / 2k #(E)/N . Similarly with r1
+replaced by 0, ∞, r1′ , r2 , and r2′ .
+18                      NETS HAWK KATZ AND TERENCE TAO
+
+
+We are almost ready to apply Theorem 3.3. However there is one remaining snag,
+namely that (2) breaks down, or in other words knowledge of πr (g) and πr̃ (g) do not
+necessarily determine g. When |r − r̃| ≈ 1 this is not an issue since one still has (2)
+holding (modulo a multiplicity of ≈ 1). If one then inspects the proof of Theorem
+3.3, we see that all the arguments continue to work except for the stage where one
+asserts that V is parameterized by πr1 ⊗r1′ and πr2 ⊗r2′ . Instead, for fixed values of
+πr1 ⊗r1′ (v) and πr2 ⊗r2′ , the separation properties of the ri allow there to be as many
+as / d1−n possible values of v (because (27) gives this many choices for the first
+component γ1 (v), and the second component γ2 (v) is then essentially fixed thanks
+to the separation between r1′ , r2′ and 0). By inspection of the proof of Theorem 3.3,
+we see that this loss of one-to-oneness eventually leads to a loss of d(1−n)/4 in the
+                                                                     k
+final upper bound for #(G). We thus have #(G) / d(1−n)/4 ( 2 #(E)       N  )7/4 . Applying
+                                                           2n+14      4
+(38) and using k ≥ 0, d ' λ2 we obtain #(E) ' N λ 7 #(T) 7 . Since n > 8, (30)
+follows.
+
+
+
+                                    6. Hausdorff
+
+
+The purpose of this section is to prove an estimate on the Hausdorff dimension
+of Kakeya sets. What we do here differs from the rest of the paper in that we
+do not divide the set into slices. We essentially combine the “iterated arithmetic
+techniques” of section 2 with the “hairbrush” based ideas of [13].
+
+As is well known (see [1]), the bound (29) on the maximal function at exponent p
+implies that Besicovitch sets in Rn have dimension at least p. Indeed, only needs√
+to prove (29) in the special case λ ≈ 1. Heuristically, an application of SD(1 + 22 )
+                                             √
+should obtain a √dimension bound of (2 − 2)(n − 1) + 1. We can improve this
+slightly to (2 − 2)(n − 4) + 3 by eliminating the use of slices and work directly
+with the Besicovitch set, exploiting an old argument of Cordoba as in [13] to extract
+an additional gain.
+
+As before, N ≫ 1 is a large integer. We shall also be working in some large ambient
+dimension RM (not necessarily Rn ); the implicit constants may depend on M . We
+adopt the notations of (discretized) points and lines from the previous section, with
+the following additional notations. We say that two lines are essentially parallel if
+their directions are within O(1/N ) of each other. We say that a collection of points
+are essentially collinear if they lie inside a common line. We say that a collection of
+points and lines are essentially coplanar if they lie inside a CN −1 neighbourhood
+of a two-dimensional plane.
+
+We define a n − 1-collection of lines to be any separated collection T of lines such
+that
+                        #({T ∈ T : ∠(T, ω) . θ}) / (N θ)n−1                          (39)
+for all directions ω and angles 1/N ≤ θ ≤ 1, where ∠(T, ω) denotes the angle
+between T and ω (defined up to an uncertainty of O(1/N )). If in addition we have
+#(T) ≈ N n−1 then we say that T is saturated.
+                                         KAKEYA                                          19
+
+
+Definition 6.1. Let n, d > 0 be S real numbers. We say that we have the Kakeya
+estimate K(n, d) if one has #( Y (T)) ' N d whenever T is a saturated n − 1-
+collection of lines in some ambient dimension M , and Y is a saturated shading on
+T.
+
+
+The statement K(n, d) implies that Kakeya sets in Rn have Hausdorff dimension
+at least d. Also, K(n, d) automatically implies the generalization
+                                  [        #(T)
+                                #( Y (T)) ' n−1 N d                                (40)
+                                           N
+if the assumption that T is saturated is omitted. This is by the usual factorization
+argument, joining together random rotations of L to create a saturated set (deleting
+the clusters of directions for which (39) fails; note that these regions are generically
+small when #(T) ≪ N n−1 ).
+
+The purpose of this section is to show the functional relationship
+                                                                                     ′
+Theorem 6.2. Let 0 < d < n. The K(n, d) and K(d + 1, d′ ) imply K(n, 2n+1+d
+                                                                        4   ).
+
+
+Assume for the moment that Theorem 6.2 holds. Then any statement of the form
+                          K(n, a(n − 4) + 3 − b) for all n ∈ R+
+for some constants a, b > 0 immediately implies the variant
+                         a2 + 2                  a+1
+                  K(n,          (n − 4) + 3 − b(     )) for all n ∈ R+ .
+                            4                     2
+                                                      ′
+(apply Theorem 6.2 with d := a(n√ − 4) + 3 − b and d := a(d − 3) + 3 − b). By
+iteration we thus have K(n, (2 − 2)(n − 4) + 3 + ε) for all ε > 0, which gives the
+desired Hausdorff bound.
+
+Proof Fix n, d, d′ . By raising d if necessary we may assume that K(n, d + ε) fails.
+It will then suffice to prove that (2n + 1 + d′ )/4 ≤ d + Cε, since the claim follows
+by letting ε → 0.
+
+Since K(n, d) holds and K(n, d + ε) fails, we may find an ambient dimension M , a
+saturated n − 1-collection T of lines, and a saturated shading Y such that
+                                       #(E) ≈ N d ,                                (41)
+             S
+where E :=       Y (T). It then suffices to show that
+                                                      ′
+                                  #(E) ' N (2n+1+d )/4 .                           (42)
+
+
+We now perform a reduction similar to the two-ends reduction, which ensures that
+E has dimension d in an appropriate sense. Let C be a large constant to be chosen
+later, and let 1/N < r < 1 be a dyadic radius. Call a ball B(x, r) heavy if one has
+
+                              #(E ∩ B(x, r)) ≥ N Cε (N r)d .                       (43)
+20                          NETS HAWK KATZ AND TERENCE TAO
+
+
+Let Er denote the set of all points in E which lie in at least one heavy ball B(x, r).
+We claim that
+                     X                             X
+                          #(Y (T ) ∩ Er ) ≤ N −ε       #(Y (T ))                 (44)
+                     T ∈T                         T ∈T
+
+if C is sufficiently large.
+
+To see this, suppose for contradiction that the above estimate failed. Then the
+shading Yr (T ) := Y (T ) ∩ Er is saturated. We may then find a refinement Tr of T
+such that Y ′ has density 1 on Tr .
+
+The set Er is contained in a union of heavy r-balls. By applying the Kakeya
+hypothesis at eccentricity 1/r, applied to an appropriate blurring of the collection
+Tr and the shading Yr , we thus see that the number of heavy r-balls needed to
+cover Er is ' r−d . From (43) we thus have #(Er ) ' N Cε (rN )d r−d , contradicting
+(41) if C is sufficiently large. This proves (44). Henceforth the implicit constants
+may depend on C.
+
+Set E ′ := E\ 1/N <r<1 Er and define the shading Y ′ (T ) := Y (T ) ∩ E ′ on T. Since
+             S
+
+Y is saturated on T, we see from (44) that Y ′ is also saturated on T.
+
+Since Y ′ is saturated on T, we may find a refinement T′ of T such that Y ′ has
+density 1 on T′ , so in particular
+          #({(x, T ) ∈ E ′ × T′ : x ∈ Y ′ (T )}) = massT′ (Y ′ ) ≈ N #(T′ ) ≈ N n .
+We now apply the “bilinear reduction” [12]. From (1) and pigeonholing we have
+      #({(x, T1 , T2 ) ∈ E ′ × (T′ )2 : x ∈ Y ′ (T1 ) ∩ Y ′ (T2 ); ∠(T1 , T2 ) ∼ θ}) ' N 2n−d
+for some N −1 ≤ θ ≤ 1; the diagonal contribution l1 = l2 can be discarded since
+d < n. By another pigeonholing we can find a direction ω such that
+#({(x, T1 , T2 ) ∈ E ′ ×(T′ )2 : x ∈ Y ′ (T1 )∩Y ′ (T2 ); ∠(T1 , T2 ) ∼ θ; ∠(T1 , ω), ∠(T2 , ω) . θ}) ' N 2n−d θn−1 .
+As in [12] we can then rescale θ to equal 1 to obtain
+                                        #(A) ' N 2n−d .                                     (45)
+
+where A := {(x, T1 , T2 ) ∈ E ′ × (T′ )2 : x ∈ Y ′ (T1 ) ∩ Y ′ (T2 ); ∠(T1 , T2 ) ∼ 1}. We
+refer to elements α ∈ A as angles, and write x(α), T1 (α), T2 (α) for x, T1 , T2 .
+Definition 6.3. Let α be an angle. We say that a point z ∈ P is a pivot for α if
+
+      • z is distance ≈ 1 from both T1 (α) and T2 (α), and is essentially coplanar with
+        T1 (α), T2 (α).
+      • There exists a point iα,z ∈ Y ′ (T1 (α)) such that c − iα,z is essentially parallel
+        to T2 (α).
+      • We have
+     #({(y1 , y2 ) ∈ Y ′ (T1 (α)) × Y ′ (T2 (α)) : y1 , z, y2 are essentially collinear}) ≈ N.
+                                                                                             (46)
+                                          KAKEYA                                            21
+
+
+                   T ( α)                                               T ( α)
+                    1                                                    2
+
+
+
+
+                                               z
+
+
+
+
+                                  i
+                                  α ,z
+
+
+
+
+         Figure 4. An angle and one of its pivots. For the Hausdorff
+         problem the shadings have density ≈ 1.
+
+Angles and pivots are the analogue of vertical line segments and values of ν in
+Section 3. Let Ω := {(α, z) ∈ A × P : z is a pivot for α} denote the set of angle-
+pivot pairs. The following lemma asserts that a large fraction of the points coplanar
+to T1 (α) and T2 (α) are indeed pivots for α.
+Lemma 6.4. For every α ∈ A we have #({z ∈ P : (α, z) ∈ Ω}) ≈ N 2 .
+
+
+Proof The upper bound is trivial, so it suffices to prove the lower bound. Fix α,
+and let X denote the set of triples
+X := {(i, y1 , y2 ) ∈ Y ′ (T1 (α))2 ×Y ′ (T2 (α)) : |i−y1 |, |i−x(α)|, |y1 −x(α)|, |y2 −x(α)| ≈ 1}.
+Since #(Y ′ (T1 (α))2 × Y ′ (T2 (α))) ≈ N 3 we see that #(X) ≈ N 3 (if the constants
+are chosen correctly).
+
+For each triple τ = (i, y1 , y2 ) ∈ X, we can find a point ν(τ ) which is distance
+≈ 1 from T1 (α) and T2 (α), is essentially coplanar with T1 (α), T2 (α), is essentially
+collinear with y1 , y2 , and is such that ν(τ ) − i is essentially parallel to T2 (α). Let
+us fix this map ν : X → P .
+
+Since the ν(τ ) are essentially coplanar to T1 (α) and T2 (α) we see that #(ν(X)) /
+N 2 . On the other hand, we see from elementary geometry that #(ν −1 (z)) / N for
+22                        NETS HAWK KATZ AND TERENCE TAO
+
+
+all z ∈ P, and thus
+                         #({z ∈ ν(X) : #(ν −1 (z)) ≈ N }) ≈ N 2 .
+Since all the elements z in this set are pivots for α, the claim follows.                    
+
+From the preceding Lemma and (45) we thus have
+                              #(Ω) ≈ N 2 #(A) & N 2n−d+2 .                                 (47)
+
+
+Let f : Ω → P × P denote the map f (α, z) := (z, iα,z ).
+Lemma 6.5. We have #(f (Ω)) ≈ N 2 #(A) ≈ #(Ω).
+
+
+Proof This will be a variant of Cordoba’s argument. We first observe that f (α, z)
+essentially determines T2 (α) (up to a multiplicity of ≈ 1), since T2 (α) is parallel to
+z − iα,z , which has magnitude ≈ 1, and the T2 (α) are direction-separated. (This is
+the analogue of ν being determined by πr∞ ◦ γ1 in Section 3). Thus we may find a
+refinement Ω′ of Ω such that T2 (α) is determined by f (α, z) on Ω′ .
+
+By (1) and a pigeonholing it suffices to show that
+#({((α, z), (α′ , z ′ )) ∈ Ω′ × Ω′ : (α, z) ∼f (α′ , z ′ ); ∠(T1 (α), T1 (α′ )) ∼ θ}) / N 2 #(A)
+for each 1/N ≤ θ ≤ 1.
+
+Fix θ, and consider an element α ∈ A. If ((α, z), (α′ , z)) contributes to the above
+set, then z = z ′ and T1 (α), T1 (α′ ), and T2 (α) = T2′ (α) are essentially coplanar, so
+the number of possible T1 (α′ ) is / N θ since L is separated. For each such T1 (α′ ),
+the number of iα,z which can contribute is ≤ #(T1 (α)∩T1 (α′ )) / 1/θ. Since z −iα,z
+is essentially parallel to T2 (α), the number of z which can contribute is / N/θ. The
+claim follows.                                                                         
+
+We use this lemma to fix a refinement Ω′ of Ω such that Ω′ is parameterized by f .
+We now lift our Besicovitch set to the space RM+1 := {(x, t) : x ∈ RM , t ∈ R} (this
+is the analogue of the iteration argument in Section 3). If (α, z) ∈ Ω′ , we define
+T (α, z) ⊆ RM+1 to be a (discretized) line which contains the points (x(α), 0) and
+(x(α) + (z − iα,z ), 1), and whose t variables ranges over the region |t| / 1. For each
+z ∈ P , define T(z) := {T (α, z) : (α, z) ∈ Ω′ }. We also define Y (T (α, z)) to be those
+elements (y1 , t) of T (α, z) such that y1 appears in the left-hand side of (46). By
+construction, Y is a shading with density 1 on T(z). From elementary geometry
+we see that |t − 1| ≈ 1 for all (x, t) ∈ Y (T (α, z)).
+Lemma 6.6. T(z) is a d-collection of lines for each z ∈ P .
+
+
+Proof Fix z. Since the direction of T (α, z) is affinely determined by iα,z , it suffices
+to show
+               #({α ∈ A : (α, z) ∈ Ω′ ; iα,c ∈ B(x, θ)}) / (N θ)d−1
+for all balls B(x, θ). On the other hand, from the construction of E ′ we have
+#(E ′ ∩ B(x, r)) / (N r)d . Since Ω′ is parameterized by f , the claim follows. 
+                                                 KAKEYA                                                   23
+
+
+From this lemma and the hypothesis K(d + 1, d′ ) we can now obtain a multiplicity
+bound on Y . More precisely:
+Lemma 6.7. Fix z ∈ P . Then there exists a set of points E(z) ⊂ RM+1 such that
+               ′
+the shading Y (T (α, z)) := Y (T (α, z)) ∩ E(z) is saturated on T(z), and one has
+                   ′
+µ ′       . N d+1−d on E(z).
+  Y ,T(z)
+
+
+                                                                                           ′
+Proof We set E(z) := {(x, t) ∈ RM+1 : µ ′                        (x, t) / N Cε N d+1−d } where C is
+                                                       Y ,T(z)
+                                                                            ′
+to be chosen later. Now suppose for contradiction that Y is not saturated. Then
+               ′′
+the shading Y (T (α, z)) := Y (T (α, z))\E(z) must be saturated on T(z). There
+                                  ′                          ′′             ′
+must therefore be a refinement T (z) of T(z) such that Y has density 1 on T (z).
+By the hypothesis K(d + 1, d′ ) we thus have
+                  [ ′′ ′                    ′      ′       ′
+             #( Y (T (z))) ' N −d #(T (z))N d ≈ N d −d #(T(z)).
+                  S ′′ ′
+By construction, Y (T (z)) is outside E. From the definition of E we thus have
+                    X                                ′   ′
+               k           χT (α,z) k1 ' N Cε N d+1−d N d −d #(T(z)).
+                     T (α,z)∈T(z)
+
+On the other hand, the left-hand side is clearly / N #(T(z)). Thus we have a
+contradiction if C is sufficiently large.                                 
+                           ′
+Fix z ∈ P , and let Y be as in the previous lemma. The counting function µ ′
+                                                                             Y ,T(z)
+                                                               ′
+has an l1 norm of / N #(T(z)) and an l∞ norm of / N d+1−d . From Hölder and a
+                                                                            ′
+                                                               k22 / N d+2−d #(Ω′ ).
+                                               P
+summation z we thus have the lower bound z∈P kµ ′
+                                                        Y ,T(z) l
+To prove (42), it thus suffices by (47) to obtain the upper bound
+                          X
+                              kµ ′      k22 ' N 1−2d #(Ω′ )2 .                  (48)
+                                 Y ,T(z) l
+                                z∈P
+
+We expand the left-hand side of (48) as
+           X X                X
+                                         χY ′ (T (α,z)) (x, t)χY ′ (T (α′ ,z)) (x, t).
+           x∈P t∈N −1 Z (α,z),(α′ ,z)∈Ω′
+
+
+
+Suppose (α, z) ∈ Ω′ , x1 ∈ Y ′ (T1 (α)), x2 ∈ Y ′ (T2 (α)) are such that x1 , z, and x2 are
+                                                                                              ′
+essentially collinear. Then there exists a t ∈ N −1 Z such that (x1 , t) ∈ Y (T (α, z)).
+In light of this, the previous sum can be bounded from below by
+    X        X
+                   χΩ′ (α, z)χΩ′ (α′ , z)χY ′ (T1 (α))∩Y ′ (T1 (α′ )) (x1 )χY ′ (T2 (α))∩Y ′ (T2 (α′ )) (x2 ),
+(x1 ,z,x2 )∈Σ α,α′ ∈A
+
+where
+Σ := {(x1 , z, x2 ) ∈ E × P × E : x1 , z, x2 essentially collinear; |x1 − z|, |x2 − z| ≈ 1}.
+The previous sum can be simplified to
+                X       X
+                      [    χΩ′ (α, z)χY ′ (T1 (α)) (x1 )χY ′ (T2 (α)) (x2 )]2 .
+                   (x1 ,z,x2 )∈Σ α∈A
+24                         NETS HAWK KATZ AND TERENCE TAO
+
+
+By the Cauchy-Schwarz inequality, this can be bounded from below by
+             X     X
+          [             χΩ′ (α, z)χY ′ (T1 (α)) (x1 )χY ′ (T2 (α)) (x2 )]2 /#(Σ).
+             (x1 ,z,x2 )∈Σ α∈A
+
+From the definition of Σ it is clear that #(Σ) ≈ N #(E)2 . Also, for fixed (α, z) ∈ Ω′
+we see from the definition of pivot that
+                       X
+                                   χY ′ (T1 (α)) (x1 )χY ′ (T2 (α)) (x2 ) ≈ N.
+                   x1 ,x2 :(x1 ,z,x2 )∈Σ
+
+Thus the left-hand side of (48) is bounded from below by N #(E)−2 ( (α,z)∈Ω′ 1)2 ,
+                                                                   P
+
+and the claim follows from (41).                                               
+
+
+                                           References
+
+ [1] J. Bourgain, Besicovitch-type maximal operators and applications to Fourier analysis, Geom.
+     and Funct. Anal. 22 (1991), 147–187.
+ [2] J. Bourgain, On the dimension of Kakeya sets and related maximal inequalities, Geom. Funct.
+     Anal. 9 (1999), no. 2, 256–282.
+ [3] J. Bourgain, Harmonic analysis and combinatorics: How much may they contribute to each
+     other?, Mathematics: Frontiers and perspectives, IMU/Amer. Math. Society 2000, 13–32.
+ [4] A. Cordoba The Kakeya maximal functions and the spherical summation operators Amer. J.
+     Math. 99 (1977) 1–22
+ [5] S. Drury, Lp estimates for the x-ray transform, Ill. J. Math. 27 (1983), 125–129.
+ [6] N. Katz, T. Tao Bounds on arithmetic progressions and applications to the Kakeya conjec-
+     ture, Math. Res. Let. 6 (1999) 625–630.
+ [7] N. Katz, I. Laba, T. Tao, An improved bound on the Minkowski dimension of Besicovitch
+     sets in R3 , to appear, Annals of Math.
+ [8] I. Laba, T. Tao: An x-ray estimate in Rn , to appear, Revista Iberoamericana.
+ [9] I. Laba, T. Tao: An improved bound for the Minkowski dimension of Besicovitch sets in
+     medium dimension, to appear, GAFA.
+[10] I. Ruzsa, Sums of finite sets, Number Theory: New York Seminar; Springer-Verlag (1996),
+     D.V. Chudnovsky, G.V. Chudnovsky and M.B. Nathanson editors.
+[11] T. Tao, From rotating needles to stability of waves: emerging connections between combina-
+     torics, analysis, and PDE, to appear, Notices Amer. Math. Soc.
+[12] T. Tao, A. Vargas, L. Vega, A bilinear approach to the restriction and Kakeya conjectures,
+     J. Amer. Math. Soc. 11 (1998), pp. 967–1000.
+[13] T. Wolﬀ, An improved bound for Kakeya type maximal functions, Revista Mat. Iberoameri-
+     cana. 11 (1995). 651–674.
+[14] T. H. Wolﬀ, A mixed norm estimate for the x-ray transform, Revista Mat. Iberoamericana.
+     14 (1998), 561-600.
+[15] T. Wolﬀ, Recent work connected with the Kakeya problem, Prospects in mathematics (Prince-
+     ton, NJ, 1996), 129–162, Amer. Math. Soc., Providence, RI, 1999.
+
+
+Department of Mathematics, Washington University St. Louis 63130
+
+E-mail address: nets@math.wustl.edu
+
+
+Department of Mathematics, UCLA, Los Angeles CA 90095-1555
+
+E-mail address: tao@math.ucla.edu
+

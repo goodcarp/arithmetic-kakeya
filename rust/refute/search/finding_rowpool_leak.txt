@@ -1,0 +1,40 @@
+### FINDING: min_generators' `row_pool` free-list grows once per itertools.product combo
+
+crates/kakeya-search/src/search.rs, min_generators, top of the combo loop:
+
+    loop {
+        gens.clear();
+        while let Some(r) = rows.pop() { row_pool.push(r); }   // (A)
+        for r in base_rows { rows.push(r.clone()); }           // (B)
+        ...
+        while rows.len() > base_len { row_pool.push(rows.pop()...); }
+        ... odometer step ...
+    }
+
+(A) returns the previous iteration's base-row vectors to `row_pool`; (B) then
+allocates `base_rows.len()` brand-new clones instead of reusing them.  Only
+`gen_row` pops from `row_pool`, and there are usually fewer generator rows than
+base rows, so `row_pool` grows by roughly `base_rows.len()` vectors per combo
+and is only released when the chunk's `Worker` (and with it the `GenScratch`)
+is dropped.  Output is unaffected -- it is a pure free-list -- but the resident
+set is not.
+
+Measurement, same driver, same arguments, single thread, no --tlimit:
+
+  rust:   kakeya-search scan --tag mem --d 2x2x2 --pool 8 --max-t 0 --target 2 --threads 1 --quiet
+  python: KAKEYA_PURE_PY=1 python3 scan1.py mem 2x2x2 8 0 2 - 100000
+
+  rust RSS:   t= 5s  69 MB
+              t=10s 126 MB
+              t=15s 178 MB
+              t=20s 244 MB
+              t=25s 323 MB
+              t=30s 413 MB
+              t=35s 447 MB   (then oscillates 340-455 MB as chunks are retired)
+  python RSS: t= 5s 0.7 MB
+
+The plateau is set by the chunk size (chunk_size() caps at 4096 outer items,
+and each rayon chunk builds a fresh Worker), so the peak scales with
+--threads: 8 workers of this shape would be ~3.6 GB.  For the fixture-sized
+runs in run_targets.sh the chunk sizes are 1-2048 items, so the peak is small
+there; the defect matters for any scan over a large enumeration space.

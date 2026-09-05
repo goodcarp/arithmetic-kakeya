@@ -1,0 +1,718 @@
+[
+ {
+  "name": "v01_negative_entry_floored_mod",
+  "call": "rank([[-1,2]], p=5)",
+  "expected_repr": "1",
+  "note": "Python % floors; Rust % keeps sign -> use rem_euclid"
+ },
+ {
+  "name": "v02_nonprime_p_pivot_zeroed_rank_still_counts",
+  "call": "rank([[2,0]], p=4)",
+  "expected_repr": "1",
+  "note": "pow(2,2,4)==0 zeroes pivot row, rk still increments"
+ },
+ {
+  "name": "v03_inv_of_zero_is_zero",
+  "call": "_inv(0,5)",
+  "expected_repr": "0",
+  "note": "pow(0,p-2,p)==0, no error"
+ },
+ {
+  "name": "v04_entry_2pow62_reduced_on_load",
+  "call": "rank([[1<<62, 1]], p=5)",
+  "expected_repr": "1",
+  "note": "bigint entries reduced before use"
+ },
+ {
+  "name": "v05_multiples_of_p_are_zero_rows",
+  "call": "force([[7,7]],1,[],p=7)",
+  "expected_repr": "(False, set())",
+  "note": "zero rows dropped -> no found vertex"
+ },
+ {
+  "name": "v06_partial_T_on_failure_ascending_scan",
+  "call": "force([[0,0,1,-1]],2,[])",
+  "expected_repr": "(False, {1})",
+  "note": "found scan ascending j in U; partial T returned on failure"
+ },
+ {
+  "name": "v07_T0_len_short_circuit_out_of_range",
+  "call": "force([],1,[99])",
+  "expected_repr": "(True, {99})",
+  "note": "len(set(T0))>=n short-circuits; out-of-range index kept"
+ },
+ {
+  "name": "v08_T0_duplicates_collapse",
+  "call": "force([[1,-1]],1,[2,2])",
+  "expected_repr": "(True, {2})",
+  "note": "set(T0)"
+ },
+ {
+  "name": "v09_T0_duplicates_collapse_n2",
+  "call": "force([],2,[0,0,7])",
+  "expected_repr": "(True, {0, 7})",
+  "note": "set(T0)"
+ },
+ {
+  "name": "v10_entry_equal_P_is_zero",
+  "call": "rank([[2147483647]])",
+  "expected_repr": "0",
+  "note": "P % P == 0"
+ },
+ {
+  "name": "v10b_entry_P_plus_1_is_one",
+  "call": "rank([[2147483648]])",
+  "expected_repr": "1",
+  "note": ""
+ },
+ {
+  "name": "v11_empty_row_rank_zero",
+  "call": "rank([[]])",
+  "expected_repr": "0",
+  "note": "w=0, loop never runs"
+ },
+ {
+  "name": "v12_ragged_rows_raise",
+  "call": "rank([[1,2],[3]])",
+  "expected_repr": "raises IndexError",
+  "note": "IndexError on short second row"
+ },
+ {
+  "name": "v13_short_row_force_raises",
+  "call": "force([[1]],1,[])",
+  "expected_repr": "raises IndexError",
+  "note": "r[2*j+1] out of range"
+ },
+ {
+  "name": "v14_nonprime_p_two_pivots",
+  "call": "rank([[2,1],[0,2]], p=4)",
+  "expected_repr": "2",
+  "note": ""
+ },
+ {
+  "name": "v15_nonprime_p_force_false",
+  "call": "force([[2,2]],1,[],p=4)",
+  "expected_repr": "(False, set())",
+  "note": ""
+ },
+ {
+  "name": "v16_input_set_not_mutated",
+  "call": "(lambda s: (force([[1,-1]],1,s), s))(set())",
+  "expected_repr": "((True, {0}), set())",
+  "note": "returned set fresh, input untouched"
+ },
+ {
+  "name": "a01_negative_entry_force_found",
+  "call": "force([[-1, 1]],1,[])",
+  "expected_repr": "(True, {0})",
+  "note": "row (-1,1) ~ (p-1,1); Rust % would keep -1"
+ },
+ {
+  "name": "a02_negative_entry_force_notfound",
+  "call": "force([[-1, -1]],1,[])",
+  "expected_repr": "(False, set())",
+  "note": "(-1,-1)~(p-1,p-1) is NOT a multiple of (1,-1)"
+ },
+ {
+  "name": "a03_entries_above_p_force",
+  "call": "force([[P+1, 2*P-1]],1,[])",
+  "expected_repr": "(True, {0})",
+  "note": "reduced on load: (1, P-1)"
+ },
+ {
+  "name": "a04_p_minus_1_squared_products",
+  "call": "rank([[P-1,P-1],[P-1,1]])",
+  "expected_repr": "2",
+  "note": "fac*b ~ 2^62, a-fac*b negative ~ -2^62: needs floored/rem_euclid or reduce first"
+ },
+ {
+  "name": "a05_p_minus_1_products_force",
+  "call": "force([[P-1,1,P-1,1],[1,P-1,1,2]],2,[])",
+  "expected_repr": "(False, set())",
+  "note": "same, in force"
+ },
+ {
+  "name": "a06_p_minus_1_products_force2",
+  "call": "force([[P-1,1,P-1,2],[P-2,P-3,P-1,1]],2,[])",
+  "expected_repr": "(False, set())",
+  "note": ""
+ },
+ {
+  "name": "a07_2pow62_minus_1_is_zero_mod_P",
+  "call": "rank([[(1<<62)-1]])",
+  "expected_repr": "0",
+  "note": "2^31 = 1 mod P so 2^62-1 = 0 mod P; entry is 4611686018427387903"
+ },
+ {
+  "name": "a08_2pow62_is_one_mod_P",
+  "call": "rank([[1<<62]])",
+  "expected_repr": "1",
+  "note": ""
+ },
+ {
+  "name": "a09_neg_2pow62_plus_1_is_zero",
+  "call": "rank([[-(1<<62)+1]])",
+  "expected_repr": "0",
+  "note": "-(2^62)+1 = -1+1 = 0 mod P"
+ },
+ {
+  "name": "a10_neg_2pow62_is_P_minus_1",
+  "call": "rank([[-(1<<62)]])",
+  "expected_repr": "1",
+  "note": ""
+ },
+ {
+  "name": "a11_entry_2pow70_beyond_i64",
+  "call": "rank([[1<<70]])",
+  "expected_repr": "1",
+  "note": "Python bigint; i64 extraction would overflow (2^70 = 2^8 = 256 mod P)"
+ },
+ {
+  "name": "a12_entry_2pow70_minus_256_zero",
+  "call": "rank([[(1<<70)-256]])",
+  "expected_repr": "0",
+  "note": ""
+ },
+ {
+  "name": "a13_p_above_2pow32_needs_u128",
+  "call": "rank([[4294967310,4294967310],[4294967310,1]], p=4294967311)",
+  "expected_repr": "2",
+  "note": "p=2^32+15 (prime); (p-1)^2 > 2^64"
+ },
+ {
+  "name": "a14_mersenne61_p_needs_u128",
+  "call": "force([[(1<<61)-2, 1, 5, 7],[3, (1<<61)-4, 11, 13]],2,[], p=(1<<61)-1)",
+  "expected_repr": "(False, set())",
+  "note": "p=2^61-1: products ~2^122"
+ },
+ {
+  "name": "a15_mersenne61_rank",
+  "call": "rank([[(1<<63)-1, 1<<63],[3,5]], p=(1<<61)-1)",
+  "expected_repr": "2",
+  "note": "entries above p and above i64"
+ },
+ {
+  "name": "a16_p2_inv_of_zero_is_one",
+  "call": "_inv(0,2)",
+  "expected_repr": "1",
+  "note": "pow(0,0,2)==1; never reached by rank/force since pivots are nonzero"
+ },
+ {
+  "name": "a17_p2_rank",
+  "call": "rank([[3,1],[1,3],[2,4]],p=2)",
+  "expected_repr": "1",
+  "note": ""
+ },
+ {
+  "name": "a18_p2_force",
+  "call": "force([[1,1]],1,[],p=2)",
+  "expected_repr": "(True, {0})",
+  "note": "(1,-1)=(1,1) mod 2"
+ },
+ {
+  "name": "a19_p1_everything_zero",
+  "call": "rank([[5,3]],p=1)",
+  "expected_repr": "0",
+  "note": "x%1==0"
+ },
+ {
+  "name": "a20_p1_force_false",
+  "call": "force([[1,-1]],1,[],p=1)",
+  "expected_repr": "(False, set())",
+  "note": "all rows vanish"
+ },
+ {
+  "name": "a21_p1_inv",
+  "call": "_inv(3,1)",
+  "expected_repr": "0",
+  "note": "pow(3,-1,1)"
+ },
+ {
+  "name": "a22_p0_rank_raises",
+  "call": "rank([[1]],p=0)",
+  "expected_repr": "raises ZeroDivisionError",
+  "note": "ZeroDivisionError from %"
+ },
+ {
+  "name": "a23_p0_rank_empty_ok",
+  "call": "rank([],p=0)",
+  "expected_repr": "0",
+  "note": "returns before any % "
+ },
+ {
+  "name": "a24_p0_force_shortcircuit_ok",
+  "call": "force([[1,-1]],1,[0],p=0)",
+  "expected_repr": "(True, {0})",
+  "note": "len(T)>=n before any arithmetic"
+ },
+ {
+  "name": "a25_p0_force_raises",
+  "call": "force([[1,-1]],1,[],p=0)",
+  "expected_repr": "raises ZeroDivisionError",
+  "note": ""
+ },
+ {
+  "name": "a26_negative_p",
+  "call": "rank([[3]],p=-5)",
+  "expected_repr": "1",
+  "note": "3 % -5 == -2 in Python; then pow(-2,-7,-5)"
+ },
+ {
+  "name": "a27_negative_p_force",
+  "call": "force([[1,-1]],1,[],p=-7)",
+  "expected_repr": "(True, {0})",
+  "note": ""
+ },
+ {
+  "name": "a28_float_p_raises",
+  "call": "rank([[1]],p=5.0)",
+  "expected_repr": "raises TypeError",
+  "note": "pow() 3-arg needs ints"
+ },
+ {
+  "name": "a29_float_zero_entries_no_raise",
+  "call": "rank([[0.0,0.0]])",
+  "expected_repr": "0",
+  "note": "0.0 % p == 0.0 falsy; pow never called"
+ },
+ {
+  "name": "a30_float_entry_raises",
+  "call": "rank([[2.0]])",
+  "expected_repr": "raises TypeError",
+  "note": ""
+ },
+ {
+  "name": "b01_p6_wrong_inverse_force_false",
+  "call": "force([[5,1]],1,[],p=6)",
+  "expected_repr": "(False, set())",
+  "note": "true inverse of 5 mod 6 is 5, pow(5,4,6)=1; (5,1)*5=(1,5)=(1,-1) so a correct port says True, Python says False"
+ },
+ {
+  "name": "b02_p9_wrong_inverse_force_false",
+  "call": "force([[2,7]],1,[],p=9)",
+  "expected_repr": "(False, set())",
+  "note": "pow(2,7,9)=2 but 2*2=4; (2,7)*5=(1,8)=(1,-1) mod 9 -> correct port True, Python False"
+ },
+ {
+  "name": "b03_p9_inv_value",
+  "call": "_inv(2,9)",
+  "expected_repr": "2",
+  "note": ""
+ },
+ {
+  "name": "b04_p6_inv_value",
+  "call": "_inv(5,6)",
+  "expected_repr": "1",
+  "note": ""
+ },
+ {
+  "name": "b05_p4_rank_zeroed_pivot_then_second",
+  "call": "rank([[2,1],[2,3]], p=4)",
+  "expected_repr": "2",
+  "note": "first pivot row zeroed by iv=0, rk still 1; row1 untouched (fac*0)"
+ },
+ {
+  "name": "b06_p4_wrong_inverse_of_unit",
+  "call": "force([[3,1]],1,[],p=4)",
+  "expected_repr": "(False, set())",
+  "note": "3 IS a unit mod 4 (3*3=9=1) but pow(3,2,4)=1 != 3, so the pivot row is not normalised; (3,1)*3=(1,3)=(1,-1) so a correct port says True, Python says False"
+ },
+ {
+  "name": "b07_p8_rank",
+  "call": "rank([[2,4],[4,2],[6,6]], p=8)",
+  "expected_repr": "2",
+  "note": ""
+ },
+ {
+  "name": "b08_p8_force",
+  "call": "force([[3,5,0,0],[2,2,7,1]],2,[],p=8)",
+  "expected_repr": "(False, set())",
+  "note": ""
+ },
+ {
+  "name": "b09_p1_p_minus_2_negative_exponent_inv",
+  "call": "_inv(2,1)",
+  "expected_repr": "0",
+  "note": "pow(2,-1,1)"
+ },
+ {
+  "name": "c01_cache_poison_inv",
+  "call": "_inv(2,7)",
+  "expected_repr": "3",
+  "note": "poisoned by earlier _inv(2,5)=3; fresh value is 4",
+  "setup": "_inv(2,5)"
+ },
+ {
+  "name": "c02_cache_poison_force",
+  "call": "force([[2,0],[0,2]],1,[])",
+  "expected_repr": "(False, set())",
+  "note": "fresh process gives (True, {0}); after a p=4 call the cached inv(2)=0",
+  "setup": "force([[2,2]],1,[],p=4)"
+ },
+ {
+  "name": "c03_cache_key_is_raw_a",
+  "call": "(_inv(P+2), sorted(fastcore._INV.keys()))",
+  "expected_repr": "(1073741824, [2147483649])",
+  "note": "key is P+2 not 2; value is inv(2)=(P+1)/2"
+ },
+ {
+  "name": "c04_inv_of_minus_one",
+  "call": "_inv(-1)",
+  "expected_repr": "2147483646",
+  "note": "P-1"
+ },
+ {
+  "name": "c05_inv_of_two_default_p",
+  "call": "_inv(2)",
+  "expected_repr": "1073741824",
+  "note": "(P+1)/2 = 1073741824"
+ },
+ {
+  "name": "d01_T0_tuple",
+  "call": "force([[1,-1,0,0],[0,0,1,-1]],2,(1,))",
+  "expected_repr": "(True, {0, 1})",
+  "note": ""
+ },
+ {
+  "name": "d02_T0_frozenset_returns_plain_set",
+  "call": "type(force([],1,frozenset([5]))[1]).__name__",
+  "expected_repr": "'set'",
+  "note": "returned object is a set, not frozenset"
+ },
+ {
+  "name": "d03_T0_generator",
+  "call": "force([[1,-1,0,0],[0,0,1,-1]],2,(j for j in [1]))",
+  "expected_repr": "(True, {0, 1})",
+  "note": ""
+ },
+ {
+  "name": "d04_T0_range",
+  "call": "force([],3,range(3))",
+  "expected_repr": "(True, {0, 1, 2})",
+  "note": ""
+ },
+ {
+  "name": "d05_T0_out_of_range_pads_count",
+  "call": "force([[1,-1,0,0]],2,[5])",
+  "expected_repr": "(True, {0, 5})",
+  "note": "vertex 1 never forced yet True: len(T) counts 5"
+ },
+ {
+  "name": "d06_T0_negative_index",
+  "call": "force([[1,-1,0,0]],2,[-1])",
+  "expected_repr": "(True, {0, -1})",
+  "note": "-1 is not in range(n) so U=[0,1]; -1 still counts toward n"
+ },
+ {
+  "name": "d07_T0_superset_of_range",
+  "call": "force([[1,-1]],1,[0,1])",
+  "expected_repr": "(True, {0, 1})",
+  "note": ""
+ },
+ {
+  "name": "d08_T0_bool_element",
+  "call": "force([],1,[True])",
+  "expected_repr": "(True, {True})",
+  "note": "set([True]) has len 1; repr is {True}; a port extracting ints returns {1}"
+ },
+ {
+  "name": "d09_n_zero",
+  "call": "force([[1,2]],0,[])",
+  "expected_repr": "(True, set())",
+  "note": ""
+ },
+ {
+  "name": "d10_n_negative",
+  "call": "force([[1,-1]],-1,[])",
+  "expected_repr": "(True, set())",
+  "note": "len(T) < -1 is False -> (True, set()); a usize port cannot represent this"
+ },
+ {
+  "name": "d11_n_zero_empty_rows",
+  "call": "force([],0,[])",
+  "expected_repr": "(True, set())",
+  "note": ""
+ },
+ {
+  "name": "d12_all_vertices_in_T0_rows_never_read",
+  "call": "force([[1]],1,[0])",
+  "expected_repr": "(True, {0})",
+  "note": "short row not validated because loop never runs"
+ },
+ {
+  "name": "d13_rows_none_shortcircuit",
+  "call": "force(None,1,[0])",
+  "expected_repr": "(True, {0})",
+  "note": "rows never iterated"
+ },
+ {
+  "name": "d14_rows_none_raises",
+  "call": "force(None,1,[])",
+  "expected_repr": "raises TypeError",
+  "note": ""
+ },
+ {
+  "name": "d15_rows_none_n0",
+  "call": "force(None,0,[])",
+  "expected_repr": "(True, set())",
+  "note": ""
+ },
+ {
+  "name": "d16_empty_rows_n1",
+  "call": "force([],1,[])",
+  "expected_repr": "(False, set())",
+  "note": "B empty -> nothing forced"
+ },
+ {
+  "name": "d17_rows_generator_consumed_after_round1",
+  "call": "force((r for r in [[1,-1,0,0],[0,0,1,-1]]),2,[])",
+  "expected_repr": "(False, {0})",
+  "note": "list gives (True,{0,1}); generator is exhausted on the restart after the first found vertex"
+ },
+ {
+  "name": "d18_rows_tuple_of_tuples",
+  "call": "force(((1,-1,0,0),(0,0,1,-1)),2,[])",
+  "expected_repr": "(True, {0, 1})",
+  "note": ""
+ },
+ {
+  "name": "e01_row_longer_than_2n_ignored",
+  "call": "force([[1,-1,9,9,9]],1,[])",
+  "expected_repr": "(True, {0})",
+  "note": "only r[0],r[1] read"
+ },
+ {
+  "name": "e02_short_row_ok_when_index_never_read",
+  "call": "force([[1,-1]],2,[1])",
+  "expected_repr": "(True, {0, 1})",
+  "note": "j=1 forced so r[2],r[3] never read; pre-validation would raise"
+ },
+ {
+  "name": "e03_forced_coords_ignored",
+  "call": "force([[1,-1,1,1]],2,[1])",
+  "expected_repr": "(True, {0, 1})",
+  "note": ""
+ },
+ {
+  "name": "e04_empty_row_force_raises",
+  "call": "force([[]],1,[])",
+  "expected_repr": "raises IndexError",
+  "note": "r[0]"
+ },
+ {
+  "name": "e05_all_zero_row",
+  "call": "force([[0,0]],1,[])",
+  "expected_repr": "(False, set())",
+  "note": ""
+ },
+ {
+  "name": "e06_zero_row_plus_good_row",
+  "call": "force([[0,0],[1,-1]],1,[])",
+  "expected_repr": "(True, {0})",
+  "note": ""
+ },
+ {
+  "name": "e07_scaled_pair_found",
+  "call": "force([[2,-2]],1,[])",
+  "expected_repr": "(True, {0})",
+  "note": "(2,-2) spans (1,-1)"
+ },
+ {
+  "name": "e08_scaled_pair_notfound",
+  "call": "force([[2,3]],1,[])",
+  "expected_repr": "(False, set())",
+  "note": ""
+ },
+ {
+  "name": "e09_plain_success",
+  "call": "force([[1,-1]],1,[])",
+  "expected_repr": "(True, {0})",
+  "note": ""
+ },
+ {
+  "name": "e10_plain_failure",
+  "call": "force([[1,1]],1,[])",
+  "expected_repr": "(False, set())",
+  "note": ""
+ },
+ {
+  "name": "e11_restart_needed_vertex0_after_vertex1",
+  "call": "force([[1,-1,1,0],[0,0,1,-1]],2,[])",
+  "expected_repr": "(True, {0, 1})",
+  "note": "0 is not forced in round 1 (scanned first, fails); 1 is; after restart 0 is forced. A single-pass port returns (False,{1})"
+ },
+ {
+  "name": "e12_chain_of_three",
+  "call": "force([[1,-1,1,0,0,0],[0,0,1,-1,1,0],[0,0,0,0,1,-1]],3,[])",
+  "expected_repr": "(True, {0, 1, 2})",
+  "note": "forced order 2,1,0 - three restarts"
+ },
+ {
+  "name": "e13_chain_partial",
+  "call": "force([[1,-1,1,0,0,0],[0,0,1,-1,1,0],[0,0,0,0,1,1]],3,[])",
+  "expected_repr": "(False, set())",
+  "note": "nothing forced"
+ },
+ {
+  "name": "e14_two_found_first_round_closure_unique",
+  "call": "force([[1,-1,0,0],[0,0,1,-1],[1,0,1,0]],2,[])",
+  "expected_repr": "(True, {0, 1})",
+  "note": ""
+ },
+ {
+  "name": "e15_warm_start_equals_cold",
+  "call": "force([[1,-1,1,0],[0,0,1,-1]],2,[1]) == force([[1,-1,1,0],[0,0,1,-1]],2,[])",
+  "expected_repr": "True",
+  "note": ""
+ },
+ {
+  "name": "e16_rows_with_bools",
+  "call": "force([[True,-1]],1,[])",
+  "expected_repr": "(True, {0})",
+  "note": ""
+ },
+ {
+  "name": "f01_ragged_second_row_shorter_no_raise",
+  "call": "rank([[0,2],[1]])",
+  "expected_repr": "2",
+  "note": "short row swapped into pivot position 0; only rows >= rk are indexed later"
+ },
+ {
+  "name": "f02_ragged_second_row_longer_truncated_by_zip",
+  "call": "rank([[1],[2,3]])",
+  "expected_repr": "1",
+  "note": "w=len(B[0])=1; zip truncates row 1"
+ },
+ {
+  "name": "f03_ragged_3_2_no_raise",
+  "call": "rank([[1,2,3],[4,5]])",
+  "expected_repr": "2",
+  "note": "zip truncation, then pivot at column 1"
+ },
+ {
+  "name": "f04_ragged_raises_when_short_row_scanned",
+  "call": "rank([[1,2],[0]])",
+  "expected_repr": "raises IndexError",
+  "note": ""
+ },
+ {
+  "name": "f05_first_row_empty_others_not",
+  "call": "rank([[],[1,2]])",
+  "expected_repr": "0",
+  "note": "w=0"
+ },
+ {
+  "name": "f06_rows_none",
+  "call": "rank(None)",
+  "expected_repr": "0",
+  "note": "`not rows` is True"
+ },
+ {
+  "name": "f07_rows_empty_tuple",
+  "call": "rank(())",
+  "expected_repr": "0",
+  "note": ""
+ },
+ {
+  "name": "f08_rows_iterator_nonempty",
+  "call": "rank(iter([[1,2],[2,4]]))",
+  "expected_repr": "1",
+  "note": ""
+ },
+ {
+  "name": "f09_rows_empty_iterator_raises",
+  "call": "rank(iter([]))",
+  "expected_repr": "raises IndexError",
+  "note": "iterator is truthy, B=[] then B[0]"
+ },
+ {
+  "name": "f10_tuple_rows",
+  "call": "rank([(1,2),(2,4),(3,7)])",
+  "expected_repr": "2",
+  "note": ""
+ },
+ {
+  "name": "f11_single_zero_row",
+  "call": "rank([[0]])",
+  "expected_repr": "0",
+  "note": ""
+ },
+ {
+  "name": "f12_zero_then_nonzero_swap",
+  "call": "rank([[0],[1]])",
+  "expected_repr": "1",
+  "note": ""
+ },
+ {
+  "name": "f13_swap_after_elimination",
+  "call": "rank([[1,2],[2,4],[0,1]])",
+  "expected_repr": "2",
+  "note": ""
+ },
+ {
+  "name": "f14_identical_rows_many",
+  "call": "rank([[1,1]]*1000)",
+  "expected_repr": "1",
+  "note": ""
+ },
+ {
+  "name": "f15_bool_entries",
+  "call": "rank([[True,False],[False,True]])",
+  "expected_repr": "2",
+  "note": ""
+ },
+ {
+  "name": "f16_more_columns_than_rows_break",
+  "call": "rank([[1,2,3,4],[0,0,5,6]])",
+  "expected_repr": "2",
+  "note": "rk>=nB break"
+ },
+ {
+  "name": "f17_rank_no_mutation",
+  "call": "(lambda r: (rank(r), r))([[2,4],[-1,3]])",
+  "expected_repr": "(2, [[2, 4], [-1, 3]])",
+  "note": "input rows untouched (entries not reduced in place)"
+ },
+ {
+  "name": "f18_force_no_row_mutation",
+  "call": "(lambda r: (force(r,1,[]), r))([[P+1,-1]])",
+  "expected_repr": "((True, {0}), [[2147483648, -1]])",
+  "note": ""
+ },
+ {
+  "name": "a31_mersenne61_force_found",
+  "call": "force([[2*((1<<61)-1)-3, 3]],1,[],p=(1<<61)-1)",
+  "expected_repr": "(True, {0})",
+  "note": "(-3,3) spans (1,-1); products ~2^122 in the normalisation step"
+ },
+ {
+  "name": "a32_mersenne61_rank_dense",
+  "call": "rank([[(1<<61)-2,(1<<61)-3],[(1<<61)-3,(1<<61)-2]], p=(1<<61)-1)",
+  "expected_repr": "2",
+  "note": ""
+ },
+ {
+  "name": "a33_default_p_dense_near_p",
+  "call": "rank([[P-1,P-2,P-3],[P-2,P-1,1],[5,P-1,P-1]])",
+  "expected_repr": "3",
+  "note": "every product near 2^62, every difference negative"
+ },
+ {
+  "name": "a34_default_p_force_found_near_p",
+  "call": "force([[P-1,1,P-2,2],[P-3,3,P-5,5]],2,[])",
+  "expected_repr": "(True, {0, 1})",
+  "note": "both rows are multiples of (1,-1) blocks -> both vertices forced"
+ },
+ {
+  "name": "a35_p_2pow32_plus_15_force",
+  "call": "force([[4294967310,1,2,3],[7,11,4294967309,2]],2,[],p=4294967311)",
+  "expected_repr": "(False, set())",
+  "note": ""
+ },
+ {
+  "name": "a36_p_2pow32_plus_15_force_found",
+  "call": "force([[4294967310,1]],1,[],p=4294967311)",
+  "expected_repr": "(True, {0})",
+  "note": "(p-1,1) = -(1,-1)"
+ }
+]

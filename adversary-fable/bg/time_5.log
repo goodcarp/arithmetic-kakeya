@@ -1,0 +1,12 @@
+{"rows": 5, "labs": [[1, 0], [0, 0], [0, 1], [0, 0], [1, 1], [1, 1], [1, 1], [1, 1]], "m": 11, "rk": 11, "pairs": 11, "force_calls": 49684, "seconds": 2.2, "status": "done", "found": null}
+{"rows": 5, "labs": [[1, 0], [0, 0], [1, 1], [0, 0], [1, 1], [1, 1], [0, 0], [1, 1]], "m": 10, "rk": 10, "pairs": 11, "force_calls": 139840, "seconds": 4.08, "status": "done", "found": null}
+{"rows": 5, "labs": [[0, 1], [1, 0], [0, 0], [0, 1], [0, 0], [0, 0], [0, 0], [0, 0]], "m": 8, "rk": 8, "pairs": 11, "force_calls": 56768, "seconds": 2.13, "status": "done", "found": null}
+{"rows": 5, "labs": [[1, 1], [1, 0], [1, 1], [0, 0], [1, 0], [1, 1], [1, 1], [1, 0]], "m": 12, "rk": 12, "pairs": 11, "force_calls": 12436, "seconds": 0.54, "status": "done", "found": null}
+{"rows": 5, "labs": [[0, 1], [1, 0], [1, 0], [1, 1], [0, 1], [0, 0], [1, 1], [0, 0]], "m": 11, "rk": 11, "pairs": 11, "force_calls": 127600, "seconds": 4.68, "status": "done", "found": null}
+{"rows": 5, "labs": [[1, 0], [0, 1], [0, 0], [0, 1], [1, 1], [1, 0], [0, 1], [0, 1]], "m": 12, "rk": 12, "pairs": 11, "force_calls": 112983, "seconds": 3.68, "status": "done", "found": null}
+{"rows": 5, "labs": [[1, 1], [1, 1], [0, 0], [1, 1], [1, 0], [1, 1], [1, 1], [1, 0]], "m": 12, "rk": 12, "pairs": 11, "force_calls": 40726, "seconds": 1.59, "status": "done", "found": null}
+{"rows": 5, "labs": [[0, 1], [0, 1], [0, 0], [1, 1], [0, 0], [1, 0], [1, 1], [0, 1]], "m": 11, "rk": 11, "pairs": 11, "force_calls": 133618, "seconds": 4.34, "status": "done", "found": null}
+{"rows": 5, "labs": [[1, 1], [0, 0], [1, 1], [0, 0], [0, 1], [1, 1], [1, 0], [1, 0]], "m": 11, "rk": 11, "pairs": 11, "force_calls": 50344, "seconds": 2.02, "status": "done", "found": null}
+{"rows": 5, "labs": [[1, 0], [0, 0], [1, 0], [1, 0], [1, 1], [0, 1], [0, 1], [1, 1]], "m": 12, "rk": 12, "pairs": 6, "force_calls": 592, "seconds": 0.04, "status": "done", "found": null}
+{"rows": 5, "labs": [[0, 1], [0, 0], [1, 1], [1, 0], [1, 0], [1, 1], [0, 0], [1, 1]], "m": 11, "rk": 11, "pairs": 11, "force_calls": 131800, "seconds": 4.7, "status": "done", "found": null}
+{"rows": 5, "labs": [[0, 1], [1, 0], [1, 1], [1, 1], [0, 1], [1, 1], [0, 1], [0, 0]], "m": 12, "rk": 12, "pairs": 11, "force_calls": 110298, "seconds": 4.44, "status": "done", "found": null}

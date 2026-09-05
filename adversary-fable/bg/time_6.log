@@ -1,0 +1,10 @@
+{"rows": 6, "labs": [[0, 0], [0, 0], [0, 0], [0, 1], [1, 0], [0, 1], [0, 1], [1, 0], [0, 0], [1, 0]], "m": 12, "rk": 11, "pairs": 13, "force_calls": 67840, "seconds": 3.21, "status": "done", "found": null}
+{"rows": 6, "labs": [[1, 1], [1, 1], [0, 1], [1, 1], [0, 1], [0, 0], [0, 0], [0, 1], [1, 1], [0, 1]], "m": 14, "rk": 14, "pairs": 13, "force_calls": 1052004, "seconds": 55.2, "status": "done", "found": null}
+{"rows": 6, "labs": [[1, 1], [1, 1], [1, 0], [1, 0], [1, 0], [1, 0], [0, 0], [1, 0], [0, 1], [1, 0]], "m": 15, "rk": 13, "pairs": 0, "force_calls": 0, "seconds": 0.0, "status": "done", "found": null}
+{"rows": 6, "labs": [[1, 0], [0, 1], [1, 0], [1, 1], [1, 1], [0, 1], [0, 1], [0, 1], [1, 1], [1, 0]], "m": 16, "rk": 16, "pairs": 13, "force_calls": 39072, "seconds": 3.5, "status": "done", "found": null}
+{"rows": 6, "labs": [[1, 1], [1, 1], [1, 0], [1, 1], [0, 1], [1, 1], [0, 1], [1, 1], [1, 1], [0, 1]], "m": 16, "rk": 16, "pairs": 13, "force_calls": 513238, "seconds": 77.51, "status": "done", "found": null}
+{"rows": 6, "labs": [[1, 1], [1, 1], [1, 0], [0, 1], [1, 0], [0, 1], [1, 1], [0, 1], [0, 1], [1, 1]], "m": 16, "rk": 16, "pairs": 13, "force_calls": 145696, "seconds": 32.8, "status": "done", "found": null}
+{"rows": 6, "labs": [[0, 1], [1, 0], [1, 1], [0, 1], [0, 0], [0, 1], [0, 0], [1, 0], [0, 0], [0, 0]], "m": 12, "rk": 12, "pairs": 13, "force_calls": 488688, "seconds": 81.91, "status": "done", "found": null}
+{"rows": 6, "labs": [[0, 0], [0, 1], [1, 0], [0, 0], [1, 0], [0, 1], [1, 0], [1, 0], [0, 0], [1, 1]], "m": 13, "rk": 12, "pairs": 13, "force_calls": 43552, "seconds": 7.31, "status": "done", "found": null}
+{"rows": 6, "labs": [[0, 0], [0, 0], [0, 1], [0, 1], [1, 0], [1, 0], [0, 0], [0, 0], [0, 0], [0, 0]], "m": 10, "rk": 10, "pairs": 13, "force_calls": 109568, "seconds": 23.93, "status": "done", "found": null}
+{"rows": 6, "labs": [[0, 0], [0, 0], [0, 0], [0, 1], [0, 1], [1, 0], [1, 0], [1, 0], [0, 0], [1, 1]], "m": 12, "rk": 12, "pairs": 13, "force_calls": 69376, "seconds": 9.57, "status": "done", "found": null}

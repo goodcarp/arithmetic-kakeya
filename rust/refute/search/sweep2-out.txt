@@ -1,0 +1,26 @@
+PASS s07b  (177 lines)
+PASS s08  (13 lines)
+FAIL s09
+1,8c1,4
+< Traceback (most recent call last):
+<   File "/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/src/scan1.py", line 15, in <module>
+<     h, b, c, tot, el = scan_dims(d, pool, target, max_t=maxt, limit=limit, seed=11,
+<   File "/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/src/search.py", line 231, in scan_dims
+<     sc = Fraction(m + len(gens), den)
+<   File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/fractions.py", line 156, in __new__
+<     raise ZeroDivisionError('Fraction(%s, 0)' % numerator)
+< ZeroDivisionError: Fraction(0, 0)
+---
+> 
+> thread '<unnamed>' (5218337) panicked at crates/kakeya-search/src/frac.rs:29:9:
+> zero denominator
+> note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+2c2
+< thread '<unnamed>' (5218337) panicked at crates/kakeya-search/src/frac.rs:29:9:
+---
+> thread '<unnamed>' (5218353) panicked at crates/kakeya-search/src/frac.rs:29:9:
+PASS s10  (97 lines)
+PASS s11  (217 lines)
+PASS s12  (1145 lines)
+PASS s13b  (493 lines)
+PASS s14b  (323 lines)

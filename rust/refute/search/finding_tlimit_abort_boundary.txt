@@ -1,0 +1,6 @@
+7^15 = 4747561509943  nchunks= 1159072634
+5^15 = 30517578125  nchunks= 7450580
+== a plausible next experiment: 4-level box, POOL6, scan1.py's default 3000 s cap
+rust d=2x2x2x2 pool6 tlimit3000 threads8: STILL RUNNING at 40s rss=976620KB
+== same shape, POOL4 (total 5^15, nchunks 7.4e6) -- under the boundary
+rust d=2x2x2x2 pool4 tlimit5 threads8: STILL RUNNING at 40s rss=504780KB

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/src/scan1.py", line 15, in <module>
+    h, b, c, tot, el = scan_dims(d, pool, target, max_t=maxt, limit=limit, seed=11,
+  File "/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/src/search.py", line 231, in scan_dims
+    sc = Fraction(m + len(gens), den)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/fractions.py", line 156, in __new__
+    raise ZeroDivisionError('Fraction(%s, 0)' % numerator)
+ZeroDivisionError: Fraction(0, 0)

@@ -1,0 +1,13 @@
+   HIT 2 (=2.0000)  d=[2] m=1 r=1 t=1
+   HIT 2 (=2.0000)  d=[2] m=1 r=1 t=1
+   HIT 2 (=2.0000)  d=[2] m=1 r=1 t=1
+   HIT 2 (=2.0000)  d=[2] m=1 r=1 t=1
+   HIT 2 (=2.0000)  d=[2] m=1 r=1 t=1
+   HIT 2 (=2.0000)  d=[2] m=1 r=1 t=1
+RESULT {"tag": "s08", "d": [2], "pool": 3, "max_t": 1, "target": "2", "scanned": 4, "total": 4, "best": "2", "hits": 6, "complete": true, "seconds": 0.0}
+HITOBJ {"d": [2], "labels": [[1, 0]], "m": 1, "gens": [[1, [0, 1]]], "T0": [0], "score": "2", "n": 2}
+HITOBJ {"d": [2], "labels": [[1, 0]], "m": 1, "gens": [[0, [0, 1]]], "T0": [1], "score": "2", "n": 2}
+HITOBJ {"d": [2], "labels": [[0, 1]], "m": 1, "gens": [[1, [1, 0]]], "T0": [0], "score": "2", "n": 2}
+HITOBJ {"d": [2], "labels": [[0, 1]], "m": 1, "gens": [[0, [1, 0]]], "T0": [1], "score": "2", "n": 2}
+HITOBJ {"d": [2], "labels": [[1, 1]], "m": 1, "gens": [[1, [1, 0]]], "T0": [0], "score": "2", "n": 2}
+HITOBJ {"d": [2], "labels": [[1, 1]], "m": 1, "gens": [[0, [1, 0]]], "T0": [1], "score": "2", "n": 2}

@@ -1,0 +1,1 @@
+RESULT {"tag": "rzero", "d": [2, 3], "pool": 4, "scanned": 3125, "total": 3125, "forcing_objects": 0, "best_score": null, "complete": true, "seconds": 0.9}

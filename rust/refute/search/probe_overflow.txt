@@ -1,0 +1,4 @@
+### P9 total overflows u64 (d=2x2x2x2x2, pool 8 -> alphabet 9, nslots 31)
+-- python (tlimit 2):
+RESULT {"tag": "big5", "d": [2, 2, 2, 2, 2], "pool": 8, "max_t": 0, "target": "2", "scanned": 2440, "total": 381520424476945831628649898809, "best": null, "hits": 0, "complete": false, "seconds": 2.0}
+-- rust (--tlimit 2 --threads 1):

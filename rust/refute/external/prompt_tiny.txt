@@ -1,0 +1,29 @@
+text only, prose answer, no tools, no files.
+
+A colleague reimplemented this Python function in another language and claims the two are indistinguishable from Python.
+
+def rank(rows, p=2147483647):
+    if not rows: return 0
+    B = [[x % p for x in r] for r in rows]
+    w = len(B[0])
+    rk = 0; nB = len(B)
+    for c in range(w):
+        if rk >= nB: break
+        sel = -1
+        for i in range(rk, nB):
+            if B[i][c]: sel = i; break
+        if sel < 0: continue
+        B[rk], B[sel] = B[sel], B[rk]
+        iv = pow(B[rk][c], p-2, p)
+        B[rk] = [(x*iv) % p for x in B[rk]]
+        pr = B[rk]
+        for i in range(rk+1, nB):
+            if B[i][c]:
+                fac = B[i][c]
+                B[i] = [(a - fac*b) % p for a,b in zip(B[i], pr)]
+        rk += 1
+    return rk
+
+The reimplementation: it first checks bool(rows) and returns 0 if falsy; then it eagerly materialises rows into a list of lists of 64-bit signed integers (raising OverflowError on any integer outside that range, TypeError on any non-integer); then it validates p once up front (p==0 -> ZeroDivisionError, p<0 -> ValueError, p>=2**32 -> ValueError) UNLESS every row is empty, in which case it skips validation and returns 0; then it runs the identical algorithm on unsigned 64-bit values, reproducing Python's floor-mod and the zip truncation of ragged rows, and raising IndexError wherever the Python would index past the end of a row.
+
+Question: name every concrete argument value for which the two would differ, giving the literal Python arguments and both outcomes. Be exhaustive, most likely first. Prose list only.

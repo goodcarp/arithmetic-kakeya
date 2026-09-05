@@ -1,0 +1,120 @@
+text only, no code. PYTHON reference:
+P = (1 << 31) - 1
+_INV = {}
+
+
+def _inv(a, p=P):
+    v = _INV.get(a)
+    if v is None:
+        v = pow(a, p - 2, p)
+        _INV[a] = v
+    return v
+def rank(rows, p=P):
+    if not rows:
+        return 0
+    B = [[x % p for x in r] for r in rows]
+    w = len(B[0])
+    rk = 0
+    nB = len(B)
+    for c in range(w):
+        if rk >= nB:
+            break
+        sel = -1
+        for i in range(rk, nB):
+            if B[i][c]:
+                sel = i
+                break
+        if sel < 0:
+            continue
+        B[rk], B[sel] = B[sel], B[rk]
+        iv = _inv(B[rk][c], p)
+        B[rk] = [(x * iv) % p for x in B[rk]]
+        pr = B[rk]
+        for i in range(rk + 1, nB):
+            if B[i][c]:
+                fac = B[i][c]
+                B[i] = [(a - fac * b) % p for a, b in zip(B[i], pr)]
+        rk += 1
+    return rk
+
+RUST port of the same rank(), exposed to Python as fastcore_rs.rank(rows, p=2147483647). Entries are extracted as i64 (OverflowError outside that); the wrapper does `if not rows: return 0` first.
+/// `rank(rows, p)`.  Forward elimination only, all rows kept, width from
+/// `rows[0]`, and the `zip` truncation of ragged rows reproduced exactly.
+pub fn rank(rows: &[Vec<i64>], p: i64) -> Result<i64, KErr> {
+    if rows.is_empty() {
+        return Ok(0);
+    }
+    if rows.iter().all(|r| r.is_empty()) {
+        // No `% p` is ever evaluated, and w = len(rows[0]) = 0.
+        return Ok(0);
+    }
+    let pu = validate_p(p)?;
+
+    let mut b: Vec<Vec<u64>> = rows
+        .iter()
+        .map(|r| r.iter().map(|&x| reduce(x, pu)).collect())
+        .collect();
+    let w = b[0].len();
+    let nb = b.len();
+    let mut rk: usize = 0;
+    for c in 0..w {
+        if rk >= nb {
+            break;
+        }
+        let mut sel = usize::MAX;
+        // Indexing is deliberate: the bounds check below must run for every
+        // row at or below the pivot, in order, before any element is read.
+        #[allow(clippy::needless_range_loop)]
+        for i in rk..nb {
+            if c >= b[i].len() {
+                return Err(KErr::Index);
+            }
+            if b[i][c] != 0 {
+                sel = i;
+                break;
+            }
+        }
+        if sel == usize::MAX {
+            continue;
+        }
+        b.swap(rk, sel);
+        let iv = fermat_inv(b[rk][c], pu);
+        for x in b[rk].iter_mut() {
+            if *x != 0 {
+                *x = (*x * iv) % pu;
+            }
+        }
+        let (head, tail) = b.split_at_mut(rk + 1);
+        let pr: &[u64] = &head[rk];
+        for row in tail.iter_mut() {
+            if c >= row.len() {
+                return Err(KErr::Index);
+            }
+            let fac = row[c];
+            if fac == 0 {
+                continue;
+            }
+            // `zip(B[i], pr)` truncates to the shorter of the two.
+            if row.len() > pr.len() {
+                row.truncate(pr.len());
+            }
+            for (k, a) in row.iter_mut().enumerate() {
+                let bb = pr[k];
+                if bb != 0 {
+                    let t = (fac * bb) % pu;
+                    *a = (*a + pu - t) % pu;
+                }
+            }
+        }
+        rk += 1;
+    }
+    Ok(rk as i64)
+}
+
+Helpers used above:
+fn validate_p(p:i64)->Result<u64,KErr>{ if p==0 {return Err(ZeroDivision)} if p<0 {return Err(Value)} if p>=(1<<32) {return Err(Value)} Ok(p as u64) }
+fn reduce(x:i64,p:u64)->u64{ x.rem_euclid(p as i64) as u64 }
+fn fermat_inv(a:u64,p:u64)->u64{ modular exponentiation of a to the power p-2 mod p }
+KErr::Index maps to IndexError, ZeroDivision to ZeroDivisionError, Value to ValueError.
+
+QUESTION: list every input on which python rank and rust rank could return different results or raise different exceptions. Give the literal Python argument values for each. Most likely first. Be exhaustive about ragged rows, empty rows, unusual p, huge ints, and iterator inputs.

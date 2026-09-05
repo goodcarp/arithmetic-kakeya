@@ -1,0 +1,12 @@
+### FINDING (2): --tlimit is not an upper bound on wall time in the Rust; the chunk
+### enumeration itself is proportional to the WHOLE index space, not to the work done.
+config: d=2x2x2x2, POOL4, max_t=1, target 7/4, tlimit 5 s
+        total = 5^15 = 30517578125 ; chunk_size 4096 ; nchunks = 7450581
+
+-- Python (KAKEYA_PURE_PY=1 scan1.py q2 2x2x2x2 4 1 7/4 - 5):
+RESULT {"tag": "q2", "d": [2, 2, 2, 2], "pool": 4, "max_t": 1, "target": "7/4", "scanned": 1585, "total": 30517578125, "best": null, "hits": 0, "complete": false, "seconds": 5.0}
+python wall = 5s
+
+-- Rust (scan --d 2x2x2x2 --pool 4 --max-t 1 --target 7/4 --tlimit 5 --threads 8):
+rust wall = 120s
+RESULT {"tag": "q2", "d": [2, 2, 2, 2], "pool": 4, "max_t": 1, "target": "7/4", "scanned": 34712, "total": 30517578125, "best": null, "hits": 0, "complete": false, "seconds": 118.7}

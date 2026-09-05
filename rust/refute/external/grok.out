@@ -1,0 +1,9 @@
+  » order                          
+  ⇢ route           grok-cli       — kind=code; ranked 1 ready; chose grok-cli (cost_class 1)
+  → invoke          grok-cli       
+  ✗ socket-failure  grok-cli       — timeout 900s
+  ⟳ molt                           — continuation rebuilt from vault withdrawal (not transcript relay)
+  ⇢ route                          — kind=code; ranked 0 ready; NO CANDIDATE
+  ✗ socket-failure                 — no candidate socket (all disabled/excluded/saturated/missing)
+
+  order failed: no candidate socket  (the failure is on the ledger too)

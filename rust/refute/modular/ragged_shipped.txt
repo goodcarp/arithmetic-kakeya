@@ -1,0 +1,1 @@
+[shipped/ragged+prod(seed=11,n=25000)] cases=25000  NEW divergences=0  known={}

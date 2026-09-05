@@ -1,0 +1,766 @@
+                                                 RECENT PROGRESS ON THE KAKEYA CONJECTURE
+
+
+
+
+arXiv:math/0010069v1 [math.CA] 7 Oct 2000
+                                                                       NETS KATZ AND TERENCE TAO
+
+
+
+                                                    Abstract. We survey recent developments on the Kakeya problem.
+
+
+
+
+                                                                              1. Introduction
+
+                                            The purpose of this article is to survey the developments on the Kakeya problem
+                                            in recent years, concentrating on the period after the excellent survey of Wolﬀ
+                                            [21], and including some recent work by us in [12], [13]. The results covered here
+                                            are discussed to some extent in the later surveys [4], [23], [19]. We will focus on
+                                            the standard Kakeya problem for line segments and not discuss other important
+                                            variants (such as Kakeya estimates for circles, light rays, or k-planes; see e.g. [21],
+                                            [25], [26], [9]). We shall describe the various arguments in a rather informal fashion
+                                            in order to not obscure the main ideas too much with technicalities.
+
+                                            For any n ≥ 2, deﬁne an Besicovitch set to be a subset of Rn which contains a unit
+                                            line segment in every direction. An old construction of Besicovitch shows that such
+                                            sets can have arbitrarily small measure in any dimension, and can even be made
+                                            to be measure zero. Intuitively, this states that it is possible to compress a large
+                                            number of non-parallel unit line segments into an arbitrarily small set.
+
+                                            The study of such sets originated in the Kakeya needle problem: what is the smallest
+                                            amount of area needed to rotate a unit needle in the plane? (The above construction
+                                            shows that one can rotate a needle using arbitrarily small area). Later work by
+                                            Feﬀerman, Córdoba, Bourgain, and others have shown that these sets are connected
+                                            to problems in oscillatory integrals, number theory, and PDE. We shall not discuss
+                                            these matters here, but refer the reader to [19].
+
+                                            In applications one wishes to obtain more quantitative understanding of this com-
+                                            pression eﬀect by introducing a spatial discretization. For instance, one could re-
+                                            place unit line segments by 1 × δ tubes for some 0 < δ ≪ 1 and ask for the optimal
+                                            compression of these tubes. Equivalently, one can ask for bounds of the volume of
+                                            the δ-neighbourhood of a Besicovitch set.
+
+                                            This problem can be phrased in terms of the (upper) Minkowski dimension of the
+                                            Besicovitch set. Recall that a bounded set E has Minkowski dimension α or less
+                                            if and only if for every 0 < δ ≪ 1 and 0 < ε ≪ 1, one can cover E by at most
+
+                                              1991 Mathematics Subject Classification. 42B25, 05C35.
+                                                                                        1
+2                           NETS KATZ AND TERENCE TAO
+
+
+Cε δ −α+ε balls of radius δ. For any 1 ≤ p ≤ n, let KM (p, n) denote the statement
+that all Besicovitch sets in Rn have Minkowski dimension at least p.
+Conjecture 1.1 (Kakeya conjecture, Minkowski version). We have KM (n, n).
+
+
+This conjecture is known to be true in two dimensions but only partial progress has
+been made in higher dimensions.
+
+A slightly stronger version of this conjecture can be phrased by using the Hausdorﬀ
+dimension. Recall that a bounded set E has Hausdorﬀ dimension α or less if and
+only if for every 0 < δ ≪ 1 and 0 < ε ≪ 1, one can cover E by balls {B} of radius
+r(B) ≤ δ such that
+                                  X
+                                      r(B)α−ε ≤ Cε .
+                                   B
+Clearly, the Hausdorﬀ dimension is less than or equal to the Minkowski dimension.
+Let KH (p, n) denote the statement that all Besicovitch sets in Rn have Hausdorﬀ
+dimension at least p.
+Conjecture 1.2 (Kakeya conjecture, Hausdorﬀ version). We have KH (n, n).
+
+
+There is also a more quantitative version of these conjectures, which we shall write
+by discretizing to some scale 0 < δ ≪ 1. Fix δ, and let Ω be a maximal δ-separated
+set of directions on the sphere S n−1 . For each ω ∈ Ω, let Tω be a δ × 1 tube in
+the direction ω in the ball. Let 0 < λ ≤ 1, and let T̃ω be a subset of Tω such that
+|T̃ω | = λ|Tω |. We use X / Y to denote the estimate X ≤ Cε δ −ε Y for all ε > 0.
+
+We say that KX (p, n) holds if one has the estimate
+                                  [
+                                |    T̃ω | ' λp δ n−p                                 (1)
+                                   ω∈Ω
+
+for all 0 < δ ≪ 1, and choice of Tω , T̃ω . The estimate KX (1, n) is trivial; the
+diﬃculty is in making p large, as one needs to prevent the T̃ω from overlapping too
+heavily. Note that the estimate is sharp when λ ∼ δ and the T̃ω are δ-balls centered
+at the origin.
+Conjecture 1.3 (Kakeya conjecture, maximal version). We have KX (p, n).
+
+
+These maximal function estimates can also be generalized to the slightly stronger
+x-ray estimates (see e.g. [8], [5], [22], [15]), but we shall not discuss these extensions
+here.
+
+These estimates are related by the implications
+                      KX (p, n) =⇒ KH (p, n) =⇒ KM (p, n).
+Indeed, to obtain KH (p, n) one needs only to prove (1) for λ & 1/ log(1/δ), while to
+obtain KM (p, n) one needs only to prove (1) for λ = 1. The former claim is shown
+by pigeonholing the balls covering the Besicovitch set depending on the dyadic scale
+of their radii. (In fact, one only needs (1) for λ & 1/ log log(1/δ) provided that one
+is willing to concatenate a few dyadic scales together; see [3]). Thus the main
+                          RECENT PROGRESS ON KAKEYA                                           3
+
+
+ Result                  Dimension      Value of p
+ Minkowski/Hausdorﬀ      n=2            2                               Davies 1971 [7]
+ Maximal                 n=2            2                               Cordoba 1977 [6]
+ Minkowski/Hausdorﬀ      n≥3            (n − 1)/2 + 1                   Drury 1983 [8]
+ Maximal                 n≥3            (n − 1)/2 + 1                   Christ-Drury-Rubio de Francia 1987 [5]
+ All                     n≥3            (n − 1)/2 + 1 + εn              Bourgain 1991 [2]
+ All                     n≥3            (n − 2)/2 + 2                   Wolﬀ 1995 [20]
+ Minkowski/Hausdorﬀ      n > 26         13(n − 1)/25 + 1                Bourgain 1998 [3]
+ Maximal                 n≫1            (1 + ε)n/2                      Bourgain 1998 [3]
+ Hausdorﬀ                n > 12         6(n − 1)/11 + 1                 Katz-Tao 1999 [12]
+ Minkowski               n>8            4(n − 1)/7 + 1                  Katz-Tao 1999 [12]
+
+            Figure 1. Prior results on KX (p, n), KH (p, n), KM (p, n).
+
+    Result         Dimension    Value of p
+    Minkowski      n=3          5/2 + ε                      Katz-Laba-Tao 1999 [14]
+    Minkowski      n=4          3 + ε√                       Laba-Tao 2000 [16]
+    Minkowski      23 ≥ n ≥ 5   (2 − 2)(n − 4) + 3           Katz-Tao 2000 [13]
+    Minkowski      n > 23       (n − 1)/α + 1                Katz-Tao 2000 [13]
+    Hausdorﬀ       n = 3, 4     (n − √
+                                     2)/2 + 2                Wolﬀ 1995 [20]
+    Hausdorﬀ       n≥5          (2 − 2)(n − 4) + 3           Katz-Tao 2000 [13]
+    Maximal        8≥n≥3        (n − 2)/2 + 2                Wolﬀ 1995 [20]
+    Maximal        n≥9          4(n − 1)/7 + 1               Katz-Tao 2000 [13]
+
+        Figure 2. Current state of progress on KX (p, n), KH (p, n),
+        KM (p, n) in three and higher dimensions. α = 1.675 . . . is the
+        largest root of α3 − 4α + 2 = 0.
+
+distinction of the maximal version of the conjecture is that it also handles the case
+of small λ.
+
+In two dimensions all three conjectures are known to be true; indeed, we now have
+very precise estimates on the exact dependence of the bounds on δ. In three and
+higher dimensions the conjectures are still open; we summarize the current state of
+progress on these three estimates in Figure 1. These results are far from sharp; in
+particular, there is a strong chance that the Hausdorﬀ and maximal results can be
+improved to match the Minkowski ones.
+
+As a historical note, the maximal version of the conjecture is so named because it
+implies a bound on the Kakeya maximal operator
+                                              Z
+                                  ∗
+                                f (ω) = sup f
+                                             l//ω   l
+             n−1
+where ω ∈ S        and the supremum ranges over all lines parallel to ω. Indeed,
+KX (p, n) is equivalent to the estimate
+                       kf ∗ kLp (S n−1 ) ≤ Cε,p kf kLp              n
+                                                                  (R )
+                                                        n/p−1+ε
+
+
+for all f supported on a bounded set; see e.g. [2].
+4                             NETS KATZ AND TERENCE TAO
+
+
+                              2. The geometric method
+
+The known arguments for the Kakeya problem can be divided into three categories:
+geometric combinatorics arguments, arithmetic combinatorics arguments, and hy-
+brids of the two. We begin by reviewing the geometric arguments, which were
+developed earlier.
+
+The ﬁrst non-trivial case occurs in two dimensions. In this case the conjectures are
+known to be true; the statements KM (2, 2), KH (2, 2) are due to Davies [7], while
+KX (2, 2) is due to Córdoba [6]. The idea is to compute the quantity
+                                       X
+                                     k    χT̃ω k22
+                                         ω∈Ω
+
+directly, using the geometric observation
+                                                     δ2
+                                |Tω ∩ Tω′ | .                  .
+                                                δ + ∠(ω, ω ′ )
+(This may be viewed as a quantitative version of the fact that two (transverse) lines
+only intersect in at most point). The argument does not extend well to general
+dimensions, however it does give the useful estimate
+                          [          X
+                        |     Tω | ≈     |Tω | ∼ δ n−1 #Ω′                        (2)
+                              ω∈Ω′       ω∈Ω′
+
+whenever Tω are a collection of δ-tubes in Rn which lie in a 2-plane and which have
+a δ-separated set of directions. In other words, tubes in a 2-plane are essentially
+disjoint.
+
+In higher dimensions, an argument of Drury [8] gives KM ((n+1)/2, n) and KH ((n+
+1)/2, n); this was later extended by Christ, Drury, and Rubio de Francia [5] to give
+KX ((n+1)/2, n). the main geometric ingredient is the fact that any two (separated)
+points are connected by at most one line. These estimates can be proved using the
+“bush argument” in [2], but we present an alternate “slice argument” from [3] for
+KM ((n + 1)/2, n), which is the easiest of the three. It suﬃces to show the estimate
+                                      |E| ' δ (n−1)/2 .
+                     S
+where E is the set       ω∈Ω Tω .
+
+After some rescaling, we may assume that the tubes Tω all intersect the hyperplanes
+xn = 0 and xn = 1 and make an angle of ≤ 1/10 with the vertical en . For all
+0 ≤ t ≤ 1, let Ãt denote the intersection of E with {xn = t}; for generic values of t
+we have |Ãt | . |E|.
+
+The sets Ãt are essentially unions of n − 1-dimensional disks of radius δ. Thus, if
+we let At be a maximal δ-separated subset of Ãt , then #At ∼ δ 1−n |Ãt |. Thus, if
+we apply a generic rescaling, we may assume that #A0 , #A1 . δ 1−n |E|.
+
+On the other hand, each tube Tω intersects A0 in essentially one point, and similarly
+for A1 . Thus each Tω can be identiﬁed with a pair in A0 × A1 . Because each pair
+                           RECENT PROGRESS ON KAKEYA                                  5
+
+
+of points in A0 × A1 has essentially only one tube connecting it, we thus see that
+                      δ 1−n ∼ #Ω ≤ #(A0 × A1 ) . (δ 1−n |E|)2
+which is the desired estimate.
+
+In 1991, Bourgain [2] found a small improvement to the bound KX ((n + 1)/2, n) in
+all dimensions n. This was then improved further in 1995 by Wolﬀ [20], who
+obtained KX ((n + 2)/2, n) for all n (thus unifying these results with the two-
+dimensional theory). Very roughly (and omitting all the technicalities), the idea is
+to modify the bush argument as follows. We would like to show an estimate such
+as
+                                 |E| ' δ (n−2)/2 .
+      P
+Since ω∈Ω χTω has an L1 norm of ∼ 1 and is supported on E, we see that every
+point in E is contained in ∼ |E|−1 tubes on the average.
+
+Now consider a “hairbrush”, or more precisely the set of all tubes Tω that pass
+through a given stem tube Tω0 . By dividing Tω0 up into about δ −1 balls of radius δ
+and applying the previous observation, we expect the hairbrush to consist of about
+δ −1 |E|−1 tubes. Since all these tubes pass through Tω0 , they must essentially lie
+in some 2-plane containing Tω0 . These 2-planes are mostly distinct, so we can
+subdivide the hairbrush into disjoint sub-collections of tubes, each of which lie in a
+single 2-plane. Applying (2) to each sub-collection and summing, we see that the
+volume of the hairbrush is at least δ n−1 δ −1 |E|−1 . On the other hand, the hairbrush
+must be contained in E. Combining the two statements we obtain the result.
+
+It appears diﬃcult to improve the bound (n + 2)/2 by geometric arguments, es-
+pecially when n = 3. However, some reﬁnements in other directions have been
+obtained by these types of arguments. For instance, when p = (n + 2)/2 then one
+can generalize (1) to
+                                [ [
+                                  m
+                            |             T̃ω,i | ' mcn,p λp δ n−p                  (3)
+                                ω∈Ω i=1
+
+where cn,p > 0 is a constant depending on n, p, and for each ω, the sets T̃ω,i are
+density-λ subsets of disjoint tubes Tω,i oriented in the direction ω. See [22] for the
+n = 3 case (with the sharp value c3,5/2 = 1/4) and [15] for the general case. This
+estimate is equivalent to a certain mixed-norm estimate for the x-ray transform.
+Wolﬀ [22] observed that the estimate (3) implied a certain interesting reﬁnement to
+KM (p). Namely, if E was a Besicovitch set of Minkowski
+                                                     S         dimension exactly p, and
+the δ-neighbourhood of E was essentially given ω∈Ω Tω , then the map ω 7→ Tω was
+“almost Lipschitz” in the sense that for any δ < ρ < 1 and any randomly chosen
+ω, ω ′ with |ω − ω ′| . ρ, one has dist(Tω , Tω′ ) / ρ with probability ≈ 1. (The reason
+for this is that if this property failed, then one could pass to the ρ-neighbourhood
+of E and use (3) to show that the Minkowski dimension of E had to be strictly
+larger than p). This almost Lipschitz property is usually referred to as stickiness
+(tubes which are nearly parallel must stick close to each other).
+                                                               √
+This stickiness property is especially useful at the scale ρ := δ. (This intermediate
+scale seems to appear everywhere in this theory!). Roughly speaking, stickiness then
+6                           NETS KATZ AND TERENCE TAO
+
+
+asserts that the tubes Tω can be grouped into about ρ1−n groups of ρ1−n tubes
+each, such that each group of tubes is contained inside a 1 × ρ tube.
+
+By analyzing how these groups of tubes can intersect each other, one can derive
+further properties on these tubes. For instance, in joint work with I. Laba we
+have shown that for generic points x in E, the set of 1 × ρ tubes which contain
+x are mostly contained in a ρ-neighbourhood of a S     hyperplane; this property has
+been dubbed “planiness”. Also, the intersection of ω∈Ω T̃ω with any ρ-ball has a
+certain structure, namely that it is essentially the union of ρ × ρ × δ × . . . × δ slabs
+(this property we refer to as “graininess”). See [14] for a rigorous version of these
+statements in the n = 3 case, and [16] for the higher-dimensional case. (Actually,
+in dimensions n > 3 at least one of the planiness and graininess properties can
+be improved further (so that the planes have lower dimension, or the grains have
+higher dimension). See [16]).
+
+When n > 4 the properties of stickiness and planiness are strong enough to obtain
+a small improvement to Wolﬀ’s estimate in the Minkowski setting; in other words,
+we have KM ((n + 2)/2 + εn , n) for some εn > 0. See [16]. In n = 4 the same result
+obtains but one also needs to exploit the graininess property [16]. When n = 3 the
+properties of stickiness, planiness, and graininess are not quite suﬃcient to obtain
+an improvement, and one must also introduce the arithmetic techniques of the next
+section. See [14].
+
+We close this section by mentioning two fairly simple observations which have sim-
+pliﬁed some of the more technical issues in the ﬁeld (although it is clear that these
+observations do not address the main geometric and arithmetic combinatorial is-
+sues). The ﬁrst observation is known as the “two ends reduction”, and basically
+allows one to assume that the set T̃ω is not concentrated in a small sub-tube of Tω ,
+but is rather spread out throughout all of Tω . The point is that if the sets T̃ω were
+consistently concentrated in small sub-tubes, then one could pass to the scale of
+these sub-tubes and then rescale to obtain a better counter-example; see [20]. The
+second observation is dual to the ﬁrst, and is known as the  S “bilinear reduction”.
+Roughly, it allows one to assume that for most points x ∈ ω∈Ω Tω , the tubes Tω
+that pass through x are not concentrated in a small angular sector, but are spread
+out over all angles. This is because if the tubes through generic points were con-
+sistently concentrated in narrow sectors, then one could pass to these sectors and
+then rescale to obtain a better counter-example; see [18].
+
+Another (equally informal) way of stating this is that the two ends reduction allows
+one to assume that generic points in a tube have separation ≈ 1, while the bilinear
+reduction allows one to assume that generic tubes through a point have angular
+separation ≈ 1. One can push these observations a bit further in a non-rigorous
+fashion, and assert that the sets T̃ω behave like self-similar fractals of dimension
+log(λ)/ log(δ), while the sets {ω : Tω ∋ x} behave like self-similar fractals of di-
+mension log |E|/ log δ. This leads to some interesting questions concerning sets of
+Furstenburg type; see [24], [21].
+                          RECENT PROGRESS ON KAKEYA                                7
+
+
+                             3. The arithmetic method
+
+The geometric methods such as those in Wolﬀ [20] appear to be fairly eﬃcient in low
+dimensions, but are not very satisfactory in very high dimensions. In 1999 Bourgain
+[3] introduced a new argument, based on the arithmetic combinatorics of sums and
+diﬀerences, which gave better results in high dimensions. The connection between
+Kakeya problems and the combinatorics of addition can already be seen by con-
+sidering the analogy between line segments and arithmetic progressions. (Indeed,
+the Kakeya conjecture can be reformulated in terms of arithmetic progressions, and
+this can be used to connect the Kakeya conjecture to several diﬃcult conjectures
+in number theory such as the Montgomery conjectures for generic Dirichlet series.
+We will not discuss this connection here, but refer the reader to [4]).
+
+For simplicity we ﬁrst begin by discussing the Minkowski dimension problem, and
+indicate the additional diﬃculties involved in the Hausdorﬀ and maximal settings
+later in this section.
+
+These arguments begin by analyzing the “two-slice” proof of the estimate KM ((n +
+1)/2, n) in more detail. Recall that each tube Tω was associated to a distinct
+element of the product set A0 × A1 . Let G denote the subset of A0 × A1 generated
+by these tubes, thus
+                                       #G ∼ δ 1−n .                              (4)
+                               1−n
+Let N denote the quantity δ          |E|, thus we have
+                                         #At . N                                 (5)
+for generic values of t. We shall gloss over the deﬁnition of “generic” and make the
+non-rigorous assumption that (5) in fact holds for all t.
+
+We are interested in bounds of the form
+                                        #G / N α ,                               (6)
+since this would then give
+                                δ 1−n / (δ 1−n |E|)α
+which eventually yields the estimate
+                                     n α−1
+                                KM ( +           , n).
+                                     α       α
+For instance, the bound KM ((n + 1)/2, n) comes from the trivial estimate
+                                        #G . N 2 .                               (7)
+The aim is thus to make α as small as possible; an estimate with α = 1 would solve
+the Kakeya conjecture, for Minkowski dimensions at least.
+
+To improve upon the trivial bound (7) we need to use some further properties of G.
+Let Z denote the vector space Rn , thus G ⊂ Z × Z. Let π− : Z × Z → Z denote
+the subtraction map π− : (a, b) 7→ a − b. From the fact that the tubes Tω all point
+in diﬀerent directions we see that
+                                π− is one-to-one on G.                           (8)
+8                               NETS KATZ AND TERENCE TAO
+
+
+For each t ∈ [0, 1], let πt : Z × Z → Z denote the map πt : (a, b) → (1 − t)a + tb. If
+(a, b) ∈ G, then there is a tube Tω containing a and b, and hence the intermediate
+point (1 − t)a + tb. Thus one essentially has
+                                         πt maps G to At                                           (9)
+for all t.
+
+In other words, the map πt compresses G (which at present appears to have size
+about N 2 ) into the much smaller set At (which has size about N ). For instance,
+applying this with t = 1/2 we obtain
+                                   #{a + b : (a, b) ∈ G} . N.
+Comparing this with (8), we see that the diﬀerences of G are all distinct, whereas
+the sums of G have very large overlap. Intuitively, one expects these facts to
+conﬂict with each other; this can already be seen from the elementary observation
+observation
+                            a + b = a′ + b′ ⇐⇒ a − b′ = a′ − b.                                  (10)
+
+
+However, it is not entirely trivial to convert observations such as (10) into bounds
+of the form (6). There is a substantial literature on the relative sizes of sum-sets
+A0 + A1 and diﬀerence sets A0 − A1 (see e.g. the excellent survey [17]), but much
+less is known about partial sum-sets and diﬀerence sets, when one only considers
+a subset G of pairs A0 × A1 . One result in this direction is the Balog-Szemerédi
+theorem [1], which asserts that if a large subset of A0 × A1 has a small sum-set,
+then there exists large subsets A′0 , A′1 of A0 , A1 respectively such that A′0 + A′1 is
+also small. In principle, this theorem should be quite useful for us; however, the
+quantitative bounds given by [1] were far too poor (the constants blow up much
+faster than exponential) to give any signiﬁcant improvement to the estimate on |E|.
+
+The main breakthrough came from Gowers [10], who developed a quantitative ver-
+sion of the Balog-Szemerédi theorem while working on the apparently unrelated
+problem of locating arithmetic progressions of length 4. This argument was then
+adapted by Bourgain [3] for the Kakeya problem.
+
+To state Bourgain’s main “sums-diﬀerences” estimate, we pause to give some no-
+tation.
+Definition 3.1. Let t1 , . . . , tr be a sequence of reals and 1 ≤ α ≤ 2. We say that
+the estimate SD(t1 , . . . , tr ; α) holds if one has the bound (6) for all integers N > 0,
+all vector spaces Z, all ﬁnite sets G ⊂ Z × Z, and all ﬁnite subsets At1 , . . . , Atr of
+Z such that (5), (8), (9) hold for t = t1 , . . . , tr . We say that the estimate SD(α)
+holds if for every ε > 0 there exists t1,ε , . . . , trε ,ε such that SD(t1,ε , . . . , trε ,ε ; α + ε)
+holds.
+
+
+We thus have
+                                            n α−1
+                               SD(α) =⇒ KM (  +        , n)
+                                            α     α
+for all n. The trivial estimate (7) becomes SD(0, 1; 2) in this notation.
+                             RECENT PROGRESS ON KAKEYA                                         9
+
+                                                                       1
+By adapting Gowers’ arguments, Bourgain showed SD(0, 1/2, 1; 2 − 13      ), which
+                  13n+12
+thus implies KM ( 25 , n); note that this improves upon Wolﬀ’s bound KM ((n +
+2)/2, n) for n > 26. The idea is to show that for many elements (a, b) ∈ G, there
+are many ways to represent a − b as
+                       a − b = (a1 − b1 ) − (a2 − b2 ) + (a3 − b3 )
+where a1 , a2 , a3 ∈ A0 and b1 , b2 , b3 ∈ A1 . This limits the total number of possible
+values of a − b, which then limits the size of G. The representations are obtained
+via the identity
+                         a − b = (a − b′ ) − (a′ − b′ ) + (a′ − b)
+and the fact (from (10)) that there are generically a lot of solutions to the equations
+a − b′ = a1 − b1 , a′ − b′ = a2 − b2 , a′ − b = a3 − b3 . See [3]; an alternate version
+(with 1/13 replaced by an unspeciﬁed epsilon) is in [14].
+
+In [12] we developed a somewhat diﬀerent approach to proving results of the form
+SD(t1 , . . . , tr ; α). The idea is to identify certain conﬁgurations of points in G (e.g.
+trapezia, vertical line segments, corners, etc.) and obtain both lower and upper
+bounds for the number of such conﬁgurations in terms of #G and N . Comparing
+these bounds then gives an estimate of the form (6). Of course, one needs to utilize
+(8) in order to obtain an improvement over (7); this shall be accomplished by means
+of elementary linear algebra, re-expressing π− in terms of the other projections πt .
+
+We illustrate this technique with
+Theorem 3.2. [12] We have SD(0, 1/2, 2/3, 1; 2 − 14 ).                    In particular, we have
+KM ((4n + 3)/7, n).
+
+
+Proof Let Z, N , G, A0 , A1/2 , A2/3 , A1 be as above. Deﬁne a vertical line segment
+to be a pair (g1 , g2 ) ∈ G × G such that π0 (g1 ) = π0 (g2 ). (The notation comes
+from depicting A0 , A1 as one-dimensional sets, so that G ⊂ A0 × A1 becomes a
+two-dimensional set and +0 is the projection to the ﬁrst co-ordinate). Let V denote
+the space of all vertical line segments. From an easy Cauchy-Schwarz argument we
+have
+                            #V ≥ (#G)2 /#A0 & (#G)2 /N.
+
+Now deﬁne a trapezoid to be a pair ((g1 , g2 ), (g3 , g4 )) ∈ V × V of vertical line
+segments such that π1 (g1 ) = π1 (g3 ) and π2/3 (g2 ) = π2/3 (g4 ), and let T denote
+the space of all trapezoids. From Cauchy-Schwarz we have a lower bound for the
+cardinality of T :
+              #T ≥ (#V )2 /(#A1 #A2/3 ) & (#V )2 /N 2 & (#G)4 /N 4 .                        (11)
+On the other hand, we can obtain an upper bound for the cardinality of T as follows.
+Consider the map f : T → A1/2 × A1/2 × A1 deﬁned by
+                  f ((g1 , g2 ), (g3 , g4 )) := (π1/2 (g1 ), π1/2 (g2 ), π1 (g4 )).
+We claim that this map is one-to-one. At ﬁrst glance, this seems unlikely, as T has
+four degrees of freedom with respect to Z (G has 2 degrees of freedom, hence V
+has 2 ∗ 2 − 1 = 3, hence T has 2 ∗ 3 − 2 = 4) and f only speciﬁes three of these
+10                              NETS KATZ AND TERENCE TAO
+
+
+four degrees. However, we can use (8) to recover the fourth degree of freedom.
+Speciﬁcally, we take advantage of the identity
+                        π− (g3 ) = −2π1/2 (g1 ) + 4π1/2 (g2 ) − 2π1 (g4 )                        (12)
+for all ((g1 , g2 ), (g3 , g4 )) ∈ T , to conclude that the quantity f ((g1 , g2 ), (g3 , g4 ))
+determines π− (g3 ), which then determines g3 by (8). From some straightfor-
+ward linear algebra one can then check that f ((g1 , g2 ), (g3 , g4 )) determines all of
+((g1 , g2 ), (g3 , g4 )), or in other words that f is one-to-one. Hence
+                              #T ≤ #A1/2 #A1/2 #A2/3 . N 3 .
+Combining this with (11) we obtain (6) with α = 2 − 1/4 as claimed.
+
+
+
+
+A similar argument gives SD(0, 1/2, 1; 2 − 61 ); see [12].
+
+We now sketch the more recent results in [13]. The starting point is the observation
+that one can improve upon the estimate SD(1.75) in Theorem 3.2 by analyzing the
+proof more carefully. Deﬁne the map ν : V → Z by
+                            ν(g1 , g2 ) := −2π1/2 (g1 ) + 4π1/2 (g2 ).                           (13)
+Since π0 (g1 ) = π0 (g2 ), ν can also be written as
+                               ν(g1 , g2 ) = −π1 (g1 ) + 3π2/3 (g2 )                             (14)
+or
+                                 ν(g1 , g2 ) = π− (g1 ) + 2π1 (g2 )                              (15)
+
+From (14) we see that
+                                      ν(g1 , g2 ) = ν(g3 , g4 )
+whenever (g1 , g2 ), (g3 , g4 )) ∈ T . From this and (13), (14), (15) we obtain a deriva-
+tion of (12).
+
+In light of this, it is natural to consider for each ν0 ∈ Z the set
+                              Vν0 := {(g1 , g2 ) : ν(g1 , g2 ) = ν0 }.
+From any of (13), (14), (15) we see that (g1 , g2 ) is completely determined by g2
+and ν0 . Thus if we set
+                           Ṽν0 := {g2 : (g1 , g2 ) ∈ Vν0 }
+then there is a one-to-one correspondence between Ṽν0 and Vν0 .
+
+On the other hand, we see from the previous discussion on T that
+        #{((g1 , g2 ), (g3 , g4 )) ∈ V 2 : ν(g1 , g2 ) = ν(g3 , g4 ); π2/3 (g2 ) = π2/3 (g4 )}
+                                             #V
+                            ≥ #T & #V           & #V (#G)2 N −3 .
+                                             N2
+We can re-arrange this as
+  X                                                                    X
+       #{((g1 , g2 ), (g3 , g4 )) ∈ Vν20 : π2/3 (g2 ) = π2/3 (g4 )} &       #Vν0 (#G)2 N −3 ,
+ ν0 ∈Z                                                                ν0 ∈Z
+                             RECENT PROGRESS ON KAKEYA                                      11
+
+
+which can be re-arranged further as
+        X                                                       X
+             #{(g2 , g4 ) ∈ Ṽν20 : π2/3 (g2 ) = π2/3 (g4 )} &       #Ṽν0 (#G)2 N −3 .
+       ν0 ∈Z                                                   ν0 ∈Z
+
+Thus for generic choices of ν0 , we expect
+             #{(g2 , g4 ) ∈ Ṽν20 : π2/3 (g2 ) = π2/3 (g4 )} & #Ṽν0 (#G)2 N −3 ,
+which morally speaking should imply
+                                                          #Ṽν0
+                         #{π2/3 (g2 ) : g2 ∈ Ṽν0 } .              .
+                                                        (#G)2 N −3
+(Strictly speaking, we need to pass to a large subset of #Ṽν0 to achieve this, but
+we gloss over this technicality). Thus if we ﬁx ν0 and deﬁne
+                                         G∗ := Ṽν0
+
+                                   A∗t := {πt (g) : g ∈ G}
+and
+                                               #G∗
+                                    N ∗ :=                                                (16)
+                                             (#G)2 N −3
+then we have just shown that
+                                       #A∗2/3 . N ∗ .
+A similar argument using (13) gives
+                                        #A∗1/2 . N ∗
+(at least if ν0 is chosen suﬃciently generically). In fact, we can show
+                                         #A∗t . N ∗                                       (17)
+for all t 6= 1 by this method, providing that (5) holds for the correct values of t.
+
+On the other hand, from (15) and (8) we see that for (g1 , g2 ) ∈ V , π1 (g2 ) and
+ν(g1 , g2 ) determine g1 , and hence all of (g1 , g2 ). Thus we have
+                                #G∗ = #Vν0 ≤ #A1 . N.                                     (18)
+
+
+Observe by construction that (8) and (9) hold with G, At replaced by G∗ , A∗t .
+(Indeed, the former is clear since G∗ ⊂ G). Thus if we have a suitable bound
+SD(α), we may apply it to G∗ , N ∗ , and conclude
+                                      #G∗ . (#N ∗ )α .
+Combining this with (16) and (18) we eventually obtain
+                                     #G . N 2−1/(2α) .
+One can make this rigorous and conclude that
+                                        1
+Theorem 3.3. [13] SD(α) implies SD(2 − 2α ).
+12                             NETS KATZ AND TERENCE TAO
+
+
+Thus SD(2) gives SD(2 − 14 ), which gives SD(2 − 72 ), and so forth. Iterating this
+                                   √
+and taking limits we obtain SD(1 + 2/2) = SD(1.707 . . . ), which implies
+                                   √        √
+                           KM ((2 − 2)n + ( 2 − 1)).
+
+
+We have been able to set up a more sophisticated iteration scheme along the same
+lines, where the role of the vertical line segments (g1 , g2 ) are replaced by “corners”
+(g1 , g2 , g3 ), where π0 (g1 ) = π0 (g2 ) and π1 (g2 ) = π1 (g3 ). By similar arguments to
+the above, we have been able to obtain SD(α), where α = 1.675 . . . solves the
+cubic α3 − 4α + 2 = 0. In high dimensions (n ≥ 24) this gives the best progress on
+the Minkowski version of the Kakeya version to date. (For the n < 24 results, see
+below).
+
+We have certainly not exhausted all the possibilities of this approach, and it is quite
+likely that one can improve the above results by ﬁnding some good upper and lower
+bounds for various conﬁgurations of objects in G. To date, the arithmetic techniques
+used so far have all been remarkably elementary (with some minor combinatorial
+technicalities in making such terms as “generic” rigorous).
+
+We now discuss the issue of how well these Minkowski arguments transfer over to
+the more diﬃcult Hausdorﬀ or maximal Kakeya problems. In these cases the tubes
+Tω are replaced by subsets T̃ω of density λ. Let E denote the union of the T̃ω , and
+let At be deﬁned by E as before. We can still ensure an estimate of the form (5),
+however a diﬃculty arises in obtaining (9) for t 6= 0, 1. This is because statements
+a, b ∈ T̃ω no longer imply that (1 − t)a + tb ∈ T̃ω .
+
+In the special case t = 1/2 this amounts to the problem of locating arithmetic
+progressions of length 3 in T̃ω . A famous theorem of Roth asserts that this is
+possible providing the density λ is suﬃciently large; an argument of Heath-Brown
+[11] actually shows that one can take λ & 1/(log 1/δ)c for some small absolute
+constant c. This turns out to be enough to handle the Hausdorﬀ problem (see [3]),
+but is far too weak to give maximal function results1 . Unfortunately these ideas do
+not seem to easily give Hausdorﬀ or maximal results when one needs several values
+of t at once, because of the diﬃculty of ﬁnding arithmetic progressions of length 4
+or higher (see e.g. [10]).
+                                                                       √
+Nevertheless, one can adapt the proof of SD(2 − 1/4) or SD(1 + 2/2) to give
+Hausdorﬀ and maximal results. (It is likely that one can also do this for the more
+complicated argument of SD(1.675 . . . ), but we have not checked this). The key
+observation is that one has a substantial amount of freedom to choose which slices At
+to use in these arguments. For instance, the argument giving SD(0, 1, 1/2, 2/3; 2 −
+                                                 1
+1/4) can easily be modiﬁed to give SD(0, 1, t, 2−t ; 2 − 1/4) for any 0 < t < 1. One
+can then show that for generic values of t, the statements (9) are mostly true for
+t and 1/(2 − t) (but with some loss depending on λ), which is enough to run the
+
+    1 In [3] Bourgain was still able to achieve a small maximal function improvement, namely
+
+KX ((1/2 + ε)n, n) for some absolute constant ε > 0, by locating triples whose reciprocals were in
+arithmetic progression (which are more common, due to the curvature of 1/x), and then running
+similar arguments to the above.
+                           RECENT PROGRESS ON KAKEYA                                  13
+
+
+argument properly. (For small λ it is convenient to take advantage of the “two-
+ends” reduction mentioned in the previous section, to ensure that one can still ﬁnd
+good slices A0 , A1 of roughly unit separation).
+
+Note that none of these results can reproduce Wolﬀ’s result in low dimensions. This
+seems to be due to the fact that these arithmetic arguments do not fully exploit
+the Besicovitch set, but only use a ﬁnite number of slices of it. In high dimensions
+this is less of an issue since each slice only has one less dimension than the full set,
+but this loss of information becomes very signiﬁcant in two and three dimensions.
+In the next section we mention some recent attempts to recapture this loss.
+
+
+
+                                4. Hybrid methods
+
+As we have seen, there are two known ways of improving over the benchmark
+exponent of (n + 1)/2. Geometric techniques such as those of Wolﬀ can improve
+the constant term to (n + 2)/2, while arithmetic techniques can improve the linear
+term, obtaining an exponent of the form n/α + (α − 1)/α. It is natural to ask
+whether one can combine the two techniques and obtain new Kakeya estimates
+which improve upon both the linear and the constant term.
+
+One such attempt, joint with I. Laba, is in [14], in which the properties of stickiness,
+planiness, and graininess are used to obtain additional structure on the slices At .
+However, this argument has so far only proved useful for the three-dimensional
+Minkowski problem.
+
+Another approach, which we develop in [13], is to “de-slice” the arguments of the
+previous section, and try to exploit the Besicovitch set more fully. This turns out
+to be fairly straightforward. For instance, one can give a re-proof of
+
+Theorem 4.1. [12] We have KM ((4n + 3)/7, n)
+
+
+Proof (Informal) Let E be the union of all the tubes Tω as before; this set can be
+thought of as the union of about δ −n |E| δ-balls. Since each tube occupies about
+δ −1 of these balls, we can expect two random T , T ′ to have a probability of about
+δ n−2 /|E| of intersecting.
+
+Deﬁne a quadrilateral to be four tubes T1 , T2 , T3 , T4 in E such that Ti intersects
+Ti+1 in a δ-ball for i = 1, 2, 3, 4 (with T5 := T1 ). The total number of 4-tuples of
+tubes is δ 4(1−n) , but there are four constraints, and so by the above heuristic we
+expect the total number of quadrilaterals is bounded below by δ 4(1−n) (δ n−2 /|E|)4 .
+(This can be proven by two applications of Cauchy-Schwarz as before). Let xi be
+the center of the ball where Ti and Ti+1 intersect.
+
+A quadrilateral is mostly determined by the three points (which are usually in E):
+                          1     1               2    1
+                            x1 + x2 , 2x2 − x3 , x3 + x4 .
+                          2     2               3    3
+14                            NETS KATZ AND TERENCE TAO
+
+
+Given these three points, one can determine x1 − x4 as a linear combination. This
+determines the tube T4 , because the tubes point in diﬀerent directions. Thus x4 (for
+instance) has only one degree of freedom, and once this degree is speciﬁed one can
+reconstruct the entire quadrilateral. Thus the number of quadrilaterals is bounded
+by (δ −n |E|)3 δ −1 .
+
+Combining these bounds gives the same bound (4n + 3)/7 as previously.
+
+
+This argument should be compared with the proof of Theorem 3.2.
+
+There are several advantages to this de-sliced formulation. Firstly, it becomes some-
+what easier to tackle the Hausdorﬀ and maximal versions of the Kakeya conjecture
+in this setting, as one has less of a need to locate arithmetic progressions. Secondly,
+one is now able to utilize such facts as the Córdoba estimate (2) (which is very
+diﬃcult to use in the purely arithmetic setting). Indeed, recall from our discussion
+of Wolﬀ’s theorem that the tubes which pass through a single stem tube are essen-
+tially disjoint. Another way of saying this is that given any stem tube T and any
+point x at a distance ∼ 1 from T , there should only be O(1) tubes which intersect
+both T and x. This fact can be used to improve slightly the bounds in the proof
+of Theorem 4.1, and can eventually lead to the improvement of KH ((4n + 5)/7, n).
+A similar argument (but combined with a lifting argument from n dimensions to
+n + 1 dimensions, in order to fully  √ exploit Córdoba’s observation) can be used to
+convert the sliced result SD(1 + 2/2) to the estimate
+                                        √
+                              KH ((2 − 2)(n − 4) + 3, n),
+which is currently the best estimate known on the Kakeya problem in dimensions
+5 ≤ n ≤ 23.
+
+
+
+                                        References
+
+ [1] A. Balog, E. Szemerédi, A statistical theorem of set addition, Combinatorica, 14 (1994),
+     263–268.
+ [2] J. Bourgain, Besicovitch-type maximal operators and applications to Fourier analysis, Geom.
+     and Funct. Anal. 22 (1991), 147–187.
+ [3] J. Bourgain, On the dimension of Kakeya sets and related maximal inequalities, Geom. Funct.
+     Anal. 9 (1999), no. 2, 256–282.
+ [4] J. Bourgain, Harmonic analysis and combinatorics: How much may they contribute to each
+     other?, Mathematics: Frontiers and perspectives, IMU/Amer. Math. Society 2000, 13–32.
+ [5] M. Christ, J. Duoandikoetxea, and J. L. Rubio de Francia, Maximal operators associated
+     to the Radon transform and the Calderón-Zygmund method of rotations, Duke Math. J. 53
+     (1986), 189-209.
+ [6] A. Córdoba, The Kakeya maximal function and the spherical summation multipliers, Amer.
+     J. Math. 99 (1977), 1–22.
+ [7] R.O. Davies, Some remarks on the Kakeya problem, Proc. Cambridge Phil. Soc. 69 (1971),
+     417–421.
+ [8] S. Drury, Lp estimates for the x-ray transform, Ill. J. Math. 27 (1983), 125–129.
+ [9] M. Erdogan. Mixed norm estimates for the X-ray transform restricted to a rigid well-curved
+     line complex in R4 and R5 , preprint.
+[10] T. Gowers, A new proof of Szemerédi’s theorem for arithmetic progressions of length four,
+     to appear in GAFA.
+                             RECENT PROGRESS ON KAKEYA                                      15
+
+
+[11] D. Heath-Brown, Integer sets containing no arithmetic progressions, J. London Math. Soc.
+     (2) 35 (1987), 385-394.
+[12] N. Katz, T. Tao: Bounds on arithmetic projections, and applications to the Kakeya conjec-
+     ture, Math Res. Letters 6 (1999), 625–630.
+[13] N. Katz, T. Tao, New bounds for the Kakeya problems, in preparation.
+[14] N. Katz, I. Laba, T. Tao, An improved bound on the Minkowski dimension of Besicovitch
+     sets in R3 , submitted, Annals of Math.
+[15] I. Laba, T. Tao: An x-ray estimate in Rn , to appear, Revista Iberoamericana.
+[16] I. Laba, T. Tao: An improved bound for the Minkowski dimension of Besicovitch sets in
+     medium dimension, to appear.
+[17] I. Ruzsa, Sums of finite sets, Number Theory: New York Seminar; Springer-Verlag (1996),
+     D.V. Chudnovsky, G.V. Chudnovsky and M.B. Nathanson editors.
+[18] T. Tao, A. Vargas, L. Vega, A bilinear approach to the restriction and Kakeya conjectures,
+     J. Amer. Math. Soc. 11 (1998), pp. 967–1000.
+[19] T. Tao, From rotating needles to stability of waves: emerging connections between combina-
+     torics, analysis, and PDE, to appear, Notices Amer. Math. Soc.
+[20] T. Wolﬀ, An improved bound for Kakeya type maximal functions, Revista Mat. Iberoameri-
+     cana. 11 (1995). 651–674.
+[21] T. Wolﬀ, Recent work connected with the Kakeya problem, Prospects in mathematics (Prince-
+     ton, NJ, 1996), 129–162, Amer. Math. Soc., Providence, RI, 1999.
+[22] T. Wolﬀ, A mixed norm estimate for the x-ray transform, Revista Mat. Iberoamericana. 14
+     (1998), 561-600.
+[23] T. Wolﬀ, Maximal averages and packing of one-dimensional sets, Proceedings of the Inter-
+     national Congress of Mathematics, Berlin 1998 Vol II, 755–764.
+[24] T. Wolﬀ, Decay of circular means of Fourier transforms of measures, Internat. Math. Res.
+     Notices 10 (1999), 547–567.
+[25] T. Wolﬀ, A sharp bilinear cone restriction estimate, to appear, Annals of Math.
+[26] T. Wolﬀ, Local smoothing estimates in Lp for large p, to appear.
+
+
+Department of Mathematics, Washington University at St. Louis, St. Louis MO 63130
+
+E-mail address: nets@math.wustl.edu
+
+
+Department of Mathematics, UCLA, Los Angeles CA 90095-1555
+
+E-mail address: tao@math.ucla.edu
+

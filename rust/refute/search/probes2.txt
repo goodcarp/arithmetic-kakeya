@@ -1,0 +1,19 @@
+### P6 limit larger than the exhaustive total (d=2, pool 3, total 4, limit 100)
+-- python:
+26154c8d9538147edc045e40eb7dff1f
+RESULT {"tag": "p6", "d": [2], "pool": 3, "max_t": 1, "target": "2", "scanned": 100, "total": 100, "best": "2", "hits": 136, "complete": false, "seconds": 0.1}
+-- rust:
+26154c8d9538147edc045e40eb7dff1f
+RESULT {"tag": "p6", "d": [2], "pool": 3, "max_t": 1, "target": "2", "scanned": 100, "total": 100, "best": "2", "hits": 136, "complete": false, "seconds": 0.0}
+
+### P7 negative limit
+-- python:
+RESULT {"tag": "p7", "d": [2], "pool": 3, "max_t": 1, "target": "2", "scanned": 0, "total": -5, "best": null, "hits": 0, "complete": false, "seconds": 0.0}
+-- rust:
+kakeya-search: bad --limit "-5": invalid digit found in string
+
+### P8 unknown pool size
+-- python:
+KeyError: 7
+-- rust:
+kakeya-search: no POOL7 (have 3, 4, 5, 6, 8)

@@ -1,0 +1,14 @@
+progress 100/1296 force_calls=474504 hits=0 176s
+progress 200/1296 force_calls=1513072 hits=0 372s
+progress 300/1296 force_calls=2089132 hits=0 619s
+progress 400/1296 force_calls=2984700 hits=0 942s
+progress 500/1296 force_calls=3914168 hits=0 1130s
+progress 600/1296 force_calls=4590396 hits=0 1289s
+progress 700/1296 force_calls=5507620 hits=0 1506s
+progress 800/1296 force_calls=6147832 hits=0 1710s
+progress 900/1296 force_calls=7011940 hits=0 1940s
+progress 1000/1296 force_calls=7972868 hits=0 2165s
+progress 1100/1296 force_calls=8591760 hits=0 2408s
+progress 1200/1296 force_calls=9544664 hits=0 2688s
+progress 1296/1296 force_calls=10062000 hits=0 2973s
+DONE phase=cheap graphs=1296 force_calls=10062000 hits=0 2973s

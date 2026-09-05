@@ -1,0 +1,8 @@
+  [2x4] TIME LIMIT
+RESULT {"tag": "g2_tall_2x4", "d": [2, 4], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": false, "seconds": 703.3}
+  [2x5] TIME LIMIT
+RESULT {"tag": "g2_tall_2x5", "d": [2, 5], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": false, "seconds": 818.5}
+  [2x6] TIME LIMIT
+RESULT {"tag": "g2_tall_2x6", "d": [2, 6], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": false, "seconds": 866.7}
+# NOTE: the 2x5 and 2x6 lines above were recovered from the live monitor stream --
+# an in-place sed on this file while the writer was running broke its file handle.

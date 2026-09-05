@@ -1,0 +1,569 @@
+                                                                      GENERALIZED ARITHMETIC KAKEYA
+
+                                                                          COSMIN POHOATA AND DMITRII ZAKHAROV
+
+
+
+
+arXiv:2411.13395v1 [math.CO] 20 Nov 2024
+                                                  Abstract. Around the early 2000-s, Bourgain, Katz and Tao introduced an arithmetic approach to
+                                                  study Kakeya-type problems. They showed that the Euclidean Kakeya conjecture follows from a natural
+                                                  problem in additive combinatorics, now referred to as the ‘Arithmetic Kakeya Conjecture’.
+                                                      We consider a higher dimensional variant of this problem and prove an upper bound using a certain
+                                                  iterative argument. The main new ingredient in our proof is a general way to strengthen the sum-
+                                                  difference inequalities of Katz and Tao which might be of independent interest. As a corollary, we
+                                                  obtain a new lower bound for the Minkowski dimension of (n, d)-Besicovitch sets.
+
+
+
+
+                                                                                         1. Introduction
+                                              The Kakeya problem asks for the smallest possible dimension that a set of points Rn may have
+                                           if it contains a unit segment in every direction. Sets with this property are called Besicovitch sets.
+                                           There are actually multiple questions here, depending on which notion of dimension one considers.
+                                           The so-called Kakeya conjecture asserts that such sets have full (Hausdorff) dimension for every n and
+                                           it is related to important questions in harmonic analysis, PDE’s, combinatorics, and number theory
+                                           [22, 23]. The conjecture is known in the plane [5] but widely open for any n ⩾ 3. We refer to [16, 26, 27]
+                                           for recent progress in R3 , and to [8, 28] for a recent new approach in higher dimensions. See [14] for a
+                                           survey of older results.
+                                              The following ‘Arithmetic Kakeya Conjecture’ conjecture, attributed to Katz and Tao [23], would
+                                           imply the Kakeya conjecture for Minkowski dimension (see [4]). For r ∈ Q let πr : R2 → R denote the
+                                           projection πr (x, y) = x + ry and let π∞ (x, y) = y.
+                                           Conjecture A. For any ε > 0 there exists a finite set R ⊂ Q such that the following holds. Let
+                                           G ⊂ Z2 be a finite set such that the map π∞ is injective when restricted on G. Then we have
+                                                                                       |G| ⩽ max |πr (G)|1+ε .
+                                                                                               r∈R
+
+                                              It has proven to be very fruitful to study the entropic versions of problems in additive combinatorics
+                                           [11, 24], see e.g. the recent resolution of the Polynomial Freiman–Ruzsa conjecture over finite fields
+                                           [9, 10]. In [12], Green and Ruzsa introduced several equivalent formulations of Conjecture A and in
+                                           particular they showed that it is equivalent to the following statement about Shannon entropies of
+                                           integer random variables.
+                                           Conjecture B. For any ε > 0 there exists a finite set R ⊂ Q such that we have:
+                                           (1)                                   H(Y ) ⩽ (1 + ε) sup H(X + rY ),
+                                                                                                     r∈R
+
+                                           for any integer random variables X, Y .
+                                             Here and in what follows, all random variables are assumed to be discrete and finitely supported.
+                                           See Section 2 for relevant definitions. In the setting of arithmetic Kakeya problems, the set-theoretic
+                                           and entropic languages are completely equivalent. So one can always use the language which is more
+                                           convenient at any given moment.
+                                             To make progress on Conjecture B and, thus, on the Euclidean Kakeya conjecture, one may try to
+                                           make the “ε” in (1) as small as possible (while having the flexibility of choosing an arbitrarily large
+                                                                                                     1
+2                               COSMIN POHOATA AND DMITRII ZAKHAROV
+
+R). For a finite R ⊂ Q define β(R) to be the minimum real number β such that
+(2)                                      H(Y ) ⩽ β max H(X + rY )
+                                                          r∈R
+holds for any integer random variables X, Y . With this notation, Conjecture B becomes equivalent to
+the assertion that the limit
+                                          β0 = lim inf β(R)
+                                                             R
+taken over all finite R ⊂ Q is equal to 1. We refer to [13, 15, 17] for bounds on β(R) for specific
+choices of R. Katz and Tao [15] showed that β0 ⩽ α where α = 1.675 . . . is the solution to the equation
+α3 − 4α + 2 = 0 and this bound has not been improved for over 20 years.
+  In this paper, we are interested in a higher dimensional variant of the arithmetic Kakeya problem.
+Let d ⩾ 1 and let R ⊂ Qd be a finite set. Then we define β(R) as the smallest number such that for
+any integer random variables X, Y1 , . . . , Yd we have
+(3)                   H(Y1 , . . . , Yd ) ⩽ β(R)       max           H(X + r1 Y1 + . . . + rd Yd ).
+                                                   (r1 ,...,rd )∈R
+
+Note that the quantity β(R) is well-defined only if R affinely spans Qd and that β(φ(R)) = β(R) for
+any affine isomorphism φ : Qd → Qd . The Euclidean counterpart of the problem of estimating β(R)
+for R ⊂ Qd is the Kakeya problem for d-dimensional disks (instead of unit segments). Oberlin [20]
+observed that a certain ‘homogeneous’ strengthening of arithmetic Kakeya estimates can be iterated
+to obtain bounds on Lebesgue measure of (n, d)-Besicovitch sets and the related maximal operators.
+   The combinatorial version of this strengthening can be phrased as follows. For a finite set R ⊂ Q
+define βh (R) as the smallest number such that
+(4)                     H(Y ) + (βh (R) − 1)H(X|Y ) ⩽ βh (R) max H(X + rY )
+                                                                              r∈R
+for any integer random variables X, Y . So, comparing this to (2), we add an extra term on the left hand
+side. Note that in the setting of Conjecture A one assumes that the mapping (x, y) 7→ y is injective on
+G, which, in the entropy language, means that the random variable X is determined by the value of Y ,
+i.e. H(X|Y ) = 0. So the extra term in (4) is not immediately useful for the original Kakeya problem.
+On the other hand, the fact that (4) is ‘homogeneous’ (i.e. that the sum of coefficients on the left and
+right hand sides coincide) turns out to be important for the higher dimensional versions of the Kakeya
+problem. Oberlin used the ‘basic iteration’ of Katz and Tao [15] to (in particular) show that
+                                                               1
+(5)                                      lim inf βh (R) ⩽ 1 + √
+                                           R⊂Q                  2
+holds. A version of this bound (suited for the Kakeya maximal operators) can then be iteratively
+applied to Kakeya-type problems for disks.
+   The first result of this paper states that the homogeneous (4) and the original (2) versions of the
+arithmetic Kakeya problem are equivalent.
+Theorem 1. Let R ⊂ Q be a finite set of size at least two. Then βh (R) = β(R).
+   This result is interesting because we do not know an exact value of β(R) or βh (R) for any set R ⊂ Q
+of size at least three. The interesting direction of this theorem is showing that βh (R) ⩽ β(R) holds,
+i.e. that the inequality (2) implies an apparently stronger inequality (4) with an extra term on the left
+hand side. It might be interesting to investigate further which arithmetic entropy inequalities can be
+‘upgraded’ to their homogeneous form like this. We should point out that in practice it seems to be
+the case that any proof of a bound of the form β(R) ⩽ β0 for some pair (R, β0 ) can be adapted with
+some effort to also prove that βh (R) ⩽ β0 holds. On the other hand, the argument of Katz and Tao
+[15] showing lim inf R β(R) ⩽ α = 1.675 . . . is quite involved and the assumption that π∞ is injective
+on G is used heavily throughout. So it would require some considerable effort to rewrite that proof for
+the homogeneous version of the problem. Our Theorem 1 provides such an extension for free.
+   As a corollary, we prove the following bound for the generalized arithmetic Kakeya problem:
+                                  GENERALIZED ARITHMETIC KAKEYA                                         3
+
+Theorem 2. Let R ⊂ Q be a finite set of size at least two and let β = β(R). Then for any d ⩾ 2:
+                                                           β d
+                                                d
+                                                        ( β−1 )
+                                         β(R ) ⩽ d       β d
+                                                                   .
+                                                      ( β−1 ) −1
+
+  For example, using the simple fact β({0, 1}) = 2 we obtain
+                                                          2d
+                                         β({0, 1}d ) ⩽ d d   .
+                                                        2 −1
+Compare this to the simple bounds which hold for any R which affinely spans Qd :
+                                           d ⩽ β(R) ⩽ d + 1.
+Using the result of Katz and Tao [15] we conclude that for any ε > 0 there exists R ⊂ Qd with
+                                                          α d
+                                                       ( α−1 )
+                                       β(R) ⩽ d        α d      + ε,
+                                                    ( α−1 ) − 1
+where α = 1.675 . . . solves α3 − 4α + 2 = 0. It might be interesting to explore upper and lower bounds
+for the quantities β(R) for various choices R ⊂ Qd further.
+   It is perhaps also worth mentioning that in the finite fields setup such iterative arguments were also
+used recently by Dhar, Dvir, and Lund in [6] to improve (and simplify) the results of Ellenberg and
+Erman [7] on the size of Furstenberg sets in Fnq .
+   One motivation to study the quantity β(R) for R ⊂ Qd with d ⩾ 2 is the Euclidean Kakeya problem
+for disks. For n ⩾ d ⩾ 1 say that K ⊂ Rn is an (n, d) Besicovitch set if for any d-dimensional
+subspace U ⊂ Rn there is a translate (x + U ∩ B n (0, 1)) ⊂ K. For instance, (n, 1) Besicovitch sets are
+the subject of the Euclidean Kakeya conjecture. While Besicovitch [1, 2] famously showed that there
+exist (n, 1)-Besicovitch sets with zero Lebesgue measure, it is believed ([3], Remark 3.5) that already
+for d = 2 any (n, d)-Besicovitch set must have positive Lebesgue measure. In support of this belief,
+Bourgain [3] showed that (n, d) sets have positive measure as long as d satisfies 2d + d ⩾ n. Some
+improvements were obtained by Oberlin [18, 19, 20]. In [20], Oberlin used a version of the arithmetic
+approach of Katz and Tao to study (n, d)-Besicovitch sets and related√ maximal operators and showed
+that (n, d)-Besicovitch sets have positive measure as long as (1 + 2)n−1 + n > d.
+   Theorem 2 implies a bound on Minkowski dimension of (n, d)-Besicovitch sets.
+Corollary 1. Let K be a (n, d)-Besicovitch set. Then for any R ⊂ Qd :
+                                                           d
+                                           dimM K ⩾           n.
+                                                         β(R)
+In particular, we get
+                                                         α d
+                                                      ( α−1  ) −1
+                                        dimM K ⩾            α d n,
+                                                         ( α−1 )
+where α = 1.675 . . . solves α3 − 4α + 2 = 0.
+  In Section 2 we recall basic facts about Shannon entropy and some tools from additive combinatorics.
+In Section 3 we prove an auxiliary lemma. In Section 4 we prove Theorem 1. In Section 5 we prove
+Theorem 2.
+
+1.1. Acknowledgements. We would like to thank Zeev Dvir for useful discussions. We also gratefully
+acknowledge the hospitality and support of the Institute for Advanced Study during the Special Year
+on Dynamics, Additive Number Theory and Algebraic Geometry, where a significant portion of this
+research was conducted.
+4                               COSMIN POHOATA AND DMITRII ZAKHAROV
+
+                                            2. Preliminaries
+2.1. Shannon entropy. Let X be a discrete random variable, the Shannon entropy H(X) is defined
+by the formula
+                                    X                      1
+                           H(X) :=      Pr(X = x) log
+                                      x
+                                                      Pr(X   = x)
+where the summation is over all the elements x in the range of X for which Pr(X = x) is nonzero.
+Given two random variables X and Y , define the conditional entropy as
+                                         X
+                             H(X|Y ) :=      Pr(Y = y)H(X|Y = y).
+                                               y
+
+We have the following chain rule for the entropy of the joint random variable (X, Y ):
+                           H(X, Y ) = H(X|Y ) + H(Y ) = H(Y |X) + H(X).
+More generally, for any choice of discrete random variables X1 , . . . , Xn , Z, we have the conditional
+chain rule:
+                                                  n
+                                                  X
+                          H(X1 , . . . , Xn |Z) =   H(Xi |X1 , . . . , Xi−1 , Z).
+                                                   i=1
+Another basic property is that conditioning on a random variable cannot increase entropy:
+                                            H(X|Y ) ⩽ H(X).
+An important consequence of this result is the submodularity of entropy:
+                                   H(X, Y |Z) ⩽ H(X|Z) + H(Y |Z).
+Finally, we will need the Shearer’s inequality. Here and throughout we use [n] for {1, . . . , n}.
+Lemma 2 (Shearer’s inequality). Let F be a family of subsets of [n] (possibly with repetitions) with
+each i ∈ [n] included in at least t members of F. For a random vector (X1 , . . . , Xn ),
+                                                           1 X
+                                     H(X1 , . . . , Xn ) ⩽     H(XF ),
+                                                           t
+                                                          F ∈F
+where XF is the vector (Xi : i ∈ F ).
+2.2. Ruzsa’s equivalence and Freiman homomorphisms. We will use a special case of Ruzsa’s
+equivalence between sumsets and entropy [21]. Recall that πr : Q2 → Q, for r ∈ Q ∪ {∞} is the linear
+projection given by πr (x, y) = x + ry and π∞ (x, y) = y.
+Lemma 3. Let X, Y be random variables on Z and R ⊂ Q be a finite set. Then for every ε > 0, there
+are infinitely many n ⩾ 1 for which there is a finite set G ⊂ Z2 such that:
+     (i) |G| = 2(1±ε)H(X,Y )n ,
+    (ii) |πr (G)| = 2(1±ε)H(X+rY )n for r ∈ R,
+   (iii) |π∞ (G)| = 2(1±ε)H(Y )n ,
+   (iv) |G ∩ π∞ −1 (y)| = 2(1±ε)H(X|Y )n , for each y ∈ π (G).
+                                                         ∞
+
+   It will be convenient to take a Freiman embedding into a cyclic group. The following is a variant
+of the standard Freiman embedding [25, Lemma 5.26]. Similar reduction to finite fields appears in the
+work of Green–Ruzsa [12, Proof of Proposition 2.1].
+Lemma 4. Let G ⊂ Z2 and R ⊂ Q be a non-empty finite set. Let N = |π∞ (G)| and suppose that
+πr (G) ⩽ N for any r ∈ R and |π∞ −1 (y) ∩ G| ∼ |G| for any y ∈ π (G). Then for any prime p ⩾ CN
+                                                N               ∞
+there is a subset G′ ⊂ (Z/pZ)2 such that
+                                    |G′ | ∼ |G|, |π∞ (G′ )| ∼ |π∞ (G)|,
+                                        |πr (G′ )| . |πr (G)|, r ∈ R,
+                                    GENERALIZED ARITHMETIC KAKEYA                                           5
+
+where the implied constants depend on R only.
+Proof. Take a uniformly random element θ ∈ (0, 1) and define a map φθ : Z → {0, . . . , p − 1} by
+φθ (x) = ⌊p{θx}⌋. We will take G′ to be a dense subset in G′′ = {(φθ (x), φθ (y)), (x, y) ∈ G} for an
+appropriately chosen θ.
+   Denote B = π∞ (G). Say that y ∈ B is bad if φθ (y) = φθ (y ′ ) for some y ′ ∈ B \ {y}. For fixed pair
+y 6= y ′ we have
+                                                                        
+                                                                       1    2
+                        Pr[φθ (y) = φθ (y ′ )] ⩽ Pr kθ(y − y ′ )kR/Z ⩽     ⩽ .
+                                                                       p    p
+So by union bound, y is bad with probability at most 2|B|  2
+                                                       p ⩽ C ⩽ 1/10 if we take C ⩾ 20. For y ∈ B
+let Gy = {x : (x, y) ∈ G}, by assumption, we have |Gy | ∼ |G|
+                                                           N for any y ∈ B. Note that by assumption,
+for r ∈ R we have |πr (G)| ⩽ N holds. On the other hand, we have |πr (G)| ⩾ |Gy | for any y ∈ B.
+So each fiber has size at most N . Say that (x, y) ∈ G is bad if there is x′ 6= x with (x′ , y) ∈ G and
+                                                                                                     1
+πθ (x′ ) = πθ (x). By the union bound argument above, the probability that (x, y) is bad is at most 10 .
+Define
+                            Gθ = {(x, y) ∈ G : y is good and (x, y) is good}.
+The expected size of Gθ is at least 0.8|G|, fix some θ ∈ (0, 1) which realizes |Gθ | ⩾ 0.8|G| and define
+                          G′ = {(φθ (x), φθ (y)), (x, y) ∈ Gθ } ⊂ {0, . . . , p − 1}2 .
+By design, we get |G′ | ⩾ 0.8|G| and |π∞ (G′ )| & N (by using that all fibers Gy have approximately the
+same size). Let r ∈ R and write r = a/b for a ∈ Z and b ∈ N. Then if p is coprime to a and b,
+                         |πr (G′ )| = |{aφθ (x) + bφθ (y) (mod p), (x, y) ∈ G′ }|.
+For any x, y ∈ Z we have
+                                    aφθ (x) + bφθ (y) − φθ (ax + by) ∈ I
+where I = {−|a| − b, . . . , |a| + b} ⊂ Z/pZ. So we get
+         {aφθ (x) + bφθ (y) (mod p), (x, y) ∈ G′ } ⊂ {φθ (ax + by) (mod p), (x, y) ∈ G′ } + I
+which has cardinality upper bounded by |πr (G)||I| . |πr (G)|. So the set G′ satisfies the claimed
+properties.                                                                                      ✷
+
+                            3. Sumsets with arithmetic progressions
+  The following Lemma will be used in the proof of Theorem 1.
+Lemma 5. Fix ε > 0 and let p > p0 (ε) be a large enough prime and let 1 ⩽ m < p. Let A ⊂ Fp be a set
+of size at least p/m and let I = {1, . . . , m} ⊂ Fp . Then for at least [mp−ε ] indices j ∈ {m/2, . . . , m}
+we have
+(6)                                          |A + j −1 I| ⩾ p1−ε .
+  We recall some basic Fourier analysis over Fp , which will be used in the proof of Lemma 5. For
+functions f, g : Fp → C we define the scalar product
+                                          hf, gi = Ex∈Fp f (x)g(x),
+convolution f ∗ g:
+                                       f ∗ g(x) = Ey∈Fp f (y)g(x − y),
+and the Fourier transform fˆ : Fp → C:
+                                                                          2πix
+                                 fˆ(ξ) = Ex∈Fp e(−xξ)f (x), e(x) = e p .
+6                                COSMIN POHOATA AND DMITRII ZAKHAROV
+
+                                                                                             p
+Proof. By removing some elements from A if necessary, we may assume that |A| = ⌈ m             ⌉. We need to
+                   −1
+show that |A + j I| ⩾ p      1−ε  for many indices j. Let J ⊂ {m/2, . . . , m} be the set of primes between
+m/2 and m. For a pair of sets A, B ⊂ Fp we denote E(A, B) the additive energy of the pair A, B,
+i.e. the number of quadruples (a, a′ , b, b′ ) ∈ A × A × B × B such that a + b = a′ + b′ . Let f = 1A be
+the characteristic function of A. Let d ⩾ Cε−1 be a large constant and let ψ : I → [0, 1] be a bump
+function supported on I such that
+        P
+      •    i∈I ψ(i) ⩾ cd |I|, for some cd > 0,
+      • |ψ̂(ξ)| ⩽ Cd mp (1 + ξm/p)
+                                     −d for any ξ ∈ [−p/2, p/2].
+
+One can construct such ψ by e.g. taking an iterated self-convolution of the characteristic function on a
+slightly smaller interval. Let ψj (x) = ψ(jx), this is a bump function supported on the dilated interval
+j −1 I.
+   By the definition of the convolution, we have
+                                                                               |A||I|
+                              Ex∈Fp f ∗ ψj (x) = Ex,y∈Fp f (x)ψj (y) ⩾ cd             .
+                                                                                 p2
+On the other hand, by the Cauchy–Schwarz inequality, we have
+                       Ex∈Fp f ∗ ψj (x) = hf ∗ ψj , 1A+j −1 I i ⩽ kf ∗ ψj k2 k1A+j −1 I k2 .
+After some rearranging and noticing that k1S k2 = |S|1/2 p−1/2 for any S ⊂ Fp , this leads to a lower
+bound
+                                                        |A|2 |I|2
+(7)                                |A + j −1 I| ⩾ c2d                .
+                                                      kf ∗ ψj k22 p3
+Let us now study the following sum:                    X
+                                                E=           kf ∗ ψj k22 ,
+                                                       j∈J
+which has the following Fourier expansion:
+                                         X          X
+                                    E=     |fˆ(ξ)|2   |ψ̂j (ξ)|2 .
+                                                ξ∈Fp            j∈J
+
+Note that ψ̂j (ξ) = ψ̂(j −1 ξ). In particular, the ξ = 0 contribution is upper bounded by
+                                     |fˆ(0)|2 |J||ψ̂(0)|2 ⩽ p−4 |A|2 |J|m2 .
+                                                                                    p    p
+Now fix ξ 6= 0 and let K = pε/2 . Let Jξ be the set of j ∈ J such that j −1 ξ ∈ [−K m ,Km  ]. If we think
+of ξ as an integer in the interval [−p/2, p/2] then this condition holds if and only if ξ = ij + kp for
+                        p    p
+some integer i ∈ [−K m    ,Km  ] and k ∈ Z. Note that j ∈ [1, m], so there are at most 2K options for k.
+For each fixed k, we have ξ − kp = ij in Z and since j is assumed to be prime between m/2 and m,
+there are at most log  2Kp
+                   log m/2 ⩽ Cε
+                                  −1 choices for j ∈ J (coming from the prime factorization of ξ − kp).
+
+This gives an upper bound |Jξ | ⩽ Cε−1 K. Now we can estimate using the Fourier decay of ψ:
+                         X                                       2
+                                                                    
+                                     2     2      m2        −2d m               m2
+                            |ψ̂(ξ/j)| ⩽ Cd |Jξ | 2 + |J|K             ⩽ C ε,d K
+                                                   p            p2              p2
+                        j∈J
+
+where we used K −d = p−εd < p−10 , to get rid of the second term. Finally, using the identity
+P       ˆ 2 |A|
+  ξ∈Fp |f (ξ)| = p , we can bound E:
+                                    X                         m2
+           E ⩽ p−4 |A|2 |J|m2 +             |fˆ(ξ)|2 Cε,d K      ⩽ p−4 |A|2 |J|m2 + Cε,d Kp−3 |A|m2 ⩽
+                                                              p2
+                                  ξ∈Fp \0
+
+                                 ⩽ 2p−2 |J| + 2Cε,d Kp−2 m ⩽ 3Cε,d Kp−2 m
+                                    GENERALIZED ARITHMETIC KAKEYA                                          7
+
+                               p
+where we used that |A| = ⌈ m     ⌉ and |J| ⩽ m. By Markov, at least half of the indices j ∈ J satisfy
+         2    2
+kf ∗ ψj k2 ⩽ |J| E. So for these indices we obtain
+
+                                                |A|2 m2                      2 2
+                                                                   −1 |J| |A| m
+                              |A + j −1 I| ⩾ c2d 2      3
+                                                          ⩾ cε,d K
+                                                 |J| Ep
+                                                                       m     p
+
+We have |A|m ⩾ p, K = pε/2 and |J| ⩾ c logmm by the Prime Number Theorem. So provided that p is
+large enough, this implies |A + j −1 I| ⩾ p1−ε for at least half of the indices j ∈ J ⊂ {1, . . . , m}. This
+completes the proof.                                                                                      ✷
+
+                                        4. Proof of Theorem 1
+   It is clear that β(R) ⩽ βh (R) for any R ⊂ Q, in the rest of the proof we show that β(R) ⩾ βh (R)
+holds as well.
+   We start with an arbitrary set R ⊂ Q and a pair of random variables X, Y . Fix an arbitrarily small
+ε0 > 0. We are going to show the estimate
+(8)                   (1 − ε0 )H(Y ) + (β(R) − 1)H(X|Y ) ⩽ β(R) max H(X + rY ).
+                                                                       r∈R
+
+Taking ε0 to approach zero would then complete the proof.
+   We may assume that H(Y ) ⩾ (1 + ε0 ) maxr∈R H(X + rY ) for any r ∈ R since otherwise (8) holds
+automatically. By replacing X with mX and R with mR for a constant m = m(R) depending on R,
+we may assume that R ⊂ Z (let m to be the product of all denominators of all r ∈ R). Thus, we may
+assume that R ⊂ [−k, k] ∩ Z for some constant k depending on R.
+  We perform a sequence of reductions. Apply Lemma 3 to the pair (X, Y ), the set R and some
+parameter ε ≪ ε0 . Let G ⊂ Z2 be the resulting graph. Next, apply Lemma 4 to the graph G to obtain
+a new graph G′ ⊂ F2p with the following properties:
+      • |G′ | = 2(1±ε)H(X,Y )n ,
+      • |π∞ (G′ )| ∼ p = 2(1±ε)H(Y )n ,
+      • |πr (G′ )| ⩽ 2(1±ε)H(X+rY ) for any r ∈ R,
+      • |G′ ∩ π∞ −1 (y)| = 2(1±ε)H(X|Y )n , for each y ∈ π (G).
+                                                          ∞
+
+  Let α = ε1 + maxr∈R H(X+rY
+                         H(Y )
+                               )
+                                  and γ = H(X|Y  )
+                                            H(Y ) − ε1 , where ε1 = cε0 for a sufficiently small constant
+                S
+c > 0. Let A = r∈R πr (G′ ) then we get an upper bound |A| ⩽ pα−ε provided that ε is small enough
+compared to ε0 . Let B = π∞ (G′ ), by the above, we have |B| ∼ p. For y ∈ B let Dy = {x : (x, y) ∈ G′ }
+be the fiber above y. We have for any y ∈ B
+                                       |Dy | ⩾ 2(1±ε)H(X|Y )n ⩾ pγ+ε .
+Let m = p1−γ , sample uniformly random elements t ∈ Fp and d ∈ Fp \{0} and define random arithmetic
+progressions
+                                 I0 = {dj, j = 0, . . . , m − 1},
+                                  I = I0 + t = {t + dj, j = 0, . . . , m − 1},
+                                 J = {dj, j ∈ [m/2, m]},
+
+and let us also put Ie = I + kJ − kJ which is an arithmetic progression of length at most 2km (recall
+that k was chosen so that R ⊂ [−k, k]). Now we define a random set
+                                    G′I = {(x, y) ∈ G′ : x ∈ I, y ∈ J}.
+Observe that if (x, y) ∈ G′I then for r ∈ R,
+                                                              e
+                                            x + ry ∈ I + rJ ⊂ I,
+8                                COSMIN POHOATA AND DMITRII ZAKHAROV
+
+
+and so we get πr (G′I ) ⊂ Ie∩ A. The size of the latter set can be easily controlled by Markov’s inequality:
+                                                            
+                                           e           m
+(9)                                   Pr |I ∩ A| ⩾ T |A| . kT −1 .
+                                                        p
+
+Let us now understand the projection BI = π∞ (G′I ). By definition y ∈ BI if and only if y ∈ J and
+Dy ∩ I 6= ∅. Note that y ∈ J means that d = y/j for some j ∈ [m/2, m]. Conditioned on d = y/j, we
+have Dy ∩ I 6= ∅ if and only if
+                                              t ∈ Dy − (y/j)I0 .
+So we conclude that
+                                                     X         |Dy − (y/j)I0 |
+(10)                               Pr[y ∈ BI ] =                               .
+                                                                  p(p − 1)
+                                                   j∈[m/2,m]
+
+To lower bound this quantity, we apply Lemma 5 to the set A = −y −1 Dy and ε > 0. By construction we
+have |Dy | ⩾ p/m and so by Lemma 5, for at least [mp−ε ] indices j ∈ [m/2, m] we have |Dy − (y/j)I0 | ⩾
+p1−ε . So in (10) we get
+                                         Pr[y ∈ BI ] ⩾ [mp−ε ]p−1−ε
+
+Recall that m = p1−γ , γ = H(X|Y    )
+                              H(Y ) − ε1 . We have an estimate H(X|Y ) ⩽ H(X + rY ) ⩽ H(Y ) − ε0 and
+so it follows that γ ⩽ 1 − cε0 . So we may assume that m ⩾ pε1 and the lower bound on the probability
+above is non-trivial. We conclude that the expected size of BI is at least mp−2ε . Note that |BI | ⩽ m
+for any choice of d, t (since BI ⊂ J). So we have
+
+                                         Pr[|BI | ⩾ p−2ε m] ⩾ p−2ε .
+
+So if we take T = p3ε in (9), then we obtain that with positive probability both inequalities |BI | ⩾
+p−2ε m and |Ie∩ A| ⩽ p3ε−1 m|A| hold. Fix a pair d, t which achieves this. We obtain a graph GI ⊂ I × J
+such that
+       • π∞ (GI ) ⩾ p−2ε m,
+       • πr (GI ) ⩽ p3ε−1 m|A| for any r ∈ R.
+Let Y ′ be a uniformly random element in π∞ (GI ) and let X ′ be a uniformly random element in the
+       −1 (Y ′ ) ∩ G . Then
+fiber π∞            I
+
+                       H(Y ′ ) = log |π∞ (GI )| ⩾ log m − 2ε log p = (1 − γ − 2ε) log p
+
+            H(X ′ + rY ′ ) ⩽ log |πr (GI )| ⩽ (3ε − 1) log p + log m + log |A| ⩽ (α − γ + 3ε) log p
+and so by (2) we obtain
+                                     H(Y ′ ) ⩽ β(R) max H(X ′ + rY ′ ),
+                                                       r∈R
+
+
+                                      1 − γ − 2ε ⩽ β(R)(α − γ + 3ε),
+                                           H(X+rY )
+recall that γ = H(X|Y )
+                 H(Y ) − ε1 and α = maxr∈R  H(Y )   + ε1 . So rearranging leads to
+
+                     (1 − ε0 )H(Y ) − H(X|Y ) ⩽ β(R)(max H(X + rY ) − H(X|Y )).
+                                                             r∈R
+
+Taking ε0 → 0 then recovers the homogeneous Kakeya inequality (4). This completes the proof.
+                                            GENERALIZED ARITHMETIC KAKEYA                                                          9
+
+                                        5. Generalized Arithmetic Kakeya
+   In this section we prove non-trivial bounds on β(R) for R ⊂ Qd in terms of the original arithmetic
+                                                                    β(R)/d
+Kakeya inequalities. For d ⩾ 1 and R ⊂ Qd let us denote δ(R) = β(R)/d−1    , this quantity makes for
+cleaner statement of the result below.
+Proposition 6. Let R1 , . . . , Rd ⊂ Q be finite sets and let R = R1 × . . . × Rd . Then we have
+                                                  δ(R) ⩾ δ(R1 )δ(R2 ) . . . δ(Rd ).
+   Note that this implies Theorem 2.
+Proof of Proposition 6. Let X, Y1 , . . . , Yd be integer random variables. We want to prove an upper
+bound on H(Y1 , . . . , Yd ) in terms of H(X + r1 Y1 + . . . + rd Yd ) for (r1 , . . . , rd ) ∈ R = R1 × . . . × Rd . We
+expand
+                                                          d
+                                                          X
+                                    H(Y1 , . . . , Yd ) =   H(Yi |Y1 , . . . , Yi−1 ).
+                                                                  i=1
+Fix an index i ∈ {1, . . . , d} and fix ri+1 ∈ Ri+1 , . . . , rd ∈ Rd . We apply (4) to the variables
+                                      X̃ = X + ri+1 Yi+1 + . . . + rd Yd |Y1 , . . . , Yi−1 ,
+                                      Ỹ = Yi |Y1 , . . . , Yi−1 .
+and the set Ri ⊂ Q. We obtain
+                               H(Ỹ ) + (β(Ri ) − 1)H(X̃|Ỹ ) ⩽ β(Ri ) max H(X̃ + ri Ỹ )
+                                                                                  ri ∈Ri
+
+which by expanding and denoting βi = β(Ri ) gives
+(11)                 H(Yi |Y1 , . . . , Yi−1 ) + (βi − 1)H(X + ri+1 Yi+1 + . . . + rd Yd |Y1 , . . . , Yi ) ⩽
+                                   ⩽ βi max H(X + ri Yi + . . . + rd Yd |Y1 , . . . , Yi−1 ).
+                                         ri ∈Ri
+Let
+                          Hi =           max              H(X + ri+1 Yi+1 + . . . + rd Yd |Y1 , . . . , Yi ),
+                                 ri+1 ∈Ri+1 ,...,rd ∈Rd
+then (11) gives
+(12)                                   H(Yi |Y1 , . . . , Yi−1 ) ⩽ βi Hi−1 − (βi − 1)Hi .
+Let δi = βiβ−1
+            i
+               , multiply both sides of (12) by δ1 ...δ1i−1 βi and sum over i = 1, . . . , d, we get:
+               d
+               X                                                     d
+                                                                  X βi Hi−1 − (βi − 1)Hi
+                             1                                                                      Hd
+                                      H(Yi |Y1 , . . . , Yi−1 ) ⩽                         = H0 −             .
+                     δ1 . . . δi−1 βi                                    δ1 . . . δi−1 βi        δ1 . . . δd
+               i=1                                                i=1
+The sums of coefficients on both sides are the same since this is true for all instances of (4). If we expand
+H(Yi |Y1 , . . . , Yi−1 ) = H(Y1 , . . . , Yi ) − H(Y1 , . . . , Yi−1 ) and group same terms then one can check that
+the coefficient of H(Y1 , . . . , Yi ) in the resulting expression is equal to δ1β...δ              i+1 −βi +1
+                                                                                                      i−1 βi βi+1
+                                                                                                                  which is a positive
+number since β(R) ∈ (1, 2] for any R ⊂ Q. Now we can average this bound over all permutations of
+Y1 , . . . , Yd , apply Shearer’s inequality (Lemma 2)
+                                                                   d
+                                        H(Y1 , . . . , Yd ) ⩽ Ei1 <...<ik H(Yi1 , . . . , Yik )
+                                                                   k
+and conclude that                                       
+                                                  1         1                                  Hd
+                                      1−                       H(Y1 , . . . , Yd ) ⩽ H0 −
+                                              δ1 . . . δd d                                δ1 . . . δd
+                             
+                       1        1                            1
+              1−                  H(Y1 , . . . , Yd ) +              H(X|Y1 , . . . Yd ) ⩽ max H(X + r1 Y1 + . . . rd Yd )
+                   δ1 . . . δd d                         δ1 . . . δd                       ri ∈Ri
+10                                  COSMIN POHOATA AND DMITRII ZAKHAROV
+
+which after rearrangement gives us the desired bound. Note that we actually proved the stronger
+homogeneous version of (3).                                                                  ✷
+
+                                                    References
+ [1] A.S. Besicovitch. “On Kakeya’s problem and a similar one.” Mathematische Zeitschrift 27.1 (1928): 312-320.
+ [2] A. S. Besicovitch. “The kakeya problem.” The American Mathematical Monthly 70.7 (1963): 697-706.
+ [3] Bourgain, Jean. “Besicovitch type maximal operators and applications to Fourier analysis.” Geom. Funct. Anal. 1
+     (1991): 147-187.
+ [4] J. Bourgain, λp -sets in analysis: results, problems and related aspects, in: Handbook of the geometry of Banach
+     spaces, Vol. I, North-Holland, Amsterdam, 2001, 195–23
+ [5] R.O. Davies. “Some remarks on the Kakeya problem.” Mathematical Proceedings of the Cambridge Philosophical
+     Society. Vol. 69. No. 3. Cambridge University Press, 1971.
+ [6] M. Dhar, Z. Dvir, B. Lund, Simple proofs for Furstenberg sets over finite fields, Discrete Analysis, (22), 2021.
+ [7] J. Ellenberg, D. Erman, Furstenberg sets and Furstenberg schemes over finite fields, Algebra & Number Theory,
+     10(7):1415–1436, 2016.
+ [8] J. Hickman, Keith M. Rogers, and Ruixiang Zhang. “Improved bounds for the Kakeya maximal conjecture in higher
+     dimensions.” American Journal of Mathematics 144.6 (2022): 1511-1560.
+ [9] W.T. Gowers, B. Green, F. Manners, and T. Tao. “On a conjecture of Marton.” arXiv preprint arXiv:2311.05762
+     (2023).
+[10] W. T. Gowers, B. Green, F. Manners, and T. Tao. “Marton’s Conjecture in abelian groups with bounded torsion.”
+     arXiv preprint arXiv:2404.02244 (2024).
+[11] B. Green, F. Manners, and T. Tao. ”Sumsets and entropy revisited.” Random Structures & Algorithms (2024).
+[12] B. Green, I. Z. Ruzsa, On the arithmetic Kakeya conjecture of Katz and Tao, Periodica Mathematica Hungarica 78
+     (2019), 135–151.
+[13] N. Katz and T. Tao, Bounds on arithmetic projections, and applications to the Kakeya conjecture, Math. Res. Lett.
+     6 (1999), no. 5-6, 625–630.
+[14] N. Katz, and T. Tao. “Recent progress on the Kakeya conjecture.” Publicacions matemàtiques (2002): 0161-179.
+[15] N. Katz and T. Tao, New bounds for Kakeya problems, J. Anal. Math. 87 (2002), 231–263.
+[16] N. Katz, and J. Zahl. “An improved bound on the Hausdorff dimension of Besicovitch sets in R3 .” Journal of the
+     American Mathematical Society 32.1 (2019): 195-259.
+[17] M. Lemm. “New counterexamples for sums-differences.” Proceedings of the American Mathematical Society 143.9
+     (2015): 3863-3868.
+[18] R. Oberlin. “Bounds for Kakeya-type maximal operators associated with k-planes.” Mathematical research letters
+     14.1 (2007): 87-97.
+[19] R. Oberlin. “The (d, k) Kakeya problem, and estimates for the X-ray transform.” Ph.D. thesis, University of
+     Wisconsin-Madison (2007)
+[20] R. Oberlin. “Two bounds for the X-ray transform.” Mathematische Zeitschrift 266.3 (2010).
+[21] I. Z. Ruzsa, Sumsets and entropy, Random Structures Algorithms 34 (2009), no. 1, 1–10.
+[22] T. Tao, From rotating needles to stability of waves: emerging connections between combinatorics, analysis, and PDE,
+     Notices Amer. Math. Soc. 48 (2001), no. 3, 294–303.
+[23] T.     Tao.     “Edinburgh    lecture     notes    on    the    Kakeya     problem.”     Preprint,     available at
+     http://www.math.ucla.edu/tao/preprints/kakeya.html (2002).
+[24] T. Tao, Sumset and inverse sumset theory for Shannon entropy. Combinatorics, Probability and Computing 19.4
+     (2010): 603-639.
+[25] T. Tao, and Van H. Vu. Additive combinatorics. Vol. 105. Cambridge University Press, 2006.
+[26] H. Wang, and J. Zahl. “Sticky Kakeya sets and the sticky Kakeya conjecture.” arXiv preprint arXiv:2210.09581
+     (2022).
+[27] H. Wang, and J. Zahl. “The Assouad dimension of Kakeya sets in R3 .” arXiv preprint arXiv:2401.12337 (2024).
+[28] J. Zahl. “New Kakeya estimates using Gromov’s algebraic lemma.” Advances in Mathematics 380 (2021): 107596.
+
+     Department of Mathematics, Emory University, Atlanta, GA.
+     Email address: cosmin.pohoata@emory.edu
+
+     Department of Mathematics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA
+     Email address: zakhdm@mit.edu
+

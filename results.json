@@ -1,0 +1,591 @@
+{
+  "problem": "arithmetic-kakeya (Epoch FrontierMath open problems)",
+  "seat": "rebuild-the-objects",
+  "date": "2026-08-24",
+  "goals": {
+    "goal1": "constructible proof of omega(X) < 1.67513... (largest root of x^3-4x+2)",
+    "goal2": "constructible proof of omega({(1,0),(0,1),(1,1)}) < 11/6 (sums-differences)"
+  },
+  "certified_objects": [
+    {
+      "name": "trivial AK(2)",
+      "n": 1,
+      "m": 0,
+      "r": 2,
+      "t": 0,
+      "score": "2",
+      "backend": "exact-Q",
+      "status": "CERTIFIED"
+    },
+    {
+      "name": "Katz-Tao trapezoid (Epoch write-up Fig. 3)",
+      "n": 4,
+      "m": 4,
+      "r": 3,
+      "t": 0,
+      "score": "7/4",
+      "backend": "exact-Q",
+      "status": "CERTIFIED",
+      "epoch_answer": "score = 7/4   m = 4, |R| = 3, n = 4, |T| = 0\n[[0, 0], [1, 0], [0, 1], [1, 1], [1, 2]]\n[2, 2]\n[{(1,): (1, 0)}, {(1, 1): (0, 1), (2, 1): (1, 2)}]\n[]\n[{(1, 1): (1, 1)}, {(2, 1): (1, 1)}, {(2, 2): (0, 1)}]"
+    },
+    {
+      "name": "Katz-Tao configuration 1 (Epoch write-up Fig. 2) = sums-differences record",
+      "n": 6,
+      "m": 7,
+      "r": 4,
+      "t": 0,
+      "score": "11/6",
+      "backend": "exact-Q",
+      "status": "CERTIFIED",
+      "epoch_answer": "score = 11/6   m = 7, |R| = 4, n = 6, |T| = 0\n[[0, 0], [1, 0], [0, 1], [1, 1]]\n[2, 3]\n[{(1,): (1, 0)}, {(1, 1): (0, 1), (2, 1): (0, 1), (1, 2): (1, 1), (2, 2): (0, 1)}]\n[]\n[{(1, 2): (1, 0)}, {(2, 1): (1, 1)}, {(1, 1): (1, 1)}, {(1, 3): (0, 1)}]"
+    }
+  ],
+  "sources": {
+    "epoch_writeup": "https://epoch.ai/files/open-problems/arithmetic-kakeya.pdf",
+    "katz_tao_survey": "arXiv:math/0010069",
+    "katz_tao_new_bounds": "arXiv:math/0102135",
+    "green_ruzsa": "arXiv:1712.02108",
+    "tao_2025": "arXiv:2511.15135",
+    "tao_constants_wiki": "https://teorth.github.io/optimizationproblems/constants/3b.html",
+    "barrier_reference": "N. H. Katz, 'Elementary proofs and the sums differences problem', Collectanea Math. 57 (2006) 275-280 -- NOT fetched this seat"
+  },
+  "ladders": {
+    "segments_KT_Cor3.5": {
+      "map": "beta -> (4beta-1)/(2beta)",
+      "on_(p,q)": "(4p-q, 2p)",
+      "fixed_point": "1+sqrt(2)/2 = 1.7071067812"
+    },
+    "corners_KT_Thm4.1": {
+      "map": "beta -> (3beta^2+2beta-2)/(beta^2+3beta-2)",
+      "on_(p,q)": "(3p^2+2pq-2q^2, p^2+3pq-2q^2)",
+      "fixed_point_poly": "x^3-4x+2",
+      "gamma": "1.6751308706",
+      "stages": [
+        "2",
+        "7/4",
+        "171/101",
+        "101863/60652",
+        "36127271451/21553324589"
+      ]
+    }
+  },
+  "lemmas": [
+    {
+      "id": "Lemma 1",
+      "statement": "v is forceable iff delta_v (x) tau lies in W|_U, the restriction of the module's row space to the unforced coordinates",
+      "status": "proved; both engines agree on 300 random instances"
+    },
+    {
+      "id": "P1",
+      "statement": "a generator at a vertex already in T is useless",
+      "status": "proved"
+    },
+    {
+      "id": "P2",
+      "statement": "two non-parallel generators at a vertex force it; a third or a parallel duplicate adds nothing",
+      "status": "proved"
+    },
+    {
+      "id": "P3",
+      "statement": "dim W >= n - |T|, hence m + r >= n - |T| and score >= 1",
+      "status": "proved"
+    },
+    {
+      "id": "P4",
+      "statement": "every vertex outside T must see two non-parallel directions among its incident edge labels and its own generators",
+      "status": "proved; pins mandatory generator positions"
+    },
+    {
+      "id": "P5",
+      "statement": "two non-parallel generators at v contribute exactly delta_v (x) Q^2 regardless of which pair",
+      "status": "proved"
+    },
+    {
+      "id": "P6",
+      "statement": "in any object with score < 2 every vertex carries at most one generator, and r <= n (T strictly beats a double generator)",
+      "status": "proved; 419 random instances checked; 6x search speedup"
+    },
+    {
+      "id": "P7/P8",
+      "statement": "cut lemma: Sigma_A(f) lies in span(labels crossing the cut) + span(generator labels inside A). A={v} gives P4; A=V with T empty gives: tau must be in the span of the generator labels alone, so r>=2 with two distinct slopes, and a generator-free object with T empty forces nothing",
+      "status": "proved; 515 instances checked; exhaustive r=0 sweeps over 5 boxes all empty"
+    },
+    {
+      "id": "P9",
+      "statement": "nested-cut chain: every A_j = {v_j..v_q} in the forcing order must be crossed with rank 2, i.e. the object admits a rank-2 elimination ordering",
+      "status": "proved; not yet used as a prune"
+    },
+    {
+      "id": "Theorem 2",
+      "statement": "if at most two distinct slopes are used then the score is >= 2",
+      "status": "proved; 445 instances checked"
+    },
+    {
+      "id": "Chain remark",
+      "statement": "gluing D copies of a block with per-gap interfaces is score-neutral when copies are forced one at a time; improvements need interleaved forcing orders",
+      "status": "proved"
+    },
+    {
+      "id": "one-level scheme formula",
+      "statement": "g(beta) = (e + w + u(beta-1)/beta)/c with fixed point c*beta^2 - (e+u+w)*beta + u = 0; reproduces KT Cor 3.5, and shows the naive one-level corner scheme lands below 3/2 hence is unrealisable",
+      "status": "derived; 199 integer skeletons land in (3/2, 1.675]"
+    }
+  ],
+  "key_findings": [
+    "gamma is a LIMIT of the corner ladder, attained by no finite object; the Epoch target 1.675 sits 1.309e-4 BELOW gamma, so the task requires a construction outside the published family",
+    "our 7/4 object matches Epoch's own Figure 3 vertex for vertex, and our engine forces the same vertex first as their hand derivation; same for their Figure 2 (11/6)",
+    "the search independently rediscovers min|R| = 4 for the published 11/6 shape and the 7/4 trapezoid from bare box dimensions",
+    "exhaustive n=4: best score 7/4 over four slopes with |T|=0 and over six slopes with |T|<=1",
+    "first denominator q = n-|T| at which 1.675 is exactly reachable is q = 40; every smaller q that beats the record must reach <= 5/3",
+    "Goal 2 (beat 11/6 with three slopes) is the softer prize; its gentlest targets are q = 10, 11, 12"
+  ],
+  "tests": {
+    "test_basic": "13/13 pass",
+    "test_175": "pass (exact Q, 4 engine configs)",
+    "test_11_6": "pass (exact Q, forcing order g5 first)",
+    "test_engines_agree": "300/300 agree",
+    "test_two_slope_theorem": "445 checked, 0 violations",
+    "test_p6_swap": "419 checked, 0 violations",
+    "test_cut_lemma": "515 checked, 0 violations"
+  },
+  "scans": [
+    {
+      "tag": "cycles8",
+      "pool": 6,
+      "best": null,
+      "hits": 0,
+      "tested": 526
+    },
+    {
+      "tag": "g2_222_t1",
+      "d": [
+        2,
+        2,
+        2
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "9/5",
+      "scanned": 864,
+      "total": 16384,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3305.6
+    },
+    {
+      "tag": "g2_23_t1",
+      "d": [
+        2,
+        3
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "9/5",
+      "scanned": 1024,
+      "total": 1024,
+      "best": null,
+      "hits": 0,
+      "complete": true,
+      "seconds": 916.9
+    },
+    {
+      "tag": "g2_24_t1",
+      "d": [
+        2,
+        4
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "9/5",
+      "scanned": 1887,
+      "total": 16384,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3320.7
+    },
+    {
+      "tag": "g2_25_t1",
+      "d": [
+        2,
+        5
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "20/11",
+      "scanned": 9,
+      "total": 40000,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 2837.1
+    },
+    {
+      "tag": "g2_32_t1",
+      "d": [
+        3,
+        2
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "9/5",
+      "scanned": 1024,
+      "total": 1024,
+      "best": null,
+      "hits": 0,
+      "complete": true,
+      "seconds": 1017.3
+    },
+    {
+      "tag": "g2_33_t1",
+      "d": [
+        3,
+        3
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "9/5",
+      "scanned": 1691,
+      "total": 65536,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3324.7
+    },
+    {
+      "tag": "g2_42_t1",
+      "d": [
+        4,
+        2
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "9/5",
+      "scanned": 867,
+      "total": 16384,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3303.0
+    },
+    {
+      "tag": "g2_tall_2x4",
+      "d": [
+        2,
+        4
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "<11/6",
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 703.3
+    },
+    {
+      "tag": "g2_tall_2x5",
+      "d": [
+        2,
+        5
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "<11/6",
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 818.5
+    },
+    {
+      "tag": "g2_tall_2x6",
+      "d": [
+        2,
+        6
+      ],
+      "pool": 3,
+      "max_t": 1,
+      "target": "<11/6",
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 866.7
+    },
+    {
+      "tag": "n4_p6_t1",
+      "d": [
+        2,
+        2
+      ],
+      "pool": 6,
+      "max_t": 1,
+      "target": "7/4",
+      "scanned": 343,
+      "total": 343,
+      "best": "7/4",
+      "hits": 120,
+      "complete": true,
+      "seconds": 125.6
+    },
+    {
+      "tag": "n6a2_23_t1",
+      "d": [
+        2,
+        3
+      ],
+      "pool": 4,
+      "max_t": 1,
+      "target": "67/40",
+      "scanned": 1392,
+      "total": 3125,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 2401.0
+    },
+    {
+      "tag": "n6a_23_t1",
+      "d": [
+        2,
+        3
+      ],
+      "pool": 4,
+      "max_t": 1,
+      "target": "67/40",
+      "scanned": 1535,
+      "total": 3125,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3000.4
+    },
+    {
+      "tag": "n6b2_32_t1",
+      "d": [
+        3,
+        2
+      ],
+      "pool": 4,
+      "max_t": 1,
+      "target": "67/40",
+      "scanned": 1104,
+      "total": 3125,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 2402.6
+    },
+    {
+      "tag": "n6b_32_t1",
+      "d": [
+        3,
+        2
+      ],
+      "pool": 4,
+      "max_t": 1,
+      "target": "67/40",
+      "scanned": 1203,
+      "total": 3125,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3001.4
+    },
+    {
+      "tag": "n6c2_6_t1",
+      "d": [
+        6
+      ],
+      "pool": 4,
+      "max_t": 1,
+      "target": "67/40",
+      "scanned": 1619,
+      "total": 3125,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 2400.8
+    },
+    {
+      "tag": "n6c_6_t1",
+      "d": [
+        6
+      ],
+      "pool": 4,
+      "max_t": 1,
+      "target": "67/40",
+      "scanned": 1700,
+      "total": 3125,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3005.8
+    },
+    {
+      "tag": "n6d_23_t2",
+      "d": [
+        2,
+        3
+      ],
+      "pool": 4,
+      "max_t": 2,
+      "target": "67/40",
+      "scanned": 1492,
+      "total": 3125,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3000.9
+    },
+    {
+      "tag": "n8a_222_t0",
+      "d": [
+        2,
+        2,
+        2
+      ],
+      "pool": 4,
+      "max_t": 0,
+      "target": "67/40",
+      "scanned": 207,
+      "total": 40000,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3059.9
+    },
+    {
+      "tag": "n8b_222_t1",
+      "d": [
+        2,
+        2,
+        2
+      ],
+      "pool": 4,
+      "max_t": 1,
+      "target": "67/40",
+      "scanned": 173,
+      "total": 15000,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3060.3
+    },
+    {
+      "tag": "n8c_24_t1",
+      "d": [
+        2,
+        4
+      ],
+      "pool": 4,
+      "max_t": 1,
+      "target": "67/40",
+      "scanned": 166,
+      "total": 15000,
+      "best": null,
+      "hits": 0,
+      "complete": false,
+      "seconds": 3025.2
+    },
+    {
+      "tag": "rzero",
+      "d": [
+        2,
+        2
+      ],
+      "pool": 6,
+      "scanned": 343,
+      "total": 343,
+      "forcing_objects": 0,
+      "best_score": null,
+      "complete": true,
+      "seconds": 0.3
+    },
+    {
+      "tag": "rzero",
+      "d": [
+        2,
+        2,
+        2
+      ],
+      "pool": 4,
+      "scanned": 78125,
+      "total": 78125,
+      "forcing_objects": 0,
+      "best_score": null,
+      "complete": true,
+      "seconds": 165.4
+    },
+    {
+      "tag": "rzero",
+      "d": [
+        2,
+        3
+      ],
+      "pool": 4,
+      "scanned": 3125,
+      "total": 3125,
+      "forcing_objects": 0,
+      "best_score": null,
+      "complete": true,
+      "seconds": 3.4
+    },
+    {
+      "tag": "rzero",
+      "d": [
+        3,
+        2
+      ],
+      "pool": 4,
+      "scanned": 3125,
+      "total": 3125,
+      "forcing_objects": 0,
+      "best_score": null,
+      "complete": true,
+      "seconds": 3.4
+    },
+    {
+      "tag": "rzero",
+      "d": [
+        2,
+        2,
+        2
+      ],
+      "pool": 6,
+      "scanned": 60000,
+      "total": 60000,
+      "forcing_objects": 0,
+      "best_score": null,
+      "complete": false,
+      "seconds": 159.9
+    },
+    {
+      "tag": "rzero",
+      "d": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "pool": 4,
+      "scanned": 59201,
+      "total": 60000,
+      "forcing_objects": 0,
+      "best_score": null,
+      "complete": false,
+      "seconds": 600.0
+    }
+  ],
+  "search_summary": {
+    "sweeps_run": 28,
+    "objects_found_below_1.675": 0,
+    "objects_found_below_11/6": 0,
+    "complete_sweeps": [
+      "n=4 box [2,2] and [4], 4 slopes, |T|=0 -> best 7/4 (16 witnesses)",
+      "n=4 box [2,2], 6 slopes, |T|<=1, 343 graphs -> best 7/4 (120 witnesses)",
+      "GOAL 2: n=6 boxes [2,3] and [3,2], 3 slopes, |T|<=1, 1024 graphs each -> nothing below 9/5",
+      "generator-free (R and T both empty): none force, at every box swept -- P7 confirmed"
+    ],
+    "caveat": "all other sweeps are truncated PREFIXES of itertools.product order, not random samples; absence of hits there proves nothing. Re-launching a timed-out sweep re-walks the same prefix (the n6a2/n6b2/n6c2 rows add no coverage)."
+  }
+}

@@ -1,0 +1,9 @@
+=== stacked_pool4  2026-09-05T21:28:40Z  cmd: stacked --pool 4 --max-t 2 --target 7/4
+=== stacked_pool4 exit=0 2026-09-05T21:29:04Z
+POOL4: best score over all interfaces = 7/4 (1.75)
+   strictly-better-than-7/4 hits: 0   [23.8s]
+=== stacked_pool6  2026-09-05T21:29:04Z  cmd: stacked --pool 6 --max-t 2 --target 7/4
+=== stacked_pool6 exit=0 2026-09-05T21:33:58Z
+POOL6: best score over all interfaces = 7/4 (1.75)
+   strictly-better-than-7/4 hits: 0   [293.5s]
+=== g2_tall_2x5  2026-09-05T21:33:58Z  cmd: g2-tall --rows 5 --max-t 1 --tlimit 7200

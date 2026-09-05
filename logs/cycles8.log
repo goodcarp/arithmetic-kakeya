@@ -1,0 +1,3 @@
+5 presence patterns are 2-regular with m = 8
+TIME LIMIT
+RESULT {"tag": "cycles8", "pool": 6, "best": null, "hits": 0, "tested": 526}

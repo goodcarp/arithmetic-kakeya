@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/2xojgBIwUYs+86T+jfc6MFPk7BA</id>
+  <title>arXiv Query: search_query=all:"arithmetic Kakeya"&amp;id_list=&amp;start=0&amp;max_results=30</title>
+  <updated>2026-08-24T15:56:19Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22arithmetic+Kakeya%22&amp;start=0&amp;max_results=30&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>30</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2411.13395v1</id>
+    <title>Generalized Arithmetic Kakeya</title>
+    <updated>2024-11-20T15:30:56Z</updated>
+    <link href="https://arxiv.org/abs/2411.13395v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2411.13395v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Around the early 2000-s, Bourgain, Katz and Tao introduced an arithmetic approach to study Kakeya-type problems. They showed that the Euclidean Kakeya conjecture follows from a natural problem in additive combinatorics, now referred to as the `Arithmetic Kakeya Conjecture'. We consider a higher dimensional variant of this problem and prove an upper bound using a certain iterative argument. The main new ingredient in our proof is a general way to strengthen the sum-difference inequalities of Katz and Tao which might be of independent interest. As a corollary, we obtain a new lower bound for the Minkowski dimension of $(n, d)$-Besicovitch sets.</summary>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-11-20T15:30:56Z</published>
+    <arxiv:comment>10 pages</arxiv:comment>
+    <arxiv:primary_category term="math.CO"/>
+    <author>
+      <name>Cosmin Pohoata</name>
+    </author>
+    <author>
+      <name>Dmitrii Zakharov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2011.07056v1</id>
+    <title>Pattern Problems related to the Arithmetic Kakeya Conjecture</title>
+    <updated>2020-11-13T18:52:49Z</updated>
+    <link href="https://arxiv.org/abs/2011.07056v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2011.07056v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We study a variety of problems about homothets of sets related to the Kakeya conjecture. In particular, we show many of these problems are equivalent to the arithmetic Kakeya conjecture of Katz and Tao. We also provide a proof that the arithmetic Kakeya conjecture implies the Kakeya conjecture for packing dimension, as this implication was previously only known for Minkowski dimension.
+  We consider several questions analogous to the classical results of Stein and Bourgain about the Lebesgue measure of a set containing a sphere centered at every point of $[0,1]^n$, where we replace spheres by arbitrary polytopes. We give a lower bound for polytopes in $\mathbb{R}^n$, and show that this is sharp for simplices. Finally, we generalize number theoretic methods of Green and Ruzsa to study patterns in number fields and thereby provide upper bounds for several of these homothet problems.</summary>
+    <category term="math.NT" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.CA" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.MG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-11-13T18:52:49Z</published>
+    <arxiv:comment>30 pages</arxiv:comment>
+    <arxiv:primary_category term="math.NT"/>
+    <author>
+      <name>Charlie Cowen-Breen</name>
+    </author>
+    <author>
+      <name>Elene Karangozishvili</name>
+    </author>
+    <author>
+      <name>Narmada Varadarajan</name>
+    </author>
+    <author>
+      <name>Thomas Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1712.02108v1</id>
+    <title>On the arithmetic Kakeya conjecture of Katz and Tao</title>
+    <updated>2017-12-06T09:55:13Z</updated>
+    <link href="https://arxiv.org/abs/1712.02108v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1712.02108v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The arithmetic Kakeya conjecture, formulated by Katz and Tao in 2002, is a statement about addition of finite sets. It is known to imply a form of the Kakeya conjecture, namely that the upper Minkowski dimension of a Besicovitch set in $\mathbb{R}^n$ is $n$. In this note we discuss this conjecture, giving a number of equivalent forms of it. We show that a natural finite field variant of it does hold. We also give some lower bounds.</summary>
+    <category term="math.NT" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.CA" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2017-12-06T09:55:13Z</published>
+    <arxiv:comment>22 pages</arxiv:comment>
+    <arxiv:primary_category term="math.NT"/>
+    <author>
+      <name>Ben Green</name>
+    </author>
+    <author>
+      <name>Imre Ruzsa</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.15135v1</id>
+    <title>Sum-difference exponents for boundedly many slopes, and rational complexity</title>
+    <updated>2025-11-19T05:25:04Z</updated>
+    <link href="https://arxiv.org/abs/2511.15135v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.15135v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The dimension of Kakeya sets can be bounded using sum-difference exponents $\SD(R;s)$ for various sets of rational slopes $R$ and output slope $s$; the arithmetic Kakeya conjecture, which implies the Kakeya conjecture in all dimensions, asserts that the infimum of such exponents is $1$. The best upper bound on this infimum currently is $1.67513\dots$. In this note, inspired by numerical explorations from the tool \texttt{AlphaEvolve}, we study the regime where the cardinality of the set of slopes $R$ is bounded. In this regime, we establish that these exponents converge to $2$ at a rate controlled by the \emph{rational complexity} of $s$ relative to $R$, which measures how efficiently $s$ can be expressed as a rational combination of slopes in $R$.</summary>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-19T05:25:04Z</published>
+    <arxiv:comment>18 pages, 1 figure</arxiv:comment>
+    <arxiv:primary_category term="math.CO"/>
+    <author>
+      <name>Terence Tao</name>
+    </author>
+  </entry>
+</feed>

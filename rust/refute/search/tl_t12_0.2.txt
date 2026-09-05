@@ -1,0 +1,1 @@
+RESULT {"tag": "tl", "d": [2, 2], "pool": 6, "max_t": 1, "target": "7/4", "scanned": 58, "total": 343, "best": null, "hits": 0, "complete": false, "seconds": 0.2}

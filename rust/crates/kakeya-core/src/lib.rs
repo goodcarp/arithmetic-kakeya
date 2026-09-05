@@ -1,0 +1,368 @@
+//! Bit-exact Rust reimplementation of `src/fastcore.py` (`force` and `rank`).
+//!
+//! Semantics are pinned by the S1 kernel contract.  Everything the Python does
+//! by accident is reproduced, with the four documented divergences:
+//!   * no global `_INV` memo (so no cross-`p` contamination),
+//!   * `p < 0` and `p >= 2^32` are `ValueError` instead of "works by accident",
+//!   * `n > 2^20` is a `ValueError` guard,
+//!   * entries outside `i64` are rejected at the PyO3 boundary.
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum KErr {
+    /// row shorter than the column being read
+    Index,
+    /// `x % 0`
+    ZeroDivision,
+    Value(String),
+}
+
+/// Largest `n` we will build a `U` vector for.  Every driver uses n <= 16.
+pub const MAX_N: i64 = 1 << 20;
+
+/// Validate the modulus at the point Python would first evaluate `x % p`.
+#[inline]
+fn validate_p(p: i64) -> Result<u64, KErr> {
+    if p == 0 {
+        return Err(KErr::ZeroDivision);
+    }
+    if p < 0 {
+        return Err(KErr::Value(format!(
+            "p must be positive (got {p}); the Python reference only works for p < 0 by accident"
+        )));
+    }
+    if p >= (1i64 << 32) {
+        return Err(KErr::Value(format!("p must be < 2^32 (got {p})")));
+    }
+    Ok(p as u64)
+}
+
+#[inline(always)]
+fn reduce(x: i64, p: u64) -> u64 {
+    // Python's `%` is floor-mod: the result is always in [0, p) for p > 0.
+    x.rem_euclid(p as i64) as u64
+}
+
+/// `pow(a, p - 2, p)` -- exactly what `_inv` computes, including for composite
+/// `p`, where the value is deterministic garbage rather than an inverse.
+#[inline]
+fn fermat_inv(a: u64, p: u64) -> u64 {
+    debug_assert!(a != 0, "the reference never calls _inv(0, .)");
+    debug_assert!(p >= 2, "no pivot can exist when p == 1");
+    let mut base = a % p;
+    let mut exp = p - 2;
+    let mut acc: u64 = 1 % p;
+    while exp > 0 {
+        if exp & 1 == 1 {
+            acc = (acc * base) % p;
+        }
+        base = (base * base) % p;
+        exp >>= 1;
+    }
+    acc
+}
+
+// ---------------------------------------------------------------------------
+// force
+// ---------------------------------------------------------------------------
+
+/// Reusable scratch space so a scan's inner loops never allocate.
+#[derive(Default)]
+pub struct ForceScratch {
+    u: Vec<usize>,
+    bmat: Vec<u64>,
+    prow: Vec<u64>,
+    vvec: Vec<u64>,
+    piv: Vec<usize>,
+    bits: Vec<u64>,
+    extras: Vec<i64>,
+}
+
+impl ForceScratch {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+
+/// `force(rows, n, T0, p)`.
+///
+/// `rows` are the raw (unreduced, possibly ragged) integer rows.  The returned
+/// vector is the contents of the result set: the in-range members ascending,
+/// followed by any out-of-`range(n)` members of `T0` carried through verbatim.
+pub fn force(
+    rows: &[Vec<i64>],
+    n: i64,
+    t0: &[i64],
+    p: i64,
+    sc: &mut ForceScratch,
+) -> Result<(bool, Vec<i64>), KErr> {
+    if n > MAX_N {
+        return Err(KErr::Value(format!("n too large: {n} (max {MAX_N})")));
+    }
+    let nn: usize = if n > 0 { n as usize } else { 0 };
+    let words = nn.div_ceil(64);
+
+    sc.bits.clear();
+    sc.bits.resize(words, 0);
+    sc.extras.clear();
+    let mut count: usize = 0;
+    for &e in t0 {
+        if e >= 0 && e < n {
+            let e = e as usize;
+            if sc.bits[e >> 6] & (1u64 << (e & 63)) == 0 {
+                sc.bits[e >> 6] |= 1u64 << (e & 63);
+                count += 1;
+            }
+        } else if !sc.extras.contains(&e) {
+            sc.extras.push(e);
+        }
+    }
+
+    loop {
+        if (count + sc.extras.len()) as i64 >= n {
+            return Ok((true, collect(&sc.bits, nn, &sc.extras)));
+        }
+
+        // --- step 1: U (ascending), pos, w ---------------------------------
+        sc.u.clear();
+        for j in 0..nn {
+            if sc.bits[j >> 6] & (1u64 << (j & 63)) == 0 {
+                sc.u.push(j);
+            }
+        }
+        let w = 2 * sc.u.len();
+        debug_assert!(w > 0);
+
+        // The reference evaluates its first `% p` iff there is a first row and
+        // that row is long enough to reach column 2*U[0]; otherwise an
+        // IndexError fires first.  Match that ordering.
+        let mut pu: u64 = 1;
+        let first_read_happens = match rows.first() {
+            Some(r0) => 2 * sc.u[0] < r0.len(),
+            None => false,
+        };
+        if first_read_happens {
+            pu = validate_p(p)?;
+        }
+
+        // --- step 2: build B, dropping rows that are zero on the U-columns --
+        sc.bmat.clear();
+        sc.bmat.resize(rows.len() * w, 0);
+        let mut nb: usize = 0;
+        for r in rows {
+            let base = nb * w;
+            let mut nz = false;
+            for (idx, &j) in sc.u.iter().enumerate() {
+                let i = 2 * j;
+                if i >= r.len() {
+                    return Err(KErr::Index);
+                }
+                let a = reduce(r[i], pu);
+                if i + 1 >= r.len() {
+                    return Err(KErr::Index);
+                }
+                let b = reduce(r[i + 1], pu);
+                if a != 0 || b != 0 {
+                    nz = true;
+                    sc.bmat[base + 2 * idx] = a;
+                    sc.bmat[base + 2 * idx + 1] = b;
+                }
+            }
+            if nz {
+                nb += 1;
+            }
+            // If nz is false nothing was written, so the slot is still zero and
+            // is reused by the next row.
+        }
+
+        // --- step 3: full RREF ---------------------------------------------
+        sc.piv.clear();
+        sc.prow.clear();
+        sc.prow.resize(w, 0);
+        let mut rk: usize = 0;
+        for c in 0..w {
+            if rk >= nb {
+                break;
+            }
+            let mut sel = usize::MAX;
+            for i in rk..nb {
+                if sc.bmat[i * w + c] != 0 {
+                    sel = i;
+                    break;
+                }
+            }
+            if sel == usize::MAX {
+                continue;
+            }
+            if sel != rk {
+                for k in 0..w {
+                    sc.bmat.swap(rk * w + k, sel * w + k);
+                }
+            }
+            let iv = fermat_inv(sc.bmat[rk * w + c], pu);
+            for k in 0..w {
+                let x = sc.bmat[rk * w + k];
+                sc.bmat[rk * w + k] = if x == 0 { 0 } else { (x * iv) % pu };
+            }
+            sc.prow.copy_from_slice(&sc.bmat[rk * w..rk * w + w]);
+            for i in 0..nb {
+                if i == rk {
+                    continue;
+                }
+                let fac = sc.bmat[i * w + c];
+                if fac == 0 {
+                    continue;
+                }
+                let base = i * w;
+                for k in 0..w {
+                    let b = sc.prow[k];
+                    if b != 0 {
+                        let a = sc.bmat[base + k];
+                        let t = (fac * b) % pu;
+                        sc.bmat[base + k] = (a + pu - t) % pu;
+                    }
+                }
+            }
+            sc.piv.push(c);
+            rk += 1;
+        }
+
+        // --- step 4: membership scan, ascending over U ----------------------
+        let mut found: Option<usize> = None;
+        for (idx, &j) in sc.u.iter().enumerate() {
+            let i2 = 2 * idx;
+            sc.vvec.clear();
+            sc.vvec.resize(w, 0);
+            sc.vvec[i2] = 1;
+            sc.vvec[i2 + 1] = pu - 1;
+            for (q, &c) in sc.piv.iter().enumerate() {
+                let fac = sc.vvec[c];
+                if fac == 0 {
+                    continue;
+                }
+                let base = q * w;
+                for k in 0..w {
+                    let b = sc.bmat[base + k];
+                    if b != 0 {
+                        let a = sc.vvec[k];
+                        let t = (fac * b) % pu;
+                        sc.vvec[k] = (a + pu - t) % pu;
+                    }
+                }
+            }
+            if !sc.vvec.iter().any(|&x| x != 0) {
+                found = Some(j);
+                break;
+            }
+        }
+
+        match found {
+            None => return Ok((false, collect(&sc.bits, nn, &sc.extras))),
+            Some(j) => {
+                sc.bits[j >> 6] |= 1u64 << (j & 63);
+                count += 1;
+            }
+        }
+    }
+}
+
+fn collect(bits: &[u64], nn: usize, extras: &[i64]) -> Vec<i64> {
+    let mut out = Vec::with_capacity(extras.len() + 8);
+    for j in 0..nn {
+        if bits[j >> 6] & (1u64 << (j & 63)) != 0 {
+            out.push(j as i64);
+        }
+    }
+    out.extend_from_slice(extras);
+    out
+}
+
+/// Convenience wrapper that allocates its own scratch.
+pub fn force_once(
+    rows: &[Vec<i64>],
+    n: i64,
+    t0: &[i64],
+    p: i64,
+) -> Result<(bool, Vec<i64>), KErr> {
+    let mut sc = ForceScratch::new();
+    force(rows, n, t0, p, &mut sc)
+}
+
+// ---------------------------------------------------------------------------
+// rank
+// ---------------------------------------------------------------------------
+
+/// `rank(rows, p)`.  Forward elimination only, all rows kept, width from
+/// `rows[0]`, and the `zip` truncation of ragged rows reproduced exactly.
+pub fn rank(rows: &[Vec<i64>], p: i64) -> Result<i64, KErr> {
+    if rows.is_empty() {
+        return Ok(0);
+    }
+    if rows.iter().all(|r| r.is_empty()) {
+        // No `% p` is ever evaluated, and w = len(rows[0]) = 0.
+        return Ok(0);
+    }
+    let pu = validate_p(p)?;
+
+    let mut b: Vec<Vec<u64>> = rows
+        .iter()
+        .map(|r| r.iter().map(|&x| reduce(x, pu)).collect())
+        .collect();
+    let w = b[0].len();
+    let nb = b.len();
+    let mut rk: usize = 0;
+    for c in 0..w {
+        if rk >= nb {
+            break;
+        }
+        let mut sel = usize::MAX;
+        // Indexing is deliberate: the bounds check below must run for every
+        // row at or below the pivot, in order, before any element is read.
+        #[allow(clippy::needless_range_loop)]
+        for i in rk..nb {
+            if c >= b[i].len() {
+                return Err(KErr::Index);
+            }
+            if b[i][c] != 0 {
+                sel = i;
+                break;
+            }
+        }
+        if sel == usize::MAX {
+            continue;
+        }
+        b.swap(rk, sel);
+        let iv = fermat_inv(b[rk][c], pu);
+        for x in b[rk].iter_mut() {
+            if *x != 0 {
+                *x = (*x * iv) % pu;
+            }
+        }
+        let (head, tail) = b.split_at_mut(rk + 1);
+        let pr: &[u64] = &head[rk];
+        for row in tail.iter_mut() {
+            if c >= row.len() {
+                return Err(KErr::Index);
+            }
+            let fac = row[c];
+            if fac == 0 {
+                continue;
+            }
+            // `zip(B[i], pr)` truncates to the shorter of the two.
+            if row.len() > pr.len() {
+                row.truncate(pr.len());
+            }
+            for (k, a) in row.iter_mut().enumerate() {
+                let bb = pr[k];
+                if bb != 0 {
+                    let t = (fac * bb) % pu;
+                    *a = (*a + pu - t) % pu;
+                }
+            }
+        }
+        rk += 1;
+    }
+    Ok(rk as i64)
+}
+
+#[cfg(test)]
+mod tests;

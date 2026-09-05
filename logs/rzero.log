@@ -1,0 +1,6 @@
+RESULT {"tag": "rzero", "d": [2, 2], "pool": 6, "scanned": 343, "total": 343, "forcing_objects": 0, "best_score": null, "complete": true, "seconds": 0.3}
+RESULT {"tag": "rzero", "d": [2, 2, 2], "pool": 4, "scanned": 78125, "total": 78125, "forcing_objects": 0, "best_score": null, "complete": true, "seconds": 165.4}
+RESULT {"tag": "rzero", "d": [2, 3], "pool": 4, "scanned": 3125, "total": 3125, "forcing_objects": 0, "best_score": null, "complete": true, "seconds": 3.4}
+RESULT {"tag": "rzero", "d": [3, 2], "pool": 4, "scanned": 3125, "total": 3125, "forcing_objects": 0, "best_score": null, "complete": true, "seconds": 3.4}
+RESULT {"tag": "rzero", "d": [2, 2, 2], "pool": 6, "scanned": 60000, "total": 60000, "forcing_objects": 0, "best_score": null, "complete": false, "seconds": 159.9}
+RESULT {"tag": "rzero", "d": [2, 2, 2, 2], "pool": 4, "scanned": 59201, "total": 60000, "forcing_objects": 0, "best_score": null, "complete": false, "seconds": 600.0}
