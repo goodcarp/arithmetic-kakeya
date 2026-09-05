@@ -1,0 +1,27 @@
+  » order                          
+  ⇢ route           grok-cli       — kind=code; ranked 1 ready; chose grok-cli (cost_class 1)
+  → invoke          grok-cli       
+  ▣ deposit         grok-cli       (4481 chars, 594.902s, sha cf8434ad80)
+
+────────────────────────────────────────────────────────────────────────
+The two agree on ordinary list-of-int inputs with `n <= 2**20`, `T0` a duplicate-free collection of signed 64-bit ints, and `0 < p < 2**32`. They part on the extra checks, the eager i64 materialisation, the `T0` length accounting, and one-shot `rows`. Families are infinite; each line is the smallest literal witness.
+
+Most likely: `n = 1048577 = 2**20+1`. `force([], 1048577, [], 2147483647)` is `False, set()` in Python (empty matrix, no force) and `ValueError` in the rewrite. `force([], 1048577, range(1048577), 2147483647)` is `True, set(range(1048577))` in Python and the same `ValueError`. Every larger `n` is the same split: the rewrite never runs.
+
+Next, `p` bounds, but only when Python would actually evaluate `% p`, i.e. when there is a first row with length at least `2*U[0]+1`. `force([[0, 0]], 1, [], 4294967296)` is `False, set()` in Python and `ValueError` in the rewrite. `force([[1, 4294967295]], 1, [], 4294967296)` is `True, {0}` in Python and `ValueError`. `force([[0]], 1, [], 4294967296)` is `IndexError` in Python (`0 % 4294967296` succeeds, then `r[1]` is past the end) and `ValueError` in the rewrite, which rejects `p` at the `%` point and never reaches the second index. Same pattern for every `p >= 2**32`. Empty `rows` does not validate: `force([], 1, [], 4294967296)` is `False, set()` in both.
+
+Negative `p` at that same point is `ValueError` in the rewrite, never in Python. `force([[0, 0]], 1, [], -1)` is `False, set()` in Python (everything `% -1` is `0`, empty span) and `ValueError` in the rewrite. `force([[0]], 1, [], -1)` is `IndexError` in Python and `ValueError` in the rewrite. `force([[2, 2]], 1, [], -2)` is `False, set()` in Python and `ValueError`. `force([[1, 0]], 1, [], -2)` is `TypeError` in Python (`pow` with a negative modulus after a nonzero row) and `ValueError` in the rewrite. Again, no first row means no check: `force([], 1, [], -1)` is `False, set()` in both. `p == 0` with a long enough first row is `ZeroDivisionError` in both.
+
+Eager materialisation of `rows` before Python’s `set(T0)` / `len(T) < n` short-circuit: `force(None, 1, [0], 2147483647)` is `True, {0}` in Python and `TypeError` in the rewrite. `force([[2**63]], 0, [], 2147483647)` is `True, set()` in Python and `OverflowError`. `force([[2**63, 0]], 1, [0], 2147483647)` is `True, {0}` in Python and `OverflowError`. `force([[1.5, 0]], 1, [0], 2147483647)` is `True, {0}` in Python and `TypeError`. Unused columns still get materialised: `force([[0, 0, 2**63]], 1, [], 2147483647)` is `False, set()` in Python (only columns `0,1` are read) and `OverflowError`; `force([[0, 0, 1.5]], 1, [], 2147483647)` is `False, set()` in Python and `TypeError`. A complete Python run with an overflowing used entry: `force([[2**63, 0]], 1, [], 2147483647)` is `False, set()` in Python and `OverflowError`.
+
+`T0` is materialised the same way, so `force([], 1, [2**63], 2147483647)` is `True, {2**63}` in Python and `OverflowError`; `force([], 1, [1.5], 2147483647)` is `True, {1.5}` in Python and `TypeError`; `force([], 1, ["x"], 2147483647)` is `True, {"x"}` in Python and `TypeError`; `force([], 0, [2**63], 2147483647)` is `True, {2**63}` in Python and `OverflowError`.
+
+Exception order follows the rewrite’s pipeline, so mixed bad inputs swap types: `force([[2**63, 0]], 1, [object()], 2147483647)` is `TypeError` in Python (`set(T0)` first) and `OverflowError` in the rewrite (rows first). `force([[], [2**63]], 1, [], 2147483647)` is `IndexError` in Python (short first row) and `OverflowError` in the rewrite.
+
+`T0` duplicates outside `range(n)` live in a side list and inflate `len(T)`. `force([], 2, [2, 2], 2147483647)` is `False, {2}` in Python and `True, {2}` in the rewrite. `force([[1, 1, 0, 0, 0, 0]], 3, [3, 3], 2)` is `False, {0, 3}` in Python (one force, then a second empty round) and `True, {0, 3}` in the rewrite (inflated count already `2`, one force reaches `n`). In-range duplicates do not do this: `force([], 2, [0, 0], 2147483647)` is `False, {0}` in both.
+
+`rows` is materialised once and reused, so a one-shot iterable that Python would rescan on the next round diverges. `force(iter([[1, 1, 0, 0], [0, 0, 1, 1]]), 2, [], 2)` is `False, {0}` in Python (second round sees an exhausted iterator) and `True, {0, 1}` in the rewrite. The same two rows as a list are `True, {0, 1}` in both.
+
+A strict type-level mismatch, not an `==` mismatch: `force([], 1, [True], 2147483647)` returns `True, {True}` in Python and `True, {1}` in the rewrite.
+────────────────────────────────────────────────────────────────────────
+  1 deposit(s) · 0 molt(s) · 595.7s · verify: ✔ · head 6402cddcb5a8
