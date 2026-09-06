@@ -185,6 +185,9 @@ fn check_rzero(
 /// unmodified `g2_tall.py` via `rust/oracle_drivers.py g2-tall 3 <max_t>`:
 /// both max_t = 0 and max_t = 1 give `best null, hits 0` -- the cap rule is a
 /// *strict* improvement on 11/6, and 11/6 itself is the best this box reaches.
+/// `exp_pairs` is the (graph, T0) pair count from Fable's independent
+/// `adversary-fable/count_pairs.py` (2x3, max_t = 1: 1587; its t = 0 buckets
+/// sum to 237, which is the max_t = 0 count).
 fn check_g2_tall(
     rep: &mut Report,
     threads: usize,
@@ -192,6 +195,7 @@ fn check_g2_tall(
     max_t: usize,
     exp_best: Option<&str>,
     exp_hits: usize,
+    exp_pairs: u64,
 ) {
     let cfg = g2_tall::TallCfg {
         rows,
@@ -213,11 +217,20 @@ fn check_g2_tall(
     if !r.complete {
         errs.push("complete false (no tlimit was set)".to_string());
     }
+    if r.walked != r.total {
+        errs.push(format!("walked {} != total {}", r.walked, r.total));
+    }
+    if r.pairs != exp_pairs {
+        errs.push(format!("pairs {} != {}", r.pairs, exp_pairs));
+    }
     let detail = format!(
-        "best {} hits {} complete {} [{:.2}s]",
+        "best {} hits {} complete {} walked {}/{} pairs {} [{:.2}s]",
         got_best.unwrap_or_else(|| "null".into()),
         r.hits,
         r.complete,
+        r.walked,
+        r.total,
+        r.pairs,
         r.elapsed
     );
     if errs.is_empty() {
@@ -365,8 +378,8 @@ pub fn run(threads: usize) -> (Vec<String>, usize) {
         false,
     );
     check_cycles8_patterns(&mut rep);
-    check_g2_tall(&mut rep, threads, 3, 0, None, 0);
-    check_g2_tall(&mut rep, threads, 3, 1, None, 0);
+    check_g2_tall(&mut rep, threads, 3, 0, None, 0, 237);
+    check_g2_tall(&mut rep, threads, 3, 1, None, 0, 1587);
     check_rng(&mut rep);
     rep.skip("ladder", "pure sympy, no force/rank call -- not ported (contract sec 2.8)");
     rep.skip("schemes", "pure sympy, no force/rank call -- not ported (contract sec 2.8)");

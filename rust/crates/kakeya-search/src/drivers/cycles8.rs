@@ -16,6 +16,10 @@ pub struct CyclesCfg {
     pub tlimit: Option<f64>,
     pub threads: usize,
     pub verbose: bool,
+    /// Indices (product order, as `regular_patterns` lists them) of the
+    /// presence patterns to enumerate.  `None` = all of them, which is the
+    /// Python driver's behaviour and keeps its output byte-identical.
+    pub patterns: Option<Vec<usize>>,
 }
 
 pub struct CyclesResult {
@@ -102,6 +106,42 @@ pub fn pattern_total(good: &[Vec<u8>], pool_len: usize) -> u64 {
         .sum()
 }
 
+/// Component sizes of a pattern's graph, ascending.  Every component of a
+/// 2-regular graph is a cycle, so this reads `[8]` for a single 8-cycle and
+/// `[4, 4]` for two 4-cycles.  Pool-independent: only slot presence matters
+/// to the edge set, exactly as in `good_patterns`.
+pub fn cycle_lengths(pattern: &[u8], probe: Label) -> Vec<usize> {
+    let d = vec![2usize, 2, 2];
+    let slots = slots_of(&d);
+    let labels: Vec<Label> = pattern
+        .iter()
+        .map(|&on| if on == 1 { probe } else { ZERO })
+        .collect();
+    let g = Graph::from_labels(&d, &slots, &labels);
+    fn find(parent: &mut [usize], mut x: usize) -> usize {
+        while parent[x] != x {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        x
+    }
+    let mut parent: Vec<usize> = (0..g.n).collect();
+    for &(u, v, _) in &g.edges {
+        let (a, b) = (find(&mut parent, u), find(&mut parent, v));
+        if a != b {
+            parent[a] = b;
+        }
+    }
+    let mut sizes = vec![0usize; g.n];
+    for x in 0..g.n {
+        let r = find(&mut parent, x);
+        sizes[r] += 1;
+    }
+    let mut out: Vec<usize> = sizes.into_iter().filter(|&s| s > 0).collect();
+    out.sort_unstable();
+    out
+}
+
 pub fn run(cfg: &CyclesCfg) -> CyclesResult {
     let d = vec![2usize, 2, 2];
     let n = 8usize;
@@ -115,14 +155,39 @@ pub fn run(cfg: &CyclesCfg) -> CyclesResult {
             n
         );
     }
+    // `--patterns`: restrict the outer enumeration to a subset of `good`,
+    // kept in product order so the nesting below is unchanged.
+    let sel: Vec<usize> = match &cfg.patterns {
+        None => (0..good.len()).collect(),
+        Some(s) => s.clone(),
+    };
+    assert!(
+        sel.iter().all(|&i| i < good.len()),
+        "--patterns index out of range (have {} patterns)",
+        good.len()
+    );
+    let np = cfg.pool.len() as u64;
+    let npres_of = |p: &[u8]| p.iter().map(|&x| x as u32).sum::<u32>();
+    if cfg.patterns.is_some() && cfg.verbose {
+        println!("pattern table (product order; --patterns selects by index):");
+        for (i, p) in good.iter().enumerate() {
+            println!(
+                "  {}  {}  cycles={}  labels={}{}",
+                i,
+                fmt::tuple_u8(p),
+                fmt::json_usize(&cycle_lengths(p, cfg.pool[0])),
+                np.pow(npres_of(p)),
+                if sel.contains(&i) { "  SELECTED" } else { "" }
+            );
+        }
+    }
     // Flatten (pattern, labels) into one index space, `good` order then label
     // order, exactly the nesting of the Python loops.
-    let np = cfg.pool.len() as u64;
-    let mut offsets: Vec<u64> = Vec::with_capacity(good.len() + 1);
+    let mut offsets: Vec<u64> = Vec::with_capacity(sel.len() + 1);
     let mut acc = 0u64;
-    for p in &good {
+    for &gi in &sel {
         offsets.push(acc);
-        acc += np.pow(p.iter().map(|&x| x as u32).sum::<u32>());
+        acc += np.pow(npres_of(&good[gi]));
     }
     offsets.push(acc);
     let total = acc;
@@ -156,7 +221,7 @@ pub fn run(cfg: &CyclesCfg) -> CyclesResult {
             if stop.should_stop(index) {
                 break;
             }
-            let pattern = &good[pi];
+            let pattern = &good[sel[pi]];
             let npres = pattern.iter().map(|&x| x as usize).sum::<usize>();
             let mut x = index - offsets[pi];
             labels.clear();
@@ -243,13 +308,20 @@ pub fn run(cfg: &CyclesCfg) -> CyclesResult {
 
 pub fn emit(cfg: &CyclesCfg, r: &CyclesResult) {
     let best = r.best.filter(|b| b.is_truthy()).map(|b| b.to_string());
+    // Byte-identical to `cycles8.py` unless `--patterns` was given, in which
+    // case the selection is recorded as a trailing Rust-only key.
+    let extra = match &cfg.patterns {
+        None => String::new(),
+        Some(s) => format!(", \"patterns\": {}", fmt::json_usize(s)),
+    };
     println!(
         "RESULT {{\"tag\": \"cycles8\", \"pool\": {}, \"best\": {}, \"hits\": {}, \
-         \"tested\": {}}}",
+         \"tested\": {}{}}}",
         cfg.pool.len(),
         fmt::json_opt_str(best),
         r.hits.len(),
-        r.tested
+        r.tested,
+        extra
     );
     for h in r.hits.iter().take(20) {
         if let Some(o) = &h.obj {

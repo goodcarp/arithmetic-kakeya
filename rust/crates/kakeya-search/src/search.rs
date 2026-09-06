@@ -251,16 +251,28 @@ pub fn min_generators(
 
     let ctx = Ctx { n, cand };
 
+    // Materialise the base rows ONCE per call, into buffers recycled from
+    // `row_pool`.  Every combo below returns `rows` to exactly `base_len`
+    // (the DFS pushes and pops symmetrically), so re-cloning them per combo
+    // is pure waste -- and the old per-combo `rows.pop()` + `r.clone()` pair
+    // was the row_pool leak: it parked the previous copies in the free list
+    // and allocated fresh ones, growing the pool by `base_rows.len()` per
+    // combo for the life of the worker.
+    while let Some(r) = rows.pop() {
+        row_pool.push(r);
+    }
+    for r in base_rows {
+        let mut v = row_pool.pop().unwrap_or_default();
+        v.clear();
+        v.extend_from_slice(r);
+        rows.push(v);
+    }
+    let base_len = rows.len();
+
     loop {
         // --- materialise this combo ---------------------------------------
         gens.clear();
-        while let Some(r) = rows.pop() {
-            row_pool.push(r);
-        }
-        for r in base_rows {
-            rows.push(r.clone());
-        }
-        let base_len = rows.len();
+        debug_assert_eq!(rows.len(), base_len);
         let mut used = 0u64;
         for si in 0..nslots {
             let j = slot_j[si];

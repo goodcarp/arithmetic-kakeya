@@ -91,3 +91,12 @@ score, tie-break and count is compared verbatim.
   finding_rowpool_leak.txt          -- RSS 69 -> 447 MB in 35 s vs 0.7 MB for Python
   py/rs_g2tall_tl1.txt              -- g2_tall "complete" true (Python) vs false (Rust)
   shift/shift.rs                    -- u64 vertex-mask aliasing for n >= 65
+
+## 11. Status 2026-09-06
+
+  finding_rowpool_leak.txt   -- FIXED in search.rs (base rows materialised once per call
+                                from row_pool).  Same mem config: max RSS 1.63 GB -> 0.99 MB,
+                                stdout unchanged.  CPU time unchanged; see PROGRESS.md.
+  py/rs_g2tall_tl1.txt       -- the Rust `complete` is the honest one (Python hardcodes
+                                `el < 700`); g2_tall RESULT now also reports walked/total/pairs.
+  cycles8 --patterns         -- new; POOL3 8cycle 3948 + 4+4 25056 = 29004 (sec 8 count).

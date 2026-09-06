@@ -24,6 +24,14 @@ pub struct TallResult {
     pub hits: usize,
     pub complete: bool,
     pub elapsed: f64,
+    /// Rust-only progress fields (the Python RESULT has none): label tuples
+    /// consumed, with `scan`'s `count` semantics (the tuple that trips the
+    /// deadline is counted), the enumeration total, and the number of
+    /// (graph, T0) pairs handed to `min_generators` -- the unit of DFS work,
+    /// counted exactly where `cycles8` counts `tested`.
+    pub walked: u64,
+    pub total: u64,
+    pub pairs: u64,
 }
 
 /// `cap = int(Fraction(11,6)*q); if Fraction(cap,q) >= Fraction(11,6): cap -= 1`
@@ -95,6 +103,7 @@ pub fn run(cfg: &TallCfg) -> TallResult {
             labels.extend_from_slice(&free);
             let rk = w.prepare(&slots, &labels);
             let m = w.graph.m;
+            let mut pairs_here = 0u64;
             for (t, combos_t) in combos.iter().enumerate() {
                 let q = n - t;
                 let budget = cap_for(q as i64) - m;
@@ -106,6 +115,7 @@ pub fn run(cfg: &TallCfg) -> TallResult {
                     if mand_total > budget {
                         continue;
                     }
+                    pairs_here += 1;
                     let mand = std::mem::take(&mut w.mand);
                     let gens =
                         min_generators(&w.rows, n, *mask, &pool, budget, &mand, &mut w.gen);
@@ -140,6 +150,9 @@ pub fn run(cfg: &TallCfg) -> TallResult {
                     });
                 }
             }
+            if pairs_here > 0 {
+                c.tested.push((index, pairs_here));
+            }
         }
         c
     });
@@ -153,20 +166,32 @@ pub fn run(cfg: &TallCfg) -> TallResult {
         hits: out.merged.hits.len(),
         complete: !out.stopped,
         elapsed: out.elapsed,
+        walked: out.scanned,
+        total,
+        pairs: out.merged.tested,
     }
 }
 
+/// The Python RESULT line plus three Rust-only keys appended after `seconds`:
+/// `walked`/`total` (label tuples, `scan`-style) and `pairs` ((graph, T0)
+/// pairs run through the DFS), so a TIME LIMIT run reports how far it got.
+/// Everything up to and including `seconds` is byte-identical to
+/// `g2_tall.py`; strip the tail to diff against a Python log.
 pub fn emit(cfg: &TallCfg, r: &TallResult) {
     let best = r.best.filter(|b| b.is_truthy()).map(|b| b.to_string());
     println!(
         "RESULT {{\"tag\": \"g2_tall_2x{}\", \"d\": [2, {}], \"pool\": 3, \
          \"max_t\": 1, \"target\": \"<11/6\", \"best\": {}, \"hits\": {}, \
-         \"complete\": {}, \"seconds\": {}}}",
+         \"complete\": {}, \"seconds\": {}, \"walked\": {}, \"total\": {}, \
+         \"pairs\": {}}}",
         cfg.rows,
         cfg.rows,
         fmt::json_opt_str(best),
         r.hits,
         fmt::json_bool(r.complete),
-        fmt::seconds(r.elapsed)
+        fmt::seconds(r.elapsed),
+        r.walked,
+        r.total,
+        r.pairs
     );
 }

@@ -21,13 +21,17 @@ usage: kakeya-search <subcommand> [options]
   scan     --tag T --d 2x2 --pool 6 --max-t 1 --target 7/4
            [--limit N] [--seed 11] [--tlimit S] [--threads N] [--quiet]
   g2-tall  [--rows 4,5,6] [--max-t 1] [--tlimit S] [--threads N]
-  cycles8  [--pool 6] [--target 67/40] [--deg 2] [--tlimit S] [--threads N]
+  cycles8  [--pool 6] [--target 67/40] [--deg 2] [--patterns 8cycle|4+4|i,j,..]
+           [--tlimit S] [--threads N]
   stacked  [--pool 4,6] [--max-t 2] [--target 7/4] [--tlimit S] [--threads N]
   rzero    [--d 2x2 --pool 6 [--limit N] [--seed 0]] [--tlimit S] [--threads N]
   check    [--threads N]
 
 --tlimit is the Python drivers' wall-clock cap; omit it to run to completion.
 --threads defaults to the machine's parallelism; output does not depend on it.
+--patterns (cycles8) restricts the run to a subset of the presence patterns:
+  `8cycle` = the single-8-cycle patterns, `4+4` = the two-4-cycle patterns,
+  or explicit indices in product order (a table is printed when it is used).
 ";
 
 struct Args {
@@ -134,6 +138,42 @@ fn parse_pool(s: &str) -> Result<Vec<Label>, String> {
         .ok_or_else(|| format!("no POOL{k} (have 3, 4, 5, 6, 8)"))
 }
 
+/// `--patterns` for cycles8: `8cycle`, `4+4`, or explicit indices into the
+/// product-order pattern list.  Returned sorted and de-duplicated so the
+/// enumeration keeps the Python nesting order.
+fn parse_patterns(s: &str, deg: usize, probe: Label) -> Result<Vec<usize>, String> {
+    let good = drivers::cycles8::regular_patterns(deg, probe);
+    let types: Vec<Vec<usize>> = good
+        .iter()
+        .map(|p| drivers::cycles8::cycle_lengths(p, probe))
+        .collect();
+    let mut sel: Vec<usize> = match s {
+        "8cycle" | "8-cycle" => (0..good.len()).filter(|&i| types[i] == [8]).collect(),
+        "4+4" | "two-4-cycles" => (0..good.len()).filter(|&i| types[i] == [4, 4]).collect(),
+        _ => s
+            .split(',')
+            .map(|p| {
+                p.trim()
+                    .parse::<usize>()
+                    .map_err(|e| format!("bad --patterns {s:?}: {e}"))
+            })
+            .collect::<Result<_, _>>()?,
+    };
+    sel.sort_unstable();
+    sel.dedup();
+    if sel.is_empty() {
+        return Err(format!("--patterns {s:?} selects no pattern"));
+    }
+    if let Some(&bad) = sel.iter().find(|&&i| i >= good.len()) {
+        return Err(format!(
+            "--patterns index {bad} out of range (have {} patterns, 0..{})",
+            good.len(),
+            good.len() - 1
+        ));
+    }
+    Ok(sel)
+}
+
 fn run() -> Result<i32, String> {
     let args = parse_args()?;
     let threads = args.threads()?;
@@ -177,13 +217,20 @@ fn run() -> Result<i32, String> {
             Ok(0)
         }
         "cycles8" => {
+            let pool = parse_pool(args.get("pool").unwrap_or("6"))?;
+            let deg = args.usize_or("deg", 2)?;
+            let patterns = match args.get("patterns") {
+                None | Some("all") => None,
+                Some(v) => Some(parse_patterns(v, deg, pool[0])?),
+            };
             let cfg = drivers::cycles8::CyclesCfg {
-                pool: parse_pool(args.get("pool").unwrap_or("6"))?,
+                pool,
                 target: Frac::parse(args.get("target").unwrap_or("67/40"))?,
-                deg: args.usize_or("deg", 2)?,
+                deg,
                 tlimit: args.tlimit()?,
                 threads,
                 verbose: !args.has_flag("quiet"),
+                patterns,
             };
             let r = drivers::cycles8::run(&cfg);
             drivers::cycles8::emit(&cfg, &r);

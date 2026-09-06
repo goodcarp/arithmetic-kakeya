@@ -345,3 +345,64 @@ fn driver_progress_lines_match_python() {
     assert_eq!(crate::fmt::tuple_labels(&[(1, 0)]), "((1, 0),)");
     assert_eq!(crate::fmt::tuple_u8(&[1]), "(1,)");
 }
+
+/// `cycles8`'s five 2-regular patterns split into three two-4-cycle graphs
+/// and two single 8-cycles; cross-checked against `cycles8.build` in Python
+/// (union-find over `ConstructibleGraph.edges()`), and pool-independent.
+#[test]
+fn cycles8_pattern_cycle_types() {
+    use crate::drivers::cycles8::{cycle_lengths, regular_patterns};
+    let good = regular_patterns(2, POOL6[0]);
+    let types: Vec<Vec<usize>> = good.iter().map(|p| cycle_lengths(p, POOL6[0])).collect();
+    assert_eq!(
+        types,
+        vec![vec![4, 4], vec![4, 4], vec![8], vec![8], vec![4, 4]]
+    );
+    for p in &good {
+        assert_eq!(cycle_lengths(p, POOL3[0]), cycle_lengths(p, POOL6[0]));
+    }
+}
+
+/// `--patterns` partitions the run: the two-4-cycle patterns and the 8-cycle
+/// patterns together reproduce the unrestricted `tested`, `hits` and `best`.
+#[test]
+fn cycles8_pattern_selection_partitions_the_run() {
+    use crate::drivers::cycles8::{run, CyclesCfg};
+    let mk = |patterns: Option<Vec<usize>>| CyclesCfg {
+        pool: POOL3.to_vec(),
+        target: Frac::new(5, 4),
+        deg: 2,
+        tlimit: None,
+        threads: 2,
+        verbose: false,
+        patterns,
+    };
+    let all = run(&mk(None));
+    let a = run(&mk(Some(vec![0, 1, 4])));
+    let b = run(&mk(Some(vec![2, 3])));
+    assert!(all.tested > 0);
+    assert_eq!(a.tested + b.tested, all.tested);
+    assert_eq!(a.hits.len() + b.hits.len(), all.hits.len());
+    let min = match (a.best, b.best) {
+        (Some(x), Some(y)) => Some(if y < x { y } else { x }),
+        (x, y) => x.or(y),
+    };
+    assert_eq!(all.best, min);
+}
+
+/// The g2_tall progress fields: a complete run walks every tuple, and the
+/// pair count matches Fable's independent `count_pairs.py` for 2x3 (1587).
+#[test]
+fn g2_tall_progress_fields() {
+    use crate::drivers::g2_tall::{run, TallCfg};
+    let r = run(&TallCfg {
+        rows: 3,
+        max_t: 1,
+        tlimit: None,
+        threads: 2,
+        verbose: false,
+    });
+    assert!(r.complete);
+    assert_eq!((r.walked, r.total), (256, 256));
+    assert_eq!(r.pairs, 1587);
+}

@@ -105,3 +105,46 @@ n4_p6_t1: pure Python 19.2 s | Rust --threads 1 1.18 s (16.3x) | --threads 6
 g2_tall 2x4: Rust --threads 12 49.6 s (Python with the B1 PyO3 kernel took
 1246.6 s on a busy machine; the pure-Python estimate in the S2 contract was
 ~3073 s).
+
+## 2026-09-06 follow-ups (after the run_targets.sh campaign)
+
+Three changes, all gated: `cargo test --release --workspace` 78/78 (was 75),
+`cargo clippy --release --all-targets --workspace -- -D warnings` clean,
+`check --threads 1|12` PASS, the refuter's scan sweep 30/30 against the stored
+Python norms (s09 is the pre-existing Python-side `ZeroDivisionError`), cycles8
+POOL3 stdout byte-identical to the pre-change binary, g2_tall 2x3/2x4
+byte-identical up to and including `seconds`.
+
+1. `min_generators` (search.rs): the base rows are materialised ONCE per call
+   into buffers recycled from `row_pool`; the old per-combo pop-all + clone was
+   the row_pool free-list leak (`refute/search/finding_rowpool_leak.txt`).
+   Refuter mem config (`scan --d 2x2x2 --pool 8 --max-t 0 --target 2 --threads 1
+   --tlimit 25`): max RSS 1,634,877,440 -> 995,328 bytes at the same `scanned`
+   822; sys time 12.3 s -> 1.0 s.  (The 2x6 target run on 2026-09-06 peaked at
+   6.3 GB on 8 threads under the old code.)  CPU time is UNCHANGED: cycles8
+   POOL3 `--threads 4` = 200.1 s user before, 199.3 s after.  A 20 s `sample`
+   of cycles8 POOL3 at `--threads 1` puts 95% of working samples inside
+   `kakeya_core::force` itself (13,969 of ~14,700; malloc/free/bzero/memmove
+   ~500 together; `search::extend` 74), so the ~2.6x-per-core gap against the
+   pure-Python driver is the kernel's per-call cost on these tiny matrices
+   (full B-matrix rebuild + RREF per call in the fixpoint loop), not the DFS
+   bookkeeping.  The next lever is inside `force` (incremental elimination
+   over the unchanged base rows), which is a kernel change and needs its own
+   differential gate.
+2. `g2_tall` RESULT carries three Rust-only trailing keys after `seconds`:
+   `walked`/`total` (label tuples, `scan`'s `count` semantics) and `pairs`
+   ((graph, T0) pairs handed to `min_generators`, counted where cycles8 counts
+   `tested`).  Gated against Fable's independent
+   `adversary-fable/count_pairs.py`: 2x3 = 1587 (t = 0 buckets 237), 2x4 =
+   31718; a complete 2x5 should read 672719 and 2x6 13183980.  Diff against a
+   Python log by stripping the tail.
+3. `cycles8 --patterns 8cycle|4+4|i,j,...`: restricts the outer enumeration to a
+   subset of the five presence patterns (product order kept), prints a pattern
+   table with cycle types (indices 0, 1, 4 = two 4-cycles; 2, 3 = single
+   8-cycles, cross-checked against `cycles8.build` in Python) and records the
+   selection as a trailing `"patterns"` key.  Default output is byte-identical
+   to the Python.  POOL3: `8cycle` tested 3948 + `4+4` tested 25056 = 29004 =
+   the full run.  The Lemma-C-settled two-4-cycle patterns hold 1,823,760 of
+   POOL6's 1,905,420 pairs, so the run that matters is
+   `kakeya-search cycles8 --pool 6 --patterns 8cycle` (81,660 pairs; about
+   5 h at the 4.6 pairs/s the 2026-09-05 POOL6 run sustained on 8 threads).
