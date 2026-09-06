@@ -263,3 +263,12 @@ cost); a run whose pairs-per-second is 1000x Python's is not running the same DF
 * Python's `time.time() - t0 > tlimit` is checked once per label tuple *before* the work,
   so a run always finishes the tuple it is on; `seconds` can exceed `tlimit` by one tuple's
   cost (867 s for a 700 s limit in the 2x6 log).
+
+## 6. Computed results (appended 2026-09-06 after the closing audit; written before the Rust 8-cycle cross-check returned)
+
+* `cycle8_cheap` (t=2 r<=2, t=1 r<=3, t=0 r<=4; every generator set satisfying Lemma C for all six POOL6 slopes plus P4; all 1296 label tuples of the 8-cycle patterns): **0 successes**, 10,062,000 `force` calls, 2973 s (`cycle8_cheap.out`).
+* `cycle8_r5` (t=0, r=5, same prune): **0 successes**, 91,993,680 `force` calls, 13,369 s (`cycle8_r5.out`).
+  Together with 2.2 (the three two-4-cycle patterns, settled by the mediant argument on the complete `n4_p6_t1` scan) this exhausts cycles8 POOL6 under the stated budgets: no object scores <= 67/40 with t <= 2 — modulo the correctness of Lemma C (2.1) and P6 as prunes. Prediction row 3 of section 0: CONFIRMED by side computation.
+* g2_tall 2x6 pair count: **13,183,980** pairs into `min_generators` (`count_pairs.out`; the section-3 table said "running"). Free-budget histogram is in `count_pairs.out`.
+* Rust long runs (`rust/RESULTS-RUST.json`): stacked POOL4 (23.8 s) and POOL6 (293.5 s) reproduce the Python exactly — rows 4 and 5 CONFIRMED; g2_tall 2x5 (7207 s) and 2x6 (14,558 s) hit their caps with 0 hits — rows 1 and 2 CONSISTENT only; the 6-hour cycles8 POOL6 run tested 98,973 pairs, all inside pattern 0 (an exact prefix ending at label tuple #3008 of 46,656), i.e. inside the region 2.2 already settles — it added nothing about the 8-cycles. The runtime estimate for 2x5 (implied by section 3) was wrong by more than 10x.
+* A direct Rust enumeration of the two 8-cycle patterns only (`kakeya-search cycles8 --patterns 8cycle`, 81,660 pairs, no Lemma C prune — the Python prune order reproduced exactly) was started 2026-09-06 as an independent cross-check of the two bullets above.

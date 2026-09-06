@@ -148,3 +148,9 @@ byte-identical up to and including `seconds`.
    POOL6's 1,905,420 pairs, so the run that matters is
    `kakeya-search cycles8 --pool 6 --patterns 8cycle` (81,660 pairs; about
    5 h at the 4.6 pairs/s the 2026-09-05 POOL6 run sustained on 8 threads).
+
+## Known limits — additions from the closing audit (C6, 2026-09-06)
+- FIXED in source (rebuild pending): `LabelSource::total` used an unchecked `pow`; on a box with >= 65 vertices it wrapped and a RESULT line could say `complete: true` for an index space never scanned. Now `checked_pow` with a loud panic.
+- OPEN: `--tlimit` on a very large index space aborts with a memory allocation failure instead of returning a RESULT (chunk list proportional to the index space; refuter config `--d 2x2x2x2x2 --pool 8`). Needs streaming chunk enumeration.
+- OPEN: `--tlimit` is not a bound on wall time below the threshold — chunk enumeration cost is proportional to the whole index space (5 s limit -> 120 s wall on `2x2x2x2 POOL4`).
+- Recorded: progress lines are buffered under `--tlimit`; `g2-tall` prints an honest `complete` where Python hardcodes `el < 700`; a run killed by SIGTERM (e.g. a stray `pkill -f kakeya-search`) leaves no RESULT line — run long jobs under a distinct binary name.

@@ -121,5 +121,8 @@ import os as _os
 if _os.environ.get("KAKEYA_PURE_PY") != "1":
     try:
         from fastcore_rs import force, rank  # noqa: F401,F811
-    except ImportError:
-        pass
+    except ImportError as _e:
+        # Audit C6 (2026-09-06): never fall back silently -- a run labelled
+        # "Rust" must not quietly be Python. stderr only; stdout is the oracle.
+        import sys as _sys
+        print(f"fastcore: Rust kernel unavailable ({_e}); using pure Python", file=_sys.stderr)

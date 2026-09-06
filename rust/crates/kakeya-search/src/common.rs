@@ -85,7 +85,14 @@ impl LabelSource {
     pub fn total(&self) -> u64 {
         match self {
             LabelSource::Exhaustive { alphabet, nslots } => {
-                (alphabet.len() as u64).pow(*nslots as u32)
+                // Audit C6 (2026-09-06): an unchecked pow wrapped silently on large
+                // boxes and let a RESULT line claim `complete: true` for an index
+                // space that was never scanned. Refuse loudly instead.
+                (alphabet.len() as u64)
+                    .checked_pow(*nslots as u32)
+                    .unwrap_or_else(|| panic!(
+                        "label index space {}^{} exceeds u64; refusing to run (audit C6)",
+                        alphabet.len(), nslots))
             }
             LabelSource::Sampled(v) => v.len() as u64,
         }

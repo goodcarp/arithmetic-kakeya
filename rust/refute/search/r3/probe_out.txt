@@ -1,0 +1,279 @@
+### P1   lines: py=     241 rs1=       1 rs12=       1
+-- exit codes: py=EXIT=0 rs1=EXIT=1 rs12=EXIT=1
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+   BYTE-IDENTICAL
+-- py vs rs1 (seconds masked):
+1,241c1
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+-- py vs rs12 (seconds masked):
+1,241c1
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+-- RESULT json, field by field (py vs rs12):
+RESULT-COUNT MISMATCH 1 vs 0
+
+### P2   lines: py=     241 rs1=     241 rs12=     241
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+121c121
+< RESULT {"tag": "P2", "d": [2, 2], "pool": 6, "max_t": 1, "target": "7/4", "scanned": 343, "total": 343, "best": "7/4", "hits": 120, "complete": true, "seconds": 3.6}
+---
+> RESULT {"tag": "P2", "d": [2, 2], "pool": 6, "max_t": 1, "target": "7/4", "scanned": 343, "total": 343, "best": "7/4", "hits": 120, "complete": true, "seconds": 0.4}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (     241 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   '7/4' / '7/4'
+  [0] complete   OK   True / True
+  [0] d          OK   [2, 2] / [2, 2]
+  [0] hits       OK   120 / 120
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   6 / 6
+  [0] scanned    OK   343 / 343
+  [0] seconds    IGNORED  82.6 / 0.4
+  [0] tag        OK   'P2' / 'P2'
+  [0] target     OK   '7/4' / '7/4'
+  [0] total      OK   343 / 343
+JSON FIELD DIFFS: 0
+
+### P3   lines: py=     551 rs1=     551 rs12=     551
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+276c276
+< RESULT {"tag": "P3", "d": [2, 2], "pool": 3, "max_t": 1, "target": "2", "scanned": 100, "total": 100, "best": "2", "hits": 275, "complete": false, "seconds": 0.1}
+---
+> RESULT {"tag": "P3", "d": [2, 2], "pool": 3, "max_t": 1, "target": "2", "scanned": 100, "total": 100, "best": "2", "hits": 275, "complete": false, "seconds": 0.0}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (     551 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   '2' / '2'
+  [0] complete   OK   False / False
+  [0] d          OK   [2, 2] / [2, 2]
+  [0] hits       OK   275 / 275
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   3 / 3
+  [0] scanned    OK   100 / 100
+  [0] seconds    IGNORED  2.6 / 0.0
+  [0] tag        OK   'P3' / 'P3'
+  [0] target     OK   '2' / '2'
+  [0] total      OK   100 / 100
+JSON FIELD DIFFS: 0
+
+### P4   lines: py=       3 rs1=       3 rs12=       3
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+   BYTE-IDENTICAL
+-- py vs rs1 (seconds masked):
+   IDENTICAL (       3 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   '7/4' / '7/4'
+  [0] complete   OK   False / False
+  [0] d          OK   [2, 2] / [2, 2]
+  [0] hits       OK   1 / 1
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   6 / 6
+  [0] scanned    OK   1 / 1
+  [0] seconds    IGNORED  0.1 / 0.0
+  [0] tag        OK   'P4' / 'P4'
+  [0] target     OK   '7/4' / '7/4'
+  [0] total      OK   1 / 1
+JSON FIELD DIFFS: 0
+
+### P5   lines: py=       1 rs1=       1 rs12=       1
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+   BYTE-IDENTICAL
+-- py vs rs1 (seconds masked):
+   IDENTICAL (       1 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   None / None
+  [0] complete   OK   True / True
+  [0] d          OK   [1] / [1]
+  [0] hits       OK   0 / 0
+  [0] max_t      OK   0 / 0
+  [0] pool       OK   3 / 3
+  [0] scanned    OK   1 / 1
+  [0] seconds    IGNORED  0.0 / 0.0
+  [0] tag        OK   'P5' / 'P5'
+  [0] target     OK   '2' / '2'
+  [0] total      OK   1 / 1
+JSON FIELD DIFFS: 0
+
+### P6   lines: py=     625 rs1=     625 rs12=     625
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+313c313
+< RESULT {"tag": "P6", "d": [2, 2], "pool": 3, "max_t": 3, "target": "2", "scanned": 64, "total": 64, "best": "2", "hits": 312, "complete": true, "seconds": 0.1}
+---
+> RESULT {"tag": "P6", "d": [2, 2], "pool": 3, "max_t": 3, "target": "2", "scanned": 64, "total": 64, "best": "2", "hits": 312, "complete": true, "seconds": 0.0}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (     625 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   '2' / '2'
+  [0] complete   OK   True / True
+  [0] d          OK   [2, 2] / [2, 2]
+  [0] hits       OK   312 / 312
+  [0] max_t      OK   3 / 3
+  [0] pool       OK   3 / 3
+  [0] scanned    OK   64 / 64
+  [0] seconds    IGNORED  2.1 / 0.0
+  [0] tag        OK   'P6' / 'P6'
+  [0] target     OK   '2' / '2'
+  [0] total      OK   64 / 64
+JSON FIELD DIFFS: 0
+
+### P7   lines: py=     223 rs1=     257 rs12=     257
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+129c129
+< RESULT {"tag": "P7", "d": [2, 2], "pool": 4, "max_t": 1, "target": "2", "scanned": 37, "total": 37, "best": "7/4", "hits": 128, "complete": false, "seconds": 0.1}
+---
+> RESULT {"tag": "P7", "d": [2, 2], "pool": 4, "max_t": 1, "target": "2", "scanned": 37, "total": 37, "best": "7/4", "hits": 128, "complete": false, "seconds": 0.0}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+0a1,4
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+11,20d14
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=4 t=0
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+25c19,31
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+---
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+-- py vs rs12 (seconds masked):
+0a1,4
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+11,20d14
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=4 t=0
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+<    HIT 2 (=2.0000)  d=[2, 2] m=4 r=2 t=1
+25c19,31
+<    HIT 7/4 (=1.7500)  d=[2, 2] m=4 r=3 t=0
+---
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+>    HIT 2 (=2.0000)  d=[2, 2] m=3 r=3 t=1
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   '7/4' / '7/4'
+  [0] complete   OK   False / False
+  [0] d          OK   [2, 2] / [2, 2]
+  [0] hits       DIFF  111 / 128
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   4 / 4
+  [0] scanned    OK   37 / 37
+  [0] seconds    IGNORED  2.5 / 0.0
+  [0] tag        OK   'P7' / 'P7'
+  [0] target     OK   '2' / '2'
+  [0] total      OK   37 / 37
+JSON FIELD DIFFS: 1
+

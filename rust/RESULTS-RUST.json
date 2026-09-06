@@ -21,7 +21,8 @@
     "hits": 0,
     "credence": 0.97
    },
-   "matches_prediction": true
+   "matches_prediction": true,
+   "prediction_status": "CONFIRMED"
   },
   {
    "tag": "stacked_pool6",
@@ -41,7 +42,8 @@
     "hits": 0,
     "credence": 0.97
    },
-   "matches_prediction": true
+   "matches_prediction": true,
+   "prediction_status": "CONFIRMED"
   },
   {
    "tag": "g2_tall_2x5",
@@ -69,7 +71,8 @@
     "hits": 0,
     "credence": 0.93
    },
-   "matches_prediction": true
+   "matches_prediction": true,
+   "prediction_status": "CONSISTENT (incomplete)"
   },
   {
    "tag": "cycles8_pool6",
@@ -90,7 +93,8 @@
     "hits": 0,
     "credence": 0.96
    },
-   "matches_prediction": true
+   "matches_prediction": true,
+   "prediction_status": "CONSISTENT (incomplete)"
   },
   {
    "tag": "g2_tall_2x6",
@@ -118,11 +122,14 @@
     "hits": 0,
     "credence": 0.9
    },
-   "matches_prediction": true
+   "matches_prediction": true,
+   "prediction_status": "CONSISTENT (incomplete)"
   }
  ],
  "notes": [
-  "cycles8: 98,973 pairs tested in 21,600 s (4.58 pairs/s) lie entirely inside presence pattern 1 (1,557,900 pairs), which Fable's mediant argument (PREDICTIONS.md 2.2) settles analytically; the two 8-cycle patterns (40,830 + 40,830 pairs) were never reached and are the only unsettled region.",
-  "g2_tall 2x5/2x6: no hits within 7207 s / 14558 s; both remain incomplete; consistent with, not proof of, the pre-registered prediction."
+  "cycles8: 98,973 pairs tested in 21,600 s (4.58 pairs/s) are an exact prefix of presence pattern 0 (ending at label tuple #3008 of 46,656; audit C4), which adversary-fable/PREDICTIONS.md 2.2 settles analytically. The run therefore said nothing about the two 8-cycle patterns. Fable's side computation (adversary-fable/bg/cycle8_*.log) had already exhausted the 8-cycle patterns with 0 hits; an independent Rust run over the same patterns (`cycles8 --patterns 8cycle`) was started 2026-09-06 as a cross-check, not as new coverage.",
+  "g2_tall 2x5/2x6: no hits within 7207 s / 14558 s; both remain incomplete; consistent with, not proof of, the pre-registered prediction.",
+  "Prediction status (audit C4): stacked POOL4/POOL6 CONFIRMED (complete runs reproduce best 7/4, 0 hits, all-ZERO witness); g2_tall 2x5, 2x6 and cycles8 only CONSISTENT (incomplete).",
+  "Known binary defect (audit C6): `total` uses an unchecked integer pow, so on a box with >= 65 vertices the binary can print complete: true without scanning; use checked_pow before quoting any RESULT from a larger box. Not reachable on the five runs above (n <= 12)."
  ]
 }

@@ -1,0 +1,164 @@
+### F1   lines: py=     241 rs1=     241 rs12=     241
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+121c121
+< RESULT {"tag": "n4_p6_t1", "d": [2, 2], "pool": 6, "max_t": 1, "target": "7/4", "scanned": 343, "total": 343, "best": "7/4", "hits": 120, "complete": true, "seconds": 3.5}
+---
+> RESULT {"tag": "n4_p6_t1", "d": [2, 2], "pool": 6, "max_t": 1, "target": "7/4", "scanned": 343, "total": 343, "best": "7/4", "hits": 120, "complete": true, "seconds": 0.4}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (     241 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   '7/4' / '7/4'
+  [0] complete   OK   True / True
+  [0] d          OK   [2, 2] / [2, 2]
+  [0] hits       OK   120 / 120
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   6 / 6
+  [0] scanned    OK   343 / 343
+  [0] seconds    IGNORED  73.1 / 0.4
+  [0] tag        OK   'n4_p6_t1' / 'n4_p6_t1'
+  [0] target     OK   '7/4' / '7/4'
+  [0] total      OK   343 / 343
+JSON FIELD DIFFS: 0
+
+### F2   lines: py=       1 rs1=       1 rs12=       1
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+1c1
+< RESULT {"tag": "g2_23_t1", "d": [2, 3], "pool": 3, "max_t": 1, "target": "9/5", "scanned": 1024, "total": 1024, "best": null, "hits": 0, "complete": true, "seconds": 14.4}
+---
+> RESULT {"tag": "g2_23_t1", "d": [2, 3], "pool": 3, "max_t": 1, "target": "9/5", "scanned": 1024, "total": 1024, "best": null, "hits": 0, "complete": true, "seconds": 1.9}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (       1 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   None / None
+  [0] complete   OK   True / True
+  [0] d          OK   [2, 3] / [2, 3]
+  [0] hits       OK   0 / 0
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   3 / 3
+  [0] scanned    OK   1024 / 1024
+  [0] seconds    IGNORED  322.2 / 1.9
+  [0] tag        OK   'g2_23_t1' / 'g2_23_t1'
+  [0] target     OK   '9/5' / '9/5'
+  [0] total      OK   1024 / 1024
+JSON FIELD DIFFS: 0
+
+### F3   lines: py=       1 rs1=       1 rs12=       1
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+1c1
+< RESULT {"tag": "g2_32_t1", "d": [3, 2], "pool": 3, "max_t": 1, "target": "9/5", "scanned": 1024, "total": 1024, "best": null, "hits": 0, "complete": true, "seconds": 19.3}
+---
+> RESULT {"tag": "g2_32_t1", "d": [3, 2], "pool": 3, "max_t": 1, "target": "9/5", "scanned": 1024, "total": 1024, "best": null, "hits": 0, "complete": true, "seconds": 2.2}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (       1 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   None / None
+  [0] complete   OK   True / True
+  [0] d          OK   [3, 2] / [3, 2]
+  [0] hits       OK   0 / 0
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   3 / 3
+  [0] scanned    OK   1024 / 1024
+  [0] seconds    IGNORED  344.6 / 2.2
+  [0] tag        OK   'g2_32_t1' / 'g2_32_t1'
+  [0] target     OK   '9/5' / '9/5'
+  [0] total      OK   1024 / 1024
+JSON FIELD DIFFS: 0
+
+### F4   lines: py=       1 rs1=       1 rs12=       1
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+1c1
+< RESULT {"tag": "newP", "d": [2, 3], "pool": 4, "max_t": 1, "target": "67/40", "scanned": 40, "total": 40, "best": null, "hits": 0, "complete": false, "seconds": 1.4}
+---
+> RESULT {"tag": "newP", "d": [2, 3], "pool": 4, "max_t": 1, "target": "67/40", "scanned": 40, "total": 40, "best": null, "hits": 0, "complete": false, "seconds": 0.2}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (       1 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   None / None
+  [0] complete   OK   False / False
+  [0] d          OK   [2, 3] / [2, 3]
+  [0] hits       OK   0 / 0
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   4 / 4
+  [0] scanned    OK   40 / 40
+  [0] seconds    IGNORED  34.2 / 0.2
+  [0] tag        OK   'newP' / 'newP'
+  [0] target     OK   '67/40' / '67/40'
+  [0] total      OK   40 / 40
+JSON FIELD DIFFS: 0
+
+### F5   lines: py=    2677 rs1=    2677 rs12=    2677
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+1339c1339
+< RESULT {"tag": "newQ", "d": [2, 2], "pool": 6, "max_t": 1, "target": "2", "scanned": 343, "total": 343, "best": "7/4", "hits": 1338, "complete": true, "seconds": 4.2}
+---
+> RESULT {"tag": "newQ", "d": [2, 2], "pool": 6, "max_t": 1, "target": "2", "scanned": 343, "total": 343, "best": "7/4", "hits": 1338, "complete": true, "seconds": 0.7}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (    2677 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   '7/4' / '7/4'
+  [0] complete   OK   True / True
+  [0] d          OK   [2, 2] / [2, 2]
+  [0] hits       OK   1338 / 1338
+  [0] max_t      OK   1 / 1
+  [0] pool       OK   6 / 6
+  [0] scanned    OK   343 / 343
+  [0] seconds    IGNORED  146.1 / 0.7
+  [0] tag        OK   'newQ' / 'newQ'
+  [0] target     OK   '2' / '2'
+  [0] total      OK   343 / 343
+JSON FIELD DIFFS: 0
+
+### F6   lines: py=       1 rs1=       1 rs12=       1
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+   BYTE-IDENTICAL
+-- py vs rs1 (seconds masked):
+1c1
+< RESULT {"tag": "g2_tall_2x2", "d": [2, 2], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": true, "seconds": SEC}
+---
+> RESULT {"tag": "g2_tall_2x2", "d": [2, 2], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": true, "seconds": SEC, "walked": 16, "total": 16, "pairs": 59}
+-- py vs rs12 (seconds masked):
+1c1
+< RESULT {"tag": "g2_tall_2x2", "d": [2, 2], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": true, "seconds": SEC}
+---
+> RESULT {"tag": "g2_tall_2x2", "d": [2, 2], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": true, "seconds": SEC, "walked": 16, "total": 16, "pairs": 59}
+-- RESULT json, field by field (py vs rs12):
+  [0] best       OK   None / None
+  [0] complete   OK   True / True
+  [0] d          OK   [2, 2] / [2, 2]
+  [0] hits       OK   0 / 0
+  [0] max_t      OK   1 / 1
+  [0] pairs      ONLY-IN-ONE  a='<absent>' b=59
+  [0] pool       OK   3 / 3
+  [0] seconds    IGNORED  0.4 / 0.0
+  [0] tag        OK   'g2_tall_2x2' / 'g2_tall_2x2'
+  [0] target     OK   '<11/6' / '<11/6'
+  [0] total      ONLY-IN-ONE  a='<absent>' b=16
+  [0] walked     ONLY-IN-ONE  a='<absent>' b=16
+JSON FIELD DIFFS: 3
+

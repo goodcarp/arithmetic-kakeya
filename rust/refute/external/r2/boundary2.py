@@ -19,6 +19,8 @@ def C(fn,*a,**k):
         return int(v)
     except Exception as e: return type(e).__name__
 
+import functools
+print = functools.partial(print, flush=True)
 print("--- kwargs / defaults ---")
 rep("force kw", C(PY_F,rows=[[1,-1]],n=1,T0=set()), C(RS_F,rows=[[1,-1]],n=1,T0=set()))
 rep("force kw p", C(PY_F,[[1,-1]],1,set(),p=7), C(RS_F,[[1,-1]],1,set(),p=7))
@@ -46,7 +48,7 @@ print("--- MAX_N boundary ---")
 N=1<<20
 rep("n=2^20 T0 full-ish", C(PY_F,[],N,set(range(N))), C(RS_F,[],N,set(range(N))))
 rep("n=2^20+1 T0 full",   C(PY_F,[],N+1,set(range(N+1))), C(RS_F,[],N+1,set(range(N+1))))
-rep("n=2^20 rows=[] T0={}", C(PY_F,[],N,set()), C(RS_F,[],N,set()))
+print("  (skipped n=2^20 rows=[] T0=empty: O(n^2) in both)")
 
 print("--- reentrancy: iterable that calls back into the kernel ---")
 class Reenter:
