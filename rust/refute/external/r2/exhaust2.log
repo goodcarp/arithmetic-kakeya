@@ -1,0 +1,9 @@
+A rows: 40
+A done 256000 5.6s bad=0
+B rows: 729
+B done 288000 8.2s bad=0
+C done 322983 12.7s bad=0
+D done 323000 12.7s bad=0
+============================================================
+total 323000 mismatches 0
+EXIT=0

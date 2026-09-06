@@ -1,0 +1,139 @@
+v01_negative_entry_floored_mod                 | exp=1                      | py=1                      | rs=1                      | PASS
+v02_nonprime_p_pivot_zeroed_rank_still_counts  | exp=1                      | py=1                      | rs=1                      | PASS
+v03_inv_of_zero_is_zero                        | exp=0                      | py=0                      | rs=SKIP(no _inv in rust module) | SKIP
+v04_entry_2pow62_reduced_on_load               | exp=1                      | py=1                      | rs=1                      | PASS
+v05_multiples_of_p_are_zero_rows               | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+v06_partial_T_on_failure_ascending_scan        | exp=(False, {1})           | py=(False, {1})           | rs=(False, {1})           | PASS
+v07_T0_len_short_circuit_out_of_range          | exp=(True, {99})           | py=(True, {99})           | rs=(True, {99})           | PASS
+v08_T0_duplicates_collapse                     | exp=(True, {2})            | py=(True, {2})            | rs=(True, {2})            | PASS
+v09_T0_duplicates_collapse_n2                  | exp=(True, {0, 7})         | py=(True, {0, 7})         | rs=(True, {0, 7})         | PASS
+v10_entry_equal_P_is_zero                      | exp=0                      | py=0                      | rs=0                      | PASS
+v10b_entry_P_plus_1_is_one                     | exp=1                      | py=1                      | rs=1                      | PASS
+v11_empty_row_rank_zero                        | exp=0                      | py=0                      | rs=0                      | PASS
+v12_ragged_rows_raise                          | exp=raises IndexError      | py=raises IndexError      | rs=raises IndexError      | PASS
+v13_short_row_force_raises                     | exp=raises IndexError      | py=raises IndexError      | rs=raises IndexError      | PASS
+v14_nonprime_p_two_pivots                      | exp=2                      | py=2                      | rs=2                      | PASS
+v15_nonprime_p_force_false                     | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+v16_input_set_not_mutated                      | exp=((True, {0}), set())   | py=((True, {0}), set())   | rs=((True, {0}), set())   | PASS
+a01_negative_entry_force_found                 | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+a02_negative_entry_force_notfound              | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+a03_entries_above_p_force                      | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+a04_p_minus_1_squared_products                 | exp=2                      | py=2                      | rs=2                      | PASS
+a05_p_minus_1_products_force                   | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+a06_p_minus_1_products_force2                  | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+a07_2pow62_minus_1_is_zero_mod_P               | exp=0                      | py=0                      | rs=0                      | PASS
+a08_2pow62_is_one_mod_P                        | exp=1                      | py=1                      | rs=1                      | PASS
+a09_neg_2pow62_plus_1_is_zero                  | exp=0                      | py=0                      | rs=0                      | PASS
+a10_neg_2pow62_is_P_minus_1                    | exp=1                      | py=1                      | rs=1                      | PASS
+a11_entry_2pow70_beyond_i64                    | exp=1                      | py=1                      | rs=raises OverflowError   | FAIL
+a12_entry_2pow70_minus_256_zero                | exp=0                      | py=0                      | rs=raises OverflowError   | FAIL
+a13_p_above_2pow32_needs_u128                  | exp=2                      | py=2                      | rs=raises ValueError      | FAIL
+a14_mersenne61_p_needs_u128                    | exp=(False, set())         | py=(False, set())         | rs=raises ValueError      | FAIL
+a15_mersenne61_rank                            | exp=2                      | py=2                      | rs=raises OverflowError   | FAIL
+a16_p2_inv_of_zero_is_one                      | exp=1                      | py=1                      | rs=SKIP(no _inv in rust module) | SKIP
+a17_p2_rank                                    | exp=1                      | py=1                      | rs=1                      | PASS
+a18_p2_force                                   | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+a19_p1_everything_zero                         | exp=0                      | py=0                      | rs=0                      | PASS
+a20_p1_force_false                             | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+a21_p1_inv                                     | exp=0                      | py=0                      | rs=SKIP(no _inv in rust module) | SKIP
+a22_p0_rank_raises                             | exp=raises ZeroDivisionError | py=raises ZeroDivisionError | rs=raises ZeroDivisionError | PASS
+a23_p0_rank_empty_ok                           | exp=0                      | py=0                      | rs=0                      | PASS
+a24_p0_force_shortcircuit_ok                   | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+a25_p0_force_raises                            | exp=raises ZeroDivisionError | py=raises ZeroDivisionError | rs=raises ZeroDivisionError | PASS
+a26_negative_p                                 | exp=1                      | py=1                      | rs=raises ValueError      | FAIL
+a27_negative_p_force                           | exp=(True, {0})            | py=(True, {0})            | rs=raises ValueError      | FAIL
+a28_float_p_raises                             | exp=raises TypeError       | py=raises TypeError       | rs=raises TypeError       | PASS
+a29_float_zero_entries_no_raise                | exp=0                      | py=0                      | rs=raises TypeError       | FAIL
+a30_float_entry_raises                         | exp=raises TypeError       | py=raises TypeError       | rs=raises TypeError       | PASS
+b01_p6_wrong_inverse_force_false               | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+b02_p9_wrong_inverse_force_false               | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+b03_p9_inv_value                               | exp=2                      | py=2                      | rs=SKIP(no _inv in rust module) | SKIP
+b04_p6_inv_value                               | exp=1                      | py=1                      | rs=SKIP(no _inv in rust module) | SKIP
+b05_p4_rank_zeroed_pivot_then_second           | exp=2                      | py=2                      | rs=2                      | PASS
+b06_p4_wrong_inverse_of_unit                   | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+b07_p8_rank                                    | exp=2                      | py=2                      | rs=2                      | PASS
+b08_p8_force                                   | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+b09_p1_p_minus_2_negative_exponent_inv         | exp=0                      | py=0                      | rs=SKIP(no _inv in rust module) | SKIP
+c01_cache_poison_inv                           | exp=3                      | py=4                      | rs=SKIP(no _inv in rust module) | SKIP
+c02_cache_poison_force                         | exp=(False, set())         | py=(True, {0})            | rs=(True, {0})            | FAIL
+c03_cache_key_is_raw_a                         | exp=(1073741824, [2147483649]) | py=raises NameError       | rs=SKIP(no _inv in rust module) | SKIP
+c04_inv_of_minus_one                           | exp=2147483646             | py=2147483646             | rs=SKIP(no _inv in rust module) | SKIP
+c05_inv_of_two_default_p                       | exp=1073741824             | py=1073741824             | rs=SKIP(no _inv in rust module) | SKIP
+d01_T0_tuple                                   | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+d02_T0_frozenset_returns_plain_set             | exp='set'                  | py='set'                  | rs='set'                  | PASS
+d03_T0_generator                               | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+d04_T0_range                                   | exp=(True, {0, 1, 2})      | py=(True, {0, 1, 2})      | rs=(True, {0, 1, 2})      | PASS
+d05_T0_out_of_range_pads_count                 | exp=(True, {0, 5})         | py=(True, {0, 5})         | rs=(True, {0, 5})         | PASS
+d06_T0_negative_index                          | exp=(True, {0, -1})        | py=(True, {0, -1})        | rs=(True, {0, -1})        | PASS
+d07_T0_superset_of_range                       | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+d08_T0_bool_element                            | exp=(True, {True})         | py=(True, {True})         | rs=(True, {1})            | FAIL
+d09_n_zero                                     | exp=(True, set())          | py=(True, set())          | rs=(True, set())          | PASS
+d10_n_negative                                 | exp=(True, set())          | py=(True, set())          | rs=(True, set())          | PASS
+d11_n_zero_empty_rows                          | exp=(True, set())          | py=(True, set())          | rs=(True, set())          | PASS
+d12_all_vertices_in_T0_rows_never_read         | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+d13_rows_none_shortcircuit                     | exp=(True, {0})            | py=(True, {0})            | rs=raises TypeError       | FAIL
+d14_rows_none_raises                           | exp=raises TypeError       | py=raises TypeError       | rs=raises TypeError       | PASS
+d15_rows_none_n0                               | exp=(True, set())          | py=(True, set())          | rs=raises TypeError       | FAIL
+d16_empty_rows_n1                              | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+d17_rows_generator_consumed_after_round1       | exp=(False, {0})           | py=(False, {0})           | rs=(True, {0, 1})         | FAIL
+d18_rows_tuple_of_tuples                       | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+e01_row_longer_than_2n_ignored                 | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+e02_short_row_ok_when_index_never_read         | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+e03_forced_coords_ignored                      | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+e04_empty_row_force_raises                     | exp=raises IndexError      | py=raises IndexError      | rs=raises IndexError      | PASS
+e05_all_zero_row                               | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+e06_zero_row_plus_good_row                     | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+e07_scaled_pair_found                          | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+e08_scaled_pair_notfound                       | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+e09_plain_success                              | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+e10_plain_failure                              | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+e11_restart_needed_vertex0_after_vertex1       | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+e12_chain_of_three                             | exp=(True, {0, 1, 2})      | py=(True, {0, 1, 2})      | rs=(True, {0, 1, 2})      | PASS
+e13_chain_partial                              | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+e14_two_found_first_round_closure_unique       | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+e15_warm_start_equals_cold                     | exp=True                   | py=True                   | rs=True                   | PASS
+e16_rows_with_bools                            | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+f01_ragged_second_row_shorter_no_raise         | exp=2                      | py=2                      | rs=2                      | PASS
+f02_ragged_second_row_longer_truncated_by_zip  | exp=1                      | py=1                      | rs=1                      | PASS
+f03_ragged_3_2_no_raise                        | exp=2                      | py=2                      | rs=2                      | PASS
+f04_ragged_raises_when_short_row_scanned       | exp=raises IndexError      | py=raises IndexError      | rs=raises IndexError      | PASS
+f05_first_row_empty_others_not                 | exp=0                      | py=0                      | rs=0                      | PASS
+f06_rows_none                                  | exp=0                      | py=0                      | rs=0                      | PASS
+f07_rows_empty_tuple                           | exp=0                      | py=0                      | rs=0                      | PASS
+f08_rows_iterator_nonempty                     | exp=1                      | py=1                      | rs=1                      | PASS
+f09_rows_empty_iterator_raises                 | exp=raises IndexError      | py=raises IndexError      | rs=0                      | FAIL
+f10_tuple_rows                                 | exp=2                      | py=2                      | rs=2                      | PASS
+f11_single_zero_row                            | exp=0                      | py=0                      | rs=0                      | PASS
+f12_zero_then_nonzero_swap                     | exp=1                      | py=1                      | rs=1                      | PASS
+f13_swap_after_elimination                     | exp=2                      | py=2                      | rs=2                      | PASS
+f14_identical_rows_many                        | exp=1                      | py=1                      | rs=1                      | PASS
+f15_bool_entries                               | exp=2                      | py=2                      | rs=2                      | PASS
+f16_more_columns_than_rows_break               | exp=2                      | py=2                      | rs=2                      | PASS
+f17_rank_no_mutation                           | exp=(2, [[2, 4], [-1, 3]]) | py=(2, [[2, 4], [-1, 3]]) | rs=(2, [[2, 4], [-1, 3]]) | PASS
+f18_force_no_row_mutation                      | exp=((True, {0}), [[2147483648, -1]]) | py=((True, {0}), [[2147483648, -1]]) | rs=((True, {0}), [[2147483648, -1]]) | PASS
+a31_mersenne61_force_found                     | exp=(True, {0})            | py=(True, {0})            | rs=raises ValueError      | FAIL
+a32_mersenne61_rank_dense                      | exp=2                      | py=2                      | rs=raises ValueError      | FAIL
+a33_default_p_dense_near_p                     | exp=3                      | py=3                      | rs=3                      | PASS
+a34_default_p_force_found_near_p               | exp=(True, {0, 1})         | py=(True, {0, 1})         | rs=(True, {0, 1})         | PASS
+a35_p_2pow32_plus_15_force                     | exp=(False, set())         | py=(False, set())         | rs=raises ValueError      | FAIL
+a36_p_2pow32_plus_15_force_found               | exp=(True, {0})            | py=(True, {0})            | rs=raises ValueError      | FAIL
+
+PASS=91 FAIL=18 SKIP=10 TOTAL=119
+FAIL DETAIL: ('a11_entry_2pow70_beyond_i64', 'rank([[1<<70]])', '1', '1', 'raises OverflowError')
+FAIL DETAIL: ('a12_entry_2pow70_minus_256_zero', 'rank([[(1<<70)-256]])', '0', '0', 'raises OverflowError')
+FAIL DETAIL: ('a13_p_above_2pow32_needs_u128', 'rank([[4294967310,4294967310],[4294967310,1]], p=4294967311)', '2', '2', 'raises ValueError')
+FAIL DETAIL: ('a14_mersenne61_p_needs_u128', 'force([[(1<<61)-2, 1, 5, 7],[3, (1<<61)-4, 11, 13]],2,[], p=(1<<61)-1)', '(False, set())', '(False, set())', 'raises ValueError')
+FAIL DETAIL: ('a15_mersenne61_rank', 'rank([[(1<<63)-1, 1<<63],[3,5]], p=(1<<61)-1)', '2', '2', 'raises OverflowError')
+FAIL DETAIL: ('a26_negative_p', 'rank([[3]],p=-5)', '1', '1', 'raises ValueError')
+FAIL DETAIL: ('a27_negative_p_force', 'force([[1,-1]],1,[],p=-7)', '(True, {0})', '(True, {0})', 'raises ValueError')
+FAIL DETAIL: ('a29_float_zero_entries_no_raise', 'rank([[0.0,0.0]])', '0', '0', 'raises TypeError')
+FAIL DETAIL: ('c02_cache_poison_force', 'force([[2,0],[0,2]],1,[])', '(False, set())', '(True, {0})', '(True, {0})')
+FAIL DETAIL: ('d08_T0_bool_element', 'force([],1,[True])', '(True, {True})', '(True, {True})', '(True, {1})')
+FAIL DETAIL: ('d13_rows_none_shortcircuit', 'force(None,1,[0])', '(True, {0})', '(True, {0})', 'raises TypeError')
+FAIL DETAIL: ('d15_rows_none_n0', 'force(None,0,[])', '(True, set())', '(True, set())', 'raises TypeError')
+FAIL DETAIL: ('d17_rows_generator_consumed_after_round1', 'force((r for r in [[1,-1,0,0],[0,0,1,-1]]),2,[])', '(False, {0})', '(False, {0})', '(True, {0, 1})')
+FAIL DETAIL: ('f09_rows_empty_iterator_raises', 'rank(iter([]))', 'raises IndexError', 'raises IndexError', '0')
+FAIL DETAIL: ('a31_mersenne61_force_found', 'force([[2*((1<<61)-1)-3, 3]],1,[],p=(1<<61)-1)', '(True, {0})', '(True, {0})', 'raises ValueError')
+FAIL DETAIL: ('a32_mersenne61_rank_dense', 'rank([[(1<<61)-2,(1<<61)-3],[(1<<61)-3,(1<<61)-2]], p=(1<<61)-1)', '2', '2', 'raises ValueError')
+FAIL DETAIL: ('a35_p_2pow32_plus_15_force', 'force([[4294967310,1,2,3],[7,11,4294967309,2]],2,[],p=4294967311)', '(False, set())', '(False, set())', 'raises ValueError')
+FAIL DETAIL: ('a36_p_2pow32_plus_15_force_found', 'force([[4294967310,1]],1,[],p=4294967311)', '(True, {0})', '(True, {0})', 'raises ValueError')

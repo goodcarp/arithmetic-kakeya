@@ -1,0 +1,6 @@
+POOL4: best score over all interfaces = 7/4 (1.75)
+   witness: interface labels=((0, 0), (0, 0), (0, 0), (0, 0)) m=8 r=6 t=0 T0=[]
+   strictly-better-than-7/4 hits: 0   [23.8s]
+POOL6: best score over all interfaces = 7/4 (1.75)
+   witness: interface labels=((0, 0), (0, 0), (0, 0), (0, 0)) m=8 r=6 t=0 T0=[]
+   strictly-better-than-7/4 hits: 0   [293.5s]

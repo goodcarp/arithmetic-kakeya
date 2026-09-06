@@ -1,0 +1,9 @@
+pass1 rows: 341
+pass1 done 84227 cases 1.3s bad=0
+pass2 rows: 40
+pass2 done 108227 cases 2.0s bad=0
+pass3 done 108767 cases 2.0s bad=0
+pass4 done 112687 cases 2.1s bad=0
+============================================================
+total cases 112687  mismatches 0
+EXIT=0

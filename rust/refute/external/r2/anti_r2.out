@@ -1,0 +1,54 @@
+  » order                          
+  ⇢ route           antigravity-cli — kind=code; ranked 1 ready; chose antigravity-cli (cost_class 1)
+  → invoke          antigravity-cli 
+  ▣ deposit         antigravity-cli (2838 chars, 143.233s, sha d10fc0b4a1)
+
+────────────────────────────────────────────────────────────────────────
+Ranked Candidate Input Tuples for Differential Testing:
+
+1. rank(rows=[[], [1]], p=0)
+Why: Tests if rank validates p=0 via validate_p before inspecting ragged rows, or if the width w=len(B[0])=0 loop exit suppresses the ZeroDivisionError in row 1.
+
+2. force(rows=[], n=1, T0=[], p=0)
+Why: Tests whether validate_p(p=0) is skipped when rows is empty (returning False without ZeroDivisionError) vs erroneously raising ZeroDivision.
+
+3. force(rows=[[0, 0]], n=2, T0=[0], p=0)
+Why: With U=[1], row 0 has length 2 but column index 2*U[0]=2 is out of bounds, testing if IndexError precedes ZeroDivisionError.
+
+4. force(rows=[[0, 0, 0]], n=2, T0=[0], p=0)
+Why: With U=[1], row 0 has length 3 reaching column 2*U[0]=2, testing if ZeroDivisionError on r[2]%0 precedes the IndexError on r[3].
+
+5. rank(rows=[[0, 1], [1, 0, 0], [1, 1, 0]], p=5)
+Why: A shorter pivot row pr truncates subsequent row 2 via zip() during round 0, testing if row 2 raises IndexError at column 2 in round 2.
+
+6. rank(rows=[[1, 2, 3], [1, 2], [1]], p=5)
+Why: Tests if zip() truncation of trailing rows to shorter pivot lengths causes IndexError at subsequent column reads across multiple elimination rounds.
+
+7. force(rows=[[1]], n=0, T0=[], p=5)
+Why: Tests if n<=0 immediately terminates and returns (True, set()) before touching rows or validating row widths.
+
+8. force(rows=[[1]], n=-1, T0=[-1], p=5)
+Why: Tests if negative n with out-of-range T0 immediately satisfies the termination condition len(T)>=n without executing the U scan.
+
+9. force(rows=[], n=2, T0=[-5, 10], p=5)
+Why: Tests if out-of-range elements in T0 count toward set length len(T)>=n to return True immediately vs continuing to force unforced coordinates.
+
+10. force(rows=[[1, 4, 0, 0]], n=2, T0=[-1], p=5)
+Why: Tests whether forcing an in-range element when T0 has out-of-range elements terminates early upon reaching total count n vs forcing all 0..n-1 coordinates.
+
+11. force(rows=[], n=2, T0=[1, 1, 1], p=5)
+Why: Tests if duplicate values in T0 are properly deduplicated so count=1 < n and the forcing loop is entered rather than early-exiting.
+
+12. rank(rows=[[1, 2], [3, 4]], p=1)
+Why: When p=1, every entry reduces to 0 modulo 1, testing whether no pivot is selected and rank returns 0 without calling fermat_inv.
+
+13. force(rows=[[1, 2]], n=1, T0=[], p=1)
+Why: When p=1, all row entries reduce to 0 and are dropped, testing if target vector [1, 0] is non-zero so force returns False without calling fermat_inv.
+
+14. force(rows=[[0, 0, 1, 2]], n=2, T0=[1], p=5)
+Why: With unforced set U=[0], tests if rows that are non-zero only on forced coordinate 1 are correctly dropped (nz=False) so B becomes empty.
+
+15. rank(rows=[[2, 1], [0, 2]], p=4)
+Why: With composite modulus p=4, tests if pow(2, 2, 4)=0 produces identical non-invertible zeroed pivot rows during elimination without runtime panics.
+────────────────────────────────────────────────────────────────────────
+  1 deposit(s) · 0 molt(s) · 144.1s · verify: ✘ · head 8c27af441819

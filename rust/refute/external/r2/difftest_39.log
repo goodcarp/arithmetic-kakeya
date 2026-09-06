@@ -1,0 +1,10 @@
+edge cases:                57 checks, 0 mismatches so far
+random sweep:           44349 checks (20000 instances)
+ragged/short rows:       4000 checks
+real build_rows:         6000 checks
+------------------------------------------------------------
+total checks:           54406
+mismatches:                 0
+expected divergences:       1 (i64 boundary, S1 sec 5.4)
+elapsed:               87.5s
+EXIT39=0
