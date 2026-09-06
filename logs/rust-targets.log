@@ -7,3 +7,15 @@ POOL4: best score over all interfaces = 7/4 (1.75)
 POOL6: best score over all interfaces = 7/4 (1.75)
    strictly-better-than-7/4 hits: 0   [293.5s]
 === g2_tall_2x5  2026-09-05T21:33:58Z  cmd: g2-tall --rows 5 --max-t 1 --tlimit 7200
+=== g2_tall_2x5 exit=0 2026-09-05T23:53:47Z
+  [2x5] TIME LIMIT
+RESULT {"tag": "g2_tall_2x5", "d": [2, 5], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": false, "seconds": 7207.0}
+=== cycles8_pool6  2026-09-05T23:53:47Z  cmd: cycles8 --pool 6 --target 67/40 --deg 2 --tlimit 21600
+=== cycles8_pool6 exit=0 2026-09-06T05:53:57Z
+TIME LIMIT
+RESULT {"tag": "cycles8", "pool": 6, "best": null, "hits": 0, "tested": 98973}
+=== g2_tall_2x6  2026-09-06T05:53:57Z  cmd: g2-tall --rows 6 --max-t 1 --tlimit 14400
+=== g2_tall_2x6 exit=0 2026-09-06T09:56:36Z
+  [2x6] TIME LIMIT
+RESULT {"tag": "g2_tall_2x6", "d": [2, 6], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": false, "seconds": 14558.3}
+=== ALL DONE 2026-09-06T09:56:36Z

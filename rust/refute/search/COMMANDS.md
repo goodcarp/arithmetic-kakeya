@@ -61,3 +61,33 @@ score, tie-break and count is compared verbatim.
   py/rs_maxt_eq_n.txt -- max_t = n: Python ZeroDivisionError (exit 1) vs Rust panic (exit 101)
   py/rs_stacked_lowtarget.txt -- no witness: Python TypeError (exit 1) vs Rust message (exit 1)
   shift/shift.rs      -- demonstrates that the u64 vertex bitmask aliases vertex 64 onto vertex 0
+
+## 8. Driver-level comparisons beyond scan/rzero
+
+    oracle_drivers.py cycles8 3        vs  kakeya-search cycles8 --pool 3 --target 67/40 --deg 2
+      -> BYTE-IDENTICAL, including "tested": 29004.
+         (Python side ran with the PyO3 kernel, so this tests driver logic, not the kernel.)
+    rzero_one.py 2x4 4 - 0            vs  kakeya-search rzero --d 2x4 --pool 4 --seed 0
+      -> identical except seconds, at --threads 1 and 12.  New exhaustive config (78125 labels).
+
+## 9. Verified build/gate claims
+
+    cargo test --release --workspace   -> 62 (kakeya-core) + 13 (kakeya-search) = 75 passed, 0 failed
+    cargo test --workspace (debug)     -> same 75, 0 failed
+    cargo clippy --release --all-targets --workspace -- -D warnings -> exit 0
+    kakeya-search check --threads 1 and --threads 12 -> both exit 0, identical modulo the [Ns]
+      bracket, 14 PASS / 2 SKIP / 0 FAIL   (task B2's report says 15 PASS; the count is 14)
+    check.rs's N4_P6_T1_HITOBJ_DIGEST 0xe8f56b16fc6c9314 recomputed from the PURE-PYTHON
+      stdout of scan1.py: matches (so the gate is not self-fulfilling).
+    check.rs's three MT19937 golden label tuples recomputed from CPython random.Random: match.
+
+## 10. Findings
+
+  finding_tlimit_abort.txt          -- --tlimit run aborts (exit 134, "memory allocation of
+                                       81064793292668928 bytes failed") where Python returns
+                                       a correct RESULT in 2.0 s
+  finding_tlimit_not_a_bound.txt    -- --tlimit 5 -> Python 5 s wall, Rust 120 s wall
+  finding_tlimit_abort_boundary.txt -- where the boundary sits
+  finding_rowpool_leak.txt          -- RSS 69 -> 447 MB in 35 s vs 0.7 MB for Python
+  py/rs_g2tall_tl1.txt              -- g2_tall "complete" true (Python) vs false (Rust)
+  shift/shift.rs                    -- u64 vertex-mask aliasing for n >= 65
