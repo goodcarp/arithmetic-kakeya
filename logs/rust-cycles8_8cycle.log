@@ -1,0 +1,7 @@
+5 presence patterns are 2-regular with m = 8
+pattern table (product order; --patterns selects by index):
+  0  (0, 1, 1, 1, 1, 1, 1)  cycles=[4, 4]  labels=46656
+  1  (1, 0, 0, 1, 1, 1, 1)  cycles=[4, 4]  labels=7776
+  2  (1, 0, 1, 1, 1, 0, 0)  cycles=[8]  labels=1296  SELECTED
+  3  (1, 1, 0, 0, 0, 1, 1)  cycles=[8]  labels=1296  SELECTED
+  4  (1, 1, 1, 0, 0, 0, 0)  cycles=[4, 4]  labels=216

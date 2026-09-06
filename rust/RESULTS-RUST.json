@@ -1,0 +1,128 @@
+{
+ "generated": "2026-09-06",
+ "binary": "rust/target/release/kakeya-search",
+ "threads": 8,
+ "runs": [
+  {
+   "tag": "stacked_pool4",
+   "log": "logs/rust-stacked_pool4.log",
+   "result": {
+    "best": "7/4",
+    "hits": 0,
+    "seconds": 23.8,
+    "complete": true
+   },
+   "python_seconds": 8268.5,
+   "python_best": "7/4",
+   "python_hits": 0,
+   "python_complete": true,
+   "fable_prediction": {
+    "best": "7/4",
+    "hits": 0,
+    "credence": 0.97
+   },
+   "matches_prediction": true
+  },
+  {
+   "tag": "stacked_pool6",
+   "log": "logs/rust-stacked_pool6.log",
+   "result": {
+    "best": "7/4",
+    "hits": 0,
+    "seconds": 293.5,
+    "complete": true
+   },
+   "python_seconds": 16959.8,
+   "python_best": "7/4",
+   "python_hits": 0,
+   "python_complete": true,
+   "fable_prediction": {
+    "best": "7/4",
+    "hits": 0,
+    "credence": 0.97
+   },
+   "matches_prediction": true
+  },
+  {
+   "tag": "g2_tall_2x5",
+   "log": "logs/rust-g2_tall_2x5.log",
+   "result": {
+    "tag": "g2_tall_2x5",
+    "d": [
+     2,
+     5
+    ],
+    "pool": 3,
+    "max_t": 1,
+    "target": "<11/6",
+    "best": null,
+    "hits": 0,
+    "complete": false,
+    "seconds": 7207.0
+   },
+   "python_seconds": 818.5,
+   "python_best": null,
+   "python_hits": 0,
+   "python_complete": false,
+   "fable_prediction": {
+    "best": null,
+    "hits": 0,
+    "credence": 0.93
+   },
+   "matches_prediction": true
+  },
+  {
+   "tag": "cycles8_pool6",
+   "log": "logs/rust-cycles8_pool6.log",
+   "result": {
+    "tag": "cycles8",
+    "pool": 6,
+    "best": null,
+    "hits": 0,
+    "tested": 98973
+   },
+   "python_seconds": 2400,
+   "python_tested": 526,
+   "python_hits": 0,
+   "python_complete": false,
+   "fable_prediction": {
+    "best": null,
+    "hits": 0,
+    "credence": 0.96
+   },
+   "matches_prediction": true
+  },
+  {
+   "tag": "g2_tall_2x6",
+   "log": "logs/rust-g2_tall_2x6.log",
+   "result": {
+    "tag": "g2_tall_2x6",
+    "d": [
+     2,
+     6
+    ],
+    "pool": 3,
+    "max_t": 1,
+    "target": "<11/6",
+    "best": null,
+    "hits": 0,
+    "complete": false,
+    "seconds": 14558.3
+   },
+   "python_seconds": 866.7,
+   "python_best": null,
+   "python_hits": 0,
+   "python_complete": false,
+   "fable_prediction": {
+    "best": null,
+    "hits": 0,
+    "credence": 0.9
+   },
+   "matches_prediction": true
+  }
+ ],
+ "notes": [
+  "cycles8: 98,973 pairs tested in 21,600 s (4.58 pairs/s) lie entirely inside presence pattern 1 (1,557,900 pairs), which Fable's mediant argument (PREDICTIONS.md 2.2) settles analytically; the two 8-cycle patterns (40,830 + 40,830 pairs) were never reached and are the only unsettled region.",
+  "g2_tall 2x5/2x6: no hits within 7207 s / 14558 s; both remain incomplete; consistent with, not proof of, the pre-registered prediction."
+ ]
+}
