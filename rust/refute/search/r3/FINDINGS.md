@@ -236,3 +236,86 @@ Still-stale text in the same file, not corrected by that section:
   14 PASS / 2 SKIP / 0 FAIL.
 - the older "Known limits" bullet still says the `g2_tall` `complete`
   divergence only bites for `--tlimit > 700` (Finding B).
+
+---
+
+# Corrections — added 2026-09-06 ~16:00 EDT by the session that read this report
+
+Appended, not edited: everything above is r3's text as it stood at 15:32.
+Each item below was re-measured from the CLI before being written.
+
+## C1. Finding B is RETRACTED — it is a harness artefact
+r3's own `g2tall_tl.py` makes `tlimit` settable while copying the literal
+`"complete": (el < 700)` verbatim out of the shipped driver.  Lowering the
+limit without lowering the constant manufactures the divergence it reports.
+The shipped `g2_tall.py` `__main__` hardcodes 700 in BOTH places
+(`run(rows_, max_t=1, tlimit=700)` and `(el < 700)`), so for every run that
+driver can actually perform, `el < 700` is a correct completeness test and
+PROGRESS.md's original wording — they disagree only for `--tlimit > 700`
+finishing between 700 s and the limit — stands.
+This is the same class of error as r3's own Finding E, retracted three
+sections earlier for the same reason (a shim that pinned `seed=11` while the
+Rust sampled at 123).  Parameterise a value, parameterise every constant that
+refers to it.  Recorded in PROGRESS.md next to the g2_tall bullet.
+
+## C2. The section 7 claim about the shipped binary is STALE
+r3 wrote: "the shipped binary (`target/release/kakeya-search`, 09:22)
+predates it and does not contain that string."  True at 15:32; the rebuild
+landed at 15:33, one minute later.  The current binary
+(sha256 `add554183aaa3d7cf1f2d468ba11e39926aea035853809811af4e6c40010fcf9`)
+does contain `exceeds u64; refusing to run (audit C6)` and does fire it.
+Not r3's fault — the tree moved under it, exactly as its section 7 warns.
+
+## C3. Finding F is CONFIRMED and still live, in a narrower form
+Re-run against the 15:33 binary,
+`scan --tag OVn --d 2x2x2x2x2 --max-t 0 --target 7/4 --tlimit 2 --threads 1`:
+
+    --pool 4  (5^31 > u64)   panicked "label index space 5^31 exceeds u64;
+                             refusing to run (audit C6)"           exit 101
+    --pool 3  (4^31 = 4611686018427387904, fits u64)
+                             memory allocation of 81064793292668928
+                             bytes failed                          exit 134
+
+So the `checked_pow` fix moved the boundary but did not close the finding:
+configs whose `total` overflows u64 now refuse loudly, while configs whose
+`total` fits u64 and whose chunk count is still astronomic abort as before.
+The smallest live repro is `--pool 3`, not `--pool 8` or `--pool 4`.
+PROGRESS.md's OPEN bullet has been re-scoped accordingly.
+
+## C4. Section 6's heading overclaims — the pure-Python oracle never returned
+"cycles8 POOL3 re-verified against a PURE-PYTHON oracle" is not supported by
+the files it cites.  `out/C8.py.txt` is 45 bytes — the header line only, no
+RESULT, no `EXIT=`.  The body of that section only ever compares Rust
+`--threads 1` against Rust `--threads 12`.  Read strictly it never asserts a
+Python result, but the heading does, and a reader taking the section at its
+title would bank a comparison that was not run.
+
+The underlying observation that opens the section is nonetheless the most
+useful thing in this report: the coverage map's cycles8 POOL3 row was indeed
+produced with the PyO3 kernel on the Python side
+(`../py_cycles8_p3_rskernel.txt` is the completed oracle; `../py_cycles8_p3.txt`
+is the pure-Python attempt, also 45 bytes, also killed).  That row therefore
+checks the DRIVER port with the kernel held fixed, and the map did not say so.
+Now disclosed in PROGRESS.md.
+
+Cost to actually close it, measured rather than guessed: pure-Python cycles8
+POOL3 runs at 5.22 pairs/s on this (contended) machine — 779 pairs in 149 s,
+`../r4/rate_c8.py` — so 29,004 pairs is about 93 minutes of CPU.  The ~36 h
+figure a POOL6 extrapolation gives (0.22 pairs/s) is wrong; POOL6 pairs are
+far more expensive than POOL3 pairs.
+
+**In flight:** r3's own `py_drv.sh C8 cycles8 3` (pid 13369) was orphaned by
+the session switch and is STILL RUNNING pure-Python, unattended.  At 16:00 EDT
+it had 25 min of the ~93 min of CPU it needs, taking only ~21% of a core
+against the 8-cycle job.  Its RESULT will land in `out/C8.py.txt` when it
+finishes — expect it 2–5 h after 16:00.  It was left alive deliberately.
+Whoever picks this up: `cat out/C8.py.txt`; a complete run prints
+`RESULT {"tag": "cycles8", "pool": 3, "best": null, "hits": 0, "tested": 29004}`
+followed by `EXIT=0`, which would close C4 outright.
+
+## C5. Finding D is CONFIRMED by independent re-measurement
+    cargo test --release -p kakeya-search   -> 16 passed; 0 failed
+    kakeya-search check --threads 1         -> 14 PASS, 2 SKIP, 0 FAIL, exit 0
+PROGRESS.md lines 7, 8 and 36 (`12/12`, `11 PASS`) were stale and are fixed.
+Findings A and C stand as written; both were already documented as known
+limits rather than defects.

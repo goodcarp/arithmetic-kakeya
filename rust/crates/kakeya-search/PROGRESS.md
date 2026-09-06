@@ -4,8 +4,8 @@ State at session resume (task B2, third attempt; first two were interrupted).
 
 ## Inherited and verified working
 - `cargo build --release -p kakeya-search`: clean.
-- `cargo test --release -p kakeya-search`: 12/12 pass.
-- `./target/release/kakeya-search check --threads 12`: 11 PASS, 2 SKIP, 0 FAIL.
+- `cargo test --release -p kakeya-search`: 16/16 pass (measured 2026-09-06; the "12/12" this line carried until then was a stale count from an earlier revision of the suite).
+- `./target/release/kakeya-search check --threads 12`: 14 PASS, 2 SKIP, 0 FAIL over 16 fixtures (measured 2026-09-06 at `--threads 1` and `--threads 12`; the earlier "11 PASS" was stale).
 
 ## Files
 - `src/frac.rs`     exact Fraction semantics (i64 num/den, i128 compare, mul_int_floor = int(target*k))
@@ -33,7 +33,7 @@ State at session resume (task B2, third attempt; first two were interrupted).
   rust-version bumped 1.70 -> 1.73; needless_range_loop on the pivot search ->
   #[allow] with a comment, the indexing is deliberate) and 38 test lints ->
   `cargo clippy --fix`.  `cargo clippy --release --all-targets --workspace --
-  -D warnings` is now CLEAN.  kakeya-core still 62/62, kakeya-search 12/12.
+  -D warnings` is now CLEAN.  kakeya-core still 62/62, kakeya-search 16/16 (12/12 as of that clippy pass; the suite has since grown).
 - check --threads 1 vs --threads 12: identical modulo the per-fixture [Ns].
 - scan n4_p6_t1: Rust --threads 1 vs --threads 12 byte-identical except
   "seconds"; Rust vs KAKEYA_PURE_PY=1 Python scan1.py: 241/241 lines identical
@@ -65,6 +65,27 @@ State at session resume (task B2, third attempt; first two were interrupted).
   then `RESULT {"tag": "cycles8", "pool": 3, "best": null, "hits": 0,
   "tested": 29004}`.  The `tested` counter agreeing to the unit is the
   strongest single-number check on the whole pruning chain.
+  **Kernel disclosure, added 2026-09-06.**  Unlike every other row of the
+  coverage map, the Python side of THIS comparison did not run pure Python.
+  The completed oracle is `refute/search/py_cycles8_p3_rskernel.txt` -- the
+  filename says so -- i.e. `cycles8.main` driven by the PyO3 (Rust) kernel.
+  The pure-Python attempt of the same run, `refute/search/py_cycles8_p3.txt`,
+  is 45 bytes: the header line only, killed before it printed a RESULT.  So
+  what this row establishes is that the Rust cycles8 DRIVER reproduces the
+  Python cycles8 driver with the kernel held fixed; it is not an independent
+  check of the kernel.  That is not a hole -- the kernel is covered separately
+  and directly by `difftest.py` (54,406 pure-Python-vs-Rust comparisons) and
+  by the 135 trap cases -- but "byte-identical to the Python driver" reads
+  stronger than what was run, and the map did not say which kernel was under
+  it.  Two refuters brushed against this (the `_rskernel` filename, and r3's
+  own opening sentence in its section 6) and neither closed it; r3 then
+  titled that section "re-verified against a PURE-PYTHON oracle" while its
+  own `out/C8.py.txt` was again 45 bytes and its Python side never returned.
+  A pure-Python POOL3 oracle IS feasible and is worth finishing: measured
+  2026-09-06 at 5.22 pairs/s on a contended machine (779 pairs in 149 s,
+  `refute/search/r4/rate_c8.py`), so 29,004 pairs needs about 93 minutes of
+  CPU -- not the ~36 h that a naive extrapolation from the POOL6 rate
+  (0.22 pairs/s) suggests, because POOL6 pairs are far more expensive.
 - New `check` gates: an FNV-1a-64 digest over the whole 120-line n4_p6_t1
   HITOBJ stream (not just first/last), and the two g2_tall 2x3 runs.
 - The five driver progress lines that NO recorded run exercises (every logged
@@ -84,6 +105,17 @@ State at session resume (task B2, third attempt; first two were interrupted).
 - `g2_tall` RESULT emits `complete: !time_limit_tripped`; the Python emits the
   hardcoded `(el < 700)`.  They agree except for a run given `--tlimit > 700`
   that finishes between 700 s and the limit.
+  Scope, added 2026-09-06: the shipped `g2_tall.py` `__main__` calls
+  `run(rows_, max_t=1, tlimit=700)` with the 700 hardcoded in BOTH places, so
+  for every run that driver can actually perform, `el < 700` is a correct
+  completeness test and the only disagreement is the `--tlimit > 700` case
+  above.  A refuter (r3) reported the opposite -- "they disagree for every
+  tripped run whose elapsed is under 700 s" -- but that came from its own
+  `g2tall_tl.py` shim, which makes `tlimit` settable while copying the literal
+  `(el < 700)` verbatim.  Lowering the limit without lowering the constant
+  manufactures the divergence.  Same harness-artefact class as that refuter's
+  own retracted seed-11 finding: when you parameterise a value, parameterise
+  every constant that refers to it.
 
 ## Coverage map (what each comparison actually proves)
 | comparison | Python oracle | verdict |
@@ -96,7 +128,7 @@ State at session resume (task B2, third attempt; first two were interrupted).
 | g2-tall 2x3 t0/t1 | `g2_tall.run` | identical |
 | g2-tall 2x4 (the Tier-3 target) | `g2_tall.run` | identical exc. seconds and `complete` (Python's hardcoded `el < 700`) |
 | stacked POOL4 max_t=1 | `stacked.run` | identical exc. elapsed; witness + tie-break reproduced |
-| cycles8 POOL3 | `cycles8.main` | BYTE-identical, incl. `tested: 29004` |
+| cycles8 POOL3 | `cycles8.main` **on the PyO3 kernel, not pure Python** (see the kernel disclosure above) | driver-level BYTE-identical, incl. `tested: 29004`; kernel held fixed, so this row does not independently check the kernel |
 | progress-line formats | CPython f-strings | pinned by a unit test |
 
 ## Bench (idle machine, 12 logical / 6 physical cores)
@@ -151,6 +183,6 @@ byte-identical up to and including `seconds`.
 
 ## Known limits — additions from the closing audit (C6, 2026-09-06)
 - FIXED and REBUILT 2026-09-06 (binary sha256 add55418…, `check` 14/0; `--d 65` now refuses with "exceeds u64"): `LabelSource::total` used an unchecked `pow`; on a box with >= 65 vertices it wrapped and a RESULT line could say `complete: true` for an index space never scanned. Now `checked_pow` with a loud panic.
-- OPEN: `--tlimit` on a very large index space aborts with a memory allocation failure instead of returning a RESULT (chunk list proportional to the index space; refuter config `--d 2x2x2x2x2 --pool 8`). Needs streaming chunk enumeration.
+- OPEN (still live against the rebuilt binary; re-measured 2026-09-06 after the `checked_pow` fix): `--tlimit` on a very large index space aborts with a memory allocation failure instead of returning a RESULT (chunk list proportional to the index space, `engine.rs:213-220` collects all `total/4096` chunks eagerly).  The C6 fix changed the boundary but did not close this: a config whose `total` exceeds u64 now refuses loudly, while a config whose `total` fits u64 and whose chunk count is still astronomic aborts as before.  Measured on `--d 2x2x2x2x2 --max-t 0 --target 7/4 --tlimit 2 --threads 1`: `--pool 4` (5^31 > u64) panics "exceeds u64; refusing to run (audit C6)", exit 101; `--pool 3` (4^31 = 4611686018427387904, fits u64) still fails to allocate 81064793292668928 bytes, exit 134.  The smallest live repro is therefore `--pool 3`, not `--pool 8`.  Python returns normally on both (its `total` is a bigint and enumeration is lazy).  Needs streaming chunk enumeration.
 - OPEN: `--tlimit` is not a bound on wall time below the threshold — chunk enumeration cost is proportional to the whole index space (5 s limit -> 120 s wall on `2x2x2x2 POOL4`).
 - Recorded: progress lines are buffered under `--tlimit`; `g2-tall` prints an honest `complete` where Python hardcodes `el < 700`; a run killed by SIGTERM (e.g. a stray `pkill -f kakeya-search`) leaves no RESULT line — run long jobs under a distinct binary name.
