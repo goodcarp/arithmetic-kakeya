@@ -219,3 +219,20 @@ Files: `out/C8pat_8cycle.txt`, `out/C8pat_44.txt`.
   `"scanned": 2781`, `"total": 30517578125`, exit 0.
   rust `--threads 12` -> still running at 456 s (7 min 36 s) wall; killed.
   `out/TLB.py.txt`, `out/TLB.rs12.note`.
+
+## 7. Concurrency note — the tree moved under this run
+
+Another session was editing this tree while r3 ran (machine load average peaked
+at 390).  `crates/kakeya-search/src/common.rs` changed at 15:10 and
+`PROGRESS.md` grew a new section, "Known limits — additions from the closing
+audit (C6, 2026-09-06)", which now lists Finding F (allocation abort under
+`--tlimit` on a large index space) and Finding G (`--tlimit` is not a wall-clock
+bound) as OPEN.  Both were reached here independently, from the CLI, at ~15:22
+against the 09:22 binary; they are not novel as of the file's current state.
+
+Still-stale text in the same file, not corrected by that section:
+- header: "`cargo test --release -p kakeya-search`: 12/12 pass" and
+  "`check --threads 12`: 11 PASS, 2 SKIP" — measured today: 16 tests, and
+  14 PASS / 2 SKIP / 0 FAIL.
+- the older "Known limits" bullet still says the `g2_tall` `complete`
+  divergence only bites for `--tlimit > 700` (Finding B).

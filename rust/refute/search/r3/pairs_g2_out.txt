@@ -1,3 +1,4 @@
 g2_tall 2x2 max_t=1: walked=16 pairs=59
 g2_tall 2x3 max_t=1: walked=256 pairs=1587
 g2_tall 2x3 max_t=2: walked=256 pairs=3426
+g2_tall 2x4 max_t=1: walked=4096 pairs=31718
