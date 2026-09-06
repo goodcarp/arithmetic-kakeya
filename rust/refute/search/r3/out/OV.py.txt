@@ -1,0 +1,2 @@
+RESULT {"tag": "OV", "d": [2, 2, 2, 2, 2], "pool": 4, "max_t": 0, "target": "7/4", "scanned": 2904, "total": 4656612873077392578125, "best": null, "hits": 0, "complete": false, "seconds": 2.0}
+EXIT=0

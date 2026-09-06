@@ -1,0 +1,27 @@
+Python reference vs Rust port of one function. Find inputs where they differ.
+
+PYTHON:
+def rank(rows, p):
+    if not rows: return 0
+    B = [[x % p for x in r] for r in rows]
+    w = len(B[0]); rk = 0; nB = len(B)
+    for c in range(w):
+        if rk >= nB: break
+        sel = -1
+        for i in range(rk, nB):
+            if B[i][c]: sel = i; break
+        if sel < 0: continue
+        B[rk], B[sel] = B[sel], B[rk]
+        iv = pow(B[rk][c], p-2, p)
+        B[rk] = [(x*iv) % p for x in B[rk]]
+        pr = B[rk]
+        for i in range(rk+1, nB):
+            if B[i][c]:
+                fac = B[i][c]
+                B[i] = [(a - fac*b) % p for a,b in zip(B[i], pr)]
+        rk += 1
+    return rk
+
+RUST (sketch): empty rows -> 0; all-rows-empty -> 0; validate p (0 -> ZeroDivisionError, <0 or >=2^32 -> ValueError); reduce each entry with rem_euclid; w = b[0].len(); same loop, but: in the pivot search it returns IndexError if c >= b[i].len(); after choosing pivot it swaps, normalises, then for each row BELOW rk it returns IndexError if c >= row.len(), skips if fac==0, truncates the row to the pivot row's length, and subtracts.
+
+Give at most 6 CONCRETE inputs (literal small integer lists, e.g. rank([[1,2],[3]], 7)) where the two could differ in return value or exception type. One line why each. Rank by likelihood. Ignore the p<0, p>=2^32 and bignum-entry cases.

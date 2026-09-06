@@ -1,0 +1,1 @@
+RESULT {"tag": "TLB", "d": [2, 2, 2, 2], "pool": 4, "max_t": 0, "target": "7/4", "scanned": 2781, "total": 30517578125, "best": null, "hits": 0, "complete": false, "seconds": 2.0}

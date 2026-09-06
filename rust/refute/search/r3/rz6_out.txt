@@ -1,0 +1,25 @@
+### RZ6   lines: py=       1 rs1=       1 rs12=       1
+-- exit codes: py=EXIT=0 rs1=EXIT=0 rs12=EXIT=0
+-- rs1 vs rs12 (RAW BYTES, no normalisation):
+1c1
+< RESULT {"tag": "rzero", "d": [2, 2, 2, 2], "pool": 4, "scanned": 60000, "total": 60000, "forcing_objects": 0, "best_score": null, "complete": false, "seconds": 6.5}
+---
+> RESULT {"tag": "rzero", "d": [2, 2, 2, 2], "pool": 4, "scanned": 60000, "total": 60000, "forcing_objects": 0, "best_score": null, "complete": false, "seconds": 0.9}
+   (normalised:)
+   IDENTICAL after masking seconds
+-- py vs rs1 (seconds masked):
+   IDENTICAL (       1 lines)
+-- py vs rs12 (seconds masked):
+   IDENTICAL
+-- RESULT json, field by field (py vs rs12):
+  [0] best_score OK   None / None
+  [0] complete   OK   False / False
+  [0] d          OK   [2, 2, 2, 2] / [2, 2, 2, 2]
+  [0] forcing_objects OK   0 / 0
+  [0] pool       OK   4 / 4
+  [0] scanned    OK   60000 / 60000
+  [0] seconds    IGNORED  284.4 / 0.9
+  [0] tag        OK   'rzero' / 'rzero'
+  [0] total      OK   60000 / 60000
+JSON FIELD DIFFS: 0
+

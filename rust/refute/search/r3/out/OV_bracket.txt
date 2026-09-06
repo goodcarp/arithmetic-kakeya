@@ -1,0 +1,5 @@
+d=2x2x2x2 pool=4 python_total=30517578125 rust=[] 
+d=2x2x2x2 pool=6 python_total=4747561509943 rust=[] 
+d=2x2x2x2 pool=8 python_total=205891132094649 rust=[] 
+d=2x2x2x2x2 pool=3 python_total=4611686018427387904 rust=[memory allocation of 81064793292668928 bytes failed] EXIT=134
+d=2x2x2x2x2 pool=4 python_total=4656612873077392578125 rust=[memory allocation of 141211520553262032 bytes failed] EXIT=134
