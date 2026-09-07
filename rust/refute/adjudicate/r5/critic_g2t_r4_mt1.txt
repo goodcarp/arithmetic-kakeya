@@ -1,0 +1,19 @@
+RESULT {"tag": "g2_tall_2x4", "d": [2, 4], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": true, "seconds": 395.7, "walked": 4096, "total": 4096, "pairs": 31718}
+      395.77 real       728.11 user        14.63 sys
+             1503232  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                 577  page reclaims
+                  70  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+             1317192  involuntary context switches
+        800475377869  instructions retired
+       1528042329219  cycles elapsed
+             1040384  peak memory footprint

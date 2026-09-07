@@ -34,7 +34,7 @@ score, tie-break and count is compared verbatim.
     scan1.py newC 3   3 1 2   -   (k = 1 box)
   files: py_new{A,B,C}.txt rs_new{A,B,C}_t{1,12}.txt -- all IDENTICAL.
 
-## 4. Differential sweep over 37 scan configurations
+## 4. Differential sweep over the scan configurations (37 listed, 29 with artifacts, 28 with a non-empty Python side; was headed "37 scan configurations" until 2026-09-06)
 
 > Correction 2026-09-06 (record lens R5): 37 is the number of configurations LISTED in `configs.txt` + `configs2.txt`, not run. On disk `sweep/` holds 29 configurations with artifacts, 28 with a non-empty Python output; `c12` (`--d 6`) is 0 bytes and `s17b`/`s18`/`s19` (`--d 2x2x2`) were never run. A fresh recount at `--threads 2` against the stored norms gives 25 PASS / 1 FAIL (s09 = the pre-existing Python `ZeroDivisionError`). Do not quote "30/30" or "37".
 
@@ -74,8 +74,8 @@ score, tie-break and count is compared verbatim.
 
 ## 9. Verified build/gate claims
 
-    cargo test --release --workspace   -> 62 (kakeya-core) + 13 (kakeya-search) = 75 passed, 0 failed
-    cargo test --workspace (debug)     -> same 75, 0 failed
+    cargo test --release --workspace   -> 62 (kakeya-core) + 16 (kakeya-search) = 78 passed, 0 failed   [was 62 + 13 = 75 on 09-05]
+    cargo test --workspace (debug)     -> same 78, 0 failed                                            [was 75 on 09-05]
     [2026-09-06: the suite has since grown -- 62 + 16 + 0 = 78 passed; `kakeya-search check` = 14 PASS / 2 SKIP / 0 FAIL over 16 fixtures]
     cargo clippy --release --all-targets --workspace -- -D warnings -> exit 0
     kakeya-search check --threads 1 and --threads 12 -> both exit 0, identical modulo the [Ns]

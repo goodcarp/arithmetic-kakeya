@@ -1,0 +1,1 @@
+=== g2_tall_2x4_maxt4 2026-09-07T03:24:19Z cmd: g2-tall --rows 4 --max-t 4 --threads 4  (critic item 1: g2_tall negatives cover t<=1 only; t=2,3,4 are inside the 11/6 cap. NOTE the RESULT line below hardcodes "max_t": 1 on both Python and Rust sides -- this run is max_t=4; trust this header, not the field. Audited binary add55418; machine contended)

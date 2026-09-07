@@ -248,7 +248,7 @@ carry 1,296 labels each vs 81 at POOL3).
 ```
 REPORT.md                      this file
 kperf/                         copy of the workspace (kakeya-core + kakeya-search only)
-  crates/kakeya-core/src/lib.rs         lines 1-368 byte-identical to the audited crate
+  crates/kakeya-core/src/lib.rs         the audited crate verbatim PLUS one unused ForceScratch field (`invc: Vec<u64>`, with its doc comment, lines 78-79) and WITH `#[cfg(test)] mod tests;` removed -- NOT "lines 1-368 byte-identical" as this line first said (adjudication FINDING-05 diffed it: 78,79d77 and 368a367,368)
                                         (verified by diff); the `perf` module is appended
   crates/kakeya-core/src/bin/xdiff.rs   corpus replay: audited force + prototype vs pure Python
   crates/kakeya-search/src/search.rs    one line changed: force -> kakeya_core::perf::force_sel
@@ -286,3 +286,7 @@ different workloads with byte-identical output.  Lever B (the O(w) membership
 test) is only ~8% and carries the composite-p subtlety that already produced one
 wrong prototype — take it only with the pivot-time guard, or leave it out.
 Lever C is the one worth a separate, properly gated task.
+
+
+---
+**Corrections appended 2026-09-06 late evening (adjudication FINDING-05, which upheld the 4.7x result and the differential -- and regenerated an independent 7,990-case corpus at seed 771131 incl. 1,068 cases at composite p = 91: 0 mismatches in all five kernel modes).** (1) Section 8's provenance line is corrected in place above. (2) The claim "no API change, no change to search.rs or any driver" holds only for the RECOMMENDED port (levers A + C' + D); the prototype as built reroutes `search.rs:9` to `kakeya_core::perf::force_sel` and touches `main.rs`. (3) `rzero` is struck from the diff-clean evidence list: `drivers/rzero.rs` was never rerouted, so its diff-clean is vacuous and rzero gets 0x from this prototype; only the DFS `extend` path (`search.rs:142`) goes through `force_sel`. Severity of the improvement card: major, not critical.

@@ -60,6 +60,19 @@ State at session resume (task B2, third attempt; first two were interrupted).
   reports, and it is a genuine TIE-BREAK test: many interfaces reach 7/4 and
   Python reports the first (enumeration index 0); the 12-thread Rust run
   reproduces exactly that.
+  **Disclosure, added 2026-09-06 (record lens R2, upheld on adjudication).**
+  The Python side of this comparison ran on the PyO3 kernel AND both Python
+  artifacts named for it are 0 bytes (`refute/search/py_stacked_p4_t1_rskernel.txt`,
+  `py_stacked_p4_t0.txt`, Sep 5 18:07).  No Python stacked max_t=1 output
+  exists anywhere in the tree.  So the sentence above records a comparison
+  whose Python side does not exist on disk.  Every number in it IS supported,
+  by the max_t=2 comparison: the concatenation `logs/rust-stacked_pool4.log`
+  + `logs/rust-stacked_pool6.log` vs the pure-Python `logs/stacked.log`,
+  md5-equal with `[Ns]` masked (r3 sec 1; the two files are not md5-equal
+  individually).  And max_t is degenerate here: the witness is at t = 0 and
+  `best` updates only on strict improvement, so max_t = 0/1/2 give the same
+  output (adjudication FINDING-08 measured it at POOL3).  See the coverage-map
+  row.
 - cycles8 POOL3 vs `oracle_drivers.py cycles8 3`: BYTE-IDENTICAL (this driver
   has no `seconds` field) -- `5 presence patterns are 2-regular with m = 8`
   then `RESULT {"tag": "cycles8", "pool": 3, "best": null, "hits": 0,
@@ -141,10 +154,10 @@ State at session resume (task B2, third attempt; first two were interrupted).
 | rzero x5 sweeps | `rzero.sweep` | all identical exc. seconds |
 | g2-tall 2x3 t0/t1 | `g2_tall.run` | identical |
 | g2-tall 2x4 (the Tier-3 target) | `g2_tall.run` **on the PyO3 kernel** (`py_g2tall_2x4_rskernel.txt`; disclosed 2026-09-06, R1) | driver-level identical exc. seconds and `complete` (Python's hardcoded `el < 700`); kernel held fixed, so this row does not independently check the kernel |
-| stacked POOL4 max_t=1 | `stacked.run` on the PyO3 kernel -- **Python-side artifact is 0 bytes** (`py_stacked_p4_t1_rskernel.txt`; R2) | as a SEPARATE max_t=1 comparison, UNSUPPORTED on disk.  The substance (best 7/4, all-ZERO witness, 0 strict hits, tie-break) IS supported by the max_t=2 comparison: `logs/rust-stacked_pool4.log` vs the pure-Python `logs/stacked.log`, md5-equal (r3 sec 1). |
+| stacked POOL4 max_t=1 | `stacked.run` on the PyO3 kernel -- **Python-side artifact is 0 bytes** (`py_stacked_p4_t1_rskernel.txt`; R2) | as a SEPARATE max_t=1 comparison, UNSUPPORTED on disk.  The substance (best 7/4, all-ZERO witness, 0 strict hits, tie-break) IS supported by the max_t=2 comparison: the CONCATENATION `logs/rust-stacked_pool4.log` + `logs/rust-stacked_pool6.log` vs the pure-Python `logs/stacked.log`, md5-equal with `[Ns]` masked (r3 sec 1; not equal file-by-file). |
 | cycles8 POOL3 | `cycles8.main` -- PyO3-kernel oracle on 09-05, **pure-Python oracle landed 2026-09-06 17:38** (`refute/search/r3/out/C8.py.txt`, `KAKEYA_PURE_PY=1`) | BYTE-identical at `--threads 1` and `12`, incl. `tested: 29004`.  A genuine end-to-end pure-Python-vs-Rust comparison as of 09-06. |
 | progress-line formats | CPython f-strings | pinned by a unit test |
-| the four never-fired hit paths (g2_tall improvement line, cycles8 HITOBJ, stacked `h[:5]`, rzero forcing-object line) | CPython executing the drivers' OWN print statements, extracted with `ast` (r5-hitpaths `fmtcheck.py`) | 325 formatted lines, 0 mismatches; negative control with 3 injected mutations catches 11.  No configuration of these four drivers produces hits > 0 (rzero: unreachable for every input by the edge-row column-sum invariant, = P7; stacked: empty for POOL3-6 by pool monotonicity on the complete POOL4/6 runs; g2_tall: nothing beats the 11/6 cap), so formatter-level is the strongest check available. |
+| the four never-fired hit paths (g2_tall improvement line, cycles8 HITOBJ, stacked `h[:5]`, rzero forcing-object line) | CPython executing the drivers' OWN print statements, extracted with `ast` (r5-hitpaths `fmtcheck.py`) | 325 formatted lines, 0 mismatches; negative control with 3 injected mutations catches 11.  No configuration of these four drivers produces hits > 0 (rzero: unreachable for every input by the edge-row column-sum invariant, = P7; stacked: empty for POOL3-6 at EVERY max_t -- pool monotonicity on the complete POOL4/6 runs for t <= 2, and for t >= 3 because m >= 8 makes t >= 4 budget-infeasible while t = 3 forces m = 8, r = 0, which 0 of the 56 3-subsets achieve (adjudication FINDING-03); POOL8 is the one open arm, run 2026-09-06 late evening, see below; g2_tall: nothing beats the 11/6 cap **at t <= 1, the only range any run ever searched** -- t = 2, 3, 4 are inside the cap with large budgets and were never searched, see Known limits), so formatter-level is the strongest check available for those paths. |
 | scan `--seed` at 9 seeds (0, 1, 11, 123, 2^32-1, 2^32, 2^32+1, 1.23e19, 2^64-1) | `scan_seed.py` (self-checked byte-identical to `scan1.py` at seed 11 first) + `rzero_one.py` | 9/9 identical at `--threads 1` and `2`, 63-78 HITOBJ per run (external r5).  Before this, `--seed` had no oracle at any value but 11. |
 | kernel wide sweep | pure-Python `force`/`rank` | 557,055 in-contract comparisons, 0 mismatches, entries to +-2^63, moduli to 2^32+-1 (external r5) -- ~10x difftest.py |
 | 15 new end-to-end driver comparisons (g2-tall rows 1-4, cycles8 deg 1/3/4 and targets 7/4, 15/8, 2 via `--patterns 4`, stacked POOL3, rzero d=1..4) | 14 of 15 pure-Python | all identical (r5-hitpaths) |
@@ -237,7 +250,7 @@ silently scoped to `t <= 2`.
 `KAKEYA_PURE_PY=1`; r = 0 so no DFS, just `force` on every (graph, 3-subset T0)
 with the P4 prune): 8-cycle patterns 2,3 -- 2,592 graphs, 87,600 pairs, 0 hits;
 two-4-cycle patterns 1,4 -- 7,992 graphs, 236,400 pairs, 0 hits.  Both
-reproduced independently the same evening (13.6 s / 33.2 s).  Pattern 0: pattern 0 (46,656 graphs): 1,368,000 pairs, 0 hits, 567 s pure Python (`refute/science/r5/t3_idx0_purepy.txt`). t = 3 total: 1,692,000 (graph, T0) pairs over all five patterns, 0 hits -- closed by computation, the component-split argument is no longer load-bearing. (The lens's component-split argument -- any split of t = 3 over two
+reproduced independently the same evening -- first at 13.6 s / 33.2 s wall, which adjudication FINDING-01 showed is below the pure-Python CPU floor, i.e. those two reproductions had the PyO3 kernel loaded despite the env var (cause unexplained; the switch was verified working afterwards); re-run with `assert fastcore.force is fastcore._force_py` inside the same process: 23.9 s / 62.6 s wall, 22.3 s / 56.9 s CPU, identical counts.  Pattern 0 (46,656 graphs): 1,368,000 pairs, 0 hits, 567 s pure Python (`refute/science/r5/t3_idx0_purepy.txt`). t = 3 total: 1,692,000 (graph, T0) pairs over all five patterns, 0 hits -- closed by computation, the component-split argument is no longer load-bearing. (The lens's component-split argument -- any split of t = 3 over two
 4-cycle components leaves one with t_i <= 1 -- reached the same conclusion first.)
 Net: cycles8 POOL6 is closed at every t -- 8-cycles at t <= 2 twice (Lemma-C
 side computation + the Lemma-C-free complete Rust run), at t = 3 exhaustively;
@@ -286,3 +299,69 @@ with every degree exactly 2), and `--deg` is vacuous for every value but 2.
   overshoot is per-item DFS cost, present identically in Python.  Proposal for
   g2_tall: keep the three Rust-only keys, add `--python-compat` rather than
   flipping the default.
+
+## Known limits and closures — additions from the adjudication + critic (2026-09-06 late evening)
+Source: `refute/adjudicate/r5/` (ten second-opinion refuters, one critic; all
+ten lens findings upheld in substance except record R11, which was REFUTED --
+see PREDICTIONS.md sec 7 and `refute/SWEEP-2026-09-06.md` sec G).
+
+- **g2_tall searches t in {0, 1} only, and t = 2, 3, 4 are inside the 11/6 cap
+  with large budgets** (critic item 1 -- the exact analogue of the cycles8
+  t = 3 gap, one driver over).  `src/g2_tall.py:61` calls `run(rows_, max_t=1,
+  tlimit=700)`; `rust/run_targets.sh` passes `--max-t 1`.  From the driver's own
+  cap rule: rows=4 t=2 budget <= 6, t=3 <= 5, t=4 <= 3; rows=5 t=2 <= 9, t=3
+  <= 7, t=4 <= 5; rows=6 t=2 <= 12, t=3 <= 10, t=4 <= 8.  Unlike cycles8's
+  t = 3 (budget exactly 0), these are wide-open regions.  **Every g2_tall
+  negative in this tree (2x4 complete, 2x5 and 2x6 time-limited) is a t <= 1
+  statement.**  2x4 at `--max-t 4` (all t) was started 2026-09-06 ~23:35 EDT
+  on the audited binary -> `logs/rust-g2_tall_2x4_maxt4.log`; 2x5/2x6 at
+  t >= 2 are out of reach at measured rates and stay scoped to t <= 1.
+- **The g2_tall RESULT line hardcodes `"max_t": 1` on BOTH sides**
+  (`src/g2_tall.py:63`, `drivers/g2_tall.rs:184`), so a `--max-t 2+` run
+  mislabels itself.  Faithful port, not a divergence, but trust the log header
+  (which records the real command), never the field.  Fix when the Python is
+  next touched, or have Rust emit the real value alongside the three
+  Rust-only keys.
+- **stacked at every max_t**: POOL3-6 hit block provably empty at every t
+  (FINDING-03, argument in the coverage map row).  **POOL8 at t <= 2 was the
+  one open arm**; `stacked --pool 8 --max-t 2 --target 7/4 --threads 4` started
+  2026-09-06 ~23:35 EDT -> `logs/rust-stacked_pool8.log`.
+- **The matching-suffix reading is the right one -- the largest conditional on
+  the campaign is DISPOSED** (FINDING-04).  The two readings do separate (456 of
+  8,320 configurations on d=[2,2] are invalid under matching-suffix and valid
+  under permissive at identical score), so 0-hit results do not transfer
+  between them, as the science lens said.  But the smallest separating object
+  (`f=[{(1,):(1,0)},{(1,1):(0,1),(2,1):(0,1)}]`, `T=[(2,1)]`,
+  `R=[((1,1),(0,1))]`) is permissive-valid at score **5/3 = 1.6667 on FOUR
+  vertices** -- below the Epoch target 1.675 and below gamma.  If permissive
+  were the intended reading, the Epoch problem would be solved by a 2x2 box and
+  Katz-Tao would not be a record.  So the campaign's reading is the only one
+  consistent with the problem being open.  `KAKEYA-WORKBENCH.md` sec 1 still
+  argues only hit-transfer; this is the missing negative-side sentence.
+- **The cycles8 closure is target-specific**: at `--target 2` the same budget
+  arithmetic makes t = 4 feasible (den 4, int(8) - 8 = 0, score 8/4), and
+  `--target` is user-settable, so the hardcoded `t in (0,1,2)` is a scope
+  defect for any target, not only 67/40 (FINDING-01).  cycles8 POOL8 (303,616
+  tuples) and slope-modulus variation at n > 4 are unrun and are separate
+  tasks, not part of this close-out.
+- **Robustness adoption recipe** (critic item 4; adopt this one FIRST, perf
+  second as its own task): apply `improve/robustness/engine.diff` to
+  `engine.rs` ONLY and rewrite its line-219 comment ("a real wall-clock bound"
+  is false -- the per-item DFS granularity floor remains, shared with Python);
+  fold in `--tlimit 0` = no limit (matches Python) with a `check` fixture;
+  rebuild, record the new sha; `check` 1|12 = 14/2/0 byte-identical after
+  `[Ns]` masking; workspace 78; clippy clean; replay the 15 r3 fixtures through
+  `r3/mynorm.py` (15/15); `scan n4_p6_t1` 241 lines; cycles8 POOL3 unmasked;
+  stacked POOL4+POOL6 vs `logs/stacked.log` as a CONCATENATION; never-trip
+  identity on >= 4 configs x {1,12} threads; the two closure gates (2x2x2x2x2
+  pool 3 tlimit 2 returns; 2x2x2x2 pool 4 tlimit 5 honoured); state that
+  difftest/traps need no re-run (kernel untouched); re-pin the sha in README
+  (both places), here, RESULTS-RUST.json and the handoff; note that runs 3/4/5
+  are time-limited prefixes that will NOT reproduce byte-for-byte under the new
+  binary.  Provenance is already proven: FINDING-06 rebuilt from a different
+  absolute path and got the audited sha from `engine.rs.orig` and `0a152c93...`
+  from the shipped `engine.rs` -- the diff is necessary and sufficient.
+- **Perf adoption** (second): changes `kakeya_core::force`, so it needs a new
+  `.so` + difftest + the 119 traps re-run; take levers A + C' + D only (the
+  membership shortcut B is invalid for composite p); the prototype's own REPORT
+  sec 8 provenance sentence was false and is corrected.

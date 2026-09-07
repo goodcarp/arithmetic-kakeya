@@ -1,0 +1,3 @@
+kernel switch check: True
+configs2.txt 2x2x2 lines: /Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/refute/search/configs.txt:s17b 2x2x2 3 0 2 400;/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/refute/search/configs.txt:s18 2x2x2 4 1 2 150;/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/refute/search/configs.txt:s19 2x2x2 6 1 15/8 150;
+== c12s: d=6 pool=6 max_t=1 target=2 limit=2000 seed=11  03:24:33Z

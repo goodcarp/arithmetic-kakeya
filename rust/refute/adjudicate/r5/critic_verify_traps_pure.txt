@@ -1,0 +1,2 @@
+VERIFIED.md rows checked: 17 call-forms (16 numbered rows), mismatches=0
+traps.json entries: 119, mismatches vs current pure-Python fastcore: 0

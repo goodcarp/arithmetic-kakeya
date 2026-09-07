@@ -1,0 +1,16 @@
+A T=1 tl=0.5 scanned=40 result_hits=0 HITlines=0 HITOBJ=0  prefix-OK(empty)
+A T=1 tl=1 scanned=57 result_hits=0 HITlines=0 HITOBJ=0  prefix-OK(empty)
+A T=1 tl=2 scanned=93 result_hits=16 HITlines=16 HITOBJ=16  PREFIX-OK
+A T=1 tl=3 scanned=142 result_hits=39 HITlines=39 HITOBJ=39  PREFIX-OK
+A T=4 tl=0.5 scanned=31 result_hits=0 HITlines=0 HITOBJ=0  prefix-OK(empty)
+A T=4 tl=1 scanned=47 result_hits=0 HITlines=0 HITOBJ=0  prefix-OK(empty)
+A T=4 tl=2 scanned=154 result_hits=44 HITlines=44 HITOBJ=44  PREFIX-OK
+A T=4 tl=3 scanned=343 result_hits=120 HITlines=120 HITOBJ=120  PREFIX-OK
+B T=1 tl=0.5 scanned=33 result_hits=0 HITlines=0 HITOBJ=0  prefix-OK(empty)
+B T=1 tl=1 scanned=46 result_hits=0 HITlines=0 HITOBJ=0  prefix-OK(empty)
+B T=1 tl=2 scanned=57 result_hits=0 HITlines=0 HITOBJ=0  prefix-OK(empty)
+B T=1 tl=3 scanned=83 result_hits=12 HITlines=12 HITOBJ=12  PREFIX-OK
+B T=4 tl=0.5 scanned=52 result_hits=0 HITlines=0 HITOBJ=0  prefix-OK(empty)
+B T=4 tl=1 scanned=114 result_hits=24 HITlines=24 HITOBJ=24  PREFIX-OK
+B T=4 tl=2 scanned=165 result_hits=51 HITlines=51 HITOBJ=51  PREFIX-OK
+B T=4 tl=3 scanned=260 result_hits=93 HITlines=93 HITOBJ=93  PREFIX-OK

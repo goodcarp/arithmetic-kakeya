@@ -1,0 +1,1 @@
+rzero-invariant: 84718 graphs, rows violating column-sum-zero: 0

@@ -59,7 +59,7 @@ sides. The record discloses which is which, row by row (`PROGRESS.md` coverage m
 Record the sha256 of what you built before quoting any result from it:
 audited binary `add554183aaa3d7cf1f2d468ba11e39926aea035853809811af4e6c40010fcf9`,
 shipped `.so` `03db7ae995fdda76eed5d7d72474f5b27141bc9b15814e89827250e35d21ed4b`.
-**The build is reproducible:** a clean clone of this repository at `83fd36c`, built with
+**The build is reproducible:** a clean clone of this repository at `83fd36c` (the crates are unchanged in every later commit), built with
 `cargo build --release -p kakeya-search` (rustc 1.98, LTO, codegen-units = 1), produced a
 binary with exactly the audited sha256 and `check` = 14 PASS / 2 SKIP / 0 FAIL (2026-09-06).
 
@@ -72,7 +72,7 @@ cd rust
 cargo test --release --workspace                     # 62 + 16 + 0 = 78
 cargo clippy --release --all-targets --workspace -- -D warnings
 cd ../src && KAKEYA_PURE_PY=1 /usr/bin/python3 ../rust/difftest.py      # 54,406 checks, 0 mismatches, 1 expected divergence
-cd ../rust/refute/record/r5 && /usr/bin/python3 verify_traps.py         # 119/119 traps + 16/16 VERIFIED, 0 mismatches
+cd ../rust/refute/record/r5 && KAKEYA_PURE_PY=1 /usr/bin/python3 verify_traps.py         # 119/119 traps + 16/16 VERIFIED, 0 mismatches
 cd ../../../../ && /usr/bin/python3 -m pytest tests/                    # Python engine tests
 ```
 

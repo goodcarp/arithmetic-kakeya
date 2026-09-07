@@ -1,0 +1,9 @@
+POOL3: all-ZERO interface m=8 rank(base_rows)=8; 3-subsets T0 that force with r=0: 0 / 56  -> no t=3 hit
+POOL4: all-ZERO interface m=8 rank(base_rows)=8; 3-subsets T0 that force with r=0: 0 / 56  -> no t=3 hit
+POOL5: all-ZERO interface m=8 rank(base_rows)=8; 3-subsets T0 that force with r=0: 0 / 56  -> no t=3 hit
+POOL6: all-ZERO interface m=8 rank(base_rows)=8; 3-subsets T0 that force with r=0: 0 / 56  -> no t=3 hit
+POOL8: all-ZERO interface m=8 rank(base_rows)=8; 3-subsets T0 that force with r=0: 0 / 56  -> no t=3 hit
+  t=4: hit needs m+r < 7 but m >= 8  -> impossible
+  t=5: hit needs m+r < 21/4 but m >= 8  -> impossible
+  t=6: hit needs m+r < 7/2 but m >= 8  -> impossible
+  t=7: hit needs m+r < 7/4 but m >= 8  -> impossible

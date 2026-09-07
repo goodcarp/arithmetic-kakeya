@@ -1,0 +1,20 @@
+  [2x4] TIME LIMIT
+RESULT {"tag": "g2_tall_2x4", "d": [2, 4], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": false, "seconds": 151.0, "walked": 623, "total": 4096, "pairs": 12152}
+      150.98 real       334.65 user         7.23 sys
+             1409024  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                 632  page reclaims
+                   0  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+              714049  involuntary context switches
+        387369452353  instructions retired
+        748401039111  cycles elapsed
+              946176  peak memory footprint

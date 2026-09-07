@@ -1,0 +1,12 @@
+### --d 1 --pool 8
+RESULT {"tag": "rzero", "d": [1], "pool": 8, "scanned": 1, "total": 1, "forcing_objects": 0, "best_score": null, "complete": true, "seconds": 0.0}
+### --d 4 --pool 8
+RESULT {"tag": "rzero", "d": [4], "pool": 8, "scanned": 729, "total": 729, "forcing_objects": 0, "best_score": null, "complete": true, "seconds": 0.0}
+### --d 2x2 --pool 8
+RESULT {"tag": "rzero", "d": [2, 2], "pool": 8, "scanned": 729, "total": 729, "forcing_objects": 0, "best_score": null, "complete": true, "seconds": 0.0}
+### --d 3x3 --pool 8 --limit 3000 --seed 7
+RESULT {"tag": "rzero", "d": [3, 3], "pool": 8, "scanned": 3000, "total": 3000, "forcing_objects": 0, "best_score": null, "complete": false, "seconds": 0.1}
+### --d 2x2x2 --pool 8 --limit 5000 --seed 3
+RESULT {"tag": "rzero", "d": [2, 2, 2], "pool": 8, "scanned": 5000, "total": 5000, "forcing_objects": 0, "best_score": null, "complete": false, "seconds": 0.1}
+### --d 2x2x2x2 --pool 6 --limit 5000 --seed 1
+RESULT {"tag": "rzero", "d": [2, 2, 2, 2], "pool": 6, "scanned": 5000, "total": 5000, "forcing_objects": 0, "best_score": null, "complete": false, "seconds": 0.9}

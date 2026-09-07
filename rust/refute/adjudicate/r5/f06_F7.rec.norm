@@ -1,0 +1,2 @@
+RESULT {"tag": "g2_tall_2x3", "d": [2, 3], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": true, "seconds": SEC, "walked": 256, "total": 256, "pairs": 3426}
+EXIT=0
