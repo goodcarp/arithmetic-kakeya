@@ -65,8 +65,13 @@ State at session resume (task B2, third attempt; first two were interrupted).
   then `RESULT {"tag": "cycles8", "pool": 3, "best": null, "hits": 0,
   "tested": 29004}`.  The `tested` counter agreeing to the unit is the
   strongest single-number check on the whole pruning chain.
-  **Kernel disclosure, added 2026-09-06.**  Unlike every other row of the
-  coverage map, the Python side of THIS comparison did not run pure Python.
+  **Kernel disclosure, added 2026-09-06 (corrected the same evening, record
+  lens R1).**  The Python side of this comparison did not run pure Python --
+  and it was NOT the only such row, as the first version of this paragraph
+  wrongly said: the "In flight" section above already states that three
+  oracles (g2-tall 4 1, cycles8 3, stacked 4 1) ran on the Rust kernel, and
+  all three became coverage-map rows without the map saying so.  The map now
+  says so, row by row.
   The completed oracle is `refute/search/py_cycles8_p3_rskernel.txt` -- the
   filename says so -- i.e. `cycles8.main` driven by the PyO3 (Rust) kernel.
   The pure-Python attempt of the same run, `refute/search/py_cycles8_p3.txt`,
@@ -75,17 +80,26 @@ State at session resume (task B2, third attempt; first two were interrupted).
   Python cycles8 driver with the kernel held fixed; it is not an independent
   check of the kernel.  That is not a hole -- the kernel is covered separately
   and directly by `difftest.py` (54,406 pure-Python-vs-Rust comparisons) and
-  by the 135 trap cases -- but "byte-identical to the Python driver" reads
+  by the 119 trap cases (`traps.json`, which already contains VERIFIED.md's
+  17 `v`-prefixed entries; the "135" written here earlier double-counted
+  them -- record lens R6) -- but "byte-identical to the Python driver" reads
   stronger than what was run, and the map did not say which kernel was under
   it.  Two refuters brushed against this (the `_rskernel` filename, and r3's
   own opening sentence in its section 6) and neither closed it; r3 then
   titled that section "re-verified against a PURE-PYTHON oracle" while its
   own `out/C8.py.txt` was again 45 bytes and its Python side never returned.
-  A pure-Python POOL3 oracle IS feasible and is worth finishing: measured
-  2026-09-06 at 5.22 pairs/s on a contended machine (779 pairs in 149 s,
-  `refute/search/r4/rate_c8.py`), so 29,004 pairs needs about 93 minutes of
-  CPU -- not the ~36 h that a naive extrapolation from the POOL6 rate
-  (0.22 pairs/s) suggests, because POOL6 pairs are far more expensive.
+  A pure-Python POOL3 oracle IS feasible: measured 2026-09-06 at 5.22 pairs/s
+  on a contended machine (779 pairs in 149 s, `refute/search/r4/rate_c8.py`),
+  so 29,004 pairs needs about 93 minutes of CPU -- not the ~36 h that a naive
+  extrapolation from the POOL6 rate (0.22 pairs/s) suggests, because POOL6
+  pairs are far more expensive.
+  **CLOSED 2026-09-06 17:38 EDT.**  r3's orphaned pure-Python run
+  (`py_drv.sh C8 cycles8 3`, `KAKEYA_PURE_PY=1`, started 15:10) finished:
+  `refute/search/r3/out/C8.py.txt` =
+  `5 presence patterns are 2-regular with m = 8` /
+  `RESULT {"tag": "cycles8", "pool": 3, "best": null, "hits": 0, "tested": 29004}` /
+  `EXIT=0` -- byte-identical to `C8.rs1.txt` and `C8.rs12.txt`.  The cycles8
+  POOL3 row is now a genuine pure-Python-vs-Rust end-to-end comparison.
 - New `check` gates: an FNV-1a-64 digest over the whole 120-line n4_p6_t1
   HITOBJ stream (not just first/last), and the two g2_tall 2x3 runs.
 - The five driver progress lines that NO recorded run exercises (every logged
@@ -122,14 +136,18 @@ State at session resume (task B2, third attempt; first two were interrupted).
 |---|---|---|
 | scan n4_p6_t1 (343 exhaustive) | `scan1.py` KAKEYA_PURE_PY=1 | 241/241 lines identical exc. seconds; 120 witnesses |
 | scan sampled 500 seed 11 | `scan1.py` | 329/329 identical -> MT19937 port correct |
-| scan k=1 box `--d 6` | `scan1.py` | identical |
-| scan 3-level sampled `--d 2x2x2` | `scan1.py` | identical |
+| scan k=1 box `--d 6` | `scan1.py` | **UNSUPPORTED ON DISK** (record lens R3, 2026-09-06): the sweep config that would produce it, `configs.txt` `c12 6 6 1 2 -`, has a 0-byte Python output (`sweep/c12.py.txt`); the only `--d 6` RESULT lines in the tree are Aug-24 incomplete Python prefixes with no Rust counterpart.  Re-run before citing. |
+| scan 3-level sampled `--d 2x2x2` | `scan1.py` | **UNSUPPORTED ON DISK** (R3): configs `s17b`/`s18`/`s19` were listed and never run; no scan-driver `--d 2x2x2` RESULT exists under `refute/`.  Re-run before citing. |
 | rzero x5 sweeps | `rzero.sweep` | all identical exc. seconds |
 | g2-tall 2x3 t0/t1 | `g2_tall.run` | identical |
-| g2-tall 2x4 (the Tier-3 target) | `g2_tall.run` | identical exc. seconds and `complete` (Python's hardcoded `el < 700`) |
-| stacked POOL4 max_t=1 | `stacked.run` | identical exc. elapsed; witness + tie-break reproduced |
-| cycles8 POOL3 | `cycles8.main` **on the PyO3 kernel, not pure Python** (see the kernel disclosure above) | driver-level BYTE-identical, incl. `tested: 29004`; kernel held fixed, so this row does not independently check the kernel |
+| g2-tall 2x4 (the Tier-3 target) | `g2_tall.run` **on the PyO3 kernel** (`py_g2tall_2x4_rskernel.txt`; disclosed 2026-09-06, R1) | driver-level identical exc. seconds and `complete` (Python's hardcoded `el < 700`); kernel held fixed, so this row does not independently check the kernel |
+| stacked POOL4 max_t=1 | `stacked.run` on the PyO3 kernel -- **Python-side artifact is 0 bytes** (`py_stacked_p4_t1_rskernel.txt`; R2) | as a SEPARATE max_t=1 comparison, UNSUPPORTED on disk.  The substance (best 7/4, all-ZERO witness, 0 strict hits, tie-break) IS supported by the max_t=2 comparison: `logs/rust-stacked_pool4.log` vs the pure-Python `logs/stacked.log`, md5-equal (r3 sec 1). |
+| cycles8 POOL3 | `cycles8.main` -- PyO3-kernel oracle on 09-05, **pure-Python oracle landed 2026-09-06 17:38** (`refute/search/r3/out/C8.py.txt`, `KAKEYA_PURE_PY=1`) | BYTE-identical at `--threads 1` and `12`, incl. `tested: 29004`.  A genuine end-to-end pure-Python-vs-Rust comparison as of 09-06. |
 | progress-line formats | CPython f-strings | pinned by a unit test |
+| the four never-fired hit paths (g2_tall improvement line, cycles8 HITOBJ, stacked `h[:5]`, rzero forcing-object line) | CPython executing the drivers' OWN print statements, extracted with `ast` (r5-hitpaths `fmtcheck.py`) | 325 formatted lines, 0 mismatches; negative control with 3 injected mutations catches 11.  No configuration of these four drivers produces hits > 0 (rzero: unreachable for every input by the edge-row column-sum invariant, = P7; stacked: empty for POOL3-6 by pool monotonicity on the complete POOL4/6 runs; g2_tall: nothing beats the 11/6 cap), so formatter-level is the strongest check available. |
+| scan `--seed` at 9 seeds (0, 1, 11, 123, 2^32-1, 2^32, 2^32+1, 1.23e19, 2^64-1) | `scan_seed.py` (self-checked byte-identical to `scan1.py` at seed 11 first) + `rzero_one.py` | 9/9 identical at `--threads 1` and `2`, 63-78 HITOBJ per run (external r5).  Before this, `--seed` had no oracle at any value but 11. |
+| kernel wide sweep | pure-Python `force`/`rank` | 557,055 in-contract comparisons, 0 mismatches, entries to +-2^63, moduli to 2^32+-1 (external r5) -- ~10x difftest.py |
+| 15 new end-to-end driver comparisons (g2-tall rows 1-4, cycles8 deg 1/3/4 and targets 7/4, 15/8, 2 via `--patterns 4`, stacked POOL3, rzero d=1..4) | 14 of 15 pure-Python | all identical (r5-hitpaths) |
 
 ## Bench (idle machine, 12 logical / 6 physical cores)
 n4_p6_t1: pure Python 19.2 s | Rust --threads 1 1.18 s (16.3x) | --threads 6
@@ -176,7 +194,7 @@ byte-identical up to and including `seconds`.
    8-cycles, cross-checked against `cycles8.build` in Python) and records the
    selection as a trailing `"patterns"` key.  Default output is byte-identical
    to the Python.  POOL3: `8cycle` tested 3948 + `4+4` tested 25056 = 29004 =
-   the full run.  The Lemma-C-settled two-4-cycle patterns hold 1,823,760 of
+   the full run.  The two-4-cycle patterns (settled by the direct-sum / mediant argument on the complete `n4_p6_t1` scan, PREDICTIONS sec 2.2 -- NOT by Lemma C, which is the prune on the 8-cycle side; record lens R10) hold 1,823,760 of
    POOL6's 1,905,420 pairs, so the run that matters is
    `kakeya-search cycles8 --pool 6 --patterns 8cycle` (81,660 pairs; about
    5 h at the 4.6 pairs/s the 2026-09-05 POOL6 run sustained on 8 threads).
@@ -186,3 +204,83 @@ byte-identical up to and including `seconds`.
 - OPEN (still live against the rebuilt binary; re-measured 2026-09-06 after the `checked_pow` fix): `--tlimit` on a very large index space aborts with a memory allocation failure instead of returning a RESULT (chunk list proportional to the index space, `engine.rs:213-220` collects all `total/4096` chunks eagerly).  The C6 fix changed the boundary but did not close this: a config whose `total` exceeds u64 now refuses loudly, while a config whose `total` fits u64 and whose chunk count is still astronomic aborts as before.  Measured on `--d 2x2x2x2x2 --max-t 0 --target 7/4 --tlimit 2 --threads 1`: `--pool 4` (5^31 > u64) panics "exceeds u64; refusing to run (audit C6)", exit 101; `--pool 3` (4^31 = 4611686018427387904, fits u64) still fails to allocate 81064793292668928 bytes, exit 134.  The smallest live repro is therefore `--pool 3`, not `--pool 8`.  Python returns normally on both (its `total` is a bigint and enumeration is lazy).  Needs streaming chunk enumeration.
 - OPEN: `--tlimit` is not a bound on wall time below the threshold — chunk enumeration cost is proportional to the whole index space (5 s limit -> 120 s wall on `2x2x2x2 POOL4`).
 - Recorded: progress lines are buffered under `--tlimit`; `g2-tall` prints an honest `complete` where Python hardcodes `el < 700`; a run killed by SIGTERM (e.g. a stray `pkill -f kakeya-search`) leaves no RESULT line — run long jobs under a distinct binary name.
+
+## 2026-09-06 evening — sweep r5 (seven lenses) and the two long runs
+
+Triage record with every verdict: `rust/refute/SWEEP-2026-09-06.md`.  Lens
+reports: `refute/search/r5-hitpaths/`, `refute/external/r5/`,
+`refute/record/r5/`, `refute/kernel/r5/`, `refute/science/r5/`,
+`improve/perf/`, `improve/robustness/`.
+
+### The 8-cycle cross-check is COMPLETE
+`ks8run cycles8 --pool 6 --target 67/40 --deg 2 --patterns 8cycle --threads 10
+--tlimit 36000`, 19:02:26Z -> 20:46:00Z, exit 0:
+`RESULT {"tag": "cycles8", "pool": 6, "best": null, "hits": 0, "tested": 81660, "patterns": [2, 3]}`.
+81,660 = 1,905,420 - 1,823,760, the full 8-cycle pair count; no TIME LIMIT.
+6,214 s at 10 threads = 13.1 pairs/s; the "about 5 h" estimate above was ~3x
+high (8-cycle patterns carry 1,296 labels each, not 46,656).  This confirms
+Fable's `cycle8_cheap` + `cycle8_r5` side computation by a different route (no
+Lemma C prune).  Ran on the 15:02 `ks8run` copy, which predates the
+`checked_pow` rebuild -- irrelevant to this input (no overflow path), but it is
+not the audited sha.  Recorded in `RESULTS-RUST.json` as run 6.
+
+### cycles8 searches t <= 2 only; the t = 3 phase was inside the target (science r5, F1)
+Both implementations hardcode the phase loop (`src/cycles8.py:62` `for t in
+(0, 1, 2)`; `drivers/cycles8.rs:195` `(0..=2)`).  At POOL6 / 67/40 / n = 8,
+`t = 3` gives den 5, budget `int(67/40*5) - 8 = 0`, so `r = 0` and the score
+would be **8/5 = 1.600 <= 1.675** -- a hit, never searched.  `t = 4` is
+budget-infeasible.  So every "cycles8 POOL6 closed" sentence before today was
+silently scoped to `t <= 2`.
+**Closed 2026-09-06** by `refute/science/r5/t3_check.py` (pure Python,
+`KAKEYA_PURE_PY=1`; r = 0 so no DFS, just `force` on every (graph, 3-subset T0)
+with the P4 prune): 8-cycle patterns 2,3 -- 2,592 graphs, 87,600 pairs, 0 hits;
+two-4-cycle patterns 1,4 -- 7,992 graphs, 236,400 pairs, 0 hits.  Both
+reproduced independently the same evening (13.6 s / 33.2 s).  Pattern 0: pattern 0 (46,656 graphs): 1,368,000 pairs, 0 hits, 567 s pure Python (`refute/science/r5/t3_idx0_purepy.txt`). t = 3 total: 1,692,000 (graph, T0) pairs over all five patterns, 0 hits -- closed by computation, the component-split argument is no longer load-bearing. (The lens's component-split argument -- any split of t = 3 over two
+4-cycle components leaves one with t_i <= 1 -- reached the same conclusion first.)
+Net: cycles8 POOL6 is closed at every t -- 8-cycles at t <= 2 twice (Lemma-C
+side computation + the Lemma-C-free complete Rust run), at t = 3 exhaustively;
+two-4-cycles at every t by mediant + t3_check.  It does NOT mean "n = 8
+closed": cycles8 covers 6.95% of the 2x2x2 POOL6 label space (only m = n = 8
+with every degree exactly 2), and `--deg` is vacuous for every value but 2.
+
+### Known limits -- additions
+- `scan --tlimit 0`: Rust treats it as a 0 s limit (stops after one item);
+  Python's `if tlimit and ...` (`search.py:209`) treats 0 as no limit.  An
+  in-contract CLI input no driver passes.  OPEN; fix = treat 0 as none at the
+  next rebuild.  (external r5)
+- `g2-tall --rows 1 --max-t 2` (max_t = n): Python raises `ZeroDivisionError`
+  (den = 0), Rust prints a clean RESULT.  Outside the driver's contract (rows
+  in {4,5,6}); same class as sweep s09.  (r5-hitpaths)
+- `fastcore_rs.force` reads `rows` by iteration where the Python subscripts:
+  a `dict` or list-subclass `rows` gives a silent wrong value.  No driver
+  passes such rows.  Scope note on the bit-exactness claim, not a recorded-run
+  issue.  (external r5)
+- The shipped `src/fastcore_rs.abi3.so` (sha256
+  `03db7ae995fdda76eed5d7d72474f5b27141bc9b15814e89827250e35d21ed4b`, built
+  2026-09-04 16:10) predates the last `kakeya-core` source edit (09-05 17:32)
+  by 25 h.  A fresh build after that edit (`refute/boundary/fresh/`,
+  `04d848f8...`) shows no behavioural drift (kernel r5).  Rebuild, re-copy and
+  re-pin the sha at the next kernel change.
+- `boundary/t_wiring.py` exits 1 on a stale assertion encoding an
+  already-fixed defect; `control/` and `boundary/` never wrote a verdict file.
+  (kernel r5)
+
+### Improvements PROPOSED (built and gated in copies; NOT adopted -- adoption = rebuild + full regate)
+- `improve/perf/`: kernel prototype **4.7x faster** than the audited `force`
+  with byte-identical stdout on scan n4_p6_t1 and cycles8 POOL3/POOL4 8cycle.
+  Levers: p = 2^31-1 is a Mersenne prime so `% p` is shift-and-add (2.55x
+  alone); the pivot inverse `pow(a, p-2, p)` is ~80% of the modular multiplies
+  and memoising it gives a further 1.7-1.9x.  Differential: 27,951 cases vs
+  the PURE-PYTHON `force` (moduli 2^31-1, 1e9+7, 91, 97, 7; exceptions
+  included), 0 mismatches in every kernel mode; the audited kernel replayed on
+  the same corpus also 0.  Lever C (carry the RREF across warm-started calls)
+  unspent, est. 2-3x more.  Correction to the record: step-4 membership is
+  already O(|U|*2*w), so that shortcut is worth ~8%, not 1.6x.
+- `improve/robustness/`: streaming chunk enumeration in `engine.rs`
+  (+58 -14): `check` identical to the audited binary at 1 and 12 threads; r3
+  fixtures 15/15 byte-identical; workspace 78/78 + clippy clean; the
+  `--d 2x2x2x2x2 --pool 3` abort now RETURNS a RESULT (2.03 s, 1.26 MB RSS);
+  `--tlimit 5` honoured at 5.01-5.02 s on every index space tested.  Residual
+  overshoot is per-item DFS cost, present identically in Python.  Proposal for
+  g2_tall: keep the three Rust-only keys, add `--python-compat` rather than
+  flipping the default.

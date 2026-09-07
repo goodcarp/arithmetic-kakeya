@@ -23,3 +23,6 @@ RESULT {"tag": "g2_tall_2x6", "d": [2, 6], "pool": 3, "max_t": 1, "target": "<11
 === cycles8_8cycle exit=143 2026-09-06T19:01:23Z
 === 8CYCLE DONE
 === cycles8_8cycle RESTART 2026-09-06T19:02:26Z cmd: ks8run cycles8 --pool 6 --target 67/40 --deg 2 --patterns 8cycle --threads 10 --tlimit 36000
+=== cycles8_8cycle exit=0 2026-09-06T20:46:00Z
+RESULT {"tag": "cycles8", "pool": 6, "best": null, "hits": 0, "tested": 81660, "patterns": [2, 3]}
+=== 8CYCLE DONE (restart)

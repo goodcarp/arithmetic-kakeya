@@ -36,6 +36,8 @@ score, tie-break and count is compared verbatim.
 
 ## 4. Differential sweep over 37 scan configurations
 
+> Correction 2026-09-06 (record lens R5): 37 is the number of configurations LISTED in `configs.txt` + `configs2.txt`, not run. On disk `sweep/` holds 29 configurations with artifacts, 28 with a non-empty Python output; `c12` (`--d 6`) is 0 bytes and `s17b`/`s18`/`s19` (`--d 2x2x2`) were never run. A fresh recount at `--threads 2` against the stored norms gives 25 PASS / 1 FAIL (s09 = the pre-existing Python `ZeroDivisionError`). Do not quote "30/30" or "37".
+
     ./sweep.sh          # reads configs.txt, runs python + rust(1) + rust(12), diffs
   files: sweep1-out.txt (configs s01..s06), sweep2-out.txt (the rest), sweep/*.txt
   Covers d in {2,3,4,5,6,2x2,2x3,3x2,2x4,1x3,3x1,2x1x3,2x2x2,3x3,2x2x2x2},
@@ -74,6 +76,7 @@ score, tie-break and count is compared verbatim.
 
     cargo test --release --workspace   -> 62 (kakeya-core) + 13 (kakeya-search) = 75 passed, 0 failed
     cargo test --workspace (debug)     -> same 75, 0 failed
+    [2026-09-06: the suite has since grown -- 62 + 16 + 0 = 78 passed; `kakeya-search check` = 14 PASS / 2 SKIP / 0 FAIL over 16 fixtures]
     cargo clippy --release --all-targets --workspace -- -D warnings -> exit 0
     kakeya-search check --threads 1 and --threads 12 -> both exit 0, identical modulo the [Ns]
       bracket, 14 PASS / 2 SKIP / 0 FAIL   (task B2's report says 15 PASS; the count is 14)

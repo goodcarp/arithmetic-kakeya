@@ -319,3 +319,6 @@ followed by `EXIT=0`, which would close C4 outright.
 PROGRESS.md lines 7, 8 and 36 (`12/12`, `11 PASS`) were stale and are fixed.
 Findings A and C stand as written; both were already documented as known
 limits rather than defects.
+
+## C4 — CLOSED 2026-09-06 17:38 EDT
+The orphaned pure-Python run finished: `out/C8.py.txt` = header + `RESULT {"tag": "cycles8", "pool": 3, "best": null, "hits": 0, "tested": 29004}` + `EXIT=0`, byte-identical to `C8.rs1.txt` and `C8.rs12.txt` (diff clean with `EXIT=` stripped). Section 6's heading is now true.

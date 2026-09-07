@@ -1,0 +1,5 @@
+cycles8 p3 pat2  base  real 23.45 user 23.13 sys 0.07 
+cycles8 p3 pat2  fast  real 8.12 user 7.95 sys 0.02 
+cycles8 p3 pat2  mersenne  real 9.25 user 8.95 sys 0.02 
+cycles8 p3 pat2  memb  real 20.23 user 19.73 sys 0.07 
+cycles8 p3 pat2  SHIPPED  real 21.76 user 21.09 sys 0.07 

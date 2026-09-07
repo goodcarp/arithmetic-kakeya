@@ -1,0 +1,23 @@
+#!/bin/bash
+# Re-run the CURRENT binary against every STORED Python norm in refute/search/sweep/.
+# bash 3.2 safe: no associative arrays (the first version of this script used one
+# and silently reused the last config for every run -- see FINDINGS.md).
+B="/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/target/release/kakeya-search"
+R="/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/refute/search"
+D="/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/refute/record/r5"
+O="$D/resweep"; mkdir -p "$O"
+cat "$R/configs.txt" "$R/configs2.txt" "$D/configs_s01_s07.txt" > "$D/allconfigs.txt"
+pass=0; fail=0; miss=0; n=0
+for f in "$R"/sweep/*.py.norm; do
+  name=$(basename "$f" .py.norm)
+  n=$((n+1))
+  line=$(awk -v k="$name" '$1==k{print; exit}' "$D/allconfigs.txt")
+  if [ -z "$line" ]; then echo "NOCONFIG $name"; miss=$((miss+1)); continue; fi
+  set -- $line
+  "$B" scan --tag "$2x" --d "$3" --pool "$4" --max-t "$5" --target "$6" --limit "$7" >/dev/null 2>&1 # placeholder, not used
+  "$B" scan --tag "$1" --d "$2" --pool "$3" --max-t "$4" --target "$5" --limit "$6" --seed 11 --threads 2 > "$O/$name.rs.txt" 2>&1
+  /usr/bin/python3 "$R/norm.py" "$O/$name.rs.txt" > "$O/$name.rs.norm"
+  if diff -q "$f" "$O/$name.rs.norm" >/dev/null; then echo "PASS $name ($(grep -c . "$f") lines)"; pass=$((pass+1));
+  else echo "FAIL $name  stored=$(grep -c . "$f") rs=$(grep -c . "$O/$name.rs.norm")"; fail=$((fail+1)); fi
+done
+echo "RESWEEP stored_norms=$n pass=$pass fail=$fail noconfig=$miss"

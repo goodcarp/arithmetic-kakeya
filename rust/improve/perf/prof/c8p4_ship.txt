@@ -1,0 +1,8 @@
+5 presence patterns are 2-regular with m = 8
+pattern table (product order; --patterns selects by index):
+  0  (0, 1, 1, 1, 1, 1, 1)  cycles=[4, 4]  labels=4096
+  1  (1, 0, 0, 1, 1, 1, 1)  cycles=[4, 4]  labels=1024
+  2  (1, 0, 1, 1, 1, 0, 0)  cycles=[8]  labels=256  SELECTED
+  3  (1, 1, 0, 0, 0, 1, 1)  cycles=[8]  labels=256  SELECTED
+  4  (1, 1, 1, 0, 0, 0, 0)  cycles=[4, 4]  labels=64
+RESULT {"tag": "cycles8", "pool": 4, "best": null, "hits": 0, "tested": 14376, "patterns": [2, 3]}

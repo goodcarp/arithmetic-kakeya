@@ -1,0 +1,14 @@
+===== t_scratch.py SEED=424242 N=20000 =====
+checks=40000  mismatches=0
+
+real	0m21.286s
+user	0m11.438s
+sys	0m0.189s
+exit=0
+===== t_scratch.py SEED=5051977 N=20000 (fresh seed) =====
+checks=40000  mismatches=0
+
+real	0m17.359s
+user	0m11.051s
+sys	0m0.201s
+exit=0

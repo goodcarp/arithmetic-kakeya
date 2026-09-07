@@ -1,0 +1,18 @@
+PASS n4_p6_t1: scanned 343/343 best 7/4 hits 120 complete true [0.31s]
+PASS g2_23_t1: scanned 1024/1024 best null hits 0 complete true [1.45s]
+PASS g2_32_t1: scanned 1024/1024 best null hits 0 complete true [1.77s]
+PASS rzero_2x2_pool6: scanned 343/343 forcing_objects 0 complete true [0.00s]
+PASS rzero_2x2x2_pool4: scanned 78125/78125 forcing_objects 0 complete true [0.13s]
+PASS rzero_2x3_pool4: scanned 3125/3125 forcing_objects 0 complete true [0.01s]
+PASS rzero_3x2_pool4: scanned 3125/3125 forcing_objects 0 complete true [0.01s]
+PASS rzero_2x2x2_pool6_lim60000: scanned 60000/60000 forcing_objects 0 complete false [0.11s]
+PASS cycles8_patterns: 5 patterns, npres [6, 5, 4, 4, 3], POOL6 57240, POOL8 303616
+PASS g2_tall_2x3_t0: best null hits 0 complete true walked 256/256 pairs 237 [0.14s]
+PASS g2_tall_2x3_t1: best null hits 0 complete true walked 256/256 pairs 1587 [0.39s]
+PASS rng_seed11_pool3_slots9: [(1, 1), (1, 1), (1, 1), (1, 0), (1, 0), (1, 1), (1, 0), (0, 0), (1, 1)]
+PASS rng_seed11_pool4_slots7: [(1, 1), (1, 2), (1, 1), (1, 1), (1, 2), (1, 2), (1, 0)]
+PASS rng_seed0_pool6_slots7: [(2, 1), (1, 1), (2, 1), (1, 1), (0, 0), (0, 1), (1, 2)]
+SKIP ladder: pure sympy, no force/rank call -- not ported (contract sec 2.8)
+SKIP schemes: pure sympy, no force/rank call -- not ported (contract sec 2.8)
+CHECK PASS (0 failed)
+B t12 exit=0

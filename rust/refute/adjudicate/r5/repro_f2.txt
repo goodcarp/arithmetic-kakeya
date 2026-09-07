@@ -1,0 +1,33 @@
+### REPRO 1: ls -l py_stacked_p4_t*
+-rw-r--r--@ 1 spaceman  staff  0 Sep  5 18:07 rust/refute/search/py_stacked_p4_t0.txt
+-rw-r--r--@ 1 spaceman  staff  0 Sep  5 18:07 rust/refute/search/py_stacked_p4_t1_rskernel.txt
+
+### REPRO 2: grep -rl 'best score over all interfaces' (whole tree)
+logs/rust-stacked_pool4.log
+logs/rust-stacked_pool6.log
+logs/rust-targets.log
+logs/stacked.log
+rust/crates/kakeya-search/src/drivers/stacked.rs
+rust/improve/perf/kperf/crates/kakeya-search/src/drivers/stacked.rs
+rust/improve/r5-hitpaths/crates/kakeya-search/src/drivers/stacked.rs
+rust/improve/robustness/crates/kakeya-search/src/drivers/stacked.rs
+rust/oracle_drivers.py
+rust/refute/adjudicate/r5/repro_f2.txt
+rust/refute/record/r5/FINDINGS.md
+rust/refute/search/py_stacked_lowtarget.txt
+rust/refute/search/r3/py_stacked.norm
+rust/refute/search/r3/rs_stacked.norm
+rust/refute/search/r3/rs_stacked_cat.txt
+rust/refute/search/r3/stacked_one.py
+rust/refute/search/r5-hitpaths/out/sp.n
+rust/refute/search/r5-hitpaths/out/sr.n
+rust/refute/search/r5-hitpaths/out/st_p3_mt0.py_rskernel.txt
+rust/refute/search/r5-hitpaths/out/st_p3_mt0.rs1.txt
+rust/refute/search/rs_stacked_lowtarget.txt
+rust/refute/search/rs_stacked_p46_t1.txt
+rust/refute/search/rs_stacked_p4_t0.txt
+src/stacked.py
+
+### binary sha256
+add554183aaa3d7cf1f2d468ba11e39926aea035853809811af4e6c40010fcf9  rust/target/release/kakeya-search
+03db7ae995fdda76eed5d7d72474f5b27141bc9b15814e89827250e35d21ed4b  src/fastcore_rs.abi3.so

@@ -1,0 +1,21 @@
+Sampling process 83940 for 20 seconds with 1 millisecond of run time between samples
+Sampling completed, processing symbols...
+Sample analysis of process 83940 written to file improve/perf/prof/sample_c8.txt
+       21.03 real         1.44 user         1.88 sys
+            17162240  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               63030  page reclaims
+                  39  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 151  voluntary context switches
+               27004  involuntary context switches
+          5289216663  instructions retired
+          7983454817  cycles elapsed
+            11628544  peak memory footprint

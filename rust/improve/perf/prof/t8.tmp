@@ -1,0 +1,16 @@
+-- iter 1 shipped
+real 29.45
+user 21.71
+sys 0.19
+-- iter 1 copyfast
+real 8.98
+user 7.56
+sys 0.07
+-- iter 2 shipped
+real 29.85
+user 21.35
+sys 0.18
+-- iter 2 copyfast
+real 11.08
+user 7.97
+sys 0.10

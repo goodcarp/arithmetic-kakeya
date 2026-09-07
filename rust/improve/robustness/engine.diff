@@ -1,0 +1,95 @@
+--- engine.rs.orig	2026-09-06 16:35:27
++++ crates/kakeya-search/src/engine.rs	2026-09-06 16:36:46
+@@ -184,6 +184,9 @@
+         .build()
+         .expect("thread pool");
+ 
++    // Set by the deadline path to the smallest enumeration index that was
++    // never processed; `u64::MAX` when no deadline tripped.
++    let mut cut_out: u64 = u64::MAX;
+     let merged = if opts.tlimit.is_none() {
+         // No deadline: nothing can be retracted, so flush in order as we go.
+         let state: Mutex<(u64, BTreeMap<u64, ChunkOut>, Merged)> =
+@@ -209,27 +212,68 @@
+         });
+         state.into_inner().expect("merger lock").2
+     } else {
+-        let outs: Vec<ChunkOut> = pool.install(|| {
+-            (0..nchunks)
+-                .into_par_iter()
+-                .map(|ci| {
+-                    let start = ci * cs;
+-                    let end = ((ci + 1) * cs).min(opts.total);
+-                    chunk_fn(start, end, &stop)
+-                })
+-                .collect()
+-        });
+-        let stop_at = stop.first_skipped();
++        // Deadline path, streaming.  Chunks are dispatched in strictly
++        // increasing order, `wave` chunks at a time, and each wave is absorbed
++        // as soon as it joins.  Nothing proportional to the index space is ever
++        // allocated, and no chunk past the deadline is ever visited -- so
++        // `--tlimit` is a real wall-clock bound and a huge index space returns
++        // a RESULT instead of aborting on the chunk vector.
++        //
++        // Ordering and tie-breaks are unchanged.  The cut-off `stop_at` is the
++        // smallest enumeration index that was never processed.  A wave that
++        // joins with `stop.tripped()` still false skipped nothing, so every one
++        // of its indices is strictly below any future cut-off and can be
++        // absorbed (and printed) immediately -- that is why the old
++        // buffer-everything-until-the-end step is not needed for those waves.
++        // The wave in which the deadline trips is absorbed against
++        // `min(stop.first_skipped(), frontier)`, where `frontier` is the first
++        // index of the first chunk we then decline to dispatch: every chunk we
++        // did dispatch is visited (rayon runs the whole wave), so a skipped
++        // chunk records its own start index exactly as before, and the chunks
++        // we never dispatch all start at or after `frontier`.  That min is
++        // therefore the same number the eager version computed.
+         let mut m = Merged::default();
+-        for c in &outs {
+-            m.absorb(c, stop_at, opts.print_improvements, opts.print_hits);
++        let mut ci: u64 = 0;
++        let mut cut: u64 = u64::MAX;
++        let threads = opts.threads.max(1) as u64;
++        let mut wave: u64 = threads * 4;
++        let max_wave: u64 = threads * 256;
++        while ci < nchunks {
++            let hi = ci.saturating_add(wave).min(nchunks);
++            let outs: Vec<ChunkOut> = pool.install(|| {
++                (ci..hi)
++                    .into_par_iter()
++                    .map(|c| {
++                        let start = c * cs;
++                        let end = ((c + 1) * cs).min(opts.total);
++                        chunk_fn(start, end, &stop)
++                    })
++                    .collect()
++            });
++            ci = hi;
++            if stop.tripped() {
++                let frontier = ci.saturating_mul(cs).min(opts.total);
++                cut = stop.first_skipped().min(frontier);
++                for c in &outs {
++                    m.absorb(c, cut, opts.print_improvements, opts.print_hits);
++                }
++                break;
++            }
++            for c in &outs {
++                m.absorb(c, u64::MAX, opts.print_improvements, opts.print_hits);
++            }
++            wave = wave.saturating_mul(2).min(max_wave);
+         }
++        cut_out = cut;
+         m
+     };
+ 
+     let stopped = stop.tripped();
+     let scanned = if stopped {
+-        stop.first_skipped().saturating_add(1).min(opts.total)
++        cut_out
++            .min(stop.first_skipped())
++            .saturating_add(1)
++            .min(opts.total)
+     } else {
+         opts.total
+     };

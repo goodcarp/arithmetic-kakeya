@@ -135,3 +135,6 @@ above will produce phantom mismatches that are Python's fault.
   matching the *reference*, not about production results. The production-relevant
   ones are groups 1 (sign/overflow), 5 (restart, zero-row drop, forced-coordinate
   ignore) and the `d17` "rows re-iterated" note if the port streams rows.
+
+---
+**Errata (2026-09-06, record lens R7/R8).** (1) There are 17 entries prefixed `v`, not 16 (`traps.json` = 119 entries: a 36, d 18, f 18, v 17, e 16, b 9, c 5). (2) The sentence above — "there is no `_force_py`/`_rank_py` split and no `KAKEYA_PURE_PY` switch in that file" — was true when written (2026-09-04) and is false now: `src/fastcore.py` has carried the drop-in block since the PyO3 kernel landed, and **without `KAKEYA_PURE_PY=1` `fastcore.force` is the Rust kernel**. Every `expected_repr` in `traps.json` was generated before that change, so it is pure-Python output; re-verified 2026-09-06 against `_force_py`/`_rank_py` with `_INV` cleared per call (`rust/refute/record/r5/verify_traps.py`): 119/119 and 16/16 (17 call forms) reproduce. Anyone regenerating traps must set `KAKEYA_PURE_PY=1`. `K/` in this file and in PREDICTIONS.md means the `arithmetic-kakeya/` root.

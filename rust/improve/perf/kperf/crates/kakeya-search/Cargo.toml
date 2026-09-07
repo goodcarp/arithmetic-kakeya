@@ -1,0 +1,17 @@
+[package]
+name = "kakeya-search"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.73"   # u64::div_ceil (engine.rs) is stable since 1.73
+
+[lib]
+name = "kakeya_search"
+path = "src/lib.rs"
+
+[[bin]]
+name = "kakeya-search"
+path = "src/main.rs"
+
+[dependencies]
+kakeya-core = { path = "../kakeya-core", version = "0.1.0" }
+rayon = "1"

@@ -1,0 +1,1 @@
+k5_warmchain seed=51977 chains=1500 steps=11992 mismatches=0

@@ -1,0 +1,24 @@
+### A. new binary, wall-clock bound, cheap-item configs (deadline granularity = 1 item)
+-- --d 2x2x2x2 --pool 4 --max-t 0 --target 1/8 --threads 1  --tlimit 5
+RESULT {"tag": "Z", "d": [2, 2, 2, 2], "pool": 4, "max_t": 0, "target": "1/8", "scanned": 11759508, "total": 30517578125, "best": null, "hits": 0, "complete": false, "seconds": 5.0}
+real	0m5.019s
+-- --d 2x2x2x2 --pool 4 --max-t 0 --target 1/8 --threads 2  --tlimit 5
+RESULT {"tag": "Z", "d": [2, 2, 2, 2], "pool": 4, "max_t": 0, "target": "1/8", "scanned": 21924852, "total": 30517578125, "best": null, "hits": 0, "complete": false, "seconds": 5.0}
+real	0m5.012s
+-- --d 2x2x2x2 --pool 6 --max-t 0 --target 1/8 --threads 2  --tlimit 5
+RESULT {"tag": "Z", "d": [2, 2, 2, 2], "pool": 6, "max_t": 0, "target": "1/8", "scanned": 21769797, "total": 4747561509943, "best": null, "hits": 0, "complete": false, "seconds": 5.0}
+real	0m5.014s
+-- --d 2x2x2x2x2 --pool 3 --max-t 0 --target 1/8 --threads 2  --tlimit 5
+RESULT {"tag": "Z", "d": [2, 2, 2, 2, 2], "pool": 3, "max_t": 0, "target": "1/8", "scanned": 11487729, "total": 4611686018427387904, "best": null, "hits": 0, "complete": false, "seconds": 5.0}
+real	0m5.018s
+
+### B. the mandated abort repro, new binary, three thread counts
+-- threads 1
+RESULT {"tag": "OV", "d": [2, 2, 2, 2, 2], "pool": 3, "max_t": 0, "target": "7/4", "scanned": 125863, "total": 4611686018427387904, "best": null, "hits": 0, "complete": false, "seconds": 2.0}
+real	0m2.014s
+-- threads 2
+RESULT {"tag": "OV", "d": [2, 2, 2, 2, 2], "pool": 3, "max_t": 0, "target": "7/4", "scanned": 161756, "total": 4611686018427387904, "best": null, "hits": 0, "complete": false, "seconds": 2.0}
+real	0m2.014s
+-- threads 12
+RESULT {"tag": "OV", "d": [2, 2, 2, 2, 2], "pool": 3, "max_t": 0, "target": "7/4", "scanned": 236610, "total": 4611686018427387904, "best": null, "hits": 0, "complete": false, "seconds": 2.0}
+real	0m2.013s

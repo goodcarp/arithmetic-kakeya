@@ -1,0 +1,67 @@
+  » order                          
+  ⇢ route           antigravity-cli — kind=research; ranked 1 ready; chose antigravity-cli (cost_class 1)
+  → invoke          antigravity-cli 
+  ▣ deposit         antigravity-cli (6486 chars, 102.421s, sha 4e075a19c5)
+
+────────────────────────────────────────────────────────────────────────
+1. engine.rs: Stop::should_stop and engine::run
+Input/Config: Any search with a deadline configured (e.g. --tlimit 0.5) executed across different thread counts (e.g. --threads 1 vs --threads 8).
+Risk: Threads race on the shared AtomicBool stopped flag and AtomicU64 min_skipped. When a thread working on a higher-indexed chunk (e.g. index 5000) exceeds tlimit, it sets stopped=true. A thread working on a lower-indexed chunk (e.g. index 20) checks should_stop, observes stopped=true, aborts immediately, and updates min_skipped to 20. Under --threads 1, that lower chunk would have run sequentially to a much higher index before tripping the deadline.
+Observable symptom: scanned counter, hits count, and best score differ non-deterministically between --threads 1 and --threads 8.
+
+2. drivers/scan.rs: run
+Input/Config: Configurations where cfg.max_t >= prod(cfg.d) (for example, d=[2], max_t=2, pool=[]) on instances with m=0.
+Risk: When t equals n (the product of dimensions d), den = n - t = 0. The budget check (budget = target * 0 - 0 = 0) passes. When score(m, gens.len(), den) is called with den=0, Frac::new(0, 0) executes assert!(den != 0, "zero denominator").
+Observable symptom: Search engine panics with 'zero denominator' and crashes instead of completing.
+
+3. common.rs: combinations
+Input/Config: Any search space dimension where prod(d) >= 64 (for example, d=[4, 4, 4] where n=64, max_t=1).
+Risk: combinations computes mask |= 1u64 << j for each combination element j. When j >= 64, 1u64 << j panics in debug mode due to shift overflow. In release mode, the shift wraps modulo 64 (1u64 << 64 becomes 1u64 << 0), causing element 64 to set bit 0 and corrupting t0_mask.
+Observable symptom: Shift overflow panic in debug mode, or corrupted t0_mask leading to incorrect local_req calculations and wrong hits in release mode.
+
+4. engine.rs: Merged::absorb
+Input/Config: Any driver emitting improvements where an earlier candidate has witness: Some(...) and a later candidate with a strictly better score has witness: None.
+Risk: In Merged::absorb, updating the best witness is guarded by if imp.witness.is_some() { self.bestobj = imp.witness.clone(); }. When a strictly better score arrives with witness: None, self.best updates to the new score, but self.bestobj is left unchanged and retains the stale witness object from the earlier, worse candidate.
+Observable symptom: Merged::bestobj output contains an invalid witness belonging to a strictly worse score.
+
+5. engine.rs: run
+Input/Config: Search spaces where opts.total is close to u64::MAX (for example, total = u64::MAX - 10).
+Risk: In run, ((ci + 1) * cs) overflows u64 on the final chunk (ci = nchunks - 1). In debug mode this panics on arithmetic overflow. In release mode the multiplication wraps around to a small number smaller than start, making end = wrapped.min(opts.total) < start, which causes for index in start..end to execute zero iterations.
+Observable symptom: Panic in debug mode, or silent data loss where the entire final index range is skipped in release mode.
+
+6. frac.rs: Frac::mul_int_floor
+Input/Config: Negative target scores, such as target = Frac::new(-1, 2) with positive k (e.g. k=5).
+Risk: Python int(Fraction(-1, 2) * 5) = int(-2.5) = -2 (truncation toward zero). In Frac::mul_int_floor, (-1 * 5).div_euclid(2) evaluates Euclidean division, which floors toward negative infinity and evaluates to -3.
+Observable symptom: m_cap and budget integer bounds differ by 1 from Python, causing premature pruning or exploration of different search branches.
+
+7. pyrandom.rs: PyRandom::randbelow
+Input/Config: Calling sample_labels with an empty alphabet slice (&[]).
+Risk: randbelow(0) computes k = 32 - 0.leading_zeros() = 0. getrandbits(0) returns 0. The rejection loop condition if r < n (0 < 0) is never satisfied, causing an infinite loop.
+Observable symptom: Process hangs indefinitely with 100% CPU usage.
+
+8. frac.rs: Frac::parse
+Input/Config: Passing decimal string targets (for example target = "0.75" or target = "2.5") as accepted by Python fractions.Fraction("0.75").
+Risk: Frac::parse only splits on '/' and calls i64::from_str on the entire input when no '/' is present. For decimal representations, parsing fails with an invalid digit error.
+Observable symptom: Engine returns an Err and crashes on decimal string inputs that Python parses cleanly to Fraction(3, 4).
+
+9. common.rs: LabelSource::decode
+Input/Config: LabelSource::Exhaustive configured with an empty alphabet (alphabet.len() == 0).
+Risk: In LabelSource::decode, a = alphabet.len() as u64 evaluates to 0. The modulo operation x % a performs a division by zero.
+Observable symptom: Search engine panics with 'attempt to calculate the remainder with a divisor of zero'.
+
+10. engine.rs: run
+Input/Config: Running with a deadline set (e.g. --tlimit 5.0) and verbose output enabled (print_hits = true).
+Risk: When tlimit is None, completed chunks are merged and progress lines are printed incrementally while workers run. When tlimit is Some, chunk outputs are collected in a parallel Vec, and Merged::absorb is only invoked after all rayon workers finish.
+Observable symptom: Progress lines do not stream live to stdout during search execution as in Python, but instead appear all at once in a batch upon deadline expiration.
+
+11. pyrandom.rs: PyRandom::seed
+Input/Config: Passing negative integer seeds (e.g. seed = -1) or seeds exceeding 2^64 - 1, which Python random.Random(seed) supports.
+Risk: PyRandom::seed accepts only u64. Python derives its MT19937 seed array from the absolute value and arbitrary-precision byte limbs of Python ints. Negative or arbitrary-precision seeds cannot be passed in u64 and cause casting truncation.
+Observable symptom: Generated pseudo-random sequence diverges from Python, producing entirely different sampled candidate labels.
+
+12. drivers/scan.rs: run and search::min_generators
+Input/Config: Graph search instances with multiple equal-scoring minimal generator sets where min_generators or local requirement traversal relies on standard HashSet or HashMap iteration.
+Risk: Standard Rust hash collections use SipHash with a per-process random seed (RandomState). Iterating unordered maps or sets to break ties or select generators produces non-deterministic iteration order across separate runs.
+Observable symptom: The gens array in HITOBJ JSON lines outputs generators in different orders, or selects a different tie-winning minimal generator set across runs or thread counts.
+────────────────────────────────────────────────────────────────────────
+  1 deposit(s) · 0 molt(s) · 103.1s · verify: ✘ · head a8378a26e505

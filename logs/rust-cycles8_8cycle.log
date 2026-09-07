@@ -5,3 +5,4 @@ pattern table (product order; --patterns selects by index):
   2  (1, 0, 1, 1, 1, 0, 0)  cycles=[8]  labels=1296  SELECTED
   3  (1, 1, 0, 0, 0, 1, 1)  cycles=[8]  labels=1296  SELECTED
   4  (1, 1, 1, 0, 0, 0, 0)  cycles=[4, 4]  labels=216
+RESULT {"tag": "cycles8", "pool": 6, "best": null, "hits": 0, "tested": 81660, "patterns": [2, 3]}

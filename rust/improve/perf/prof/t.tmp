@@ -1,0 +1,39 @@
+-- iter 1
+shipped
+real 2.69
+user 2.32
+sys 0.01
+copybase
+real 2.87
+user 2.30
+sys 0.01
+copyfast
+real 0.97
+user 0.85
+sys 0.00
+-- iter 2
+shipped
+real 2.91
+user 2.32
+sys 0.01
+copybase
+real 3.01
+user 2.30
+sys 0.01
+copyfast
+real 1.06
+user 0.84
+sys 0.01
+-- iter 3
+shipped
+real 3.10
+user 2.23
+sys 0.02
+copybase
+real 3.00
+user 2.26
+sys 0.01
+copyfast
+real 0.99
+user 0.85
+sys 0.00

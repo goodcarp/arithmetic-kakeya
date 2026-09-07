@@ -1,0 +1,52 @@
+  » order                          
+  ⇢ route           grok-cli       — kind=code; ranked 1 ready; chose grok-cli (cost_class 1)
+  → invoke          grok-cli       
+  ▣ deposit         grok-cli       (2396 chars, 489.562s, sha 8f39a88301)
+
+────────────────────────────────────────────────────────────────────────
+1. rank([[1]], 2**32)
+Rust raises ValueError in validate_p (p >= 2**32), while Python does 1 % 4294967296 and returns 1.
+
+2. rank([[1]], -1)
+Rust raises ValueError for negative p, while Python has 1 % -1 == 0 so the matrix is all-zero and returns 0.
+
+3. force([[1, 0]], 1, [], -1)
+Rust raises ValueError on the first % p, while Python reduces every entry to 0 mod -1, never calls pow, and returns (False, set()).
+
+4. force([[1, 0]], 1, [], 2**32)
+Rust raises ValueError for p >= 2**32, while Python runs the loop mod 2**32 and returns (False, set()).
+
+5. force([], 1048577, range(1048577), 2147483647)
+Rust raises ValueError because n > 2**20 before looking at T0, while Python sees len(set(T0)) == n and returns (True, set(range(1048577))) without entering the loop.
+
+6. rank([[2**63]], 2147483647)
+Rust/PyO3 raises OverflowError extracting the entry as i64, while Python reduces 2**63 % 2147483647 (== 2) and returns 1.
+
+7. force([], 1, [2**63], 2147483647)
+Rust raises OverflowError extracting T0, while Python does T=set([2**63]), skips the loop because len(T)==n, and returns (True, {2**63}).
+
+8. rank([[0.0]], 2147483647)
+Rust raises TypeError converting float to i64, while Python does 0.0 % p == 0.0, never calls _inv, and returns 0.
+
+9. rank(iter([]), 2147483647)
+Rust treats the iterator as truthy, extracts zero rows, and returns 0; Python does not rows is false, builds B=[], then hits IndexError on B[0].
+
+10. rank([[1, "x"]], 0)
+Rust TypeErrors while converting rows to i64 before looking at p; Python evaluates 1 % 0 first and raises ZeroDivisionError.
+
+11. force([{0: 1, 1: 2147483646}], 1, [], 2147483647)
+Python indexes the dict (r[0], r[1]) so the row is (1, p-1) and returns (True, {0}); Rust iterates dict keys so the row is (0, 1) and returns (False, set()).
+
+12. force([[1]], 1, [], -5)
+Rust sees 2*U[0] < len(row) and raises ValueError for negative p before reading column 1; Python computes 1 % -5 then raises IndexError on r[1].
+
+13. rank([[0]], 2.5)
+Rust TypeErrors extracting float p as i64; Python does 0 % 2.5 == 0.0 and returns 0 without calling three-arg pow.
+
+14. force([], 1, "0", 2147483647)
+Rust TypeErrors converting the character "0" to i64; Python does set("0") == {"0"}, len==n, and returns (True, {"0"}).
+
+15. rank([[1]], 2**63)
+Rust/PyO3 raises OverflowError converting p to i64 (2**63 is just outside signed 64-bit); Python runs mod 2**63 and returns 1.
+────────────────────────────────────────────────────────────────────────
+  1 deposit(s) · 0 molt(s) · 490.8s · verify: ✘ · head 43c975e1bee4

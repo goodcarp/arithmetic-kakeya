@@ -1,0 +1,94 @@
+### control suite re-run r5 (shipped .so via src/)
+--- test_control.py ---
+== control-flow: 103 checks, 11 divergences
+   DIVERGE 'force: rows generator, 2 rounds needed'
+      py = ('force', False, 'bool', [0], 'set')
+      rs = ('force', True, 'bool', [0, 1], 'set')
+   DIVERGE 'force: rows iter(list), 2 rounds needed'
+      py = ('force', False, 'bool', [0], 'set')
+      rs = ('force', True, 'bool', [0, 1], 'set')
+   DIVERGE 'force: rows generator, 3 rounds needed'
+      py = ('force', False, 'bool', [0], 'set')
+      rs = ('force', True, 'bool', [0, 1, 2], 'set')
+   DIVERGE 'force: unread trailing str entry'
+      py = ('force', True, 'bool', [0], 'set')
+      rs = ('raise', 'TypeError')
+   DIVERGE 'force: unread trailing float entry'
+      py = ('force', True, 'bool', [0], 'set')
+      rs = ('raise', 'TypeError')
+   DIVERGE 'force: unread trailing huge int'
+      py = ('force', True, 'bool', [0], 'set')
+      rs = ('raise', 'OverflowError')
+   DIVERGE 'force: unread trailing None'
+      py = ('force', True, 'bool', [0], 'set')
+      rs = ('raise', 'TypeError')
+   DIVERGE 'force: bad entry at a column already in T0'
+      py = ('force', True, 'bool', [0, 1], 'set')
+      rs = ('raise', 'OverflowError')
+   DIVERGE 'force: bad entry in a row, IndexError comes first in py'
+      py = ('raise', 'IndexError')
+      rs = ('raise', 'OverflowError')
+   DIVERGE 'rank: empty generator'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+   DIVERGE 'rank: empty iter(list)'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+TOTAL DIVERGENCES: 11
+
+real	0m0.115s
+user	0m0.074s
+sys	0m0.030s
+exit=0
+--- test_state.py ---
+== state: 6022 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m5.119s
+user	0m2.108s
+sys	0m0.053s
+exit=0
+--- test_dfs_aliasing.py ---
+   p=-5           py=('ok', 2)        rs=('raise', 'ValueError')
+   p=4294967296   py=('ok', 2)        rs=('raise', 'ValueError')
+   p=1099511627776 py=('ok', 2)        rs=('raise', 'ValueError')
+== dfs-aliasing: 805 checks, 1 divergences
+   DIVERGE 'force([], n=1048577, T0=range(n)) -- Python short-circuits'
+      py = ('force', True, 'bool', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 5...<8326115 chars>
+      rs = ('raise', 'ValueError')
+TOTAL DIVERGENCES: 1
+
+real	0m19.783s
+user	0m9.782s
+sys	0m0.348s
+exit=0
+--- test_threads.py ---
+threaded checks: 192000, failures: 0
+== threads: 192008 checks, 7 divergences
+   DIVERGE 'rank(TruthyEmpty())'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+   DIVERGE 'rank(iter([]))'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+   DIVERGE 'rank(x for x in [])'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+   DIVERGE 'rank(zip([],[]))'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+   DIVERGE 'rank(filter(None,[]))'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+   DIVERGE 'rank(map(list,[]))'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+   DIVERGE 'rank(reversed([]))'
+      py = ('raise', 'IndexError')
+      rs = ('rank', 0)
+TOTAL DIVERGENCES: 7
+
+real	0m3.199s
+user	0m3.172s
+sys	0m1.139s
+exit=0

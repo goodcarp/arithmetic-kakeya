@@ -1,0 +1,78 @@
+### control fuzz r5 part2
+--- fuzz_control.py 7 25000
+== fuzz-control seed=7: 50000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m13.833s
+user	0m6.124s
+sys	0m0.106s
+--- fuzz_control.py 4242 25000
+== fuzz-control seed=4242: 50000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m13.266s
+user	0m5.915s
+sys	0m0.109s
+--- fuzz_control.py 90210 25000
+== fuzz-control seed=90210: 50000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m13.682s
+user	0m5.852s
+sys	0m0.104s
+--- fuzz_ragged.py 11 30000
+== fuzz-ragged seed=11: 60000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m11.657s
+user	0m4.912s
+sys	0m0.090s
+--- fuzz_ragged.py 12 30000
+== fuzz-ragged seed=12: 60000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m10.639s
+user	0m4.806s
+sys	0m0.081s
+--- fuzz_ragged.py 13 30000
+== fuzz-ragged seed=13: 60000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m9.263s
+user	0m4.611s
+sys	0m0.077s
+--- fuzz_ragged.py 5051977 30000
+== fuzz-ragged seed=5051977: 60000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m9.417s
+user	0m4.660s
+sys	0m0.080s
+--- fuzz_pivot.py 5 12000
+== fuzz-pivot seed=5: 36000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m10.756s
+user	0m5.817s
+sys	0m0.095s
+--- fuzz_pivot.py 6 12000
+== fuzz-pivot seed=6: 36000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m10.030s
+user	0m5.851s
+sys	0m0.098s
+--- fuzz_pivot.py 77 12000
+== fuzz-pivot seed=77: 36000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m8.634s
+user	0m5.760s
+sys	0m0.081s
+--- fuzz_pivot.py 5051977 12000
+== fuzz-pivot seed=5051977: 36000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m7.846s
+user	0m5.654s
+sys	0m0.084s

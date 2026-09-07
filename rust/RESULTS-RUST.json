@@ -124,12 +124,43 @@
    },
    "matches_prediction": true,
    "prediction_status": "CONSISTENT (incomplete)"
+  },
+  {
+   "tag": "cycles8_8cycle",
+   "log": "logs/rust-cycles8_8cycle.log",
+   "cmd": "ks8run cycles8 --pool 6 --target 67/40 --deg 2 --patterns 8cycle --threads 10 --tlimit 36000",
+   "binary_note": "target/release/ks8run = a copy of the binary taken 2026-09-06 15:02, BEFORE the checked_pow rebuild (sha add55418...); irrelevant to this input (no overflow path) but not the audited sha",
+   "started": "2026-09-06T19:02:26Z",
+   "finished": "2026-09-06T20:46:00Z",
+   "exit": 0,
+   "result": {
+    "best": null,
+    "hits": 0,
+    "tested": 81660,
+    "patterns": [
+     2,
+     3
+    ],
+    "complete": true,
+    "seconds": 6214
+   },
+   "pairs_per_s": 13.1,
+   "threads": 10,
+   "covers": "the two 8-cycle presence patterns (indices 2, 3), all 81,660 pairs at t <= 2 -- the complement of the 1,823,760 two-4-cycle pairs settled by the mediant argument (PREDICTIONS 2.2)",
+   "fable_prediction": {
+    "hits": 0,
+    "source": "PREDICTIONS.md 6: cycle8_cheap + cycle8_r5 side computation, 0 hits over 102M force calls, modulo Lemma C + P6"
+   },
+   "matches_prediction": true,
+   "prediction_status": "CONFIRMED (independent route: no Lemma C prune, Python prune order reproduced)",
+   "residual_note": "cycles8 never searches t = 3 (both implementations hardcode t in {0,1,2}); at POOL6/67/40 the t=3, r=0 phase scores 8/5 <= 67/40. Closed 2026-09-06 by rust/refute/science/r5/t3_check.py (pure Python): patterns 2,3 -> 87,600 pairs 0 hits; patterns 1,4 -> 236,400 pairs 0 hits; pattern 0 -> 1,368,000 pairs 0 hits (t3_idx0_purepy.txt, 567 s); t=3 total 1,692,000 pairs, 0 hits, all five patterns by computation. See PROGRESS.md 2026-09-06 evening."
   }
  ],
  "notes": [
   "cycles8: 98,973 pairs tested in 21,600 s (4.58 pairs/s) are an exact prefix of presence pattern 0 (ending at label tuple #3008 of 46,656; audit C4), which adversary-fable/PREDICTIONS.md 2.2 settles analytically. The run therefore said nothing about the two 8-cycle patterns. Fable's side computation (adversary-fable/bg/cycle8_*.log) had already exhausted the 8-cycle patterns with 0 hits; an independent Rust run over the same patterns (`cycles8 --patterns 8cycle`) was started 2026-09-06 as a cross-check, not as new coverage.",
   "g2_tall 2x5/2x6: no hits within 7207 s / 14558 s; both remain incomplete; consistent with, not proof of, the pre-registered prediction.",
   "Prediction status (audit C4): stacked POOL4/POOL6 CONFIRMED (complete runs reproduce best 7/4, 0 hits, all-ZERO witness); g2_tall 2x5, 2x6 and cycles8 only CONSISTENT (incomplete).",
-  "Known binary defect (audit C6): `total` uses an unchecked integer pow, so on a box with >= 65 vertices the binary can print complete: true without scanning; use checked_pow before quoting any RESULT from a larger box. Not reachable on the five runs above (n <= 12)."
+  "FIXED (audit C6): `total` used an unchecked integer pow; now `checked_pow` with a loud panic (`label index space ... exceeds u64; refusing to run (audit C6)`), rebuilt 2026-09-06 15:33, sha256 add554183aaa3d7cf1f2d468ba11e39926aea035853809811af4e6c40010fcf9, `check` 14/2/0. The five runs above were produced by the pre-fix binary; none of them is on a box with >= 65 vertices, so none is affected. Still OPEN (PROGRESS.md known limits): a config whose total FITS u64 but whose chunk count is astronomic still aborts on allocation under --tlimit (smallest repro --d 2x2x2x2x2 --pool 3); a streaming-enumeration fix is built and gated in rust/improve/robustness/ but not adopted.",
+  "2026-09-06 evening: run 6 (cycles8_8cycle) added -- the direct 8-cycle enumeration completed with 0 hits over all 81,660 pairs, and the t=3 residual that no driver searches was closed separately in pure Python; cycles8 POOL6 is closed at every t. The cycles8 POOL3 coverage row now has a pure-Python oracle (byte-identical). Full triage: rust/refute/SWEEP-2026-09-06.md."
  ]
 }

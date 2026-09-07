@@ -1,0 +1,4 @@
+patterns: [(0, 1, 1, 1, 1, 1, 1), (1, 0, 0, 1, 1, 1, 1), (1, 0, 1, 1, 1, 0, 0), (1, 1, 0, 0, 0, 1, 1), (1, 1, 1, 0, 0, 0, 0)]
+selected: [(0, '4+4')]
+RESULT {"tag": "cycles8_t3_r0", "pool": 6, "which": "idx:0", "t": 3, "r": 0, "score_if_hit": "8/5", "graphs": 46656, "skipped_by_P4": 6156, "pairs": 1368000, "hits": 0, "seconds": 567.1}
+EXIT=0

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/oracle_drivers.py", line 57, in <module>
+    main()
+  File "/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/oracle_drivers.py", line 26, in main
+    b, bo, h, el = g2_tall.run(rows_, max_t=max_t, tlimit=BIG)
+  File "/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/../src/g2_tall.py", line 37, in run
+    if Fraction(cap, q) >= Fraction(11, 6):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/fractions.py", line 156, in __new__
+    raise ZeroDivisionError('Fraction(%s, 0)' % numerator)
+ZeroDivisionError: Fraction(0, 0)
+EXIT=1

@@ -1,0 +1,33 @@
+### repro of finding 1/6 (record lens), run 2026-09-06 by adjudicator refuter 2/3
+binary sha256:
+add554183aaa3d7cf1f2d468ba11e39926aea035853809811af4e6c40010fcf9  rust/target/release/kakeya-search
+03db7ae995fdda76eed5d7d72474f5b27141bc9b15814e89827250e35d21ed4b  src/fastcore_rs.abi3.so
+
+$ ls -l rust/refute/search/*rskernel*
+-rw-r--r--@ 1 spaceman  staff  124 Sep  5 18:22 rust/refute/search/py_cycles8_p3_rskernel.txt
+-rw-r--r--@ 1 spaceman  staff  148 Sep  5 18:48 rust/refute/search/py_g2tall_2x4_rskernel.txt
+-rw-r--r--@ 1 spaceman  staff    0 Sep  5 18:07 rust/refute/search/py_stacked_p4_t1_rskernel.txt
+
+$ cat py_g2tall_2x4_rskernel.txt rs_g2tall_2x4.txt
+RESULT {"tag": "g2_tall_2x4", "d": [2, 4], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": false, "seconds": 1968.2}
+RESULT {"tag": "g2_tall_2x4", "d": [2, 4], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": true, "seconds": 319.0}
+
+$ sed -n 50,54p PROGRESS.md
+## In flight
+- Python oracles running (with the Rust fastcore kernel, which B1 proved
+  bit-identical, so they finish in minutes not hours):
+  g2-tall 4 1, cycles8 3, stacked 4 1.  Compare when they land, then embed
+  the results as extra `check` fixtures.
+
+$ sed -n 68,72p PROGRESS.md
+  **Kernel disclosure, added 2026-09-06.**  Unlike every other row of the
+  coverage map, the Python side of THIS comparison did not run pure Python.
+  The completed oracle is `refute/search/py_cycles8_p3_rskernel.txt` -- the
+  filename says so -- i.e. `cycles8.main` driven by the PyO3 (Rust) kernel.
+  The pure-Python attempt of the same run, `refute/search/py_cycles8_p3.txt`,
+
+$ sed -n 136,139p PROGRESS.md  (Bench)
+0.24 s | --threads 12 0.16 s (120x).
+g2_tall 2x4: Rust --threads 12 49.6 s (Python with the B1 PyO3 kernel took
+1246.6 s on a busy machine; the pure-Python estimate in the S2 contract was
+~3073 s).

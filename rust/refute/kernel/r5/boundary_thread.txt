@@ -1,0 +1,30 @@
+===== t_thread.py =====
+PASS  single-thread agreement on 4000 instances  mismatches=0
+PASS  8 threads x 6000 force+rank calls agree
+PASS  re-entrant rows: outer result correct  (False, {0, 1}) vs (False, {0, 1})
+PASS  re-entrant rows: every inner result correct  [(True, {0, 1}), (True, {0, 1})]
+PASS  re-entrant rank: outer  3
+PASS  re-entrant rank: inner  [1, 1, 1]
+PASS  force does not mutate rows
+PASS  force does not mutate T0
+PASS  force returns a distinct object from T0
+PASS  force returns a real set  <class 'set'>
+PASS  force returns a real bool  <class 'bool'>
+PASS  returned set holds real ints  [<class 'int'>, <class 'int'>]
+PASS  mutating the returned set does not leak into the next call  {0, 1}
+PASS  two calls return distinct set objects
+PASS  warm-start: parent set survives being handed to 3 siblings  ([0], [[0, 1], [0, 1], [0, 1]])
+PASS  force accepts all-keyword call (rows=, n=, T0=) like Python
+PASS  rank accepts all-keyword call (rows=, p=)
+PASS  force accepts p by keyword
+PASS  force p=7 keyword matches Python positional
+PASS  force missing T0: same exception type  py=TypeError rs=TypeError
+PASS  force too many args: same exception type  py=TypeError rs=TypeError
+PASS  rank missing rows: same exception type  py=TypeError rs=TypeError
+
+FAILS: none
+
+real	0m3.395s
+user	0m2.677s
+sys	0m0.572s
+exit=0

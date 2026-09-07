@@ -1,0 +1,119 @@
+### boundary suite r5 (shipped .so, src/fastcore_rs.abi3.so sha 03db7ae9)
+===== t_wiring.py =====
+PASS  fastcore.py splits at 2976 bytes into original + appended block  orig=2976 tail=733
+PASS  reconstructed original is 109 lines  109
+INFO  sha256(reconstructed original)  a32f0a4388b84a04d22ddab5f72b78784563b335e96e4a03ad4d02644a7fa969
+INFO  appended block  '\n\n# --- Rust drop-in ----------------------------------------------------------\n# The pure-Python implementations ab...
+PASS  appended block does not touch anything above it
+PASS  no other src/*.py was given a Rust hook
+PASS  py3.9 default: fastcore.force is the Rust one  fastcore_rs fastcore_rs fastcore fastcore
+PASS  py3.9 default: _force_py/_rank_py stay pure Python  fastcore_rs fastcore_rs fastcore fastcore
+PASS  KAKEYA_PURE_PY=1 gives pure Python for all four  fastcore fastcore fastcore fastcore
+INFO  KAKEYA_PURE_PY='0' -> force.__module__  fastcore_rs
+INFO  KAKEYA_PURE_PY='' -> force.__module__  fastcore_rs
+INFO  KAKEYA_PURE_PY='true' -> force.__module__  fastcore_rs
+INFO  KAKEYA_PURE_PY='yes' -> force.__module__  fastcore_rs
+INFO  KAKEYA_PURE_PY='TRUE' -> force.__module__  fastcore_rs
+INFO  KAKEYA_PURE_PY='1 ' -> force.__module__  fastcore_rs
+PASS  py3.12 (abi3) imports the same .so  fastcore_rs fastcore_rs fastcore fastcore
+PASS  py3.12 loads src/fastcore_rs.abi3.so directly  /Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/src/fastcore_rs.abi3.so 2147483647
+INFO  broken fastcore_rs on the path ->   fastcore fastcore fastcore fastcore
+FAIL  a broken fastcore_rs degrades to pure Python with NO warning and exit 0  rc=0 stderr='fastcore: Rust kernel unavailable (simulated broken .so); using pure Python'
+INFO  fastcore_rs raising RuntimeError at import  rc=1 out='' err=['RuntimeError: bad dylib']
+
+INFO  test test_11_6.py                 module-level fastcore.force/rank calls  HITS=0
+INFO  test test_175.py                  module-level fastcore.force/rank calls  HITS=0
+INFO  test test_basic.py                module-level fastcore.force/rank calls  HITS=0
+INFO  test test_cut_lemma.py            module-level fastcore.force/rank calls  HITS=30000
+INFO  test test_engines_agree.py        module-level fastcore.force/rank calls  HITS=0
+INFO  test test_p6_swap.py              module-level fastcore.force/rank calls  HITS=60419
+INFO  test test_two_slope_theorem.py    module-level fastcore.force/rank calls  HITS=4000
+
+FAILS: ['a broken fastcore_rs degrades to pure Python with NO warning and exit 0']
+
+real	0m28.430s
+user	0m21.246s
+sys	0m1.124s
+exit=1
+===== t_coerce.py =====
+/Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/rust/refute/boundary/t_coerce.py:85: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  r = fn(*args, **kwargs)
+cases=82  agree=47  diverge=35
+DIVERGE  force T0={True}                  force  py=val (bool:True, set:[True, 0])                 rs=val (bool:True, set:[0, 1])
+DIVERGE  rank float non-pivot col         rank   py=val int:1                                      rs=exc TypeError
+DIVERGE  rank int-valued float non-pivot  rank   py=val int:1                                      rs=exc TypeError
+DIVERGE  rank 2 rows float trailing       rank   py=val int:2                                      rs=exc TypeError
+DIVERGE  force float entry, zero row      force  py=val (bool:False, set:[])                       rs=exc TypeError
+DIVERGE  force float n=0.0                force  py=val (bool:True, set:[])                        rs=exc TypeError
+DIVERGE  force float n=-1.0               force  py=val (bool:True, set:[])                        rs=exc TypeError
+DIVERGE  force float p=7.0 no pivot       force  py=val (bool:False, set:[])                       rs=exc TypeError
+DIVERGE  rank float p=7.0 all-zero        rank   py=val int:0                                      rs=exc TypeError
+DIVERGE  force T0={0.0}                   force  py=val (bool:True, set:[0.0])                     rs=exc TypeError
+DIVERGE  rank entry __index__             rank   py=exc TypeError                                  rs=val int:2
+DIVERGE  force n=Idx(2)                   force  py=exc TypeError                                  rs=val (bool:True, set:[0, 1])
+DIVERGE  force T0={Idx(0)}                force  py=val (bool:True, set:[Idx(0)])                  rs=val (bool:True, set:[0])
+DIVERGE  rank p=Idx(7)                    rank   py=exc TypeError                                  rs=val int:2
+DIVERGE  rank entry 2**63                 rank   py=val int:2                                      rs=exc OverflowError
+DIVERGE  rank entry 10**30                rank   py=val int:2                                      rs=exc OverflowError
+DIVERGE  force entry 2**64                force  py=val (bool:False, set:[])                       rs=exc OverflowError
+DIVERGE  force n=2**63                    force  py=hang/OOM >3s or >2GB                           rs=exc OverflowError
+DIVERGE  force n=2**21 empty rows         force  py=hang/OOM >3s or >2GB                           rs=exc ValueError
+DIVERGE  force p=2**32                    force  py=val (bool:True, set:[0])                       rs=exc ValueError
+DIVERGE  force p=2**63                    force  py=val (bool:True, set:[0])                       rs=exc OverflowError
+DIVERGE  rank p=2**40                     rank   py=val int:2                                      rs=exc ValueError
+DIVERGE  force T0 huge                    force  py=val (bool:True, set:[9223372036854775808])     rs=exc OverflowError
+DIVERGE  rank p=-5                        rank   py=val int:2                                      rs=exc ValueError
+DIVERGE  rank generator rows              rank   py=exc IndexError                                 rs=val int:0
+DIVERGE  rank iter([]) rows               rank   py=exc IndexError                                 rs=val int:0
+DIVERGE  force generator rows             force  py=val (bool:False, set:[0])                      rs=val (bool:True, set:[0, 1])
+DIVERGE  rank np.int64 entries            rank   py=exc TypeError                                  rs=val int:2
+DIVERGE  rank np.int32 entries            rank   py=exc TypeError                                  rs=val int:2
+DIVERGE  rank list of np arrays           rank   py=exc TypeError                                  rs=val int:2
+DIVERGE  force np.int64 entries           force  py=exc TypeError                                  rs=val (bool:True, set:[0])
+DIVERGE  force p=np.int64(7)              force  py=exc TypeError                                  rs=val (bool:False, set:[])
+DIVERGE  rank np.bool_ entries            rank   py=exc TypeError                                  rs=val int:1
+DIVERGE  force np.array row               force  py=exc TypeError                                  rs=val (bool:True, set:[0])
+DIVERGE  rank np.uint64 big               rank   py=exc TypeError                                  rs=exc OverflowError
+
+real	0m6.984s
+user	0m4.349s
+sys	0m0.872s
+exit=1
+===== t_msgs.py =====
+python 3.9.6 | fastcore_rs from /Users/spaceman/Desktop/FrontierMath Open Problems/arithmetic-kakeya/src/fastcore_rs.abi3.so
+
+--- exception type AND message ---
+SAME       rank ragged IndexError           py=('val', '2') | rs=('val', '2')
+SAME       force short row IndexError       py=('exc', 'IndexError', 'list index out of range') | rs=('exc', 'IndexError', 'list index out of range')
+SAME       rank p=0 ZeroDivisionError       py=('exc', 'ZeroDivisionError', 'integer division or modulo by zero') | rs=('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+SAME       force p=0 ZeroDivisionError      py=('exc', 'ZeroDivisionError', 'integer division or modulo by zero') | rs=('exc', 'ZeroDivisionError', 'integer division or modulo by zero')
+TYPE-ONLY  rank str entry TypeError         py=('exc', 'TypeError', 'not all arguments converted during string formatting') | rs=('exc', 'TypeError', "'str' object cannot be interpreted as an integer")
+DIVERGE    force T0 float TypeError         py=('val', '(True, [0.5])') | rs=('exc', 'TypeError', "'float' object cannot be interpreted as an integer")
+
+--- exotic containers ---
+SAME      rows = dict of tuples          py=('val', '2')                             rs=('val', '2')
+SAME      rows = set of tuples           py=('val', '2')                             rs=('val', '2')
+SAME      rows = SeqOnly                 py=('val', '2')                             rs=('val', '2')
+SAME      rows = LyingLen(__len__=0)     py=('val', '0')                             rs=('val', '0')
+SAME      row = SeqOnly                  py=('val', '2')                             rs=('val', '2')
+SAME      row = dict                     py=('val', '2')                             rs=('val', '2')
+SAME      row = range                    py=('val', '2')                             rs=('val', '2')
+SAME      rows = bytes                   py=('exc', 'TypeError', "'int' object is no rs=('exc', 'TypeError', "'int' object is not iterable")
+SAME      rows = bytearray               py=('exc', 'TypeError', "'int' object is no rs=('exc', 'TypeError', "'int' object is not iterable")
+SAME      T0 = dict                      py=('val', '(True, [0, 1])')                rs=('val', '(True, [0, 1])')
+DIVERGE   T0 = str                       py=('val', "(True, ['0'])")                 rs=('exc', 'TypeError', "'str' object cannot be interpreted as an integer")
+SAME      T0 = bytes                     py=('val', '(True, [0, 1])')                rs=('val', '(True, [0, 1])')
+SAME      T0 = range(1)                  py=('val', '(True, [0, 1])')                rs=('val', '(True, [0, 1])')
+
+--- introspection ---
+  signature(force) = (rows, n, T0, p=2147483647)
+  signature(rank) = (rows, p=2147483647)
+  type(fastcore_rs.force) = <class 'builtin_function_or_method'>
+  PY force defaults = (2147483647,)
+
+diff-count: 3
+
+real	0m0.171s
+user	0m0.118s
+sys	0m0.041s
+exit=0

@@ -1,0 +1,19 @@
+[
+{"name":"V01","call":"rank([[-1,2]], p=5)","expected_repr":"1"},
+{"name":"V02","call":"rank([[2,0]], p=4)","expected_repr":"1"},
+{"name":"V03_inv0","call":"_inv(0,5)","expected_repr":"0"},
+{"name":"V04","call":"rank([[1<<62, 1]], p=5)","expected_repr":"1"},
+{"name":"V05","call":"force([[7,7]],1,[],p=7)","expected_repr":"(False, set())"},
+{"name":"V06","call":"force([[0,0,1,-1]],2,[])","expected_repr":"(False, {1})"},
+{"name":"V07","call":"force([],1,[99])","expected_repr":"(True, {99})"},
+{"name":"V08","call":"force([[1,-1]],1,[2,2])","expected_repr":"(True, {2})"},
+{"name":"V09","call":"force([],2,[0,0,7])","expected_repr":"(True, {0, 7})"},
+{"name":"V10a","call":"rank([[2147483647]])","expected_repr":"0"},
+{"name":"V10b","call":"rank([[2147483648]])","expected_repr":"1"},
+{"name":"V11","call":"rank([[]])","expected_repr":"0"},
+{"name":"V12","call":"rank([[1,2],[3]])","expected_repr":"raises IndexError"},
+{"name":"V13","call":"force([[1]],1,[])","expected_repr":"raises IndexError"},
+{"name":"V14","call":"rank([[2,1],[0,2]], p=4)","expected_repr":"2"},
+{"name":"V15","call":"force([[2,2]],1,[],p=4)","expected_repr":"(False, set())"},
+{"name":"V16","call":"force([[1,-1]],1,set())","expected_repr":"(True, {0})"}
+]

@@ -1,0 +1,9 @@
+scan shipped   real 2.72 user 2.69 sys 0.01 
+scan copybase  real 2.76 user 2.68 sys 0.01 
+scan fastcache real 0.58 user 0.57 sys 0.00 
+scan shipped   real 2.77 user 2.72 sys 0.01 
+scan copybase  real 2.74 user 2.69 sys 0.01 
+scan fastcache real 0.58 user 0.58 sys 0.00 
+scan shipped   real 2.77 user 2.71 sys 0.01 
+scan copybase  real 2.72 user 2.69 sys 0.01 
+scan fastcache real 0.58 user 0.58 sys 0.00 

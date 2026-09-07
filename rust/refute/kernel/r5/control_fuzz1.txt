@@ -1,0 +1,22 @@
+### control fuzz r5
+--- fuzz_control.py 20260905 25000
+== fuzz-control seed=20260905: 50000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m11.666s
+user	0m5.677s
+sys	0m0.085s
+--- fuzz_control.py 1 25000
+== fuzz-control seed=1: 50000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m11.783s
+user	0m5.700s
+sys	0m0.079s
+--- fuzz_control.py 2 25000
+== fuzz-control seed=2: 50000 checks, 0 divergences
+TOTAL DIVERGENCES: 0
+
+real	0m15.591s
+user	0m5.959s
+sys	0m0.115s

@@ -60,3 +60,6 @@ Net: of r3's seven findings, one retracted, one confirmed-and-fixed, one
 confirmed-and-live, four already-known.  Its most valuable contribution was
 the opening sentence of section 6 — the kernel substitution in the cycles8
 row — which its own section then overclaimed as closed.
+
+## Closed the same evening
+The in-flight oracle landed at 17:38 EDT (~2.5 h wall, ~93 CPU-min as estimated): byte-identical to the Rust. C4 closed; PROGRESS.md's cycles8 POOL3 row is now a pure-Python comparison. The seven-lens sweep that followed is triaged in `../SWEEP-2026-09-06.md`; two more of my own statements from this pass were wrong and are corrected there (the disclosure paragraph said "unlike every other row" — two other rows had the PyO3 kernel too; and "135 trap cases" double-counted, the corpus is 119).

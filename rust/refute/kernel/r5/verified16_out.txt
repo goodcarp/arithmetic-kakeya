@@ -1,0 +1,19 @@
+V01                                            | exp=1                      | py=1                      | rs=1                      | PASS
+V02                                            | exp=1                      | py=1                      | rs=1                      | PASS
+V03_inv0                                       | exp=0                      | py=0                      | rs=SKIP(no _inv in rust module) | SKIP
+V04                                            | exp=1                      | py=1                      | rs=1                      | PASS
+V05                                            | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+V06                                            | exp=(False, {1})           | py=(False, {1})           | rs=(False, {1})           | PASS
+V07                                            | exp=(True, {99})           | py=(True, {99})           | rs=(True, {99})           | PASS
+V08                                            | exp=(True, {2})            | py=(True, {2})            | rs=(True, {2})            | PASS
+V09                                            | exp=(True, {0, 7})         | py=(True, {0, 7})         | rs=(True, {0, 7})         | PASS
+V10a                                           | exp=0                      | py=0                      | rs=0                      | PASS
+V10b                                           | exp=1                      | py=1                      | rs=1                      | PASS
+V11                                            | exp=0                      | py=0                      | rs=0                      | PASS
+V12                                            | exp=raises IndexError      | py=raises IndexError      | rs=raises IndexError      | PASS
+V13                                            | exp=raises IndexError      | py=raises IndexError      | rs=raises IndexError      | PASS
+V14                                            | exp=2                      | py=2                      | rs=2                      | PASS
+V15                                            | exp=(False, set())         | py=(False, set())         | rs=(False, set())         | PASS
+V16                                            | exp=(True, {0})            | py=(True, {0})            | rs=(True, {0})            | PASS
+
+PASS=16 FAIL=0 SKIP=1 TOTAL=17

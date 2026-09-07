@@ -1,0 +1,834 @@
+ANSWER IN PLAIN TEXT ONLY. No markdown, no code fences.
+
+Task: adversarial correctness/determinism review of a rayon-parallel search engine written in Rust. It is required to produce output BYTE-IDENTICAL to a sequential Python driver for any thread count (except a 'seconds' field), including which witness wins a tie, the order of progress lines, and integer counters ('scanned', 'tested').
+
+Give me a NUMBERED list of at most 12 CONCRETE determinism or correctness risks. For each: name the exact file+function, describe the input/config that would expose it, and state the observable symptom (e.g. 'progress lines out of order', 'different witness at --threads 12 vs 1', 'tested counter differs'). I am going to RUN a test for every one, so be specific about the config. Focus on: enumeration-index ordering and tie-breaks, chunking arithmetic (off-by-one, overflow, empty ranges), the deadline/Stop logic, integer overflow in index decoding, and anything where floating point or hash-map iteration order could leak into output.
+
+=== engine.rs ===
+//! Outer-loop parallelism with sequential-Python output.
+//!
+//! Every outer iteration carries its enumeration index.  Work is handed to
+//! rayon in contiguous index chunks; results are merged strictly in index
+//! order, and a score only counts as an improvement (and only then prints its
+//! progress line) when it beats the *global* running minimum -- which is
+//! exactly `if best is None or sc < best` in sequential order.  Ties therefore
+//! go to the lowest enumeration index, whatever the thread count.
+//!
+//! Per chunk we keep only the chunk-local running-minimum improvements.  That
+//! is lossless: the global running minimum is always <= the chunk-local one at
+//! the same point, so anything the chunk filter drops could never have been a
+//! global improvement either.
+
+use std::collections::BTreeMap;
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
+use std::sync::Mutex;
+use std::time::Instant;
+
+use rayon::prelude::*;
+
+use crate::frac::Frac;
+use crate::graph::Label;
+
+#[derive(Clone, Debug, Default)]
+pub struct Witness {
+    pub labels: Vec<Label>,
+    pub m: i64,
+    pub gens: Vec<(usize, Label)>,
+    pub t0: Vec<usize>,
+    pub t: usize,
+}
+
+#[derive(Clone, Debug)]
+pub struct Improvement {
+    pub index: u64,
+    pub sc: Frac,
+    /// Progress line to print when this improves the global running minimum.
+    pub line: Option<String>,
+    pub witness: Option<Witness>,
+}
+
+#[derive(Clone, Debug)]
+pub struct HitRec {
+    pub index: u64,
+    /// Printed immediately, in enumeration order (`scan_dims`' HIT lines).
+    pub progress: Option<String>,
+    /// Printed after the RESULT line (HITOBJ / stacked's tail).
+    pub obj: Option<String>,
+}
+
+#[derive(Default)]
+pub struct ChunkOut {
+    pub improvements: Vec<Improvement>,
+    pub hits: Vec<HitRec>,
+    /// `(enumeration index, count)` for drivers with a `tested` counter.
+    pub tested: Vec<(u64, u64)>,
+}
+
+/// Shared deadline.  `should_stop` mirrors the Python check exactly: the item
+/// that trips it is counted but not processed.
+pub struct Stop {
+    t0: Instant,
+    tlimit: Option<f64>,
+    stopped: AtomicBool,
+    min_skipped: AtomicU64,
+}
+
+impl Stop {
+    pub fn new(t0: Instant, tlimit: Option<f64>) -> Stop {
+        Stop {
+            t0,
+            tlimit,
+            stopped: AtomicBool::new(false),
+            min_skipped: AtomicU64::new(u64::MAX),
+        }
+    }
+
+    pub fn should_stop(&self, index: u64) -> bool {
+        let lim = match self.tlimit {
+            None => return false,
+            Some(l) => l,
+        };
+        if !self.stopped.load(Ordering::Relaxed) {
+            if self.t0.elapsed().as_secs_f64() <= lim {
+                return false;
+            }
+            self.stopped.store(true, Ordering::Relaxed);
+        }
+        self.min_skipped.fetch_min(index, Ordering::Relaxed);
+        true
+    }
+
+    pub fn tripped(&self) -> bool {
+        self.tlimit.is_some() && self.stopped.load(Ordering::Relaxed)
+    }
+
+    pub fn first_skipped(&self) -> u64 {
+        self.min_skipped.load(Ordering::Relaxed)
+    }
+}
+
+#[derive(Default)]
+pub struct Merged {
+    pub best: Option<Frac>,
+    pub bestobj: Option<Witness>,
+    pub hits: Vec<HitRec>,
+    pub tested: u64,
+}
+
+impl Merged {
+    fn absorb(&mut self, c: &ChunkOut, stop_at: u64, print_improvements: bool, print_hits: bool) {
+        for imp in &c.improvements {
+            if imp.index >= stop_at {
+                break;
+            }
+            if self.best.is_none() || imp.sc < self.best.expect("checked") {
+                self.best = Some(imp.sc);
+                if imp.witness.is_some() {
+                    self.bestobj = imp.witness.clone();
+                }
+                if print_improvements {
+                    if let Some(l) = &imp.line {
+                        println!("{l}");
+                    }
+                }
+            }
+        }
+        for h in &c.hits {
+            if h.index >= stop_at {
+                break;
+            }
+            if print_hits {
+                if let Some(l) = &h.progress {
+                    println!("{l}");
+                }
+            }
+            self.hits.push(h.clone());
+        }
+        for &(i, k) in &c.tested {
+            if i >= stop_at {
+                break;
+            }
+            self.tested += k;
+        }
+    }
+}
+
+pub struct RunOpts {
+    pub total: u64,
+    pub tlimit: Option<f64>,
+    pub threads: usize,
+    pub print_improvements: bool,
+    pub print_hits: bool,
+}
+
+pub struct RunOut {
+    pub merged: Merged,
+    /// Python's `count`: the number of outer items consumed, including the one
+    /// that tripped the deadline.
+    pub scanned: u64,
+    pub stopped: bool,
+    pub elapsed: f64,
+}
+
+/// Chunk size: enough chunks to keep every thread fed, small enough that the
+/// deadline is honoured promptly and per-chunk buffers stay tiny.
+fn chunk_size(total: u64, threads: usize) -> u64 {
+    let want = (total / (threads.max(1) as u64 * 64)).max(1);
+    want.min(4096)
+}
+
+/// Run `chunk_fn` over `0..total` in parallel and merge in enumeration order.
+pub fn run<F>(opts: &RunOpts, t0: Instant, chunk_fn: F) -> RunOut
+where
+    F: Fn(u64, u64, &Stop) -> ChunkOut + Sync + Send,
+{
+    let stop = Stop::new(t0, opts.tlimit);
+    let cs = chunk_size(opts.total, opts.threads);
+    let nchunks = opts.total.div_ceil(cs).max(1);
+
+    let pool = rayon::ThreadPoolBuilder::new()
+        .num_threads(opts.threads)
+        .build()
+        .expect("thread pool");
+
+    let merged = if opts.tlimit.is_none() {
+        // No deadline: nothing can be retracted, so flush in order as we go.
+        let state: Mutex<(u64, BTreeMap<u64, ChunkOut>, Merged)> =
+            Mutex::new((0, BTreeMap::new(), Merged::default()));
+        pool.install(|| {
+            (0..nchunks).into_par_iter().for_each(|ci| {
+                let start = ci * cs;
+                let end = ((ci + 1) * cs).min(opts.total);
+                let out = chunk_fn(start, end, &stop);
+                let mut st = state.lock().expect("merger lock");
+                st.1.insert(ci, out);
+                loop {
+                    let next = st.0;
+                    let c = match st.1.remove(&next) {
+                        None => break,
+                        Some(c) => c,
+                    };
+                    st.2
+                        .absorb(&c, u64::MAX, opts.print_improvements, opts.print_hits);
+                    st.0 += 1;
+                }
+            });
+        });
+        state.into_inner().expect("merger lock").2
+    } else {
+        let outs: Vec<ChunkOut> = pool.install(|| {
+            (0..nchunks)
+                .into_par_iter()
+                .map(|ci| {
+                    let start = ci * cs;
+                    let end = ((ci + 1) * cs).min(opts.total);
+                    chunk_fn(start, end, &stop)
+                })
+                .collect()
+        });
+        let stop_at = stop.first_skipped();
+        let mut m = Merged::default();
+        for c in &outs {
+            m.absorb(c, stop_at, opts.print_improvements, opts.print_hits);
+        }
+        m
+    };
+
+    let stopped = stop.tripped();
+    let scanned = if stopped {
+        stop.first_skipped().saturating_add(1).min(opts.total)
+    } else {
+        opts.total
+    };
+    RunOut {
+        merged,
+        scanned,
+        stopped,
+        elapsed: t0.elapsed().as_secs_f64(),
+    }
+}
+
+=== common.rs ===
+//! Shared per-worker state and the enumeration helpers every driver reuses.
+
+use kakeya_core::rank;
+
+use crate::frac::Frac;
+use crate::graph::{build_rows, Graph, Label, Slot, ZERO};
+use crate::search::{local_requirement, GenScratch, LocalReqScratch, Mand, P};
+
+/// Everything one rayon chunk needs; created once per chunk, reused per item.
+#[derive(Default)]
+pub struct Worker {
+    pub graph: Graph,
+    pub rows: Vec<Vec<i64>>,
+    pub lr: LocalReqScratch,
+    pub mand: Vec<Mand>,
+    pub gen: GenScratch,
+    pub labels: Vec<Label>,
+}
+
+impl Worker {
+    pub fn new(n: usize) -> Worker {
+        let mut w = Worker::default();
+        w.graph.n = n;
+        w
+    }
+
+    /// Build the graph and its edge rows, and return `rank(base_rows)`.
+    pub fn prepare(&mut self, slots: &[Slot], labels: &[Label]) -> i64 {
+        self.graph.fill(slots, labels);
+        build_rows(&self.graph, &mut self.rows);
+        rank(&self.rows, P).expect("rank on a well-formed instance")
+    }
+
+    pub fn local_req(&mut self, n: usize, t0_mask: u64) -> i64 {
+        local_requirement(&self.graph, n, t0_mask, &mut self.lr, &mut self.mand)
+    }
+}
+
+/// `itertools.combinations(range(n), t)` as (mask, sorted members), in order.
+pub fn combinations(n: usize, t: usize) -> Vec<(u64, Vec<usize>)> {
+    let mut out = Vec::new();
+    if t == 0 {
+        out.push((0u64, Vec::new()));
+        return out;
+    }
+    if t > n {
+        return out;
+    }
+    let mut c: Vec<usize> = (0..t).collect();
+    loop {
+        let mut mask = 0u64;
+        for &j in &c {
+            mask |= 1u64 << j;
+        }
+        out.push((mask, c.clone()));
+        let mut i = t;
+        loop {
+            if i == 0 {
+                return out;
+            }
+            i -= 1;
+            if c[i] != i + n - t {
+                break;
+            }
+        }
+        c[i] += 1;
+        for j in i + 1..t {
+            c[j] = c[j - 1] + 1;
+        }
+    }
+}
+
+/// Where an outer item's label vector comes from.
+pub enum LabelSource {
+    /// `itertools.product(alphabet, repeat=nslots)`, last slot fastest.
+    Exhaustive {
+        alphabet: Vec<Label>,
+        nslots: usize,
+    },
+    /// The `limit`-capped `random.Random(seed).choice` stream.
+    Sampled(Vec<Vec<Label>>),
+}
+
+impl LabelSource {
+    pub fn total(&self) -> u64 {
+        match self {
+            LabelSource::Exhaustive { alphabet, nslots } => {
+                // Audit C6 (2026-09-06): an unchecked pow wrapped silently on large
+                // boxes and let a RESULT line claim `complete: true` for an index
+                // space that was never scanned. Refuse loudly instead.
+                (alphabet.len() as u64)
+                    .checked_pow(*nslots as u32)
+                    .unwrap_or_else(|| panic!(
+                        "label index space {}^{} exceeds u64; refusing to run (audit C6)",
+                        alphabet.len(), nslots))
+            }
+            LabelSource::Sampled(v) => v.len() as u64,
+        }
+    }
+
+    pub fn nslots(&self) -> usize {
+        match self {
+            LabelSource::Exhaustive { nslots, .. } => *nslots,
+            LabelSource::Sampled(v) => v.first().map_or(0, |r| r.len()),
+        }
+    }
+
+    /// Write the label vector for enumeration index `index` into `out`.
+    pub fn decode(&self, index: u64, out: &mut Vec<Label>) {
+        match self {
+            LabelSource::Exhaustive { alphabet, nslots } => {
+                out.clear();
+                out.resize(*nslots, ZERO);
+                let a = alphabet.len() as u64;
+                let mut x = index;
+                for s in (0..*nslots).rev() {
+                    out[s] = alphabet[(x % a) as usize];
+                    x /= a;
+                }
+            }
+            LabelSource::Sampled(v) => {
+                out.clear();
+                out.extend_from_slice(&v[index as usize]);
+            }
+        }
+    }
+}
+
+/// `[ZERO] + list(pool)`.
+pub fn alphabet_of(pool: &[Label]) -> Vec<Label> {
+    let mut a = vec![ZERO];
+    a.extend_from_slice(pool);
+    a
+}
+
+/// `Fraction(num, den)` for a score.
+pub fn score(m: i64, r: usize, den: usize) -> Frac {
+    Frac::new(m + r as i64, den as i64)
+}
+
+=== frac.rs ===
+//! Exact rationals with the same semantics as Python's `fractions.Fraction`
+//! at every site the drivers use (contract sec 7).
+//!
+//! Denominators here are always positive and small (`n - t <= 16`), numerators
+//! are `m + r <= a few hundred`, so `i64` is far more than enough; comparisons
+//! widen to `i128` anyway so no cross-multiplication can overflow.
+
+use std::cmp::Ordering;
+use std::fmt;
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Frac {
+    pub num: i64,
+    pub den: i64,
+}
+
+fn gcd(mut a: i64, mut b: i64) -> i64 {
+    while b != 0 {
+        let t = a % b;
+        a = b;
+        b = t;
+    }
+    a.abs()
+}
+
+impl Frac {
+    /// `Fraction(num, den)` -- normalised, denominator forced positive.
+    pub fn new(num: i64, den: i64) -> Frac {
+        assert!(den != 0, "zero denominator");
+        let (mut n, mut d) = (num, den);
+        if d < 0 {
+            n = -n;
+            d = -d;
+        }
+        let g = gcd(n, d);
+        if g > 1 {
+            n /= g;
+            d /= g;
+        }
+        Frac { num: n, den: d }
+    }
+
+    /// Parse `"7/4"` or `"2"` the way `Fraction(str)` does for the forms the
+    /// drivers actually pass.
+    pub fn parse(s: &str) -> Result<Frac, String> {
+        let s = s.trim();
+        match s.split_once('/') {
+            None => s
+                .parse::<i64>()
+                .map(|n| Frac::new(n, 1))
+                .map_err(|e| format!("bad fraction {s:?}: {e}")),
+            Some((a, b)) => {
+                let n: i64 = a
+                    .trim()
+                    .parse()
+                    .map_err(|e| format!("bad fraction {s:?}: {e}"))?;
+                let d: i64 = b
+                    .trim()
+                    .parse()
+                    .map_err(|e| format!("bad fraction {s:?}: {e}"))?;
+                if d == 0 {
+                    return Err(format!("bad fraction {s:?}: zero denominator"));
+                }
+                Ok(Frac::new(n, d))
+            }
+        }
+    }
+
+    /// `int(self * k)` for `k > 0` -- Python's `int()` truncates toward zero,
+    /// and every value at every call site is non-negative, so this is `floor`.
+    pub fn mul_int_floor(&self, k: i64) -> i64 {
+        debug_assert!(k >= 0 && self.num >= 0);
+        (self.num * k).div_euclid(self.den)
+    }
+
+    pub fn as_f64(&self) -> f64 {
+        self.num as f64 / self.den as f64
+    }
+
+    /// Python's truthiness of a Fraction: `bool(Fraction(0, d))` is False.
+    /// `scan1.py` writes `str(b) if b else None`, so a zero best prints null.
+    pub fn is_truthy(&self) -> bool {
+        self.num != 0
+    }
+}
+
+impl PartialOrd for Frac {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for Frac {
+    fn cmp(&self, other: &Self) -> Ordering {
+        let l = self.num as i128 * other.den as i128;
+        let r = other.num as i128 * self.den as i128;
+        l.cmp(&r)
+    }
+}
+
+impl fmt::Display for Frac {
+    /// `Fraction.__str__`: bare integer when the denominator is 1.
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.den == 1 {
+            write!(f, "{}", self.num)
+        } else {
+            write!(f, "{}/{}", self.num, self.den)
+        }
+    }
+}
+
+/// `repr(Fraction(n, d))`, used by `stacked.py`'s hit lines.
+pub fn frac_repr(x: &Frac) -> String {
+    format!("Fraction({}, {})", x.num, x.den)
+}
+
+=== pyrandom.rs ===
+//! CPython's `random.Random(int_seed)` -- MT19937 with `init_by_array` seeding
+//! -- and `random.choice`, so the sampled (`limit`-capped) sweeps reproduce
+//! byte-for-byte.  Validated against `rust/GOLDEN-VECTORS.json:rng_vectors`.
+
+const N: usize = 624;
+const M: usize = 397;
+const MATRIX_A: u32 = 0x9908b0df;
+const UPPER_MASK: u32 = 0x8000_0000;
+const LOWER_MASK: u32 = 0x7fff_ffff;
+
+pub struct PyRandom {
+    mt: [u32; N],
+    mti: usize,
+}
+
+impl PyRandom {
+    fn init_genrand(s: u32) -> PyRandom {
+        let mut mt = [0u32; N];
+        mt[0] = s;
+        for i in 1..N {
+            let prev = mt[i - 1];
+            mt[i] = 1812433253u32
+                .wrapping_mul(prev ^ (prev >> 30))
+                .wrapping_add(i as u32);
+        }
+        PyRandom { mt, mti: N }
+    }
+
+    /// `random_seed` for a non-negative int: the little-endian 32-bit limbs of
+    /// `abs(seed)` (a single zero limb when the seed is 0).
+    pub fn seed(seed: u64) -> PyRandom {
+        let mut key: Vec<u32> = Vec::new();
+        let mut v = seed;
+        if v == 0 {
+            key.push(0);
+        }
+        while v > 0 {
+            key.push((v & 0xffff_ffff) as u32);
+            v >>= 32;
+        }
+        let mut r = PyRandom::init_genrand(19650218);
+        let mut i = 1usize;
+        let mut j = 0usize;
+        let mut k = N.max(key.len());
+        while k > 0 {
+            let prev = r.mt[i - 1];
+            r.mt[i] = (r.mt[i] ^ (prev ^ (prev >> 30)).wrapping_mul(1664525))
+                .wrapping_add(key[j])
+                .wrapping_add(j as u32);
+            i += 1;
+            j += 1;
+            if i >= N {
+                r.mt[0] = r.mt[N - 1];
+                i = 1;
+            }
+            if j >= key.len() {
+                j = 0;
+            }
+            k -= 1;
+        }
+        let mut k = N - 1;
+        while k > 0 {
+            let prev = r.mt[i - 1];
+            r.mt[i] = (r.mt[i] ^ (prev ^ (prev >> 30)).wrapping_mul(1566083941))
+                .wrapping_sub(i as u32);
+            i += 1;
+            if i >= N {
+                r.mt[0] = r.mt[N - 1];
+                i = 1;
+            }
+            k -= 1;
+        }
+        r.mt[0] = 0x8000_0000;
+        r.mti = N;
+        r
+    }
+
+    pub fn genrand_uint32(&mut self) -> u32 {
+        if self.mti >= N {
+            for kk in 0..N - M {
+                let y = (self.mt[kk] & UPPER_MASK) | (self.mt[kk + 1] & LOWER_MASK);
+                self.mt[kk] = self.mt[kk + M] ^ (y >> 1) ^ if y & 1 != 0 { MATRIX_A } else { 0 };
+            }
+            for kk in N - M..N - 1 {
+                let y = (self.mt[kk] & UPPER_MASK) | (self.mt[kk + 1] & LOWER_MASK);
+                self.mt[kk] =
+                    self.mt[kk + M - N] ^ (y >> 1) ^ if y & 1 != 0 { MATRIX_A } else { 0 };
+            }
+            let y = (self.mt[N - 1] & UPPER_MASK) | (self.mt[0] & LOWER_MASK);
+            self.mt[N - 1] = self.mt[M - 1] ^ (y >> 1) ^ if y & 1 != 0 { MATRIX_A } else { 0 };
+            self.mti = 0;
+        }
+        let mut y = self.mt[self.mti];
+        self.mti += 1;
+        y ^= y >> 11;
+        y ^= (y << 7) & 0x9d2c_5680;
+        y ^= (y << 15) & 0xefc6_0000;
+        y ^= y >> 18;
+        y
+    }
+
+    /// `getrandbits(k)` for `1 <= k <= 32`.
+    fn getrandbits(&mut self, k: u32) -> u32 {
+        if k == 0 {
+            return 0;
+        }
+        self.genrand_uint32() >> (32 - k)
+    }
+
+    /// `Random._randbelow_with_getrandbits(n)` for `n >= 1`.
+    pub fn randbelow(&mut self, n: u32) -> u32 {
+        let k = 32 - n.leading_zeros();
+        loop {
+            let r = self.getrandbits(k);
+            if r < n {
+                return r;
+            }
+        }
+    }
+
+    /// `random.choice(seq)`.
+    pub fn choice<T: Copy>(&mut self, seq: &[T]) -> T {
+        seq[self.randbelow(seq.len() as u32) as usize]
+    }
+}
+
+/// The `limit`-capped sample stream of `scan_dims` / `rzero.sweep`:
+/// `(tuple(rng.choice(alphabet) for _ in range(nslots)) for _ in range(limit))`.
+pub fn sample_labels<T: Copy>(seed: u64, alphabet: &[T], nslots: usize, limit: usize) -> Vec<Vec<T>> {
+    let mut rng = PyRandom::seed(seed);
+    let mut out = Vec::with_capacity(limit);
+    for _ in 0..limit {
+        let mut row = Vec::with_capacity(nslots);
+        for _ in 0..nslots {
+            row.push(rng.choice(alphabet));
+        }
+        out.push(row);
+    }
+    out
+}
+
+=== drivers/scan.rs ===
+//! `search.scan_dims` + the `scan1.py` stdout format.
+
+use std::time::Instant;
+
+use crate::common::{alphabet_of, combinations, score, LabelSource, Worker};
+use crate::engine::{self, ChunkOut, HitRec, Improvement, RunOpts};
+use crate::fmt;
+use crate::frac::Frac;
+use crate::graph::{slots_of, Label};
+use crate::pyrandom::sample_labels;
+use crate::search::min_generators;
+
+pub struct ScanCfg {
+    pub tag: String,
+    pub d: Vec<usize>,
+    pub pool: Vec<Label>,
+    pub max_t: usize,
+    pub target: Frac,
+    pub limit: Option<usize>,
+    pub seed: u64,
+    pub tlimit: Option<f64>,
+    pub threads: usize,
+    pub verbose: bool,
+}
+
+pub struct ScanResult {
+    pub scanned: u64,
+    pub total: u64,
+    pub best: Option<Frac>,
+    pub hits: Vec<HitRec>,
+    pub complete: bool,
+    pub elapsed: f64,
+}
+
+/// `scan_dims`' verbose line:
+/// `f"   HIT {sc} (={float(sc):.4f})  d={d} m={m} r={len(gens)} t={t}"`
+pub fn hit_line(sc: Frac, d_repr: &str, m: i64, r: usize, t: usize) -> String {
+    format!(
+        "   HIT {} (={})  d={} m={} r={} t={}",
+        sc,
+        fmt::f4(sc.as_f64()),
+        d_repr,
+        m,
+        r,
+        t
+    )
+}
+
+pub fn run(cfg: &ScanCfg) -> ScanResult {
+    let slots = slots_of(&cfg.d);
+    let nslots = slots.len();
+    let n: usize = cfg.d.iter().product();
+    let alphabet = alphabet_of(&cfg.pool);
+    let src = match cfg.limit {
+        None => LabelSource::Exhaustive {
+            alphabet: alphabet.clone(),
+            nslots,
+        },
+        Some(l) => LabelSource::Sampled(sample_labels(cfg.seed, &alphabet, nslots, l)),
+    };
+    let total = src.total();
+    let combos: Vec<Vec<(u64, Vec<usize>)>> =
+        (0..=cfg.max_t).map(|t| combinations(n, t)).collect();
+    let m_cap = cfg.target.mul_int_floor(n as i64);
+    let d_repr = fmt::list_usize(&cfg.d);
+
+    let opts = RunOpts {
+        total,
+        tlimit: cfg.tlimit,
+        threads: cfg.threads,
+        print_improvements: false, // scan_dims never prints on a best update
+        print_hits: cfg.verbose,
+    };
+    let t0 = Instant::now();
+    let out = engine::run(&opts, t0, |start, end, stop| {
+        let mut w = Worker::new(n);
+        let mut c = ChunkOut::default();
+        let mut chunk_best: Option<Frac> = None;
+        for index in start..end {
+            if stop.should_stop(index) {
+                break;
+            }
+            src.decode(index, &mut w.labels);
+            let labels = std::mem::take(&mut w.labels);
+            let m = crate::graph::m_of_labels(&slots, &labels);
+            if m > m_cap {
+                w.labels = labels;
+                continue;
+            }
+            let rk = w.prepare(&slots, &labels);
+            for (t, combos_t) in combos.iter().enumerate() {
+                let den = n - t;
+                let budget = cfg.target.mul_int_floor(den as i64) - m;
+                if budget < 0 || (den as i64 - rk) > budget {
+                    continue;
+                }
+                for (mask, members) in combos_t {
+                    let mand_total = w.local_req(n, *mask);
+                    if mand_total > budget {
+                        continue;
+                    }
+                    let mand = std::mem::take(&mut w.mand);
+                    let gens = min_generators(
+                        &w.rows, n, *mask, &cfg.pool, budget, &mand, &mut w.gen,
+                    );
+                    w.mand = mand;
+                    let gens = match gens {
+                        None => continue,
+                        Some(g) => g,
+                    };
+                    let sc = score(m, gens.len(), den);
+                    if chunk_best.is_none() || sc < chunk_best.expect("checked") {
+                        chunk_best = Some(sc);
+                        c.improvements.push(Improvement {
+                            index,
+                            sc,
+                            line: None,
+                            witness: None,
+                        });
+                    }
+                    if sc <= cfg.target {
+                        let progress = hit_line(sc, &d_repr, m, gens.len(), t);
+                        let obj = format!(
+                            "{{\"d\": {}, \"labels\": {}, \"m\": {}, \"gens\": {}, \
+                             \"T0\": {}, \"score\": \"{}\", \"n\": {}}}",
+                            d_repr,
+                            fmt::json_labels(&labels),
+                            m,
+                            fmt::json_gens(&gens),
+                            fmt::json_usize(members),
+                            sc,
+                            n
+                        );
+                        c.hits.push(HitRec {
+                            index,
+                            progress: Some(progress),
+                            obj: Some(obj),
+                        });
+                    }
+                }
+            }
+            w.labels = labels;
+        }
+        c
+    });
+
+    ScanResult {
+        scanned: out.scanned,
+        total,
+        best: out.merged.best,
+        hits: out.merged.hits,
+        complete: cfg.limit.is_none() && out.scanned >= total,
+        elapsed: out.elapsed,
+    }
+}
+
+pub fn emit(cfg: &ScanCfg, r: &ScanResult) {
+    let best = r
+        .best
+        .filter(|b| b.is_truthy())
+        .map(|b| b.to_string());
+    println!(
+        "RESULT {{\"tag\": \"{}\", \"d\": {}, \"pool\": {}, \"max_t\": {}, \
+         \"target\": \"{}\", \"scanned\": {}, \"total\": {}, \"best\": {}, \
+         \"hits\": {}, \"complete\": {}, \"seconds\": {}}}",
+        cfg.tag,
+        fmt::list_usize(&cfg.d),
+        cfg.pool.len(),
+        cfg.max_t,
+        cfg.target,
+        r.scanned,
+        r.total,
+        fmt::json_opt_str(best),
+        r.hits.len(),
+        fmt::json_bool(r.complete),
+        fmt::seconds(r.elapsed)
+    );
+    for h in &r.hits {
+        if let Some(o) = &h.obj {
+            println!("HITOBJ {o}");
+        }
+    }
+}

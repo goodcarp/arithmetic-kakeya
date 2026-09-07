@@ -1,0 +1,8 @@
+### shipped .so (03db7ae9) extra seeds
+k5_fuzz seed=887788 instances=20000 checks=40000 divergences=0
+k5_fuzz seed=20260906 instances=20000 checks=40000 divergences=0
+### fresh .so (04d848f8, built 2026-09-05 17:43 from the current crate tree)
+ok      G4 rank 1 x 4096                                           py=('rank', 1)                        rs=('rank', 1)
+
+cases=53  divergences=0
+k5_fuzz seed=51977 instances=20000 checks=40000 divergences=0

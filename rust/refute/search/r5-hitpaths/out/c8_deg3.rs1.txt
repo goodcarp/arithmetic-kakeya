@@ -1,0 +1,3 @@
+0 presence patterns are 3-regular with m = 8
+RESULT {"tag": "cycles8", "pool": 3, "best": null, "hits": 0, "tested": 0}
+EXIT=0

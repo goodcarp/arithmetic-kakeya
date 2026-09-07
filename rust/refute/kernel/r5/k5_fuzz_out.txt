@@ -1,0 +1,1 @@
+k5_fuzz seed=51977 instances=20000 checks=40000 divergences=0

@@ -1,0 +1,329 @@
+Analysis of sampling kakeya-search (pid 83940) every 1 millisecond
+Process:         kakeya-search [83940]
+Path:            /Users/USER/Desktop/*/kakeya-search
+Load Address:    0x101471000
+Identifier:      kakeya-search
+Version:         0
+Code Type:       X86-64
+Platform:        macOS
+Parent Process:  launchd [1]
+Target Type:     live task
+
+Date/Time:       2026-09-06 16:34:58.198 -0400
+Launch Time:     2026-09-06 16:34:57.960 -0400
+OS Version:      macOS 15.7.9 (24G830)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         672K
+Physical footprint (peak):  672K
+Idle exit:                  untracked
+----
+
+Call graph:
+    15476 Thread_6630518   DispatchQueue_1: com.apple.main-thread  (serial)
+    + 15476 start  (in dyld) + 3056  [0x7ff810d1d530]
+    +   15476 main  (in kakeya-search) + 28  [0x1014782ac]
+    +     15476 _RNvNtCs6mizfLQjnpr_3std2rt19lang_start_internal  (in kakeya-search) + 791  [0x1014e8af7]
+    +       15476 _RINvNtNtCs6mizfLQjnpr_3std3sys9backtrace28___rust_begin_short_backtraceFENtNtB6_7process8ExitCodeB19_ECs9u19uYT6oRw_13kakeya_search  (in kakeya-search) + 6  [0x101471d06]
+    +         15476 _RNvCs9u19uYT6oRw_13kakeya_search4main  (in kakeya-search) + 18  [0x1014769b2]
+    +           15476 _RNvCs9u19uYT6oRw_13kakeya_search3run  (in kakeya-search) + 10853  [0x101475d15]
+    +             15476 _RNvNtNtCsgMWMJ8wevu3_13kakeya_search7drivers7cycles83run  (in kakeya-search) + 5321  [0x1014a8df9]
+    +               15476 _RINvMs4_NtCstw9kQDZRsv_10rayon_core8registryNtB6_8Registry14in_worker_coldNCINvMNtB8_11thread_poolNtB1g_10ThreadPool7installNCINvNtCsgMWMJ8wevu3_13kakeya_search6engine3runNCNvNtNtB25_7drivers7cycles83runs0_0E0uE0uEB25_  (in kakeya-search) + 120  [0x1014eeb88]
+    +                 15476 _RNvMs3_NtCstw9kQDZRsv_10rayon_core5latchNtB5_9LockLatch14wait_and_reset  (in kakeya-search) + 146  [0x1014b7fe2]
+    +                   15476 _pthread_cond_wait  (in libsystem_pthread.dylib) + 988  [0x7ff8110c32ae]
+    +                     15476 __psynch_cvwait  (in libsystem_kernel.dylib) + 10  [0x7ff8110836f6]
+    15476 Thread_6630526
+      15476 thread_start  (in libsystem_pthread.dylib) + 15  [0x7ff8110be857]
+        15476 _pthread_start  (in libsystem_pthread.dylib) + 115  [0x7ff8110c2e05]
+          15476 _RNvNvMs0_NtNtNtCs6mizfLQjnpr_3std3sys6thread4unixNtB7_6Thread3new12thread_start  (in kakeya-search) + 365  [0x1014e510d]
+            15476 _RNSNvYNCINvNtNtCs6mizfLQjnpr_3std6thread9lifecycle15spawn_uncheckedNCNvXs0_NtCstw9kQDZRsv_10rayon_core8registryNtB1b_12DefaultSpawnNtB1b_11ThreadSpawn5spawn0uEs_0INtNtNtCs9EnIXG81vIV_4core3ops8function6FnOnceuE9call_once6vtableB1d_  (in kakeya-search) + 132  [0x1014b78d4]
+              15476 _RINvNtNtCs6mizfLQjnpr_3std3sys9backtrace28___rust_begin_short_backtraceNCNvXs0_NtCstw9kQDZRsv_10rayon_core8registryNtB1f_12DefaultSpawnNtB1f_11ThreadSpawn5spawn0uEB1h_  (in kakeya-search) + 313  [0x1014b3899]
+                15476 _RNvMs8_NtCstw9kQDZRsv_10rayon_core8registryNtB5_12WorkerThread15wait_until_cold  (in kakeya-search) + 1414  [0x1014f0066]
+                  15476 _RNvXs2_NtCstw9kQDZRsv_10rayon_core3jobINtB5_8StackJobINtNtB7_5latch8LatchRefNtBS_9LockLatchENCNCINvMs4_NtB7_8registryNtB1D_8Registry14in_worker_coldNCINvMNtB7_11thread_poolNtB2s_10ThreadPool7installNCINvNtCsgMWMJ8wevu3_13kakeya_search6engine3runNCNvNtNtB3h_7drivers7cycles83runs0_0E0uE0uE00uENtB5_3Job7executeB3h_  (in kakeya-search) + 206  [0x1014abf9e]
+                    15476 _RINvNvNtNtCsh7z00rNoMyC_5rayon4iter8plumbing24bridge_producer_consumer6helperINtNtB8_5range12IterProducerjEINtNtB6_3map11MapConsumerINtNtB6_8for_each15ForEachConsumerNCNCINvNtCsgMWMJ8wevu3_13kakeya_search6engine3runNCNvNtNtB2N_7drivers7cycles83runs0_0E00ENCNvNvXsv_B1g_yNtNtB1g_7private12RangeInteger15drive_unindexed6offset0EEB2N_  (in kakeya-search) + 1217  [0x1014a98a1]
+                      15476 _RNCINvNtCstw9kQDZRsv_10rayon_core4join12join_contextNCINvNvNtNtCsh7z00rNoMyC_5rayon4iter8plumbing24bridge_producer_consumer6helperINtNtBZ_5range12IterProducerjEINtNtBX_3map11MapConsumerINtNtBX_8for_each15ForEachConsumerNCNCINvNtCsgMWMJ8wevu3_13kakeya_search6engine3runNCNvNtNtB3E_7drivers7cycles83runs0_0E00ENCNvNvXsv_B27_yNtNtB27_7private12RangeInteger15drive_unindexed6offset0EE0NCBQ_s_0uuE0B3E_  (in kakeya-search) + 426  [0x1014ab81a]
+                        15476 _RINvNvNtNtCsh7z00rNoMyC_5rayon4iter8plumbing24bridge_producer_consumer6helperINtNtB8_5range12IterProducerjEINtNtB6_3map11MapConsumerINtNtB6_8for_each15ForEachConsumerNCNCINvNtCsgMWMJ8wevu3_13kakeya_search6engine3runNCNvNtNtB2N_7drivers7cycles83runs0_0E00ENCNvNvXsv_B1g_yNtNtB1g_7private12RangeInteger15drive_unindexed6offset0EEB2N_  (in kakeya-search) + 221  [0x1014a94bd]
+                          15476 _RNCNvNtNtCsgMWMJ8wevu3_13kakeya_search7drivers7cycles83runs0_0B7_  (in kakeya-search) + 3401  [0x1014aa8b9]
+                            15473 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search14min_generators  (in kakeya-search) + 3476  [0x10149a4f4]
+                            ! 15359 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1407  [0x10149b42f]
+                            ! : 14893 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1407  [0x10149b42f]
+                            ! : | 13087 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1407  [0x10149b42f]
+                            ! : | + 8990 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1407  [0x10149b42f]
+                            ! : | + ! 6591 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1407  [0x10149b42f]
+                            ! : | + ! : 6563 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 129  [0x10149af31]
+                            ! : | + ! : | 6326 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1942,1921,...  [0x101485666,0x101485651,...]
+                            ! : | + ! : | 94 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 3266  [0x101485b92]
+                            ! : | + ! : | + 52 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 87  [0x101485d77]
+                            ! : | + ! : | + ! 42 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65  [0x7ff810eccbb3]
+                            ! : | + ! : | + ! : 31 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 328,88,...  [0x7ff810ecddac,0x7ff810ecdcbc,...]
+                            ! : | + ! : | + ! : 9 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 306  [0x7ff810ecdd96]
+                            ! : | + ! : | + ! : | 8 tiny_malloc_from_free_list  (in libsystem_malloc.dylib) + 1378,1695  [0x7ff810ece8b9,0x7ff810ece9f6]
+                            ! : | + ! : | + ! : | 1 tiny_malloc_from_free_list  (in libsystem_malloc.dylib) + 712  [0x7ff810ece61f]
+                            ! : | + ! : | + ! : |   1 _tiny_check_and_zero_inline_meta_from_freelist  (in libsystem_malloc.dylib) + 109  [0x7ff810f0470c]
+                            ! : | + ! : | + ! : 1 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 31  [0x7ff810ecdc83]
+                            ! : | + ! : | + ! : | 1 rack_get_thread_index  (in libsystem_malloc.dylib) + 0  [0x7ff810ee6a22]
+                            ! : | + ! : | + ! : 1 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 352  [0x7ff810ecddc4]
+                            ! : | + ! : | + ! :   1 tiny_check_zero_or_clear  (in libsystem_malloc.dylib) + 30  [0x7ff810f02e04]
+                            ! : | + ! : | + ! 4 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 59,75,...  [0x7ff810efe91f,0x7ff810efe92f,...]
+                            ! : | + ! : | + ! 2 malloc  (in libsystem_malloc.dylib) + 0,10  [0x7ff810ecbb00,0x7ff810ecbb0a]
+                            ! : | + ! : | + ! 2 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 260,308  [0x7ff810eccc76,0x7ff810eccca6]
+                            ! : | + ! : | + ! 1 _RNvCs8NmtnyK3jgT_7___rustc11___rdl_alloc  (in kakeya-search) + 0  [0x1014e4570]
+                            ! : | + ! : | + ! 1 szone_malloc_type_malloc  (in libsystem_malloc.dylib) + 0  [0x7ff810ee3eeb]
+                            ! : | + ! : | + 42 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 183,155,...  [0x101485dd7,0x101485dbb,...]
+                            ! : | + ! : | 73 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2098  [0x101485702]
+                            ! : | + ! : | + 55 _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib) + 240,268,...  [0x7ff8110f8a30,0x7ff8110f8a4c,...]
+                            ! : | + ! : | + 14 DYLD-STUB$$_platform_memmove  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb8e]
+                            ! : | + ! : | + 4 DYLD-STUB$$memcpy  (in kakeya-search) + 0  [0x1014f58c0]
+                            ! : | + ! : | 28 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2491  [0x10148588b]
+                            ! : | + ! : | + 25 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 0,48,...  [0x7ff8110f8de0,0x7ff8110f8e10,...]
+                            ! : | + ! : | + 3 DYLD-STUB$$__bzero  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb34]
+                            ! : | + ! : | 22 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1589  [0x101485505]
+                            ! : | + ! : | + 22 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 10,104,...  [0x7ff8110f8dea,0x7ff8110f8e48,...]
+                            ! : | + ! : | 20 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1203  [0x101485383]
+                            ! : | + ! : |   17 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 84,89,...  [0x7ff8110f8e34,0x7ff8110f8e39,...]
+                            ! : | + ! : |   2 DYLD-STUB$$__bzero  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb34]
+                            ! : | + ! : |   1 DYLD-STUB$$__bzero  (in kakeya-search) + 0  [0x1014f582a]
+                            ! : | + ! : 11 _szone_free  (in libsystem_malloc.dylib) + 72,488,...  [0x7ff810ee3153,0x7ff810ee32f3,...]
+                            ! : | + ! : 9 free_tiny  (in libsystem_malloc.dylib) + 37,8,...  [0x7ff810ed042c,0x7ff810ed040f,...]
+                            ! : | + ! : 5 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 484,133  [0x10149b094,0x10149af35]
+                            ! : | + ! : 2 free_tiny  (in libsystem_malloc.dylib) + 115  [0x7ff810ed047a]
+                            ! : | + ! : | 1 DYLD-STUB$$_platform_memset  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb94]
+                            ! : | + ! : | 1 _platform_memset$VARIANT$Haswell  (in libsystem_platform.dylib) + 19  [0x7ff8110f8db3]
+                            ! : | + ! : 1 _free  (in libsystem_malloc.dylib) + 27  [0x7ff810eff370]
+                            ! : | + ! 2361 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 129  [0x10149af31]
+                            ! : | + ! : 2303 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1942,1921,...  [0x101485666,0x101485651,...]
+                            ! : | + ! : 26 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 3266  [0x101485b92]
+                            ! : | + ! : | 15 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 87  [0x101485d77]
+                            ! : | + ! : | + 11 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65  [0x7ff810eccbb3]
+                            ! : | + ! : | + ! 8 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 82,146,...  [0x7ff810ecdcb6,0x7ff810ecdcf6,...]
+                            ! : | + ! : | + ! 2 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 306  [0x7ff810ecdd96]
+                            ! : | + ! : | + ! : 1 tiny_malloc_from_free_list  (in libsystem_malloc.dylib) + 1625  [0x7ff810ece9b0]
+                            ! : | + ! : | + ! : | 1 tiny_free_list_add_ptr  (in libsystem_malloc.dylib) + 628  [0x7ff810ed1285]
+                            ! : | + ! : | + ! : 1 tiny_malloc_from_free_list  (in libsystem_malloc.dylib) + 204  [0x7ff810ece423]
+                            ! : | + ! : | + ! 1 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 31  [0x7ff810ecdc83]
+                            ! : | + ! : | + !   1 rack_get_thread_index  (in libsystem_malloc.dylib) + 33  [0x7ff810ee6a43]
+                            ! : | + ! : | + 4 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 59,50  [0x7ff810efe91f,0x7ff810efe916]
+                            ! : | + ! : | 11 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 187,183,...  [0x101485ddb,0x101485dd7,...]
+                            ! : | + ! : 18 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2098  [0x101485702]
+                            ! : | + ! : | 17 _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib) + 240,1,...  [0x7ff8110f8a30,0x7ff8110f8941,...]
+                            ! : | + ! : | 1 DYLD-STUB$$memcpy  (in kakeya-search) + 0  [0x1014f58c0]
+                            ! : | + ! : 8 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2491  [0x10148588b]
+                            ! : | + ! : | 7 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 53,84,...  [0x7ff8110f8e15,0x7ff8110f8e34,...]
+                            ! : | + ! : | 1 DYLD-STUB$$__bzero  (in kakeya-search) + 0  [0x1014f582a]
+                            ! : | + ! : 4 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1203  [0x101485383]
+                            ! : | + ! : | 4 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 104,89  [0x7ff8110f8e48,0x7ff8110f8e39]
+                            ! : | + ! : 2 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1589  [0x101485505]
+                            ! : | + ! :   2 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 53,57  [0x7ff8110f8e15,0x7ff8110f8e19]
+                            ! : | + ! 18 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 864,332,...  [0x10149b210,0x10149affc,...]
+                            ! : | + ! 9 free_tiny  (in libsystem_malloc.dylib) + 474  [0x7ff810ed05e1]
+                            ! : | + ! : 6 tiny_free_no_lock  (in libsystem_malloc.dylib) + 26,210,...  [0x7ff810ed072e,0x7ff810ed07e6,...]
+                            ! : | + ! : 2 tiny_free_no_lock  (in libsystem_malloc.dylib) + 1095  [0x7ff810ed0b5b]
+                            ! : | + ! : | 2 tiny_free_list_add_ptr  (in libsystem_malloc.dylib) + 136,798  [0x7ff810ed1099,0x7ff810ed132f]
+                            ! : | + ! : 1 tiny_free_no_lock  (in libsystem_malloc.dylib) + 131  [0x7ff810ed0797]
+                            ! : | + ! :   1 get_tiny_previous_free_msize  (in libsystem_malloc.dylib) + 79  [0x7ff810edc654]
+                            ! : | + ! 5 free_tiny  (in libsystem_malloc.dylib) + 143,492,...  [0x7ff810ed0496,0x7ff810ed05f3,...]
+                            ! : | + ! 2 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1066  [0x10149b2da]
+                            ! : | + ! : 2 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 4,84  [0x7ff8110f8de4,0x7ff8110f8e34]
+                            ! : | + ! 2 _free  (in libsystem_malloc.dylib) + 41  [0x7ff810eff37e]
+                            ! : | + ! 2 free_tiny  (in libsystem_malloc.dylib) + 115  [0x7ff810ed047a]
+                            ! : | + !   2 _platform_memset$VARIANT$Haswell  (in libsystem_platform.dylib) + 11,19  [0x7ff8110f8dab,0x7ff8110f8db3]
+                            ! : | + 4068 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 129  [0x10149af31]
+                            ! : | + ! 3854 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1942,1921,...  [0x101485666,0x101485651,...]
+                            ! : | + ! 79 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2098  [0x101485702]
+                            ! : | + ! : 56 _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib) + 1,418,...  [0x7ff8110f8941,0x7ff8110f8ae2,...]
+                            ! : | + ! : 14 DYLD-STUB$$memcpy  (in kakeya-search) + 0  [0x1014f58c0]
+                            ! : | + ! : 9 DYLD-STUB$$_platform_memmove  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb8e]
+                            ! : | + ! 59 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 3266  [0x101485b92]
+                            ! : | + ! : 55 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 87  [0x101485d77]
+                            ! : | + ! : | 48 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65  [0x7ff810eccbb3]
+                            ! : | + ! : | + 47 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 40,88,...  [0x7ff810ecdc8c,0x7ff810ecdcbc,...]
+                            ! : | + ! : | + 1 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 306  [0x7ff810ecdd96]
+                            ! : | + ! : | +   1 tiny_malloc_from_free_list  (in libsystem_malloc.dylib) + 762  [0x7ff810ece651]
+                            ! : | + ! : | 3 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 17,19,...  [0x7ff810efe8f5,0x7ff810efe8f7,...]
+                            ! : | + ! : | 2 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65,260  [0x7ff810eccbb3,0x7ff810eccc76]
+                            ! : | + ! : | 1 _RNvCs8NmtnyK3jgT_7___rustc11___rdl_alloc  (in kakeya-search) + 0  [0x1014e4570]
+                            ! : | + ! : | 1 malloc  (in libsystem_malloc.dylib) + 10  [0x7ff810ecbb0a]
+                            ! : | + ! : 4 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 148,163,...  [0x101485db4,0x101485dc3,...]
+                            ! : | + ! 37 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2491  [0x10148588b]
+                            ! : | + ! : 35 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 110,61,...  [0x7ff8110f8e4e,0x7ff8110f8e1d,...]
+                            ! : | + ! : 2 DYLD-STUB$$__bzero  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb34]
+                            ! : | + ! 25 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1203  [0x101485383]
+                            ! : | + ! : 25 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 84,104  [0x7ff8110f8e34,0x7ff8110f8e48]
+                            ! : | + ! 8 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1589  [0x101485505]
+                            ! : | + ! : 8 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 10,53,...  [0x7ff8110f8dea,0x7ff8110f8e15,...]
+                            ! : | + ! 6 _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib) + 433,159  [0x7ff8110f8af1,0x7ff8110f89df]
+                            ! : | + 11 free_tiny  (in libsystem_malloc.dylib) + 115  [0x7ff810ed047a]
+                            ! : | + ! 8 DYLD-STUB$$_platform_memset  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb94]
+                            ! : | + ! 2 _platform_memset$VARIANT$Haswell  (in libsystem_platform.dylib) + 19  [0x7ff8110f8db3]
+                            ! : | + ! 1 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 104  [0x7ff8110f8e48]
+                            ! : | + 8 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 153,893,...  [0x10149af49,0x10149b22d,...]
+                            ! : | + 5 free_tiny  (in libsystem_malloc.dylib) + 143,282,...  [0x7ff810ed0496,0x7ff810ed0521,...]
+                            ! : | + 3 free_tiny  (in libsystem_malloc.dylib) + 474  [0x7ff810ed05e1]
+                            ! : | + ! 3 tiny_free_no_lock  (in libsystem_malloc.dylib) + 52,535,...  [0x7ff810ed0748,0x7ff810ed092b,...]
+                            ! : | + 1 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1066  [0x10149b2da]
+                            ! : | + ! 1 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 104  [0x7ff8110f8e48]
+                            ! : | + 1 _szone_free  (in libsystem_malloc.dylib) + 72  [0x7ff810ee3153]
+                            ! : | 1776 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 129  [0x10149af31]
+                            ! : | + 1741 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1942,1921,...  [0x101485666,0x101485651,...]
+                            ! : | + 15 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2491  [0x10148588b]
+                            ! : | + ! 14 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 71,1,...  [0x7ff8110f8e27,0x7ff8110f8de1,...]
+                            ! : | + ! 1 DYLD-STUB$$__bzero  (in kakeya-search) + 0  [0x1014f582a]
+                            ! : | + 9 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 3266  [0x101485b92]
+                            ! : | + ! 9 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 87  [0x101485d77]
+                            ! : | + !   5 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65  [0x7ff810eccbb3]
+                            ! : | + !   : 4 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 146,40,...  [0x7ff810ecdcf6,0x7ff810ecdc8c,...]
+                            ! : | + !   : 1 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 31  [0x7ff810ecdc83]
+                            ! : | + !   :   1 rack_get_thread_index  (in libsystem_malloc.dylib) + 0  [0x7ff810ee6a22]
+                            ! : | + !   1 _RNvCs8NmtnyK3jgT_7___rustc11___rdl_alloc  (in kakeya-search) + 18  [0x1014e4582]
+                            ! : | + !   1 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 68  [0x7ff810efe928]
+                            ! : | + !   1 malloc  (in libsystem_malloc.dylib) + 10  [0x7ff810ecbb0a]
+                            ! : | + !   1 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 260  [0x7ff810eccc76]
+                            ! : | + 7 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2098  [0x101485702]
+                            ! : | + ! 7 _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib) + 77,0,...  [0x7ff8110f898d,0x7ff8110f8940,...]
+                            ! : | + 2 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1203  [0x101485383]
+                            ! : | + ! 1 DYLD-STUB$$__bzero  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb34]
+                            ! : | + ! 1 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 89  [0x7ff8110f8e39]
+                            ! : | + 2 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1589  [0x101485505]
+                            ! : | +   2 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 104,119  [0x7ff8110f8e48,0x7ff8110f8e57]
+                            ! : | 12 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 100,346,...  [0x10149af14,0x10149b00a,...]
+                            ! : | 8 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1066  [0x10149b2da]
+                            ! : | + 8 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 22,0,...  [0x7ff8110f8df6,0x7ff8110f8de0,...]
+                            ! : | 5 free_tiny  (in libsystem_malloc.dylib) + 143,575,...  [0x7ff810ed0496,0x7ff810ed0646,...]
+                            ! : | 3 free_tiny  (in libsystem_malloc.dylib) + 474  [0x7ff810ed05e1]
+                            ! : | + 1 tiny_free_no_lock  (in libsystem_malloc.dylib) + 768  [0x7ff810ed0a14]
+                            ! : | + ! 1 tiny_free_list_remove_ptr  (in libsystem_malloc.dylib) + 394  [0x7ff810ed152e]
+                            ! : | + 1 tiny_free_no_lock  (in libsystem_malloc.dylib) + 1095  [0x7ff810ed0b5b]
+                            ! : | + ! 1 tiny_free_list_add_ptr  (in libsystem_malloc.dylib) + 0  [0x7ff810ed1011]
+                            ! : | + 1 tiny_free_no_lock  (in libsystem_malloc.dylib) + 2196  [0x7ff810ed0fa8]
+                            ! : | 1 free  (in libsystem_malloc.dylib) + 0  [0x7ff810ecc5a2]
+                            ! : | 1 free_tiny  (in libsystem_malloc.dylib) + 115  [0x7ff810ed047a]
+                            ! : |   1 DYLD-STUB$$_platform_memset  (in libsystem_malloc.dylib) + 0  [0x7ff810f068f6]
+                            ! : 447 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 129  [0x10149af31]
+                            ! : | 433 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1942,1921,...  [0x101485666,0x101485651,...]
+                            ! : | 8 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2098  [0x101485702]
+                            ! : | + 8 _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib) + 395,115  [0x7ff8110f8acb,0x7ff8110f89b3]
+                            ! : | 4 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 3266  [0x101485b92]
+                            ! : | + 3 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 87  [0x101485d77]
+                            ! : | + ! 3 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65  [0x7ff810eccbb3]
+                            ! : | + !   2 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 6,146  [0x7ff810ecdc6a,0x7ff810ecdcf6]
+                            ! : | + !   1 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 31  [0x7ff810ecdc83]
+                            ! : | + !     1 rack_get_thread_index  (in libsystem_malloc.dylib) + 33  [0x7ff810ee6a43]
+                            ! : | + 1 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 279  [0x101485e37]
+                            ! : | 2 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2491  [0x10148588b]
+                            ! : |   1 DYLD-STUB$$__bzero  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb34]
+                            ! : |   1 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 119  [0x7ff8110f8e57]
+                            ! : 9 free_tiny  (in libsystem_malloc.dylib) + 474  [0x7ff810ed05e1]
+                            ! : | 8 tiny_free_no_lock  (in libsystem_malloc.dylib) + 768  [0x7ff810ed0a14]
+                            ! : | + 8 tiny_free_list_remove_ptr  (in libsystem_malloc.dylib) + 27  [0x7ff810ed13bf]
+                            ! : | 1 tiny_free_no_lock  (in libsystem_malloc.dylib) + 2095  [0x7ff810ed0f43]
+                            ! : 5 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 89,1268,...  [0x10149af09,0x10149b3a4,...]
+                            ! : 3 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1066  [0x10149b2da]
+                            ! : | 3 _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 104,110,...  [0x7ff8110f8e48,0x7ff8110f8e4e,...]
+                            ! : 1 _szone_free  (in libsystem_malloc.dylib) + 4  [0x7ff810ee310f]
+                            ! : 1 free_tiny  (in libsystem_malloc.dylib) + 122  [0x7ff810ed0481]
+                            ! 113 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 129  [0x10149af31]
+                            ! : 56 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 3266  [0x101485b92]
+                            ! : | 56 _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 87  [0x101485d77]
+                            ! : |   54 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 59  [0x7ff810efe91f]
+                            ! : |   2 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65  [0x7ff810eccbb3]
+                            ! : |     2 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 31  [0x7ff810ecdc83]
+                            ! : |       2 rack_get_thread_index  (in libsystem_malloc.dylib) + 24  [0x7ff810ee6a3a]
+                            ! : 56 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 1942,2259,...  [0x101485666,0x1014857a3,...]
+                            ! : 1 _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2098  [0x101485702]
+                            ! :   1 _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib) + 77  [0x7ff8110f898d]
+                            ! 1 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 922  [0x10149b24a]
+                            1 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search14min_generators  (in kakeya-search) + 887  [0x101499ad7]
+                            ! 1 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65  [0x7ff810eccbb3]
+                            !   1 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 40  [0x7ff810ecdc8c]
+                            1 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search14min_generators  (in kakeya-search) + 928  [0x101499b00]
+                            ! 1 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 57  [0x7ff810eccbab]
+                            1 _RNvNtCsgMWMJ8wevu3_13kakeya_search6search14min_generators  (in kakeya-search) + 1548  [0x101499d6c]
+
+Total number in stack (recursive counted multiple, when >=5):
+        18       _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib) + 0  [0x7ff8110f8de0]
+        7       _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib) + 0  [0x7ff8110f8940]
+        7       szone_malloc_should_clear  (in libsystem_malloc.dylib) + 65  [0x7ff810eccbb3]
+        6       _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 0  [0x101484ed0]
+        6       _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2098  [0x101485702]
+        6       _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 3266  [0x101485b92]
+        6       _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search) + 87  [0x101485d77]
+        6       _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 0  [0x10149aeb0]
+        6       _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 129  [0x10149af31]
+        6       tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 0  [0x7ff810ecdc64]
+        5       DYLD-STUB$$__bzero  (in libsystem_platform.dylib) + 0  [0x7ff8110ffb34]
+        5       _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search) + 2491  [0x10148588b]
+        5       _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search) + 1407  [0x10149b42f]
+        5       _malloc_zone_malloc  (in libsystem_malloc.dylib) + 0  [0x7ff810efe8e4]
+        5       free_tiny  (in libsystem_malloc.dylib) + 0  [0x7ff810ed0407]
+        5       rack_get_thread_index  (in libsystem_malloc.dylib) + 0  [0x7ff810ee6a22]
+        5       tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 31  [0x7ff810ecdc83]
+
+Sort by top of stack, same collapsed (when >= 5):
+        __psynch_cvwait  (in libsystem_kernel.dylib)        15476
+        _RNvCsdt7PlT5Ktzr_11kakeya_core5force  (in kakeya-search)        14713
+        _platform_bzero$VARIANT$Haswell  (in libsystem_platform.dylib)        178
+        _platform_memmove$VARIANT$Haswell  (in libsystem_platform.dylib)        150
+        tiny_malloc_should_clear  (in libsystem_malloc.dylib)        93
+        _malloc_zone_malloc  (in libsystem_malloc.dylib)        66
+        _RNvCsdt7PlT5Ktzr_11kakeya_core7collect  (in kakeya-search)        58
+        _RNvNtCsgMWMJ8wevu3_13kakeya_search6search6extend  (in kakeya-search)        49
+        free_tiny  (in libsystem_malloc.dylib)        25
+        DYLD-STUB$$_platform_memmove  (in libsystem_platform.dylib)        23
+        DYLD-STUB$$memcpy  (in kakeya-search)        19
+        _szone_free  (in libsystem_malloc.dylib)        13
+        tiny_free_no_lock  (in libsystem_malloc.dylib)        11
+        tiny_malloc_from_free_list  (in libsystem_malloc.dylib)        10
+        DYLD-STUB$$__bzero  (in libsystem_platform.dylib)        9
+        DYLD-STUB$$_platform_memset  (in libsystem_platform.dylib)        9
+        tiny_free_list_remove_ptr  (in libsystem_malloc.dylib)        9
+        rack_get_thread_index  (in libsystem_malloc.dylib)        6
+        szone_malloc_should_clear  (in libsystem_malloc.dylib)        6
+        _platform_memset$VARIANT$Haswell  (in libsystem_platform.dylib)        5
+
+Binary Images:
+       0x101471000 -        0x10150ba47 +kakeya-search (0) <EDE47067-13E4-3130-9630-E22B729D1C32> /Users/*/Desktop/*/kakeya-search
+    0x7ff810cd1000 -     0x7ff810d1605b  libobjc.A.dylib (940.4) <087DB838-675B-3BC5-B554-DAD42196C77A> /usr/lib/libobjc.A.dylib
+    0x7ff810d17000 -     0x7ff810db16c7  dyld (1.0.0 - 1286.10) <BA070062-52CF-31DD-9A27-D3AB5E4401CD> /usr/lib/dyld
+    0x7ff810db2000 -     0x7ff810db56d8  libsystem_blocks.dylib (96) <17F8CB93-59F9-324C-93ED-A5A03A0A7C58> /usr/lib/system/libsystem_blocks.dylib
+    0x7ff810db6000 -     0x7ff810dfcbd5  libxpc.dylib (2894.140.12.705.2) <FE3548E0-ECF4-389B-86AB-F652E03D96C4> /usr/lib/system/libxpc.dylib
+    0x7ff810dfd000 -     0x7ff810e17805  libsystem_trace.dylib (1643.120.5) <C73F4407-D606-3852-8163-B7902B36E488> /usr/lib/system/libsystem_trace.dylib
+    0x7ff810e18000 -     0x7ff810eca14f  libcorecrypto.dylib (1736.140.2) <AF781BD3-1290-32A9-B79B-01BD64161522> /usr/lib/system/libcorecrypto.dylib
+    0x7ff810ecb000 -     0x7ff810f1589f  libsystem_malloc.dylib (715.140.5) <B26A86B5-A181-367C-89EA-D1ED5545EF77> /usr/lib/system/libsystem_malloc.dylib
+    0x7ff810f16000 -     0x7ff810f5d339  libdispatch.dylib (1521.140.2) <6CA6112A-70C8-39A2-8CFA-DA2139709D3C> /usr/lib/system/libdispatch.dylib
+    0x7ff810f5e000 -     0x7ff810f60b0f  libsystem_featureflags.dylib (97) <E0A31BA9-C76D-3218-8B70-5D6B4028082B> /usr/lib/system/libsystem_featureflags.dylib
+    0x7ff810f61000 -     0x7ff810fe9a07  libsystem_c.dylib (1698.140.3.705.1) <065490DC-BBDB-3311-898D-77232FB7409F> /usr/lib/system/libsystem_c.dylib
+    0x7ff810fea000 -     0x7ff811068fff  libc++.1.dylib (1900.181) <1BA8415D-93C3-301F-80AA-C2D396C32DD7> /usr/lib/libc++.1.dylib
+    0x7ff811069000 -     0x7ff81107ffff  libc++abi.dylib (1900.181) <67A06E4F-032A-344F-8F4F-D77A2B8C7EEA> /usr/lib/libc++abi.dylib
+    0x7ff811080000 -     0x7ff8110bcb1f  libsystem_kernel.dylib (11417.140.69.711.44) <7E438D0A-AC23-3ADA-BAE3-99FB51F2D898> /usr/lib/system/libsystem_kernel.dylib
+    0x7ff8110bd000 -     0x7ff8110c8fd7  libsystem_pthread.dylib (536.0.0.702.1) <FA0539B0-B910-38EC-9406-18F7FB96AB75> /usr/lib/system/libsystem_pthread.dylib
+    0x7ff8110c9000 -     0x7ff8110f77c7  libdyld.dylib (1286.10) <066C192E-9A38-39BF-BE6C-9DACF7AEE40E> /usr/lib/system/libdyld.dylib
+    0x7ff8110f8000 -     0x7ff81110193f  libsystem_platform.dylib (349.140.6) <78C9DCC0-2FBA-3BE4-A1DD-DA618362AE68> /usr/lib/system/libsystem_platform.dylib
+    0x7ff811102000 -     0x7ff811130477  libsystem_info.dylib (597.0.0.701.2) <CD7C41C5-CE28-3129-9B0E-B8D126B2A0C5> /usr/lib/system/libsystem_info.dylib
+    0x7ff814727000 -     0x7ff81473171f  libsystem_darwin.dylib (1698.140.3.705.1) <1DD70B86-5C42-3A33-97A0-2722884A5A5D> /usr/lib/system/libsystem_darwin.dylib
+    0x7ff814b64000 -     0x7ff814b750e3  libsystem_notify.dylib (342.0.0.701.1) <8EBF2519-220D-3215-A5F7-0EB92920FCEE> /usr/lib/system/libsystem_notify.dylib
+    0x7ff816c66000 -     0x7ff816c7f36f  libsystem_networkextension.dylib (2063.140.6) <C4D49367-9833-30AD-95FF-C6F28811A6EA> /usr/lib/system/libsystem_networkextension.dylib
+    0x7ff816cf6000 -     0x7ff816d0d13b  libsystem_asl.dylib (402) <C9CEFBC7-AB24-3D71-8CC3-4F6C103ACD63> /usr/lib/system/libsystem_asl.dylib
+    0x7ff818aa7000 -     0x7ff818aaec57  libsystem_symptoms.dylib (2022.140.4.701.1) <3CB7C3EB-99F6-362F-8326-86C4D3CDFE34> /usr/lib/system/libsystem_symptoms.dylib
+    0x7ff81c4e2000 -     0x7ff81c510a33  libsystem_containermanager.dylib (689.100.6.701.1) <E8FA162C-7ACF-3771-984C-F187A7EF2848> /usr/lib/system/libsystem_containermanager.dylib
+    0x7ff81d793000 -     0x7ff81d7968df  libsystem_configuration.dylib (1351.140.5.701.1) <089D8E94-8380-3301-8CA3-D353E2665EA6> /usr/lib/system/libsystem_configuration.dylib
+    0x7ff81d797000 -     0x7ff81d79d887  libsystem_sandbox.dylib (2401.140.15.704.1) <15B816AF-6998-33AF-925D-682CFC45B539> /usr/lib/system/libsystem_sandbox.dylib
+    0x7ff81e8c9000 -     0x7ff81e8cbbfb  libquarantine.dylib (181.120.2.700.1) <84F783CB-DFFA-391C-B97A-AE7D8F5C2E17> /usr/lib/system/libquarantine.dylib
+    0x7ff81f15f000 -     0x7ff81f16597f  libsystem_coreservices.dylib (178.6.9) <04CA181A-0317-32C7-ADC7-72616E435EFB> /usr/lib/system/libsystem_coreservices.dylib
+    0x7ff81f52a000 -     0x7ff81f59743f  libsystem_m.dylib (3291.100.4) <D8DB5677-D67F-3CD6-B0AB-71CA39BDAA0A> /usr/lib/system/libsystem_m.dylib
+    0x7ff81f599000 -     0x7ff81f59c5c7  libmacho.dylib (1024.3) <DC79A644-E79E-3F74-AF02-E4EC6970ECA3> /usr/lib/system/libmacho.dylib
+    0x7ff81f5b4000 -     0x7ff81f5c033f  libcommonCrypto.dylib (600035) <4DC97572-8957-3E35-91D6-B871A2D97B18> /usr/lib/system/libcommonCrypto.dylib
+    0x7ff81f5c1000 -     0x7ff81f5c96ef  libunwind.dylib (1900.125) <BC907228-2952-3EE1-98FA-55191C0B9DA7> /usr/lib/system/libunwind.dylib
+    0x7ff81f5d2000 -     0x7ff81f5dd85f  libcopyfile.dylib (224.0.0.700.1) <669DA8DA-8327-3D3D-9A86-08C535D01426> /usr/lib/system/libcopyfile.dylib
+    0x7ff81f5de000 -     0x7ff81f5e59cf  libcompiler_rt.dylib (103.3) <D2ED00EF-50D8-3C85-9F87-657F2F40C72E> /usr/lib/system/libcompiler_rt.dylib
+    0x7ff81f5e6000 -     0x7ff81f5ea76b  libsystem_collections.dylib (1698.140.3.705.1) <9C755C4F-349F-3B47-BC89-83132FA54C77> /usr/lib/system/libsystem_collections.dylib
+    0x7ff81f5eb000 -     0x7ff81f5edef7  libsystem_secinit.dylib (153.140.2) <44080C2A-259C-3E2E-B260-BBFAA381A9CB> /usr/lib/system/libsystem_secinit.dylib
+    0x7ff81f5ee000 -     0x7ff81f5f0727  libremovefile.dylib (81) <B97DBF02-2EA5-36FC-8891-424EC4D8BA67> /usr/lib/system/libremovefile.dylib
+    0x7ff81f5f1000 -     0x7ff81f5f1b47  libkeymgr.dylib (31) <D324A0E6-D224-35C7-87CD-D5DAF27170D5> /usr/lib/system/libkeymgr.dylib
+    0x7ff81f5f2000 -     0x7ff81f5fa55f  libsystem_dnssd.dylib (2600.140.3.703.3) <CD688EE0-40FC-3C23-B8CA-2D0224B44C77> /usr/lib/system/libsystem_dnssd.dylib
+    0x7ff81f5fb000 -     0x7ff81f600003  libcache.dylib (95) <AD3F4A9E-4CF4-33CC-9D6B-093E3B4BAC01> /usr/lib/system/libcache.dylib
+    0x7ff81f601000 -     0x7ff81f602a8b  libSystem.B.dylib (1351) <1317B5A4-98B3-31DD-8261-3C2AF7AEC2C2> /usr/lib/libSystem.B.dylib
+    0x7ffd1eed5000 -     0x7ffd1eedc707  libRosetta.dylib (349) <A2D5AB2A-02FB-3E33-8433-D16A5CF209CA> /usr/lib/libRosetta.dylib
+    0x7ffd2047a000 -     0x7ffd2047e023  libsystem_darwindirectory.dylib (122) <F4366BE9-16AB-31D4-BE97-084DFDB6E361> /usr/lib/system/libsystem_darwindirectory.dylib
+    0x7ffd2047f000 -     0x7ffd20486323  libsystem_eligibility.dylib (181.140.5) <42555080-4741-388A-B027-929D18CFB59F> /usr/lib/system/libsystem_eligibility.dylib
+    0x7ffd20487000 -     0x7ffd2048c27f  libsystem_sanitizers.dylib (19) <BAD83526-183F-36D0-8A0A-FFCE14D32BB6> /usr/lib/system/libsystem_sanitizers.dylib

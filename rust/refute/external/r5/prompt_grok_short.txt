@@ -1,0 +1,27 @@
+Adversarial review. A Rust function claims to be BIT-EXACT with this Python function, same values AND same exceptions in the same order. Give me a numbered list of at most 10 exact Python calls (literal arguments) where they could differ, one sentence each on why. I will run every one.
+
+PYTHON:
+def rank(rows, p=(1<<31)-1):
+    if not rows: return 0
+    B = [[x % p for x in r] for r in rows]
+    w = len(B[0]); rk = 0; nB = len(B)
+    for c in range(w):
+        if rk >= nB: break
+        sel = -1
+        for i in range(rk, nB):
+            if B[i][c]: sel = i; break
+        if sel < 0: continue
+        B[rk], B[sel] = B[sel], B[rk]
+        iv = pow(B[rk][c], p-2, p)
+        B[rk] = [(x*iv) % p for x in B[rk]]
+        pr = B[rk]
+        for i in range(rk+1, nB):
+            if B[i][c]:
+                fac = B[i][c]
+                B[i] = [(a - fac*b) % p for a,b in zip(B[i], pr)]
+        rk += 1
+    return rk
+
+RUST (summary): rejects p<0 and p>=2**32 with ValueError; returns 0 if rows empty OR every row empty (before validating p); otherwise reduces every entry with rem_euclid, w = len(rows[0]); for each column c, scans rows rk..nB raising IndexError if c >= len(row); swaps; multiplies pivot row by pow(pivot, p-2, p) computed in u64; for rows below the pivot with nonzero entry at c, truncates the row to len(pivot_row) then subtracts. Entries must fit i64 (else OverflowError); non-integers raise TypeError. Arithmetic is u64 throughout.
+
+ANSWER IN PLAIN TEXT ONLY.

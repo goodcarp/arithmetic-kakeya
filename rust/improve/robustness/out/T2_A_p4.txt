@@ -1,0 +1,1 @@
+RESULT {"tag": "L4", "d": [2, 2, 2, 2], "pool": 4, "max_t": 0, "target": "7/4", "scanned": 97658, "total": 30517578125, "best": null, "hits": 0, "complete": false, "seconds": 3012.7}

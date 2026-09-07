@@ -1,0 +1,1 @@
+RESULT {"tag": "c01", "d": [2, 2], "pool": 3, "max_t": 1, "target": "13/8", "scanned": 64, "total": 64, "best": null, "hits": 0, "complete": true, "seconds": 0.0}

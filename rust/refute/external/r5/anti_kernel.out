@@ -1,0 +1,52 @@
+  » order                          
+  ⇢ route           antigravity-cli — kind=code; ranked 1 ready; chose antigravity-cli (cost_class 1)
+  → invoke          antigravity-cli 
+  ▣ deposit         antigravity-cli (3082 chars, 102.468s, sha 77871644c5)
+
+────────────────────────────────────────────────────────────────────────
+1. rank((r for r in []), 5)
+Python treats the generator object as truthy and subsequently raises IndexError when indexing B[0] from the empty list of reduced rows, whereas Rust extracts zero rows and returns 0.
+
+2. rank(iter([]), 5)
+Python evaluates the empty iterator as truthy and crashes with IndexError when computing the row width from B[0], whereas Rust consumes the empty iterator and returns 0.
+
+3. force((r for r in [[1, 2, 0, 0], [0, 0, 1, 2]]), 2, [], 3)
+Python exhausts the generator during the first forcing round and observes an empty row matrix on round two returning (False, {0}), whereas Rust extracts the rows into a reusable buffer upfront and completes both rounds returning (True, {0, 1}).
+
+4. force(iter([[1, -1, 0, 0], [0, 0, 1, -1]]), 2, [], 5)
+Python drains the iterator on the first round leaving no rows available to force coordinate 1 on the second round and returns (False, {0}), whereas Rust retains the extracted rows across all iterations and returns (True, {0, 1}).
+
+5. rank([[1]], -1)
+Python reduces 1 % -1 to 0 and evaluates the rank of the all-zero matrix as 0, whereas Rust explicitly rejects negative moduli in validate_p with ValueError.
+
+6. rank([[0]], -3)
+Python reduces 0 % -3 to 0 and finishes rank elimination returning 0, whereas Rust rejects p = -3 with ValueError in validate_p.
+
+7. rank([[], [1]], -1)
+Python sets the matrix width to len(B[0]) = 0 and terminates early returning 0 without processing the non-empty second row, whereas Rust encounters the non-empty row and raises ValueError on negative p.
+
+8. force([[0, 0]], 1, [], -1)
+Python reduces the row elements modulo -1 to 0, leaves B empty, and returns (False, set()), whereas Rust validates p when checking row bounds and raises ValueError.
+
+9. rank([[1]], 1 << 32)
+Python performs arbitrary-precision modular reduction and returns 1, whereas Rust rejects moduli greater than or equal to 2^32 with ValueError.
+
+10. force([[1, -1]], 1, [], 1 << 32)
+Python reduces the row modulo 2^32 using arbitrary-precision arithmetic to find a valid forcing vector returning (True, {0}), whereas Rust rejects p >= 2^32 with ValueError.
+
+11. rank([[1]], 1 << 65)
+Python computes the rank over large integers and returns 1, whereas PyO3 fails to convert the modulus parameter into a C i64 and raises OverflowError.
+
+12. rank([[1 << 65]], 5)
+Python computes (1 << 65) % 5 == 2 and returns 1, whereas PyO3 fails to extract the row integer into an i64 and raises OverflowError.
+
+13. force([], 1, [1 << 65])
+Python places the large integer into set T0 and terminates immediately returning (True, {1 << 65}) since len(T) == n, whereas PyO3 fails to convert the T0 element to i64 and raises OverflowError.
+
+14. force([], 1, [0.0])
+Python inserts the float into set T0 and returns (True, {0.0}) because len(T) reaches n, whereas PyO3 strictly expects integer elements in T0 and raises TypeError.
+
+15. force([], (1 << 20) + 1, [])
+Python evaluates the empty row matrix across the loop and returns (False, set()), whereas Rust enforces an explicit MAX_N upper bound of 1 << 20 and raises ValueError.
+────────────────────────────────────────────────────────────────────────
+  1 deposit(s) · 0 molt(s) · 103.3s · verify: ✘ · head 5ac532977d91

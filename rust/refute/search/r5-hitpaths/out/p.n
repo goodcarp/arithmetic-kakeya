@@ -1,0 +1,2 @@
+RESULT {"tag": "g2_tall_2x1", "d": [2, 1], "pool": 3, "max_t": 1, "target": "<11/6", "best": null, "hits": 0, "complete": true, "seconds": X}
+

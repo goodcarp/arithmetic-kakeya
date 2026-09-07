@@ -1,0 +1,29 @@
+== H. short rows masked by T0 ==
+ok      H1 len-2 row, n=2, T0={1}                            py=('force', True, (0, 1))        rs=('force', True, (0, 1))
+ok      H2 len-2 row, n=2, T0={0}                            py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      H3 len-2 row, n=3, T0={1,2}                          py=('force', True, (0, 1, 2))     rs=('force', True, (0, 1, 2))
+ok      H4 len-4 row, n=3, T0={2}                            py=('force', False, (0, 2))       rs=('force', False, (0, 2))
+ok      H5 len-4 row, n=3, T0={} (must raise)                py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      H6 mixed lengths, tail masked                        py=('force', True, (0, 1))        rs=('force', True, (0, 1))
+ok      H7 mixed lengths, tail NOT masked                    py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      H8 empty row, n=1, T0={0}                            py=('force', True, (0,))          rs=('force', True, (0,))
+ok      H9 empty row, n=1, T0={} (must raise)                py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      H10 len-2 row n=2 T0={1} p=7                         py=('force', True, (0, 1))        rs=('force', True, (0, 1))
+ok      H11 round-2 exposes the short tail                   py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      H12 short row, T0 masks in round 1 only              py=('force', False, (1,))         rs=('force', False, (1,))
+
+== J. rank zip-truncation on short trailing rows ==
+ok      J1 rank [[1,2,3],[1,2]]                              py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      J2 rank [[1,2,3],[1,3]]                              py=('rank', 2)                    rs=('rank', 2)
+ok      J3 rank [[1,2,3],[0,2]]                              py=('rank', 2)                    rs=('rank', 2)
+ok      J4 rank [[1,2,3],[2]]                                py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      J5 rank [[1,2,3],[0]]                                py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      J6 rank [[1,2,3,4],[1,2],[0,0,1,1]]                  py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      J7 rank [[1,0,0],[1,1],[1,1,1]]                      py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      J8 rank [[0,1,1],[1,2]]                              py=('rank', 2)                    rs=('rank', 2)
+ok      J9 rank [[1,1],[1,1,1]] (long trailing row)          py=('rank', 1)                    rs=('rank', 1)
+ok      J10 rank [[1,1],[2,2,2],[0,0,5]]                     py=('rank', 1)                    rs=('rank', 1)
+ok      J11 rank [[1,2,3],[1,2]] p=7                         py=('exc', 'IndexError')          rs=('exc', 'IndexError')
+ok      J12 rank [[2,2,2],[2,2]] p=4                         py=('rank', 2)                    rs=('rank', 2)
+
+cases=24  divergences=0

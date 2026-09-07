@@ -1,0 +1,7 @@
+memory allocation of 81064793292668928 bytes failed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+/bin/bash: line 8: 87101 Abort trap: 6           $A scan --tag OV --d 2x2x2x2x2 --pool 3 --max-t 0 --target 7/4 --tlimit 2 --threads 1
+
+real	0m0.013s
+user	0m0.004s
+sys	0m0.004s

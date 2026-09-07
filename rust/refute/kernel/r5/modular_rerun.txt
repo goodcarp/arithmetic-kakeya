@@ -1,0 +1,21 @@
+### modular re-run against shipped .so 03db7ae9 (r5, fresh seeds)
+[shipped/fuzz(seed=20260905,n=50000)] cases=50000  NEW divergences=0  known={}
+
+real	0m15.692s
+user	0m8.961s
+sys	0m0.134s
+[shipped/fuzz(seed=5051977,n=50000)] cases=50000  NEW divergences=0  known={}
+
+real	0m19.564s
+user	0m9.215s
+sys	0m0.143s
+[shipped/ragged+prod(seed=5051977,n=25000)] cases=25000  NEW divergences=0  known={}
+
+real	0m40.726s
+user	0m22.306s
+sys	0m0.220s
+[shipped/deep(seed=5051977,n=25000)] cases=28571  NEW divergences=0  known={}
+
+real	0m18.559s
+user	0m11.929s
+sys	0m0.118s

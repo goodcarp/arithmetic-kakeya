@@ -1,0 +1,5 @@
+# G2 <- 'print(f"  [2x{rows_}] score {sc} = {float(sc):.4f}  m={G.m} "\n                          f"r={len(gens)} t={t} labels={labs} gens={gens}", flush=True)'
+# C8P <- 'print(f"  new best {sc} = {float(sc):.4f}  pattern={pattern} "\n                              f"labels={labels} r={len(gens)} t={t}", flush=True)'
+# C8H <- 'print("HITOBJ", json.dumps(x, default=str), flush=True)'
+# ST <- 'print("      ", x)'
+# RZ <- 'print(f"  generator-free forcing object! m={m} n={n} score={sc}"\n                      f" labels={labels}", flush=True)'
