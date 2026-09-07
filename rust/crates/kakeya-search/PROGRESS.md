@@ -160,8 +160,10 @@ g2_tall 2x4: Rust --threads 12 49.6 s (Python with the B1 PyO3 kernel took
 
 Three changes, all gated: `cargo test --release --workspace` 78/78 (was 75),
 `cargo clippy --release --all-targets --workspace -- -D warnings` clean,
-`check --threads 1|12` PASS, the refuter's scan sweep 30/30 against the stored
-Python norms (s09 is the pre-existing Python-side `ZeroDivisionError`), cycles8
+`check --threads 1|12` PASS, the refuter's scan sweep against the stored Python
+norms (the "30/30" first written here is not an on-disk count: 29 configs have
+artifacts, 28 with a non-empty Python side, and a 2026-09-06 recount gives
+25 PASS / 1 FAIL -- record lens R4/R5) (s09 is the pre-existing Python-side `ZeroDivisionError`), cycles8
 POOL3 stdout byte-identical to the pre-change binary, g2_tall 2x3/2x4
 byte-identical up to and including `seconds`.
 
