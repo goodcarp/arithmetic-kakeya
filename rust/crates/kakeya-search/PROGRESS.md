@@ -313,9 +313,19 @@ see PREDICTIONS.md sec 7 and `refute/SWEEP-2026-09-06.md` sec G).
   <= 7, t=4 <= 5; rows=6 t=2 <= 12, t=3 <= 10, t=4 <= 8.  Unlike cycles8's
   t = 3 (budget exactly 0), these are wide-open regions.  **Every g2_tall
   negative in this tree (2x4 complete, 2x5 and 2x6 time-limited) is a t <= 1
-  statement.**  2x4 at `--max-t 4` (all t) was started 2026-09-06 ~23:35 EDT
-  on the audited binary -> `logs/rust-g2_tall_2x4_maxt4.log`; 2x5/2x6 at
-  t >= 2 are out of reach at measured rates and stay scoped to t <= 1.
+  statement.**  **2x4 CLOSED at every t, 2026-09-06 23:29-23:36 EDT**, on the audited
+  binary: `g2-tall --rows 4 --max-t 4 --threads 4` -> complete, walked
+  4096/4096, **139,050 pairs** (vs 31,718 at t <= 1), 0 hits, 305 s
+  (`logs/rust-g2_tall_2x4_maxt4.log`); then `--max-t 6` -> complete, 0 hits,
+  **the same 139,050 pairs**, 266 s (`logs/rust-g2_tall_2x4_maxt6.log`).  The
+  feasible-t table computed from the driver's own cap + rank rule
+  (`refute/adjudicate/r5/g2t4_feasible_t.txt`, m ranges 4..10 over the 4,096
+  label tuples): t=0,1,2 all 4,096 tuples feasible; t=3 3,367; t=4 694;
+  **t=5 19 (the critic's "t = 2, 3, 4" list missed it)**; t>=6 none.  The 19
+  t=5 tuples all fell to the `mt > budget` local-requirement prune before any
+  DFS (hence the unchanged pairs count), which is the driver's own logic and
+  counts as searched.  2x5/2x6 at t >= 2 are out of reach at measured rates
+  and stay scoped to t <= 1.
 - **The g2_tall RESULT line hardcodes `"max_t": 1` on BOTH sides**
   (`src/g2_tall.py:63`, `drivers/g2_tall.rs:184`), so a `--max-t 2+` run
   mislabels itself.  Faithful port, not a divergence, but trust the log header

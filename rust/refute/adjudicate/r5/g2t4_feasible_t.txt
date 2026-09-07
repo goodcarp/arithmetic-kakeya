@@ -1,0 +1,11 @@
+# g2_tall d=[2,4] POOL3: feasible t range from the driver's OWN cap + rank rule (src/g2_tall.py:34-40), computed 2026-09-06 23:40 EDT, pure Python.
+# Why: the critic listed t=2,3,4 as the unsearched in-cap phases; this shows t=5 is feasible too (19 tuples) and t>=6 is not, so --max-t 6 covers every t.
+label tuples: 4096; m ranges 4 .. 10
+t=0 q=8 feasible_tuples=4096
+t=1 q=7 feasible_tuples=4096
+t=2 q=6 feasible_tuples=4096
+t=3 q=5 feasible_tuples=3367
+t=4 q=4 feasible_tuples=694
+t=5 q=3 feasible_tuples=19
+t=6 q=2 feasible_tuples=0
+t=7 q=1 feasible_tuples=0

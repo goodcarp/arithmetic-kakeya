@@ -154,6 +154,24 @@
    "matches_prediction": true,
    "prediction_status": "CONFIRMED (independent route: no Lemma C prune, Python prune order reproduced)",
    "residual_note": "cycles8 never searches t = 3 (both implementations hardcode t in {0,1,2}); at POOL6/67/40 the t=3, r=0 phase scores 8/5 <= 67/40. Closed 2026-09-06 by rust/refute/science/r5/t3_check.py (pure Python): patterns 2,3 -> 87,600 pairs 0 hits; patterns 1,4 -> 236,400 pairs 0 hits; pattern 0 -> 1,368,000 pairs 0 hits (t3_idx0_purepy.txt, 567 s); t=3 total 1,692,000 pairs, 0 hits, all five patterns by computation. See PROGRESS.md 2026-09-06 evening."
+  },
+  {
+   "tag": "g2_tall_2x4_all_t",
+   "log": "logs/rust-g2_tall_2x4_maxt4.log + logs/rust-g2_tall_2x4_maxt6.log",
+   "cmd": "g2-tall --rows 4 --max-t 4 --threads 4 ; then --max-t 6 (audited binary add55418; 2026-09-06 23:24-23:36 EDT, contended)",
+   "result": {
+    "best": null,
+    "hits": 0,
+    "complete": true,
+    "walked": 4096,
+    "total": 4096,
+    "pairs": 139050,
+    "seconds": 305.0,
+    "seconds_maxt6": 266.0
+   },
+   "mislabel_note": "the RESULT line prints \"max_t\": 1 on both the Python and Rust sides regardless of the flag (hardcoded); these runs were max_t=4 and max_t=6 -- trust the log headers",
+   "covers": "every t the driver's cap+rank rule admits for d=[2,4] POOL3: t=0..5 (t=5: 19 feasible tuples, all removed by the local-requirement prune; t>=6: none) -- see rust/refute/adjudicate/r5/g2t4_feasible_t.txt. Previous 2x4 negatives (row 'g2-tall 2x4') were t<=1 only (31,718 pairs).",
+   "prediction_status": "CONFIRMED at full t-scope (PREDICTIONS 0 row 'g2_tall 2x4' predicted 0 hits; the pre-registration did not state a t-scope)"
   }
  ],
  "notes": [

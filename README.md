@@ -84,6 +84,7 @@ cd ../../../../ && /usr/bin/python3 -m pytest tests/                    # Python
 | cycles8 POOL6, 8-cycle patterns | `kakeya-search cycles8 --pool 6 --target 67/40 --deg 2 --patterns 8cycle --threads 10` | `tested: 81660`, 0 hits (~1.7 h on 10 threads) |
 | cycles8 t = 3 residual | `cd src && KAKEYA_PURE_PY=1 /usr/bin/python3 ../rust/refute/science/r5/t3_check.py all` | 1,692,000 (graph, T0) pairs, 0 hits (~11 min pure Python) |
 | cycles8 POOL3 pure-Python oracle vs Rust | `oracle_drivers.py cycles8 3` (KAKEYA_PURE_PY=1, ~93 CPU-min) vs `kakeya-search cycles8 --pool 3 --target 67/40 --deg 2` | byte-identical, `tested: 29004` |
+| g2_tall 2×4, every t | `kakeya-search g2-tall --rows 4 --max-t 6 --threads 4` (RESULT line hardcodes `"max_t": 1` on both sides — a known mislabel) | complete, 0 hits, `pairs: 139050` (~5 min on 4 threads) |
 | scan n4_p6_t1 | `kakeya-search scan --tag n4_p6_t1 --d 2x2 --pool 6 --max-t 1 --target 7/4` vs `src/scan1.py` | 241/241 lines identical exc. seconds, 120 witnesses |
 
 Every other comparison, with its oracle and its exact scope, is in the coverage map in
@@ -95,7 +96,9 @@ Every other comparison, with its oracle and its exact scope, is in the coverage 
   independent routes, at t = 3 exhaustively; two-4-cycle patterns by the mediant argument
   plus t = 3 enumeration. It covers 6.95 % of the 2×2×2 POOL6 label space — it is **not**
   "n = 8 closed".
-* stacked POOL4/POOL6 complete, 0 hits. g2_tall 2×5 / 2×6 incomplete (time-limited).
+* stacked POOL4/POOL6 complete, 0 hits. **g2_tall 2×4 complete at every feasible t (0–5), 0 hits**
+  (139,050 pairs; `logs/rust-g2_tall_2x4_maxt{4,6}.log`). g2_tall 2×5 / 2×6 incomplete
+  (time-limited) **and searched at t ≤ 1 only** — t = 2, 3, 4 lie inside the 11/6 cap there.
 * Every negative is conditional on the matching-suffix reading of Operation 1
   (`KAKEYA-WORKBENCH.md` §1 flags the ambiguity); the Rust binary cannot test the other reading.
 * Known limits of the port (`--tlimit` on huge index spaces, `--tlimit 0`, the three
