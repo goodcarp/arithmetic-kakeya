@@ -686,3 +686,13 @@ POOL6 = POOL4 + (1,3) + (2,1)                      adds slopes 3, 1/2
 Two of the slopes used may always be normalised to `(1,0)` and `(0,1)` by the projective
 symmetry fixing `-1`, so `POOL4` is a one-parameter family and `POOL6` a three-parameter
 one; enlarging the pool past that is not free, it is a real widening of the search.
+
+---
+
+## Addendum (appended 2026-09-06, from the Rust-port verification sweep; §1 text above unchanged)
+
+**On the Operation-1 ambiguity flagged in §1 — the negative-side sentence the argument there lacks.** §1 justifies the matching-suffix reading by noting it is the *weaker* operation set, so any object valid under it is valid under either reading. That transfers **hits** across the readings; it says nothing about **0-hit results**, and every negative in this tree (stacked POOL4/POOL6, cycles8 POOL6 at every t, g2_tall at t ≤ 1, the scan sweeps) is a matching-suffix statement. The two readings do separate: on `d = [2,2]`, 456 of 8,320 enumerated configurations are invalid under matching-suffix and valid under the permissive (full `t1 × t2`) reading at an identical score (`kakeya.edges(permissive=True)` is a strict superset; `m(G)` never sees the flag). The disposal is that the smallest separating object,
+`f = [{(1,): (1,0)}, {(1,1): (0,1), (2,1): (0,1)}]`, `T = [(2,1)]`, `R = [((1,1),(0,1))]`,
+is permissive-valid at score **5/3 = 1.6667 on four vertices** — below the Epoch target 1.675 and below γ = 1.6751309…. If the permissive reading were the intended one, the Epoch problem would be solved by a 2×2 box and the Katz–Tao 7/4 and 11/6 objects would not be records. So the matching-suffix reading is the only one consistent with the problem being open, and the negatives stand under it without needing a permissive re-run. Evidence and scripts: `rust/refute/adjudicate/r5/FINDING-04-VERDICT.md` (`separator.py`, `best.py`; exact-rational Python, no Rust kernel involved).
+
+**Scope note on the drivers, same sweep.** `cycles8` searches `t ∈ {0,1,2}` and `g2_tall` searches `t ∈ {0,1}` by hardcoded loops in both implementations; at POOL6 / 67/40 the `t = 3, r = 0` phase of cycles8 (score 8/5) was never searched by any run until 2026-09-06, when it was closed by enumeration (1,692,000 pairs, 0 hits); `g2_tall`'s `t = 2, 3, 4` lie inside the 11/6 cap and its negatives are `t ≤ 1` statements. `rzero` cannot find an object by P7 (its hit line is unreachable — a self-check of the theorem, which is what it was written to be). Details: `rust/crates/kakeya-search/PROGRESS.md`, `rust/refute/SWEEP-2026-09-06.md`.
