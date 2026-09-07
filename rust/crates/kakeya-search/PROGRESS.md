@@ -149,8 +149,8 @@ State at session resume (task B2, third attempt; first two were interrupted).
 |---|---|---|
 | scan n4_p6_t1 (343 exhaustive) | `scan1.py` KAKEYA_PURE_PY=1 | 241/241 lines identical exc. seconds; 120 witnesses |
 | scan sampled 500 seed 11 | `scan1.py` | 329/329 identical -> MT19937 port correct |
-| scan k=1 box `--d 6` | `scan1.py` | **UNSUPPORTED ON DISK** (record lens R3, 2026-09-06): the sweep config that would produce it, `configs.txt` `c12 6 6 1 2 -`, has a 0-byte Python output (`sweep/c12.py.txt`); the only `--d 6` RESULT lines in the tree are Aug-24 incomplete Python prefixes with no Rust counterpart.  Re-run before citing. |
-| scan 3-level sampled `--d 2x2x2` | `scan1.py` | **UNSUPPORTED ON DISK** (R3): configs `s17b`/`s18`/`s19` were listed and never run; no scan-driver `--d 2x2x2` RESULT exists under `refute/`.  Re-run before citing. |
+| scan k=1 box `--d 6` | pure-Python `scan1.py` (`KAKEYA_PURE_PY=1`, kernel asserted), **filled 2026-09-07** | **sampled (limit 2000, seed 11, target 2), BYTE-IDENTICAL** pure-Python vs Rust `--threads 2`: 10,934 lines, best 2, **5,466 HIT + HITOBJ** -- so this row also exercises the scan HIT/HITOBJ path end to end in pure Python. `refute/search/r6-fill/c12s.{py,rs2}.txt`. (Was UNSUPPORTED on disk 09-06, record lens R3; the exhaustive 46,656-label version stays infeasible, hence sampled.) |
+| scan 3-level sampled `--d 2x2x2` | pure-Python `scan1.py`, **filled 2026-09-07** | **sampled (limit 2000, seed 11, pool 4, target 7/4), BYTE-IDENTICAL** pure-Python vs Rust `--threads 2`: 32 lines, 15 HIT. `refute/search/r6-fill/s18s.{py,rs2}.txt`. (Was UNSUPPORTED on disk 09-06, R3.) |
 | rzero x5 sweeps | `rzero.sweep` | all identical exc. seconds |
 | g2-tall 2x3 t0/t1 | `g2_tall.run` | identical |
 | g2-tall 2x4 (the Tier-3 target) | `g2_tall.run` **on the PyO3 kernel** (`py_g2tall_2x4_rskernel.txt`; disclosed 2026-09-06, R1) | driver-level identical exc. seconds and `complete` (Python's hardcoded `el < 700`); kernel held fixed, so this row does not independently check the kernel |
