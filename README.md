@@ -59,6 +59,9 @@ sides. The record discloses which is which, row by row (`PROGRESS.md` coverage m
 Record the sha256 of what you built before quoting any result from it:
 audited binary `add554183aaa3d7cf1f2d468ba11e39926aea035853809811af4e6c40010fcf9`,
 shipped `.so` `03db7ae995fdda76eed5d7d72474f5b27141bc9b15814e89827250e35d21ed4b`.
+**The build is reproducible:** a clean clone of this repository at `83fd36c`, built with
+`cargo build --release -p kakeya-search` (rustc 1.98, LTO, codegen-units = 1), produced a
+binary with exactly the audited sha256 and `check` = 14 PASS / 2 SKIP / 0 FAIL (2026-09-06).
 
 ## Gates (all must be green before a result is quoted)
 
