@@ -157,7 +157,7 @@ State at session resume (task B2, third attempt; first two were interrupted).
 | stacked POOL4 max_t=1 | `stacked.run` on the PyO3 kernel -- **Python-side artifact is 0 bytes** (`py_stacked_p4_t1_rskernel.txt`; R2) | as a SEPARATE max_t=1 comparison, UNSUPPORTED on disk.  The substance (best 7/4, all-ZERO witness, 0 strict hits, tie-break) IS supported by the max_t=2 comparison: the CONCATENATION `logs/rust-stacked_pool4.log` + `logs/rust-stacked_pool6.log` vs the pure-Python `logs/stacked.log`, md5-equal with `[Ns]` masked (r3 sec 1; not equal file-by-file). |
 | cycles8 POOL3 | `cycles8.main` -- PyO3-kernel oracle on 09-05, **pure-Python oracle landed 2026-09-06 17:38** (`refute/search/r3/out/C8.py.txt`, `KAKEYA_PURE_PY=1`) | BYTE-identical at `--threads 1` and `12`, incl. `tested: 29004`.  A genuine end-to-end pure-Python-vs-Rust comparison as of 09-06. |
 | progress-line formats | CPython f-strings | pinned by a unit test |
-| the four never-fired hit paths (g2_tall improvement line, cycles8 HITOBJ, stacked `h[:5]`, rzero forcing-object line) | CPython executing the drivers' OWN print statements, extracted with `ast` (r5-hitpaths `fmtcheck.py`) | 325 formatted lines, 0 mismatches; negative control with 3 injected mutations catches 11.  No configuration of these four drivers produces hits > 0 (rzero: unreachable for every input by the edge-row column-sum invariant, = P7; stacked: empty for POOL3-6 at EVERY max_t -- pool monotonicity on the complete POOL4/6 runs for t <= 2, and for t >= 3 because m >= 8 makes t >= 4 budget-infeasible while t = 3 forces m = 8, r = 0, which 0 of the 56 3-subsets achieve (adjudication FINDING-03); POOL8 is the one open arm, run 2026-09-06 late evening, see below; g2_tall: nothing beats the 11/6 cap **at t <= 1, the only range any run ever searched** -- t = 2, 3, 4 are inside the cap with large budgets and were never searched, see Known limits), so formatter-level is the strongest check available for those paths. |
+| the four never-fired hit paths (g2_tall improvement line, cycles8 HITOBJ, stacked `h[:5]`, rzero forcing-object line) | CPython executing the drivers' OWN print statements, extracted with `ast` (r5-hitpaths `fmtcheck.py`) | 325 formatted lines, 0 mismatches; negative control with 3 injected mutations catches 11.  No configuration of these four drivers produces hits > 0 (rzero: unreachable for every input by the edge-row column-sum invariant, = P7; stacked: empty for POOL3-6 at EVERY max_t -- pool monotonicity on the complete POOL4/6 runs for t <= 2, and for t >= 3 because m >= 8 makes t >= 4 budget-infeasible while t = 3 forces m = 8, r = 0, which 0 of the 56 3-subsets achieve (adjudication FINDING-03); POOL8 closed 2026-09-07 00:21 (0 strictly-better hits, same witness), see below; g2_tall: nothing beats the 11/6 cap **at t <= 1, the only range any run ever searched** -- t = 2, 3, 4 are inside the cap with large budgets and were never searched, see Known limits), so formatter-level is the strongest check available for those paths. |
 | scan `--seed` at 9 seeds (0, 1, 11, 123, 2^32-1, 2^32, 2^32+1, 1.23e19, 2^64-1) | `scan_seed.py` (self-checked byte-identical to `scan1.py` at seed 11 first) + `rzero_one.py` | 9/9 identical at `--threads 1` and `2`, 63-78 HITOBJ per run (external r5).  Before this, `--seed` had no oracle at any value but 11. |
 | kernel wide sweep | pure-Python `force`/`rank` | 557,055 in-contract comparisons, 0 mismatches, entries to +-2^63, moduli to 2^32+-1 (external r5) -- ~10x difftest.py |
 | 15 new end-to-end driver comparisons (g2-tall rows 1-4, cycles8 deg 1/3/4 and targets 7/4, 15/8, 2 via `--patterns 4`, stacked POOL3, rzero d=1..4) | 14 of 15 pure-Python | all identical (r5-hitpaths) |
@@ -334,8 +334,15 @@ see PREDICTIONS.md sec 7 and `refute/SWEEP-2026-09-06.md` sec G).
   Rust-only keys.
 - **stacked at every max_t**: POOL3-6 hit block provably empty at every t
   (FINDING-03, argument in the coverage map row).  **POOL8 at t <= 2 was the
-  one open arm**; `stacked --pool 8 --max-t 2 --target 7/4 --threads 4` started
-  2026-09-06 ~23:35 EDT -> `logs/rust-stacked_pool8.log`.
+  one open arm -- CLOSED 2026-09-07 00:21 EDT**: `stacked --pool 8 --max-t 2
+  --target 7/4 --threads 4` on the audited binary -> best 7/4, witness
+  `((0,0),(0,0),(0,0),(0,0)) m=8 r=6 t=0 T0=[]` (the same all-ZERO witness as
+  POOL4/POOL6), **0 strictly-better hits**, 3,406.6 s contended, exit 0
+  (`logs/rust-stacked_pool8.log`).  So stacked's `h[:5]` block is empty at every
+  pool the driver defines (POOL3-8) and every max_t.  No pure-Python POOL8 oracle
+  exists (it would be ~2.7x the 16,960 s POOL6 Python run); this is a Rust-only
+  result, on a binary whose stacked driver is byte-identical to Python on the
+  complete POOL4/POOL6 runs.
 - **The matching-suffix reading is the right one -- the largest conditional on
   the campaign is DISPOSED** (FINDING-04).  The two readings do separate (456 of
   8,320 configurations on d=[2,2] are invalid under matching-suffix and valid

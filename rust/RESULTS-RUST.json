@@ -172,6 +172,21 @@
    "mislabel_note": "the RESULT line prints \"max_t\": 1 on both the Python and Rust sides regardless of the flag (hardcoded); these runs were max_t=4 and max_t=6 -- trust the log headers",
    "covers": "every t the driver's cap+rank rule admits for d=[2,4] POOL3: t=0..5 (t=5: 19 feasible tuples, all removed by the local-requirement prune; t>=6: none) -- see rust/refute/adjudicate/r5/g2t4_feasible_t.txt. Previous 2x4 negatives (row 'g2-tall 2x4') were t<=1 only (31,718 pairs).",
    "prediction_status": "CONFIRMED at full t-scope (PREDICTIONS 0 row 'g2_tall 2x4' predicted 0 hits; the pre-registration did not state a t-scope)"
+  },
+  {
+   "tag": "stacked_pool8",
+   "log": "logs/rust-stacked_pool8.log",
+   "cmd": "stacked --pool 8 --max-t 2 --target 7/4 --threads 4 (audited binary add55418; 2026-09-07 03:24-04:21Z, contended)",
+   "result": {
+    "best": "7/4",
+    "hits": 0,
+    "witness": "((0,0),(0,0),(0,0),(0,0)) m=8 r=6 t=0 T0=[]",
+    "complete": true,
+    "seconds": 3406.6
+   },
+   "python_oracle": null,
+   "note": "no pure-Python POOL8 run exists (would be ~2.7x the 16,960 s POOL6 Python run); Rust-only. Closes the one open arm of the stacked hit-path argument (adjudication FINDING-03): POOL3-6 provably empty at every max_t, POOL8 now empty by computation at t<=2 and by the same t>=3 argument.",
+   "prediction_status": "no pre-registered row for POOL8; consistent with the POOL4/POOL6 pattern (best 7/4, all-ZERO witness)"
   }
  ],
  "notes": [

@@ -96,7 +96,7 @@ Every other comparison, with its oracle and its exact scope, is in the coverage 
   independent routes, at t = 3 exhaustively; two-4-cycle patterns by the mediant argument
   plus t = 3 enumeration. It covers 6.95 % of the 2×2×2 POOL6 label space — it is **not**
   "n = 8 closed".
-* stacked POOL4/POOL6 complete, 0 hits. **g2_tall 2×4 complete at every feasible t (0–5), 0 hits**
+* stacked POOL4/POOL6/POOL8 complete, 0 strictly-better hits (POOL8 is Rust-only; no Python oracle at that size). **g2_tall 2×4 complete at every feasible t (0–5), 0 hits**
   (139,050 pairs; `logs/rust-g2_tall_2x4_maxt{4,6}.log`). g2_tall 2×5 / 2×6 incomplete
   (time-limited) **and searched at t ≤ 1 only** — t = 2, 3, 4 lie inside the 11/6 cap there.
 * Every negative is conditional on the matching-suffix reading of Operation 1

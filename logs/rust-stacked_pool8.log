@@ -1,1 +1,5 @@
 === stacked_pool8 2026-09-07T03:24:13Z cmd: stacked --pool 8 --max-t 2 --target 7/4 --threads 4 (critic item: the one open arm of the stacked hit-path argument; POOL3-6 proven empty at every max_t; run on the audited binary add55418, machine contended by other sessions)
+POOL8: best score over all interfaces = 7/4 (1.75)
+   witness: interface labels=((0, 0), (0, 0), (0, 0), (0, 0)) m=8 r=6 t=0 T0=[]
+   strictly-better-than-7/4 hits: 0   [3406.6s]
+=== stacked_pool8 exit=0 2026-09-07T04:21:00Z
